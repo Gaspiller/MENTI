@@ -10,7 +10,7 @@ from retry import retry
 from tqdm import tqdm
 from openai import OpenAI
 
-from MedchatLLM import MedchatLLM
+# from MedchatLLM import MedchatLLM
 
 
 class LLMs:
@@ -40,14 +40,14 @@ class LLMs:
             self.llm = model
             self.tokenizer = tokenizer
         
-        elif 'pulse' in model.lower():
-            self.llm = MedchatLLM()
+        # elif 'pulse' in model.lower():
+        #     self.llm = MedchatLLM()
 
         
     def generate(self, input: str, history: list[str] = []) -> str:
 
         if 'gpt-3.5' in self.model.lower():
-            print("GPT-3.5-turbo Generating.")
+            # print("GPT-3.5-turbo Generating.")
             # @retry(tries=-1)
             def _chat(messages):
                 response = self.client.chat.completions.create(model="gpt-3.5-turbo", messages=messages)
@@ -89,10 +89,10 @@ class LLMs:
             response, history = self.llm.chat(self.tokenizer, query=input, history=history, max_length=2048, num_beams=1, do_sample=True, top_p=0.75, temperature=0.95, logits_processor=None)
             return response
         
-        elif 'pulse' in self.model.lower():
-            # print("PULSE Generating.")
-            response = self.llm.generate(input)
-            return response
+        # elif 'pulse' in self.model.lower():
+        #     # print("PULSE Generating.")
+        #     response = self.llm.generate(input)
+        #     return response
 
 
 class Embeddings:
