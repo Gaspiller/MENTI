@@ -1,5 +1,4 @@
 # MeNTi: Bridging Medical Calculator and LLM Agent with Nested Tool Calling
-Code and Benchmark for paper ["MeNTi: Bridging Medical Calculator and LLM Agent with Nested Tool Calling"](https://arxiv.org/abs/2410.13610)
 
 <p align="center">
   📄 <a href="https://arxiv.org/abs/2410.13610" target="_blank">Paper</a> &nbsp; | &nbsp;
@@ -28,7 +27,7 @@ Specifically, after the physician performs an primary assessment of the patient 
 
 ## CalcQA
 
-CalcQA is a novel benchmark and toolkit featuring specialized medical tools designed to assess the ability of LLMs to perform end-to-end calculator assessment in clinical scenarios. It includes 100 calculator pairs based on real patient cases, along with 281 medical calculator tools. Experienced physicians were hired to select the appropriate calculators for each case and thoroughly document their rationale for the choices, their diagnostic opinions, and the results of the calculator assessments.
+CalcQA is a novel benchmark and toolkit featuring specialized medical tools designed to assess the ability of LLMs to perform end-to-end calculator assessment in clinical scenarios. It includes 100 calculator pairs based on real patient cases, along with 281 medical calculator tools. Experienced physicians were hired to select the appropriate calculators for each case and thoroughly document their rationale for the choices, their diagnostic opinions, and the results of the calculator assessments. [The Huggingface of the CalcQA](https://huggingface.co/datasets/shzyk/CalcQA) has been established.
 
 ![pie_full](https://github.com/shzyk/MENTI/blob/master/docs/pie_full.png)
 
