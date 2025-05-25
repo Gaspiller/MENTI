@@ -1,4 +1,10 @@
+# MeNTi: Bridging Medical Calculator and LLM Agent with Nested Tool Calling
 Code and Benchmark for paper ["MeNTi: Bridging Medical Calculator and LLM Agent with Nested Tool Calling"](https://arxiv.org/abs/2410.13610)
+
+<p align="center">
+  📄 <a href="https://arxiv.org/abs/2410.13610" target="_blank">Paper</a> &nbsp; | &nbsp;
+  🤗 <a href="https://huggingface.co/datasets/shzyk/CalcQA" target="_blank">Hugging Face</a>
+</p>
 
 ## Overview
 
