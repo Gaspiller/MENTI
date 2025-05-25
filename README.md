@@ -19,17 +19,15 @@ To address these issues, we introduce the **CalcQA** benchmark, a new standard f
 
 ## MENTI
 
-MeNTi utilizes the meta-tool for tool selection and the nested calling mechanism to assist LLMs in tool utilization. This approach enables MeNTi to address complex tasks in specialized scenarios with specialized toolkit.
+MeNTi utilizes the meta-tool for tool selection and the nested calling mechanism to assist LLMs in tool utilization. This approach enables MeNTi to address complex tasks in specialized scenarios with the specialized toolkit.
 
-![calculator_instance](https://github.com/shzyk/MENTI/blob/master/docs/inference.png)
+<p align="center"> <img src="docs/inference.png" style="width: 80%;" id="title-icon">       </p>
 
-Specifically, after the physician performs an primary assessment of the patient and determines the next steps for quantification, the task is handed over to MeNTi. Following the preliminary diagnosis, MeNTi uses the meta-tool to select the appropriate medical calculator. MeNTi then proceeds to fill in the slots of calculator parameters. If MeNTi detects a mismatch in parameter units, it employs the nested tool-calling mechanism. This allows for iterative tool selection and usage to resolve unit mismatches caused by complex toolchains that require multiple tools. Once the conversion tool's results are integrated, MeNTi continues to populate the calculator parameters and completes the final computation.
+Specifically, after the physician performs a primary assessment of the patient and determines the next steps for quantification, the task is handed over to MeNTi. Following the preliminary diagnosis, MeNTi uses the meta-tool to select the appropriate medical calculator. MeNTi then proceeds to fill in the slots of calculator parameters. If MeNTi detects a mismatch in parameter units, it employs the nested tool-calling mechanism. This allows for iterative tool selection and usage to resolve unit mismatches caused by complex toolchains that require multiple tools. Once the conversion tool's results are integrated, MeNTi continues to populate the calculator parameters and completes the final computation.
 
 ## CalcQA
 
 CalcQA is a novel benchmark and toolkit featuring specialized medical tools designed to assess the ability of LLMs to perform end-to-end calculator assessment in clinical scenarios. It includes 100 calculator pairs based on real patient cases, along with 281 medical calculator tools. Experienced physicians were hired to select the appropriate calculators for each case and thoroughly document their rationale for the choices, their diagnostic opinions, and the results of the calculator assessments. [The Huggingface of the CalcQA](https://huggingface.co/datasets/shzyk/CalcQA) has been established.
-
-![pie_full](https://github.com/shzyk/MENTI/blob/master/docs/pie_full.png)
 
 ## How to Use
 
