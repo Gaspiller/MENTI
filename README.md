@@ -9,7 +9,7 @@
 
 Medical calculators are standardized tools widely used to quantitatively assess an individual's health status, functional levels, disease severity, and treatment outcomes. Here is an example of how calculators are applied in medical scenarios: physicians use calculators to assist in the quantitative assessment of a patient's condition based on their primary assessment.
 
-<p align="center"> <img src="docs/calculator_instance.png" style="width: 80%;" id="title-icon">       </p>
+<p align="center"> <img src="docs/calculator_instance.png" style="width: 40%;" id="title-icon">       </p>
 
 However, their application faces challenges, such as locating information within lengthy case histories, filling in data slots, and converting units. Additionally, selecting the appropriate tool remains a difficult task. Both traditional methods and current approaches to LLM tool application are insufficient.
 
