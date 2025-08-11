@@ -4,11 +4,12 @@ import torch
 import argparse
 import transformers
 import os
-
+from datetime import datetime
 from transformers import AutoTokenizer, AutoModel
 from retry import retry
 from tqdm import tqdm
 from openai import OpenAI
+
 
 # from MedchatLLM import MedchatLLM
 
@@ -17,6 +18,10 @@ class LLMs:
     def __init__(self, model: str = 'GPT-3.5-Turbo', device: torch.device = torch.device('cuda:0')) -> None:
 
         self.model = model
+
+        # 创建日志目录
+        self.log_dir = "logs"
+        os.makedirs(self.log_dir, exist_ok=True)
 
         if 'gpt-3.5' in model.lower():
             # GPT-3.5-Turbo
@@ -39,59 +44,75 @@ class LLMs:
             model = model.eval()
             self.llm = model
             self.tokenizer = tokenizer
-        
+
         # elif 'pulse' in model.lower():
         #     self.llm = MedchatLLM()
 
-        
+    def _write_log(self, input_text: str, output_text: str):
+        """写入单独的日志文件"""
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+        safe_model = self.model.replace("/", "_").replace(":", "_")
+        log_file = os.path.join(self.log_dir, f"{ts}_{safe_model}.log")
+        with open(log_file, "w", encoding="utf-8") as f:
+            f.write(f"[time]    {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+            f.write(f"[model]   {self.model}\n")
+            f.write(f"[input]   {input_text}\n")
+            f.write(f"[output]  {output_text}\n")
+
     def generate(self, input: str, history: list[str] = []) -> str:
 
         if 'gpt-3.5' in self.model.lower():
-            # print("GPT-3.5-turbo Generating.")
-            # @retry(tries=-1)
             def _chat(messages):
                 response = self.client.chat.completions.create(model="gpt-3.5-turbo", messages=messages)
                 return response
+
             messages = []
             messages.append({"role": "user", "content": input})
             ans = _chat(messages).choices[0].message.content
+            self._write_log(input, ans)
             return ans
 
         elif 'gpt-4o' == self.model.lower():
-            # print("GPT-4o Generating.")
             @retry(tries=-1)
             def _chat(messages):
                 response = self.client.chat.completions.create(model="gpt-4o", messages=messages)
                 return response
+
             messages = []
             messages.append({"role": "user", "content": input})
-            
             ans = _chat(messages).choices[0].message.content
+            self._write_log(input, ans)
             return ans
-        
+
         elif 'gpt-4' == self.model.lower():
             print("GPT-4 Generating.")
+
             @retry(tries=-1)
             def _chat(messages):
-                # print("   testing...")
                 response = self.client.chat.completions.create(model="gpt-4", messages=messages)
                 return response
+
             messages = []
             messages.append({"role": "user", "content": input})
             ans = _chat(messages).choices[0].message.content
+            self._write_log(input, ans)
             return ans
-            
+
         elif 'chatglm3' in self.model.lower():
             response, history = self.llm.chat(self.tokenizer, input, history=history)
+            self._write_log(input, response)
             return response
-        
+
         elif 'bianque' in self.model.lower():
-            response, history = self.llm.chat(self.tokenizer, query=input, history=history, max_length=2048, num_beams=1, do_sample=True, top_p=0.75, temperature=0.95, logits_processor=None)
+            response, history = self.llm.chat(self.tokenizer, query=input, history=history, max_length=2048,
+                                              num_beams=1, do_sample=True, top_p=0.75, temperature=0.95,
+                                              logits_processor=None)
+            self._write_log(input, response)
             return response
-        
+
         # elif 'pulse' in self.model.lower():
-        #     # print("PULSE Generating.")
         #     response = self.llm.generate(input)
+        #     self._write_log(input, response)
         #     return response
 
 
@@ -114,7 +135,6 @@ def set_configs():
 
 
 if __name__ == '__main__':
-
     args = set_configs()
     llm = LLMs(args.model)
 
