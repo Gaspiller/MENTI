@@ -99,7 +99,7 @@ class Embeddings:
     def __init__(self, model: str = 'm3e-base') -> None:
         if 'm3e' in model.lower():
             from sentence_transformers import SentenceTransformer
-            self.embedding_model = SentenceTransformer('../m3e-base')
+            self.embedding_model = SentenceTransformer('/app/m3e-base')
         elif 'simcse' in model.lower():
             from simcse import SimCSE
             self.embedding_model = SimCSE("../sup-simcse-bert-base-uncased")

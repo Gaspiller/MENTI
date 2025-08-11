@@ -1,4 +1,3 @@
-
 python MENTI.py \
     --test \
     --llm_model gpt-3.5 \
