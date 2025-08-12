@@ -1,0 +1,136 @@
+[time]    2025-08-11 23:51:08
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{ Calculates the HEART Score for Major Cardiac Events based on five categories:
+    History, EKG, Age, Risk factors, and Troponin level. This score helps to
+    risk-stratify emergency department (ED) patients with chest pain into low,
+    moderate, and high-risk groups for acute coronary syndrome (ACS).
+
+    Args:
+    history_score (int): Score based on patient history assessment, where:
+        0 = Slightly suspicious,
+        1 = Moderately suspicious,
+        2 = Highly suspicious.
+    ekg_score (int): Score based on EKG findings, where:
+        0 = Normal,
+        1 = Non-specific repolarization disturbance,
+        2 = Significant ST deviation.
+    age_score (int): Score based on patient's age, where:
+        0 = less than 45,
+        1 = between 45 and 64,
+        2 = 65 or older.
+    risk_factors_score (int): Score based on number of cardiovascular risk factors, where:
+        0 = No known risk factors,
+        1 = 1–2 risk factors,
+        2 = 3 or more risk factors or history of atherosclerotic disease.
+    troponin_score (int): Score based on initial troponin levels, where:
+        0 = ≤ normal limit,
+        1 = 1–3 times normal limit,
+        2 = >3 times normal limit.
+
+    Returns:
+    int: The total HEART score, which can guide further management of chest pain patients
+         in the emergency setting. Total scores categorize risk as follows:
+         0-3 points indicate low risk,
+         4-6 points indicate moderate risk,
+         7-10 points indicate high risk.
+
+    Example:
+    >>> calculate_heart_score(2, 1, 1, 2, 1)
+    7
+}}
+Reference Text:
+{{基本信息:男，72岁
+
+[病案介绍]
+主诉:
+发作性胸痛13天，加重3天
+现病史:
+患者13天前无明显诱因出现胸部钝痛，伴胸闷，伴搏动性头痛、头晕，无左上肢及左背部放射痛，无意识障碍、晕厥，无心慌、气短，无恶心、呕吐，就诊于当地医院，查血压180/110mmHg,心电图示：V1-V5导联ST压低。给予“硝酸甘油、丹参”等药物输液治疗，头痛、头晕症状好转，仍有间断胸痛、胸闷，每天发作2-3次，每次症状持续10余分钟，含服“速效救心丸”症状可缓解3天前患者无明显诱因再次胸痛，疼痛程度较前严重，伴胸闷、大汗，含服“速效救心丸”症状缓解不明显，症状持续约20分钟。继续就诊于当地医院，查心电图：V1-V3导联T波倒置，V4-V5导联ST压低；超敏肌钙蛋白I 5.18ng/ml，诊断为“急性心肌梗死”，给予“抗血小板聚集、抗凝、扩冠、降压”等对症治疗，患者胸痛症状明显改善。今为进一步治疗来我院，急诊以“急性心肌梗死”收入病房。 患者自发病以来，精神尚可，睡眠一般，饮食正常，大小便无异常，体重无明显改变。
+既往史:
+“高血压病”病史20年余，血压最高至200/120mmHg，平时未规律服用降压药，血压控制不佳；“2型糖尿病”病史2年，未规律服药，未监测血糖；“脑梗死”病史2年余，无肢体活动障碍。否认慢性阻塞性肺病等其他慢性疾病病史；否认肝炎、结核及其他传染病史；否认重大外伤、手术及输血史，未发现药物及食物过敏史；预防接种史不详。
+查体:
+T：36.7℃，P：77次/分，R：22次/分，BP：153/94mmHg
+患者老年女性，发育正常,营养中等,神志清楚，自主体位，检查合作。全身皮肤无黄染、无瘀点、无出血点。全身浅表淋巴结未触及肿大。头颅发育正常，毛发分布均匀，眼睑无水肿，结膜无充血，巩膜无黄染，双侧瞳孔等大等圆，对光反射及调节反射存在，耳、鼻无异常，口唇无紫绀，咽部无充血，扁桃体无肿大。胸廓对称无畸形，双侧胸部对称，未触及明显包块。双肺呼吸音清晰，未闻及干、湿性啰音。心前区无隆起及凹陷，心界无扩大，心律77次/分，节律规整，各瓣膜听诊区无闻及病理性杂音。腹部平坦，腹软，无压痛，无反跳痛。肝、脾肋下未触及，Murphy's征阴性，肝、肾区无叩痛，肠鸣音无亢进，移动性浊音阴性。脊柱无畸形，四肢无畸形，双下肢无水肿。双下肢足背动脉搏动正常。肱二头肌反射正常，膝腱反射正常，腹壁反射正常。巴氏征阴性，布氏征阴性。
+辅助检查:
+心电图：窦性心律，V1-V3导联T波倒置，V4-V5导联ST压低； 超敏肌钙蛋白I：5.18ng/ml； 冠脉CTA：右冠状动脉及左冠状动脉主干、前降支、回旋支多发钙化；右冠状动脉及左冠状动脉前降支斑块形成并管腔狭窄。}}
+Step By Step Analysis:
+
+[output]  1. Analyzing history_score:
+   Reference Text: The patient is a 72-year-old male.
+   Inference: The patient's age falls into the category where history_score is 2 (Highly suspicious).
+
+2. Analyzing ekg_score:
+   Reference Text: The EKG findings show T-wave inversion in V1-V3 leads and ST depression in V4-V5 leads.
+   Inference: The EKG findings correspond to a score of 2 (Significant ST deviation).
+
+3. Analyzing age_score:
+   Reference Text: The patient is 72 years old.
+   Inference: The patient's age falls into the category where age_score is 2 (65 or older).
+
+4. Analyzing risk_factors_score:
+   Reference Text: The patient has a history of high blood pressure for over 20 years and type 2 diabetes for 2 years. Additionally, a history of stroke is present.
+   Inference: The patient has 3 or more risk factors, including a history of atherosclerotic disease, which corresponds to a score of 2.
+
+5. Analyzing troponin_score:
+   Reference Text: Initial troponin level is 5.18ng/ml.
+   Inference: The troponin level is >3 times the normal limit, corresponding to a score of 2.
+
+Parameters List:
+```json
+{
+    "history_score": {"Value": 2, "Unit": "null"},
+    "ekg_score": {"Value": 2, "Unit": "null"},
+    "age_score": {"Value": 2, "Unit": "null"},
+    "risk_factors_score": {"Value": 2, "Unit": "null"},
+    "troponin_score": {"Value": 2, "Unit": "null"}
+}
+```

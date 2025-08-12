@@ -1,0 +1,43 @@
+[time]    2025-08-11 23:47:10
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于预测 6 周内患者发生重大心脏不良事件的风险？
+
+Patient Case Analysis:
+
+Analysis:
+1. The patient's clinical diagnosis includes left ventricular hypertrophy with reduced systolic and diastolic function, as well as reduced segmental movement in the anterior wall of the left ventricle. This indicates impaired cardiac function, specifically in the left ventricle.
+2. The presence of mild mitral and aortic valve regurgitation, along with moderate pulmonary arterial hypertension and tricuspid valve regurgitation, suggests possible impairment in the normal functioning of the heart valves and pulmonary circulation.
+3. The treatment plan focused on symptomatic treatments such as positive inotropes, diuretics, vasodilators, and improving heart function, indicating the need to manage the symptoms of heart failure and hypertension.
+
+In summary, the patient's case indicates abnormalities in cardiac function, specifically in the left ventricle and heart valves. The presence of pulmonary arterial hypertension and tricuspid valve regurgitation also suggests potential impairments in the pulmonary circulation. The treatment plan aims to stabilize the patient's condition and improve heart function.
+
+[output]  ```json
+[
+    "Which scale is used to predict the risk of major adverse cardiac events in patients with left ventricular hypertrophy and impaired cardiac function within 6 weeks?",
+    "Which scoring system is utilized for assessing the likelihood of significant heart-related complications in patients with left ventricular abnormalities and valvular regurgitation within a 6-week period?",
+    "What assessment tool is recommended for evaluating the risk of major cardiovascular events within the next 6 weeks in individuals with left ventricular dysfunction and pulmonary arterial hypertension?"
+]
+```

@@ -1,0 +1,259 @@
+[time]    2025-08-11 23:46:07
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['HEART Score for Major Cardiac Events', 'Sequential Organ Failure Assessment (SOFA) Score', 'Revised Cardiac Risk Index for Pre-Operative Risk', 'Corrected QT Interval (QTc)', 'CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk', 'Framingham Risk Score for Hard Coronary Heart Disease', 'Mean Arterial Pressure (MAP)', 'STOP-BANG Score for Obstructive Sleep Apnea', 'Centor Score (Modified/McIsaac) for Strep Pharyngitis', 'ARISCAT Score for Postoperative Pulmonary Complications']}}
+Detailed information of each tool: {{HEART Score for Major Cardiac Events:  Calculates the HEART Score for Major Cardiac Events based on five categories:
+    History, EKG, Age, Risk factors, and Troponin level. This score helps to
+    risk-stratify emergency department (ED) patients with chest pain into low,
+    moderate, and high-risk groups for acute coronary syndrome (ACS).
+
+    Args:
+    history_score (int): Score based on patient history assessment, where:
+        0 = Slightly suspicious,
+        1 = Moderately suspicious,
+        2 = Highly suspicious.
+    ekg_score (int): Score based on EKG findings, where:
+        0 = Normal,
+        1 = Non-specific repolarization disturbance,
+        2 = Significant ST deviation.
+    age_score (int): Score based on patient's age, where:
+        0 = less than 45,
+        1 = between 45 and 64,
+        2 = 65 or older.
+    risk_factors_score (int): Score based on number of cardiovascular risk factors, where:
+        0 = No known risk factors,
+        1 = 1–2 risk factors,
+        2 = 3 or more risk factors or history of atherosclerotic disease.
+    troponin_score (int): Score based on initial troponin levels, where:
+        0 = ≤ normal limit,
+        1 = 1–3 times normal limit,
+        2 = >3 times normal limit.
+
+    Returns:
+    int: The total HEART score, which can guide further management of chest pain patients
+         in the emergency setting. Total scores categorize risk as follows:
+         0-3 points indicate low risk,
+         4-6 points indicate moderate risk,
+         7-10 points indicate high risk.
+
+    Example:
+    >>> calculate_heart_score(2, 1, 1, 2, 1)
+    7
+
+
+Sequential Organ Failure Assessment (SOFA) Score: "Calculate the Sequential Organ Failure Assessment (SOFA) Score which is used to assess the extent of a person's organ function or rate of failure.
+The score is used to track a patient's status during their stay in an intensive care unit to determine the extent of a person's organ function or rate of failure.
+
+Parameters:
+- pao2_fio2_ratio (float): The ratio of arterial oxygen partial pressure to fractional inspired oxygen (mmHg).
+- platelets (float): Platelet count in ×103/µL.
+- glasgow_coma_scale (int): Score on the Glasgow Coma Scale.
+- bilirubin (float): Serum bilirubin in mg/dL.
+- map_pressure (float): Mean arterial pressure in mmHg.
+- vasoactive_agents (int): Index indicating the vasoactive agents being used. Corresponds to 0 for no agents, 1 for low dose dopamine or any dose dobutamine, 2 for higher dose dopamine or low dose epinephrine/norepinephrine, 3 for very high dose of these agents.
+- creatinine (float): Serum creatinine in mg/dL.
+- urine_output (float): Urine output in mL/day.
+- o2_delivery_type (int): Index of the type of oxygen delivery method used. Types are as follows: 0 = nasal cannula, 1 = simple face mask, 2 = non-rebreather mask, 3 = high-flow nasal cannula.
+- o2_flow_rate (float): Flow rate of oxygen delivery in L/min.
+
+Returns:
+int: Total SOFA score which is the sum of individual scores across the specified parameters."
+
+Revised Cardiac Risk Index for Pre-Operative Risk: Calculate the Revised Cardiac Risk Index for Pre-Operative Risk.
+
+    This function calculates the Revised Cardiac Risk Index, which is used to assess the risk of major cardiac complications in patients undergoing elective or urgent/semi-urgent non-cardiac surgery. It is based on a set of specific risk factors and is valuable for risk stratification and aiding discussions about informed consent with patients.
+
+    Parameters:
+    elevated_risk_surgery (bool): True if the surgery is intraperitoneal, intrathoracic, or suprainguinal vascular.
+    history_of_ischemic_heart_disease (bool): True if there is a history of myocardial infarction, positive exercise test, current chest pain considered due to myocardial ischemia, or use of nitrate therapy or ECG showing pathological Q waves.
+    history_of_congestive_heart_failure (bool): True if there are signs such as pulmonary edema, bilateral rales or S3 gallop, paroxysmal nocturnal dyspnea, or chest X-ray showing pulmonary vascular redistribution.
+    history_of_cerebrovascular_disease (bool): True if there is a history of transient ischemic attack or stroke.
+    preop_treatment_with_insulin (bool): True if the patient is being treated with insulin pre-operatively.
+    preop_creatinine_above_threshold (bool): True if pre-operative creatinine levels are greater than 2 mg/dL or 176.8 µmol/L.
+
+    Returns:
+    int: The total Revised Cardiac Risk Index score, which is the sum of the individual risk factors present.
+
+    Usage:
+    The index is used primarily in the preoperative setting to assess cardiac risk. It assists healthcare providers in making informed decisions about further preoperative risk assessments and postoperative monitoring.
+ 
+
+Corrected QT Interval (QTc): Calculate the Corrected QT Interval (QTc) for a patient.
+
+    The QTc is used primarily to assess the risk of ventricular arrhythmias, especially torsades de pointes, 
+    in patients with syncope or those receiving multiple QT-prolonging medications. A prolonged QT interval 
+    can indicate a higher risk of cardiac arrhythmias. This function corrects the QT interval to a heart rate 
+    of 60 beats per minute, accounting for variations due to different heart rates.
+
+    Parameters:
+        qt_interval (float): The measured QT interval in milliseconds.
+        heart_rate (float): The patient's heart rate in beats per minute.
+        formula (str): The formula to use for correction. Options are 'Bazett', 'Fridericia', 
+                       'Framingham', 'Hodges', and 'Rautaharju'.
+
+    Returns:
+        float: The corrected QT interval (QTc) in milliseconds.
+
+    Example:
+        >>> calculate_qtc(300, 70, 'Bazett')
+        357.0
+
+CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk: Calculate the CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk.
+
+    The CHA2DS2-VASc score is a clinical prediction rule for estimating the risk of stroke in
+    patients with non-valvular atrial fibrillation. It is used to determine whether treatment with
+    anticoagulation or antiplatelet therapy is appropriate, based on the risk of thromboembolism.
+
+    Parameters:
+    - age (int): Age of the patient.
+    - sex (str): Biological sex of the patient, 'male' or 'female'.
+    - history_of_congestive_heart_failure (bool): True if the patient has a history of congestive heart failure, otherwise False.
+    - history_of_hypertension (bool): True if the patient has a history of hypertension, otherwise False.
+    - history_of_stroke_tia_thromboembolism (bool): True if the patient has a history of stroke, transient ischemic attack (TIA), or thromboembolism, otherwise False.
+    - history_of_vascular_disease (bool): True if the patient has a history of vascular disease (prior myocardial infarction, peripheral artery disease, or aortic plaque), otherwise False.
+    - history_of_diabetes (bool): True if the patient has a history of diabetes mellitus, otherwise False.
+
+    Returns:
+    - int: The total CHA2DS2-VASc score which is a sum of the points for each risk factor.
+
+    Example:
+    >>> calculate_cha2ds2_vasc_score(75, 'female', True, True, True, True, True)
+    9
+
+Framingham Risk Score for Hard Coronary Heart Disease: Calculate the Framingham Risk Score for Hard Coronary Heart Disease in patients aged 30-79 years without prior coronary heart disease history, diabetes, or intermittent claudication.
+
+    Parameters:
+    - age (int): The age of the patient in years. Valid range: 30-79.
+    - sex (int): The sex of the patient. 0 for female, 1 for male.
+    - smoker_status (int): Smoking status of the patient. 0 for non-smoker, 1 for smoker.
+    - total_cholesterol (float): Total cholesterol level in mg/dL.
+    - hdl_cholesterol (float): HDL cholesterol level in mg/dL.
+    - systolic_bp (float): Systolic blood pressure in mm Hg.
+    - bp_medication (int): Indicates if the blood pressure is being treated with medications. 0 for no, 1 for yes.
+
+    Returns:
+    float: The risk percentage of developing hard coronary heart disease.
+
+    Calculation is based on the logarithmic transformations of risk factors and their interactions,
+    separately for males and females. Note that older population data was used to develop this scale,
+    which may not fully align with current population risks.
+
+
+Mean Arterial Pressure (MAP): Calculate the Mean Arterial Pressure (MAP) from the systolic (SBP) and diastolic blood pressure (DBP).
+    
+    MAP is a crucial health metric used to assess tissue perfusion and blood flow. It is particularly important in
+    medical scenarios such as sepsis, trauma, stroke, intracranial bleeding, and hypertensive emergencies.
+    The formula used for calculating MAP is: MAP = 1/3 * SBP + 2/3 * DBP.
+    
+    Parameters:
+        systolic_bp (float): Systolic blood pressure in mmHg.
+        diastolic_bp (float): Diastolic blood pressure in mmHg.
+    
+    Returns:
+        float: The calculated mean arterial pressure in mmHg.
+    
+    Example:
+        >>> calculate_mean_arterial_pressure(120, 80)
+        93.33333333333333
+
+STOP-BANG Score for Obstructive Sleep Apnea: Calculate the STOP-BANG Score for screening Obstructive Sleep Apnea (OSA).
+
+    This score is useful for patients undergoing preoperative evaluation but should not be used if a patient
+    has already been diagnosed with OSA or uses CPAP at night. It helps in identifying patients who might have
+    OSA and are at increased risk of perioperative cardiopulmonary complications, as well as other morbidity
+    associated with OSA like daytime sleepiness and cardiopulmonary conditions.
+
+    Parameters:
+    - snore_loudly (bool): True if the patient snores loudly (louder than talking or loud enough to be heard through closed doors), False otherwise.
+    - feel_tired_daytime (bool): True if the patient often feels tired, fatigued, or sleepy during the daytime, False otherwise.
+    - observed_apnea (bool): True if anyone has observed the patient stop breathing during sleep, False otherwise.
+    - high_blood_pressure (bool): True if the patient has or is being treated for high blood pressure, False otherwise.
+    - bmi (float): Body Mass Index of the patient.
+    - age (int): Age of the patient in years.
+    - neck_circumference (float): Neck circumference of the patient in centimeters.
+    - gender (str): Gender of the patient. Expected values: 'Female' or 'Male'.
+
+    Returns:
+    int: The total STOP-BANG score, ranging from 0 to 8.
+
+    Usage:
+    >>> calculate_stop_bang_score(True, True, True, True, 36, 51, 41, 'Male')
+    8
+
+Centor Score (Modified/McIsaac) for Strep Pharyngitis:  Calculate the Centor Score (Modified/McIsaac) for Strep Pharyngitis.
+    
+    This scoring system helps clinicians determine the likelihood of Group A Streptococcus (GAS) 
+    in patients with symptoms of pharyngitis, which is critical for deciding whether to proceed 
+    with testing for strep pharyngitis. The score integrates factors such as age, tonsillar exudate, 
+    cervical lymphadenopathy, temperature, and the presence of cough to stratify the risk.
+    
+    Parameters:
+    - age (int): Age of the patient in years.
+    - exudate_swelling (bool): True if there is exudate or swelling on the tonsils, False otherwise.
+    - tender_swollen_lymph_nodes (bool): True if there are tender/swollen anterior cervical lymph nodes, False otherwise.
+    - temperature (float): Patient's temperature in degrees Celsius.
+    - cough (bool): True if cough is present, False otherwise.
+
+    Returns:
+    - int: The calculated Centor Score, which ranges from -1 to 4.
+    
+    Usage:
+    Typically used in primary care settings to assess the necessity for further testing for GAS infection,
+    guiding the judicious use of antibiotics in managing pharyngitis. Higher scores suggest a higher probability
+    of streptococcal infection and may warrant testing and/or treatment.
+ 
+
+ARISCAT Score for Postoperative Pulmonary Complications: Calculate the ARISCAT Score for Postoperative Pulmonary Complications.
+    This score helps predict the risk of pulmonary complications in patients undergoing surgery under general, neuraxial, or regional anesthesia.
+
+    Parameters:
+    age (int): Patient's age in years.
+    spo2 (int): Preoperative oxygen saturation (SpO2) percentage.
+    respiratory_infection (int): Indicates the presence of respiratory infection in the last month. 0 for 'No', 1 for 'Yes'.
+    anemia (int): Indicates preoperative anemia (Hgb ≤10 g/dL). 0 for 'No', 1 for 'Yes'.
+    surgical_incision (int): Type of surgical incision. 0 for 'Peripheral', 1 for 'Upper abdominal', 2 for 'Intrathoracic'.
+    surgery_duration (int): Duration of the surgery in hours.
+    emergency (int): Indicates if the procedure was an emergency. 0 for 'No', 1 for 'Yes'.
+
+    Returns:
+    int: The ARISCAT score, which is a summation of points based on the provided parameters.
+
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{哪一个量表用于评估该患者在手术后发生心肌梗死或心脏骤停的风险？}}
+Task Scenario: {{根据患者的病史和临床诊断，可以推断患者患有桥本氏甲状腺炎。经过甲状腺左侧叶及包块切除手术后，病情得到了好转。主要症状包括发现颈部包块和颈部疼痛不适，甲状腺彩超检查显示甲状腺左侧叶及峡部增厚，甲状腺左侧叶囊性结节，并且甲状腺实质回声增粗不均匀。这些指标表明患者的甲状腺功能可能受损，需要进一步关注甲状腺功能是否受影响。}}
+Step By Step Analysis:
+
+[output]  1. 根据用户需求，用户想要知道哪个量表可以评估患者在手术后发生心肌梗死或心脏骤停的风险。
+2. 根据任务情景描述，患者病史和临床表现符合桥本氏甲状腺炎，并且接受了甲状腺左侧叶及包块切除手术。
+3. 在这种情况下，需要评估手术后患者的心脏风险。
+4. 根据工具列表中的描述，选择适合评估手术后心脏风险的工具。
+5. 在这种情况下，可以选择"Revised Cardiac Risk Index for Pre-Operative Risk"工具。
+6. 这个工具用于评估手术患者的心脏风险，并通过一系列特定的风险因素来评估患者在手术中发生心脏并发症的风险。
+7. 根据该工具的参数，例如手术类型、心脏病史、充血性心力衰竭史等，可以对患者的心脏风险进行评估。
+8. 因此，最适合用户需求和任务情景的工具是"Revised Cardiac Risk Index for Pre-Operative Risk"。
+9. 最终答案是一个JSON文件，包含选择的工具名称。
+
+```json
+{
+    "chosen_tool_name": "Revised Cardiac Risk Index for Pre-Operative Risk"
+}
+```

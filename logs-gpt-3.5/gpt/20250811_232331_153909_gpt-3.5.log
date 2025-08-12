@@ -1,0 +1,39 @@
+[time]    2025-08-11 23:23:31
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估患者的肾小球滤过率？
+
+Patient Case Analysis:
+
+分析：
+根据病史和辅助检查结果，患者出现了泌尿系统感染、右肾结石、急性肾衰竭、2型糖尿病和重度贫血等问题。泌尿系统超声显示右输尿管结石、右肾积水、右侧输尿管扩张，尿常规检查也显示白细胞、细菌和红细胞等异常，表明存在明显的泌尿系统感染。肾功能检查显示肌酐明显升高，伴随有尿素升高，提示患者存在急性肾衰竭。此外，实验室检查还显示血红蛋白明显降低，说明存在重度贫血的情况。综合分析，患者可能存在泌尿系统感染导致的急性肾功能衰竭和贫血情况。
+
+[output]  ```json
+[
+    "哪一种评估方法适用于检测患者的肾小球滤过率？",
+    "患者可能患有泌尿系统感染、肾结石、急性肾衰竭、2型糖尿病和重度贫血等问题，这些会影响肾小球滤过率的评估吗？",
+    "如何评估患者可能因泌尿系统感染导致的急性肾功能衰竭和贫血情况下的肾小球滤过率？"
+]
+```

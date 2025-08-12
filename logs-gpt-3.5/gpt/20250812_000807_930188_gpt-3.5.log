@@ -1,0 +1,162 @@
+[time]    2025-08-12 00:08:07
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the PSI/PORT Score for Community-Acquired Pneumonia (CAP).
+
+    The PSI/PORT Score helps to risk stratify patients with community-acquired pneumonia in clinical or
+    emergency department settings. This score may underestimate severe pneumonia in younger, otherwise healthy patients.
+    It is important to consider other clinical factors such as sepsis, which may require additional testing
+    like lactate levels. Any patient over 50 years of age is automatically classified as risk class 2.
+
+    Parameters:
+    age (int): Patient's age in years.
+    sex (str): Patient's sex, either 'Female' or 'Male'.
+    nursing_home_resident (bool): True if the patient is a nursing home resident, False otherwise.
+    neoplastic_disease (bool): True if the patient has a history of neoplastic disease, False otherwise.
+    liver_disease (bool): True if the patient has a history of liver disease, False otherwise.
+    chf_history (bool): True if the patient has a history of congestive heart failure, False otherwise.
+    cerebrovascular_disease (bool): True if the patient has a history of cerebrovascular disease, False otherwise.
+    renal_disease (bool): True if the patient has a history of renal disease, False otherwise.
+    altered_mental_status (bool): True if the patient has altered mental status, False otherwise.
+    respiratory_rate (bool): True if respiratory rate is ≥30 breaths/min, False otherwise.
+    systolic_bp (bool): True if systolic blood pressure is <90 mmHg, False otherwise.
+    temperature (bool): True if temperature is <35°C or >39.9°C, False otherwise.
+    pulse (bool): True if pulse rate is ≥125 beats/min, False otherwise.
+    blood_ph (bool): True if blood pH is <7.35, False otherwise.
+    bun (bool): True if BUN is ≥30 mg/dL or ≥11 mmol/L, False otherwise.
+    sodium (bool): True if sodium level is <130 mmol/L, False otherwise.
+    glucose (bool): True if glucose level is ≥250 mg/dL or ≥14 mmol/L, False otherwise.
+    hematocrit (bool): True if hematocrit is <30%, False otherwise.
+    oxygen_pressure (bool): True if partial pressure of oxygen is <60 mmHg or <8 kPa, False otherwise.
+    pleural_effusion (bool): True if there is pleural effusion on x-ray, False otherwise.
+
+    Returns:
+    int: The total PSI/PORT Score indicating the severity of the pneumonia.}}
+Reference Text:
+{{基本信息:男，39岁，工人
+
+[病案介绍]
+主诉:
+咳嗽、咳痰1周，发热2天。
+现病史:
+患者于1周前淋雨后出现咳嗽，呈阵发性，伴咳痰，黄粘痰，量少，不易咳出，稍气促，无咯血，无头晕、头痛，无胸痛、胸闷，无腹痛、腹胀、腹泻，无尿频、尿急、尿痛，无畏寒、发热，无乏力、盗汗，到当地诊所治疗，予服用强力枇杷露治疗，症状无改善，仍有咳嗽、咳痰，昨天出现发热，测得体温38.6℃，为进一步诊治入我院就诊，拟“肺部感染”收入住院，起病来患者精神软，饮食及睡眠欠佳，大小便正常。
+既往史:
+： 10年前行阑尾切除术，否认"高血压"、“糖尿病”“冠心病”等病史，否认"肝炎"、"肺结核"等传染病史，无药物及食物过敏史、无外伤。无输血史。预防接种史不详。
+查体:
+T：38.2℃，P：86次/分，R：20次/分，BP：122/80mmHg
+T:38.2℃,P:86次/分,R:20次/分,BP:122/80/mmhg。发育正常，营养中等，表情自如，神志清楚，自主**，步入病房，合作。全身皮肤黏膜无黄染及出血点，全身浅表淋巴结无肿大。头颅无畸形，睑结无苍白，双侧瞳孔等大等圆，直径约3.0mm,对光反射灵敏，口唇无苍白，舌居中，咽不充血，扁桃体无肿大，颈软无抵抗，气管居中，甲状腺无肿大。胸廓两侧对称，无畸形，肋间隙不增宽，双侧呼吸运动对称，触诊语颤正常，叩诊双肺呈清音，双肺呼吸音粗，左下肺闻及中量湿性啰音。心前区无隆起，心尖搏动不弥散，位于左侧第5肋间锁骨中线内侧0.5cm处，无震颤，叩诊心界不扩大，心律86次/分，律齐，心音有力，心脏各瓣膜听诊区未闻及病理性杂音。腹平，未见胃肠型及蠕动波，腹壁静脉无曲张，右下腹可见1斜形陈旧性手术瘢痕，愈合科，腹软，全腹部无压痛，无反跳痛，肝脾肋下未及，麦氏点无压痛及反跳痛，莫非氏征阴性，双肾区无压痛和叩击痛，移动性浊音阴性，肠鸣音4次/分。**外生殖器未见异常，脊柱呈生理性弯曲，四肢无畸形，活动自如,双下肢无浮肿。四肢肌力及肌张力正常，腱反射++。生理反射存在，病理反射未引出。
+辅助检查:
+胸部CT示:左下肺可见斑片状及条索状高密度影。心电图示：正常心电图。 血液分析：白细胞15.2*109/L，中性粒细胞比75.1%，淋巴细胞比率20.3%，血红蛋白136g/L，血小板219*109/L。 CRP：26mg/L。肝肾功能、心肌酶、电解质、血糖、血脂未见明显异常，D-2聚体正常。尿液分析正常。大便常规及隐血未见明显异常。 结核抗体阴性，血沉：8mm/h，三次痰抗酸染色阴性，痰培养已送检结果待回报。患者脉搏：86次/分。
+
+患者PH值：7.36。
+
+患者血尿素氮：15mg/dl。
+
+患者血钠：138mmol/L。
+
+患者血糖：5.0mmol/L。
+
+患者血细胞比容：42%。
+
+患者氧分压：92mmHg。
+
+患者胸片示无胸腔积液。
+
+For the Blood Urea Nitrogen (BUN), 尿素氮 (BUN), 15 mg/dL is equal to 5.357142857142858 mmol/L}}
+Step By Step Analysis:
+
+[output]  In the reference text:
+- age: 39 years old
+- sex: Male
+- nursing_home_resident: false
+- neoplastic_disease: false
+- liver_disease: false
+- chf_history: false
+- cerebrovascular_disease: false
+- renal_disease: false
+- altered_mental_status: not mentioned
+- respiratory_rate: not mentioned
+- systolic_bp: 122 mmHg (BP)
+- temperature: 38.2°C (T)
+- pulse: 86 beats/min (P)
+- blood_ph: 7.36
+- bun: 15 mg/dL (BUN)
+- sodium: 138 mmol/L
+- glucose: 5.0 mmol/L
+- hematocrit: 42%
+- oxygen_pressure: 92 mmHg
+- pleural_effusion: false
+
+Parameters List:
+```json
+{
+    "age": {"Value": 39, "Unit": "years"},
+    "sex": {"Value": "Male", "Unit": "null"},
+    "nursing_home_resident": {"Value": false, "Unit": "null"},
+    "neoplastic_disease": {"Value": false, "Unit": "null"},
+    "liver_disease": {"Value": false, "Unit": "null"},
+    "chf_history": {"Value": false, "Unit": "null"},
+    "cerebrovascular_disease": {"Value": false, "Unit": "null"},
+    "renal_disease": {"Value": false, "Unit": "null"},
+    "altered_mental_status": {"Value": "null", "Unit": "null"},
+    "respiratory_rate": {"Value": "null", "Unit": "null"},
+    "systolic_bp": {"Value": 122, "Unit": "mmHg"},
+    "temperature": {"Value": 38.2, "Unit": "°C"},
+    "pulse": {"Value": 86, "Unit": "beats/min"},
+    "blood_ph": {"Value": 7.36, "Unit": "null"},
+    "bun": {"Value": 15, "Unit": "mg/dL"},
+    "sodium": {"Value": 138, "Unit": "mmol/L"},
+    "glucose": {"Value": 5.0, "Unit": "mmol/L"},
+    "hematocrit": {"Value": 42, "Unit": "%"},
+    "oxygen_pressure": {"Value": 92, "Unit": "mmHg"},
+    "pleural_effusion": {"Value": false, "Unit": "null"}
+}
+```

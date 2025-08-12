@@ -1,0 +1,102 @@
+[time]    2025-08-11 23:52:59
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the Mean Arterial Pressure (MAP) from the systolic (SBP) and diastolic blood pressure (DBP).
+    
+    MAP is a crucial health metric used to assess tissue perfusion and blood flow. It is particularly important in
+    medical scenarios such as sepsis, trauma, stroke, intracranial bleeding, and hypertensive emergencies.
+    The formula used for calculating MAP is: MAP = 1/3 * SBP + 2/3 * DBP.
+    
+    Parameters:
+        systolic_bp (float): Systolic blood pressure in mmHg.
+        diastolic_bp (float): Diastolic blood pressure in mmHg.
+    
+    Returns:
+        float: The calculated mean arterial pressure in mmHg.
+    
+    Example:
+        >>> calculate_mean_arterial_pressure(120, 80)
+        93.33333333333333}}
+Reference Text:
+{{基本信息:女，56岁，农民
+发病原因:病因不明
+临床诊断:1.风湿性心脏病 2.脂肪瘤术后
+治疗方案:予利尿减轻心脏负荷、改善心功能、控制心室率、稳定心律、改善预后、改善循环、抗凝等对症支持治疗
+治疗结果:病情平稳
+病案重点:1.风湿性心脏病 2.脂肪瘤术后
+
+[病案介绍]
+主诉:
+胸闷、气短1年余,加重20天
+现病史:
+患者1年余前开始出现胸闷、气短,多于活动后出现,持续时间描述不清休息后逐渐缓解,未予重视。20天前患者自觉胸闷、气短加重,发作较前频繁;伴咳嗽、咳痰,呈白色粘痰,伴头晕,伴纳差、剑下疼痛,偶有恶心、呕吐,呕吐物为胃内容物,于县人民医院行心脏彩超提示“风湿性心脏病”,给予“拜阿司匹林、氢**、螺内酯、美托洛尔缓释片”药物治疗,效果一般。现为求进一步治疗来我院,门诊以“风湿性心脏病”收入我科。患者自发病以来,精神睡眠可,饮食欠佳,大小便正常,体重未见明显改变。
+既往史:
+10余年前外伤致左下肢骨折,给予保守治疗。20余天前因左前臂脂肪瘤于县人民医院行手术治疗。否认高血压病、糖尿病及脑血管病病史。否认肝炎、结核等传染病及其密切接触史。预防接种史不详,无输血史,否认食物及药物过敏史 个人史:原籍出生,无外地久居史,无疫区居留史,无重大精神创伤史,无毒物及放射线接触史,无烟酒等不良嗜好. 月经史、婚育史:174-550。适龄结婚,育有4女,女儿及配偶健康,婚后家庭关系和睦。 家族史:父母已故(具体死因不详),1哥2妹均已故(具体死因不详)。否认有家族遗传性疾病及传染病。
+查体:
+T：36.3℃，P：57次/分，R：20次/分，BP：110/92mmHg
+中年女性,发育正常,营养中等,神志清晰,精神可,语言流利,合作。全身皮肤、粘膜无黄染及出血点。浅表淋巴结未触及肿大。头颅无畸形,眼睑无水肿,结膜无充血、水肿及苍白,巩膜无黄染,双瞳孔等大、等圆,对光反射正常,双眼球运动灵活,无眼震。耳廓无畸形,外耳道通畅,无异常分泌物,乳突无压痛,听力正常。鼻无畸形,通气良好,无异常分泌物,副鼻窦无压痛。口唇无紫绀,牙龈无出血及溢脓, 伸舌居中,颊粘膜无出血点,咽部无充血,扁桃体无红肿,声音无嘶哑。颈部柔软,无抵抗,颈静脉无怒张,气管居中,甲状腺无肿大,未闻及血管杂音。胸廓无畸形,两侧呼吸动度相等,胸骨无压痛,两侧语颤无差别,无胸膜摩擦感,两肺叩清音,肺下界正常,双肺呼吸音粗,未闻及于、湿性啰音,无胸膜摩擦音。心前区无隆起,心尖搏动无弥散。心界无扩大,心律86次/分,律绝对不齐,第一心音强弱不等,二尖瓣听诊区可闻及3/6级舒张期杂音,无心包摩擦音。周围毛细血管无搏动征,双侧桡动脉搏动对称。腹部柔软,无腹壁静脉曲张及胃肠蠕动波。剑下轻压痛,无反跳痛,肝、脾肋下未触及, Murphy征阴性,无移动性浊音,肝、肾区无叩击痛,肠鸣音正常,未听到血管杂音。肛门、外生殖器拒查。 脊柱无畸形,无叩击痛。四肢无畸形,肌力、肌张力正常,双下肢无水肿、无静脉曲张,腹壁反射正常,二、三头肌反射正常,膝腱、跟腱反射正常,双侧 Babinski征阴性,Oppenheim征阴性, Chaddock征阴性,脑膜刺激征阴性.
+辅助检查:
+2019-04-23(我院)心电图:心房颤动,频发多源性室性早搏,T波低平 2019-04-23(我院)心脏彩超示:EF68%,LV45mm,风湿性心脏病,二尖瓣狭窄(重度)并反流(轻度),三尖瓣轻度反流,轻度肺动脉高压,心房颤动。}}
+Step By Step Analysis:
+
+[output]  1. Identify the systolic blood pressure (SBP) and diastolic blood pressure (DBP) values from the Reference Text:
+   - SBP: 110 mmHg
+   - DBP: 92 mmHg
+
+2. Extract the values for SBP and DBP from the Reference Text.
+
+Parameters List:
+```json
+{
+    "systolic_bp": {"Value": 110, "Unit": "mmHg"},
+    "diastolic_bp": {"Value": 92, "Unit": "mmHg"}
+}
+```

@@ -1,0 +1,33 @@
+[time]    2025-08-11 23:17:01
+[model]   gpt-3.5
+[input]   
+You are a medical diagnostic model. Your task is to analyze the abnormal parts of the provided patient's case and speculate on which bodily functions might be impaired.
+
+The requirements are as follows:
+1. Every inference you make must be substantiated by actual evidence from the provided patient's case.
+2. You only need to analyze the main, abnormal parts of the provided patient's case.
+3. You just need to make a brief analysis.
+
+Begin!
+
+
+基本信息:女，89岁，农民
+发病原因:病因不明
+临床诊断:1.冠状动脉粥样硬化性心脏病 1.1心房纤维性颤动(心房纤颤) 1.2心功能Ⅱ--Ⅲ级
+治疗方案:予以强心、利尿、扩血管、拮抗神经内分泌、营养心肌、改善供血、抗感染等对症治疗
+治疗结果:病情好转
+病案重点:冠状动脉粥样硬化性心脏病
+
+[病案介绍]
+主诉:
+胸闷心悸一周
+现病史:
+患者一周前开始无明显诱因下出现胸闷不适，位于心前区，伴心悸明显，阵发性发作，白天活动后或夜间静息时均有发作，持续时间长，半小时至数小时不等，无明显黑朦，无晕厥，近两日来症状加重，今至我院门诊就诊，为进一步治疗收住入院。病程中患者无胸痛，无咳嗽咳痰，无咯血，活动后感气短，夜间能平卧入睡，无端坐呼吸，食纳精神尚可，睡眠差，尿量正常。
+既往史:
+既往有冠心病、房颤、心衰病史，服药治疗 ，否认肝炎、结核等传染病史，否认高血压、糖尿病、癫痫等慢性病史，有胆结石手术史，否认食物、药物过敏史，预防接种史不详。
+查体:
+T：36.5℃，P：70次/分，R：20次/分，BP：160/80mmHg
+T:36.5℃，P:70次/分，R:20次/分，BP:160/80mmHg。一般情况良好，神志：清晰，面容：慢性病容，血压160/80mmHg，唇：红润，颈静脉：正常，两肺呼吸音粗，无干湿性啰音，心浊音界向左侧扩大，心律 80次/分，节律不整齐，第一心音强弱不等，主动脉瓣区闻及3/6SM，无心包摩擦音，腹部未见明显异常，双下肢未见明显水肿。
+辅助检查:
+心电图：异位心律，心房纤颤，电轴不偏，V1-V3 r波递增不良，部分ST-T 改变。患者无中风/TIA/血栓栓塞史
+[output]  Based on the provided patient's case, the main abnormality is coronary artery atherosclerotic heart disease, specifically atrial fibrillation (atrial fibrosis) and heart failure of grade II-III. The symptoms of chest tightness and palpitations, along with the irregular heart rhythm and enlarged heart borders on physical examination, suggest impaired cardiac function. The presence of atrial fibrillation on the ECG indicates possible compromised electrical conduction in the heart, leading to irregular heart rhythms. The treatment plan focusing on strengthening the heart, diuresis, vasodilation, and improving blood supply further supports the diagnosis of heart disease.

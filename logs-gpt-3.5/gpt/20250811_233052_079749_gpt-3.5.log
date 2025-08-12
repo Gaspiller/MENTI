@@ -1,0 +1,42 @@
+[time]    2025-08-11 23:30:52
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表被用于评估患者肺炎严重程度？
+
+Patient Case Analysis:
+
+Based on the provided patient's case, the main abnormal part is the presence of cough with blood-tinged sputum, along with fever. The chest CT suggests possible tuberculosis in the right upper lobe and linear shadows in the right middle lobe. These symptoms and imaging findings indicate a pulmonary infection, most likely tuberculosis. 
+
+The patient's medical history includes hypertension and chronic bronchitis, which may have weakened the respiratory system and predisposed the lungs to infections. The elevated blood pressure could also impact the cardiovascular system, potentially affecting the heart's ability to cope with the stress of an infection.
+
+Further investigations and treatment for tuberculosis, including antimicrobial therapy and monitoring of lung function, are necessary to address the impaired pulmonary function in this case.
+
+[output]  ```json
+[
+    "Which scale is used to assess the severity of pneumonia in patients with cough and blood-tinged sputum?",
+    "What is the specific evaluation tool for determining the severity of pneumonia in patients with fever and abnormal chest CT findings?",
+    "In what way can the severity of pneumonia in a patient with tuberculosis and respiratory complications be measured using a specific scale?"
+]
+```

@@ -1,0 +1,44 @@
+[time]    2025-08-11 23:50:54
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于预测心脏患者在接下来6周内发生重大心脏不良事件的风险？
+
+Patient Case Analysis:
+
+根据患者的病史和辅助检查结果，可以推测患者可能存在以下异常：
+1. 急性心肌梗死：患者主诉发作性胸痛伴胸闷，经过治疗缓解，心电图和超敏肌钙蛋白I检测结果支持急性心肌梗死的诊断。
+2. 高血压病：患者有20余年的高血压病史，且血压控制不佳，是引发心血管疾病的重要危险因素。
+3. 2型糖尿病：患者有2年的2型糖尿病史，未规律服药和监测血糖，可能导致心血管并发症的发生。
+4. 冠脉狭窄：冠脉CTA显示右冠状动脉及左冠状动脉存在钙化和斑块形成，管腔狭窄，与急性心肌梗死的发生相关。
+
+这些异常部分可能会影响患者的心血管功能，导致心脏供血不足、心肌梗死等症状的出现。治疗上需要继续采取降压、抗凝、扩冠等措施，并加强对糖尿病的管理，同时注意改善冠脉狭窄情况，以减少心血管并发症的风险。
+
+[output]  ```json
+[
+    "哪种评估工具适用于预测心脏患者在未来6周内发生严重心脏不良事件的危险性？",
+    "心脏患者在下一个月内可能发生哪些重要的心血管不良事件？",
+    "使用哪种方法可以评估心脏患者在接下来的6周内出现重大心脏并发症的风险？"
+]
+```

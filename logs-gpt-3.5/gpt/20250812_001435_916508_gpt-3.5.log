@@ -1,0 +1,38 @@
+[time]    2025-08-12 00:14:35
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于计算高血糖患者的实际钠水平？
+
+Patient Case Analysis:
+
+根据提供的病历资料，患者被诊断为2型糖尿病性肾病、周围神经病变、周围血管病、高血压、脑梗死后遗症和血脂代谢异常。从临床诊断和辅助检查结果来看，患者存在尿蛋白、血糖、血脂异常等问题，提示肾功能受损和糖尿病等多个并发症。血管硬化和神经病变的存在也可能导致血液循环问题和周围神经功能障碍。治疗方案的调节血糖、降压和保护心肾的措施有助于控制病情，但仍需密切监测并继续进行综合治疗。
+
+[output]  ```json
+[
+    "哪一个检测方法可用于评估高血糖患者的肾功能情况？",
+    "高血糖患者的血脂异常如何影响实际钠水平的计算？",
+    "除了高血糖，患者的周围神经病变是否会对计算实际钠水平的量表产生影响？"
+]
+```

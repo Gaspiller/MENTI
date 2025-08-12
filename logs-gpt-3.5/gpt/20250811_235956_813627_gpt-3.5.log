@@ -1,0 +1,293 @@
+[time]    2025-08-11 23:59:56
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Pregnancy Due Dates Calculator', 'CURB-65 Score for Pneumonia Severity', 'Glasgow Coma Scale/Score (GCS)', 'Glasgow-Blatchford Bleeding Score (GBS)', 'HAS-BLED Score for Major Bleeding Risk', 'PERC Rule for Pulmonary Embolism', 'CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk', 'Framingham Risk Score for Hard Coronary Heart Disease', 'HEART Score for Major Cardiac Events', 'PSI/PORT Score: Pneumonia Severity Index for CAP']}}
+Detailed information of each tool: {{Pregnancy Due Dates Calculator: Calculate the estimated due date (EDD) for a pregnancy based on the last menstrual period and cycle length.
+
+    This function uses a standard method recommended by the American College of Obstetricians and Gynecologists (ACOG),
+    which considers the first trimester ultrasound measurements to be the most accurate method to establish gestational age.
+
+    Parameters:
+    - cycle_length (int): The length of the menstrual cycle in days. Standard cycle is 28 days.
+                           If cycle_length is more than 28, the difference is added to the 40-week period.
+    - last_menstrual_period (str): The first day of the last menstrual period in 'YYYY/MM/DD' format.
+
+    Returns:
+    - str: The estimated due date in the format 'Day, Month DD, YYYY'.
+
+    Usage:
+    The function is intended for use by healthcare providers to estimate due dates for pregnant patients,
+    which can help in managing pregnancy timelines effectively and in planning medical care accordingly.
+
+    Example:
+    'Monday, Oct 16, 2023'
+
+
+CURB-65 Score for Pneumonia Severity: 
+    Calculate the CURB-65 Score for Pneumonia Severity.
+
+    The CURB-65 calculator can be used in the emergency department setting to risk stratify a patient’s community acquired pneumonia.
+    It includes points for confusion, blood urea nitrogen (BUN), respiratory rate, blood pressure, and age.
+    
+    Parameters:
+    confusion (int): Confusion status, where 0 = No and 1 = Yes.
+    bun (int): Blood urea nitrogen status, where 0 = BUN ≤ 19 mg/dL (≤ 7 mmol/L urea) and 1 = BUN > 19 mg/dL (> 7 mmol/L urea).
+    respiratory_rate (int): Respiratory rate status, where 0 = < 30 breaths/min and 1 = ≥ 30 breaths/min.
+    blood_pressure (int): Blood pressure status, where 0 = Systolic BP ≥ 90 mmHg and Diastolic BP > 60 mmHg, and 1 = Systolic BP < 90 mmHg or Diastolic BP ≤ 60 mmHg.
+    age (int): Age status, where 0 = < 65 years and 1 = ≥ 65 years.
+
+    Returns:
+    int: The CURB-65 score which ranges from 0 to 5, indicating the severity of pneumonia.
+
+    Usage:
+    This function can be used in emergency settings to quickly assess the severity of pneumonia in patients and to guide decisions regarding hospitalization and treatment initiation.
+    
+    Example:
+    >>> curb_65_score(1, 1, 1, 0, 1)
+    4
+   
+
+Glasgow Coma Scale/Score (GCS): Calculates the Glasgow Coma Scale/Score (GCS) based on the assessment of three key responses:
+    eye, verbal, and motor. The GCS is used to assess the level of consciousness in patients who are
+    in a coma due to medical or surgical causes and is applicable in various settings including
+    pre-hospital, acute care, and research.
+
+    The scale is particularly important for monitoring trends in a patient's mental status,
+    facilitating communication between healthcare providers, and aiding in decisions regarding
+    patient management.
+
+    Parameters:
+    eye_response (int or str): Score or 'NT' (not testable) for eye response
+    verbal_response (int or str): Score or 'NT' (not testable) for verbal response
+    motor_response (int or str): Score or 'NT' (not testable) for motor response
+
+    Returns:
+    int or None: Total GCS score if all components are testable, otherwise None
+
+    Notes:
+    - Scores for each component:
+      * Eye:    4 (spontaneous), 3 (to verbal command), 2 (to pain), 1 (none)
+      * Verbal: 5 (oriented), 4 (confused), 3 (inappropriate words),
+                2 (incomprehensible sounds), 1 (no verbal response)
+      * Motor:  6 (obeys commands), 5 (localizes pain), 4 (withdrawal from pain),
+                3 (flexion to pain), 2 (extension to pain), 1 (no motor response)
+    - If any component is 'NT' (not testable), the function returns None to indicate that
+      the GCS cannot be fully assessed.
+
+Glasgow-Blatchford Bleeding Score (GBS): Calculate the Glasgow-Blatchford Bleeding Score (GBS) for adult patients being considered for hospital admission due to upper GI bleeding.
+    
+    Parameters:
+    - hemoglobin (float): Patient's hemoglobin level in g/dL.
+    - bun (float): Blood Urea Nitrogen (BUN) level in mg/dL.
+    - systolic_bp (int): Initial systolic blood pressure in mm Hg.
+    - sex (int): Patient's sex, 0 for female, 1 for male.
+    - heart_rate (int): Indicates if heart rate is ≥100 per minute, 0 for no, 1 for yes.
+    - melena (int): Indicates if melena is present, 0 for no, 1 for yes.
+    - syncope (int): Indicates if there has been a recent syncope, 0 for no, 2 for yes.
+    - hepatic_disease (int): Indicates history of hepatic disease, 0 for no, 2 for yes.
+    - cardiac_failure (int): Indicates if cardiac failure is present, 0 for no, 2 for yes.
+
+    Returns:
+    - int: Glasgow-Blatchford Score, ranging from 0 to 23.
+
+    This scoring system aids in determining the necessity for hospital admission based on the severity of the patient's condition.
+    Lower scores indicate lower risk, while higher scores suggest higher risk and potential need for acute intervention.
+
+
+HAS-BLED Score for Major Bleeding Risk: Calculate the HAS-BLED Score for Major Bleeding Risk in patients with atrial fibrillation.
+    
+    The HAS-BLED Score is used to estimate the 1-year risk for major bleeding and helps guide decisions regarding anticoagulation therapy.
+    This scoring system can be considered alongside other bleeding risk scores or thromboembolic risk assessments to weigh the benefits and risks of anticoagulation.
+
+    Parameters:
+    hypertension (bool): True if the patient has hypertension, False otherwise.
+    renal_disease (bool): True if the patient has renal disease (dialysis, transplant, or Cr >2.26 mg/dL), False otherwise.
+    liver_disease (bool): True if the patient has liver disease (cirrhosis or bilirubin >2x normal with AST/ALT/AP >3x normal), False otherwise.
+    stroke_history (bool): True if the patient has a history of stroke, False otherwise.
+    major_bleeding_history (bool): True if the patient has had prior major bleeding or predisposition to bleeding, False otherwise.
+    labile_inr (bool): True if the patient has labile INR (unstable/high INRs, time in therapeutic range <60%), False otherwise.
+    elderly (bool): True if the patient is elderly (age >65), False otherwise.
+    medication_risk (bool): True if the patient uses medication that predisposes to bleeding (aspirin, clopidogrel, NSAIDs), False otherwise.
+    alcohol_usage (bool): True if the patient consumes alcohol significantly (≥8 drinks/week), False otherwise.
+
+    Returns:
+    int: The total HAS-BLED score, which is a sum of all applicable risk factors.
+
+    Example:
+    >>> calculate_has_bled_score(True, False, False, True, False, True, True, False, True)
+    5
+
+PERC Rule for Pulmonary Embolism: Calculate the Pulmonary Embolism Rule-out Criteria (PERC) to determine if further testing for Pulmonary Embolism (PE)
+    is unnecessary in patients considered low-risk.
+
+    The PERC rule helps avoid unnecessary PE testing in low-risk patients. It requires that all criteria must be negative
+    (i.e., all parameters must receive a 'no' to rule out PE without further testing).
+
+    Parameters:
+    - age_over_50 (bool): Whether the patient is aged 50 or older. False for no, True for yes.
+    - heart_rate_over_100 (bool): Whether the patient has a heart rate of 100 bpm or higher. False for no, True for yes.
+    - oxygen_saturation_under_95 (bool): Whether the patient has an oxygen saturation less than 95%. False for no, True for yes.
+    - unilateral_leg_swelling (bool): Whether the patient has unilateral leg swelling. False for no, True for yes.
+    - hemoptysis (bool): Whether the patient has hemoptysis (coughing up blood). False for no, True for yes.
+    - recent_surgery_or_trauma (bool): Whether the patient had surgery or trauma within the last 4 weeks requiring general anesthesia. False for no, True for yes.
+    - prior_pe_or_dvt (bool): Whether the patient has a history of Pulmonary Embolism (PE) or Deep Vein Thrombosis (DVT). False for no, True for yes.
+    - hormone_use (bool): Whether the patient is using hormones such as oral contraceptives, hormone replacement therapy, or estrogenic hormones in male or female patients. False for no, True for yes.
+
+    Returns:
+    - result (bool): True if the patient can be ruled out for PE without further testing (all criteria negative), False otherwise.
+
+
+CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk: Calculate the CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk.
+
+    The CHA2DS2-VASc score is a clinical prediction rule for estimating the risk of stroke in
+    patients with non-valvular atrial fibrillation. It is used to determine whether treatment with
+    anticoagulation or antiplatelet therapy is appropriate, based on the risk of thromboembolism.
+
+    Parameters:
+    - age (int): Age of the patient.
+    - sex (str): Biological sex of the patient, 'male' or 'female'.
+    - history_of_congestive_heart_failure (bool): True if the patient has a history of congestive heart failure, otherwise False.
+    - history_of_hypertension (bool): True if the patient has a history of hypertension, otherwise False.
+    - history_of_stroke_tia_thromboembolism (bool): True if the patient has a history of stroke, transient ischemic attack (TIA), or thromboembolism, otherwise False.
+    - history_of_vascular_disease (bool): True if the patient has a history of vascular disease (prior myocardial infarction, peripheral artery disease, or aortic plaque), otherwise False.
+    - history_of_diabetes (bool): True if the patient has a history of diabetes mellitus, otherwise False.
+
+    Returns:
+    - int: The total CHA2DS2-VASc score which is a sum of the points for each risk factor.
+
+    Example:
+    >>> calculate_cha2ds2_vasc_score(75, 'female', True, True, True, True, True)
+    9
+
+Framingham Risk Score for Hard Coronary Heart Disease: Calculate the Framingham Risk Score for Hard Coronary Heart Disease in patients aged 30-79 years without prior coronary heart disease history, diabetes, or intermittent claudication.
+
+    Parameters:
+    - age (int): The age of the patient in years. Valid range: 30-79.
+    - sex (int): The sex of the patient. 0 for female, 1 for male.
+    - smoker_status (int): Smoking status of the patient. 0 for non-smoker, 1 for smoker.
+    - total_cholesterol (float): Total cholesterol level in mg/dL.
+    - hdl_cholesterol (float): HDL cholesterol level in mg/dL.
+    - systolic_bp (float): Systolic blood pressure in mm Hg.
+    - bp_medication (int): Indicates if the blood pressure is being treated with medications. 0 for no, 1 for yes.
+
+    Returns:
+    float: The risk percentage of developing hard coronary heart disease.
+
+    Calculation is based on the logarithmic transformations of risk factors and their interactions,
+    separately for males and females. Note that older population data was used to develop this scale,
+    which may not fully align with current population risks.
+
+
+HEART Score for Major Cardiac Events:  Calculates the HEART Score for Major Cardiac Events based on five categories:
+    History, EKG, Age, Risk factors, and Troponin level. This score helps to
+    risk-stratify emergency department (ED) patients with chest pain into low,
+    moderate, and high-risk groups for acute coronary syndrome (ACS).
+
+    Args:
+    history_score (int): Score based on patient history assessment, where:
+        0 = Slightly suspicious,
+        1 = Moderately suspicious,
+        2 = Highly suspicious.
+    ekg_score (int): Score based on EKG findings, where:
+        0 = Normal,
+        1 = Non-specific repolarization disturbance,
+        2 = Significant ST deviation.
+    age_score (int): Score based on patient's age, where:
+        0 = less than 45,
+        1 = between 45 and 64,
+        2 = 65 or older.
+    risk_factors_score (int): Score based on number of cardiovascular risk factors, where:
+        0 = No known risk factors,
+        1 = 1–2 risk factors,
+        2 = 3 or more risk factors or history of atherosclerotic disease.
+    troponin_score (int): Score based on initial troponin levels, where:
+        0 = ≤ normal limit,
+        1 = 1–3 times normal limit,
+        2 = >3 times normal limit.
+
+    Returns:
+    int: The total HEART score, which can guide further management of chest pain patients
+         in the emergency setting. Total scores categorize risk as follows:
+         0-3 points indicate low risk,
+         4-6 points indicate moderate risk,
+         7-10 points indicate high risk.
+
+    Example:
+    >>> calculate_heart_score(2, 1, 1, 2, 1)
+    7
+
+
+PSI/PORT Score: Pneumonia Severity Index for CAP: Calculate the PSI/PORT Score for Community-Acquired Pneumonia (CAP).
+
+    The PSI/PORT Score helps to risk stratify patients with community-acquired pneumonia in clinical or
+    emergency department settings. This score may underestimate severe pneumonia in younger, otherwise healthy patients.
+    It is important to consider other clinical factors such as sepsis, which may require additional testing
+    like lactate levels. Any patient over 50 years of age is automatically classified as risk class 2.
+
+    Parameters:
+    age (int): Patient's age in years.
+    sex (str): Patient's sex, either 'Female' or 'Male'.
+    nursing_home_resident (bool): True if the patient is a nursing home resident, False otherwise.
+    neoplastic_disease (bool): True if the patient has a history of neoplastic disease, False otherwise.
+    liver_disease (bool): True if the patient has a history of liver disease, False otherwise.
+    chf_history (bool): True if the patient has a history of congestive heart failure, False otherwise.
+    cerebrovascular_disease (bool): True if the patient has a history of cerebrovascular disease, False otherwise.
+    renal_disease (bool): True if the patient has a history of renal disease, False otherwise.
+    altered_mental_status (bool): True if the patient has altered mental status, False otherwise.
+    respiratory_rate (bool): True if respiratory rate is ≥30 breaths/min, False otherwise.
+    systolic_bp (bool): True if systolic blood pressure is <90 mmHg, False otherwise.
+    temperature (bool): True if temperature is <35°C or >39.9°C, False otherwise.
+    pulse (bool): True if pulse rate is ≥125 beats/min, False otherwise.
+    blood_ph (bool): True if blood pH is <7.35, False otherwise.
+    bun (bool): True if BUN is ≥30 mg/dL or ≥11 mmol/L, False otherwise.
+    sodium (bool): True if sodium level is <130 mmol/L, False otherwise.
+    glucose (bool): True if glucose level is ≥250 mg/dL or ≥14 mmol/L, False otherwise.
+    hematocrit (bool): True if hematocrit is <30%, False otherwise.
+    oxygen_pressure (bool): True if partial pressure of oxygen is <60 mmHg or <8 kPa, False otherwise.
+    pleural_effusion (bool): True if there is pleural effusion on x-ray, False otherwise.
+
+    Returns:
+    int: The total PSI/PORT Score indicating the severity of the pneumonia.
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{哪一个量表用于计算患者预产期？}}
+Task Scenario: {{Analysis:
+
+1. The patient is diagnosed with gestational diabetes, which is a type of diabetes that occurs during pregnancy and can lead to high blood sugar levels. This condition can impair glucose regulation and metabolism in the body, affecting both the mother and the developing fetus.
+
+2. The patient also has fungal vaginitis, which can indicate an imbalance in the vaginal microbiome and may lead to symptoms such as abnormal vaginal discharge and itching. This condition can impair the normal functioning of the vaginal environment.
+
+3. The presence of oligohydramnios, which is a condition characterized by reduced amniotic fluid levels in the uterus, can have implications for fetal development and can affect the normal cushioning and protection provided by the amniotic fluid.
+
+Based on the provided patient's case, the impaired bodily functions may include glucose regulation and metabolism, vaginal flora balance, and amniotic fluid production. These conditions require proper management and treatment to ensure the well-being of both the mother and the fetus.}}
+Step By Step Analysis:
+
+[output]  1. The User Demand is asking for the tool used to calculate a patient's estimated due date.
+2. The Pregnancy Due Dates Calculator from the Tool List is specifically designed for this purpose.
+3. The Pregnancy Due Dates Calculator considers the last menstrual period and cycle length to estimate the due date accurately.
+4. The tool is intended for healthcare providers to manage pregnancy timelines effectively and plan medical care accordingly.
+5. Considering the user demand and the task scenario provided, the most suitable tool is the Pregnancy Due Dates Calculator.
+
+```json
+{
+    "chosen_tool_name": "Pregnancy Due Dates Calculator"
+}
+```

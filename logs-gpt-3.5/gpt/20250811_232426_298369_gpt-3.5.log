@@ -1,0 +1,38 @@
+[time]    2025-08-11 23:24:26
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估患者的肾小球滤过率？
+
+Patient Case Analysis:
+
+根据患者的病史和临床表现，可以看出他被诊断为慢性肾衰竭CKD5期。在辅助检查中，肾功能指标明显异常，如尿素氮、肌酐和尿酸升高。这表明患者的肾脏功能受损严重，可能导致体内废物无法有效排出，造成乏力、纳差、呕吐等症状。除了上述肾脏问题，患者还患有高血压、心功能不全、贫血和胃炎等疾病，这可能会对血液循环和心脏功能产生影响。因此，患者的各种病症可能相互影响，导致多个器官功能异常。治疗方案中包括血液透析等措施，可以帮助患者改善肾功能，从而缓解相关症状。
+
+[output]  ```json
+[
+    "哪一个量表用于评估患者的肾小球滤过率？根据患者的病史和临床表现，患者被诊断为慢性肾衰竭CKD5期。",
+    "哪一个量表用于评估患者的肾小球滤过率？辅助检查中显示患者的肾功能指标明显异常，如尿素氮、肌酐和尿酸升高。",
+    "哪一个量表用于评估患者的肾小球滤过率？治疗方案中包括血液透析等措施，可帮助患者改善肾功能，缓解相关症状。"
+]
+```

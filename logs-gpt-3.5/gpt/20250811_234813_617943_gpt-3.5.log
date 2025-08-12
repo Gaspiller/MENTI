@@ -1,0 +1,38 @@
+[time]    2025-08-11 23:48:13
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表被用于预测患者在6周内发生重大心脏不良事件的风险？
+
+Patient Case Analysis:
+
+根据患者的病历信息，主要异常为III度房室传导阻滞。这种心脏传导障碍导致心房和心室之间的电信号传导受阻，可能导致心跳不规律、心悸、乏力等症状。该情况需要通过起搏器植入来维持心律稳定。其他诊断包括高血压和高脂血症，这些情况可能增加心血管疾病风险。起搏器的植入可以彻底纠正III度传导阻滞，确保心脏节律稳定。
+
+[output]  ```json
+[
+    "哪一个量表被用于预测患者在6周内发生重大心脏不良事件的风险？患者的主要异常为III度房室传导阻滞，可能导致心悸、乏力等症状。",
+    "哪一个量表被用于预测患者在6周内发生重大心脏不良事件的风险？患者诊断为高血压和高脂血症，这可能增加心血管疾病风险。",
+    "哪一个量表被用于预测患者在6周内发生重大心脏不良事件的风险？III度房室传导阻滞导致心房和心室之间的电信号传导受阻，可能需要起搏器植入来维持心律稳定。"
+]
+```

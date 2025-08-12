@@ -1,0 +1,190 @@
+[time]    2025-08-12 00:01:02
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Urea, 尿素', 'Cancer Antigen 125, 癌抗原 125', 'Cancer Antigen 72-4, 癌抗原 72-4', 'Progesterone, 黄体酮', "Prothrombin Time (Quick's Test), 凝血酶原时间(Quick检测法)", 'Free Prostate-Specific Antigen, 游离前列腺特异性抗原', 'Blood Urea Nitrogen (BUN), 尿素氮 (BUN)', 'Complement Factor 4 (C4), 补体因子4(C4)', 'Retinol, 视黄醇', 'Renin, 肾素']}}
+Detailed information of each tool: {{Urea, 尿素: Convert the value of Urea from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Cancer Antigen 125, 癌抗原 125: Convert the value of Cancer Antigen 125 from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['U/mL', 'kU/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Cancer Antigen 72-4, 癌抗原 72-4: Convert the value of Cancer Antigen 72-4 from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['U/mL', 'kU/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Progesterone, 黄体酮: Convert the value of Progesterone from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['nmol/L', 'pmol/L', 'ng/mL', 'ng/dL', 'ng/100mL', 'ng%', 'ng/L', 'µg/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Prothrombin Time (Quick's Test), 凝血酶原时间(Quick检测法): Convert the value of Prothrombin Time (Quick's Test) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['Ratio', 'Fraction', '%']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Free Prostate-Specific Antigen, 游离前列腺特异性抗原: Convert the value of Free Prostate-Specific Antigen from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['ng/mL', 'ng/dL', 'ng/100mL', 'ng%', 'ng/L', 'µg/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Blood Urea Nitrogen (BUN), 尿素氮 (BUN): Convert the value of Blood Urea Nitrogen (BUN) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Complement Factor 4 (C4), 补体因子4(C4): Convert the value of Complement Factor 4 (C4) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['µmol/L', 'g/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Retinol, 视黄醇: Convert the value of Retinol from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['µmol/L', 'µg/dL', 'µg/100mL', 'µg%', 'µg/L', 'ng/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Renin, 肾素: Convert the value of Renin from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['pmol/L', 'pg/mL', 'ng/dL', 'ng/100mL', 'ng%']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{The surgery_duration parameter value needs to be provided in hours.}}
+Task Scenario: {{}}
+Step By Step Analysis:
+
+[output]  1. Identify the user demand: The user needs to provide the surgery duration parameter value in hours.
+
+2. Match the user demand with the tools in the tool list:
+   - None of the tools in the tool list directly relate to surgery duration in hours.
+
+3. Conclusion:
+   - Since none of the tools in the tool list directly address the user demand for surgery duration in hours, we cannot select any tool from the tool list for this specific user demand.
+
+```json
+{
+    "chosen_tool_name": "None"
+}
+```

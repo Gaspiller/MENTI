@@ -1,0 +1,206 @@
+[time]    2025-08-11 23:31:08
+[model]   gpt-3.5
+[input]   
+You are a Parameter List checking model.
+
+You will receive a Function Docstring, and Parameter List. You need to verify that the entries in the Parameter List comply with the requirements described in the Function Docstring, including the Value and Unit.
+If all units are consistent, choose "calculate". If there are any discrepancies in the units, choose "toolcall".
+You should not perform unit conversions directly. When converting units is needed, you must choose "toolcall" and elaborate on this unit conversion task in the "supplementary_information", including the parameter value, the current unit of the parameter, and the target unit of the parameter.
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis of each parameter in the parameter list. You need to output each parameter's Function Docstring individually, then analyze and compare them.
+2. You especially need to compare the Unit of the Parameter List with the units required in the Function Docstring. 
+3. If the units are inconsistent, please select "toolcall" and specify the numerical value of the parameter required for unit conversion, as well as the units before and after the conversion in the "supplementary_information".
+4. The unit conversion task may require converting units of different parameters, and you need to break down the task into individual unit conversion tasks for each parameter. Therefore, "supplementary_information" is a list of strings, each of which represents a standalone, minimalized unit conversion task.
+5. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+
+Here are some examples:
+Function Docstring:
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Parameter List：
+{{{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 1.75, "Unit": "m"}
+}}}
+Step By Step Analysis:
+{{(Here is your step-by-step analysis. You need to ouptput the corresponding Function Docstring first for each parameter, and systematically compare each parameter with the corresponding information in the Parameter List and Function Docstring.)}}
+Final Answer:
+```json
+{
+    "chosen_decision_name": "toolcall",
+    "supplementary_information": ["The height is 1.75m. The height needs to be converted from meters to centimeters."]
+}
+```
+
+Function Docstring:
+{{Calculate the Corrected Sodium for Hyperglycemia using Hillier's method from 1999.
+
+Parameters:
+ measured_sodium (float): The measured sodium level in mEq/L.
+ serum_glucose (float): The serum glucose level in mg/dL.
+
+Returns:
+ float: The corrected sodium level in mEq/L.
+
+}}
+Parameter List：
+{{{
+    "measured_sodium": {"Value": 140, "Unit": "mmol/L"},
+    "serum_glucose": {"Value": 80, "Unit": "mmol/L"}
+}}}
+Step By Step Analysis:
+{{(Here is your step-by-step analysis. You need to ouptput the corresponding Function Docstring first for each parameter, and systematically compare each parameter with the corresponding information in the Parameter List and Function Docstring.)}}
+Final Answer:
+```json
+{
+    "chosen_decision_name": "toolcall",
+    "supplementary_information": ["The measured_sodium is 140 mmol/L. It needs to be converted from mmol/L to mEq/L.", "The serum_glucose is 80 mmol/L. It needs to be converted from mmol/L to mg/dL."]
+}
+```
+
+Function Docstring:
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Parameter List：
+{{{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}}}
+Step By Step Analysis:
+{{(Here is your step-by-step analysis. You need to ouptput the corresponding Function Docstring first for each parameter, and systematically compare each parameter with the corresponding information in the Parameter List and Function Docstring.)}}
+Final Answer:
+```json
+{
+    "chosen_decision_name": "calculate",
+    "supplementary_information": "All parameters comply with the Function Docstring requirements. No unit conversion is needed as the parameters use indices to specify units."
+}
+```
+
+Attention: The Final Answer must be wrapped by ```json and ```. In the 'supplementary_information', the Value of the parameter is required!!!
+
+Begin!
+
+Function Docstring:
+{{
+    Calculate the CURB-65 Score for Pneumonia Severity.
+
+    The CURB-65 calculator can be used in the emergency department setting to risk stratify a patient’s community acquired pneumonia.
+    It includes points for confusion, blood urea nitrogen (BUN), respiratory rate, blood pressure, and age.
+    
+    Parameters:
+    confusion (int): Confusion status, where 0 = No and 1 = Yes.
+    bun (int): Blood urea nitrogen status, where 0 = BUN ≤ 19 mg/dL (≤ 7 mmol/L urea) and 1 = BUN > 19 mg/dL (> 7 mmol/L urea).
+    respiratory_rate (int): Respiratory rate status, where 0 = < 30 breaths/min and 1 = ≥ 30 breaths/min.
+    blood_pressure (int): Blood pressure status, where 0 = Systolic BP ≥ 90 mmHg and Diastolic BP > 60 mmHg, and 1 = Systolic BP < 90 mmHg or Diastolic BP ≤ 60 mmHg.
+    age (int): Age status, where 0 = < 65 years and 1 = ≥ 65 years.
+
+    Returns:
+    int: The CURB-65 score which ranges from 0 to 5, indicating the severity of pneumonia.
+
+    Usage:
+    This function can be used in emergency settings to quickly assess the severity of pneumonia in patients and to guide decisions regarding hospitalization and treatment initiation.
+    
+    Example:
+    >>> curb_65_score(1, 1, 1, 0, 1)
+    4
+   }}
+Parameter List：{{{
+    "confusion": {"Value": 0, "Unit": "null"},
+    "bun": {"Value": 1, "Unit": "null"},
+    "respiratory_rate": {"Value": 0, "Unit": "null"},
+    "blood_pressure": {"Value": 0, "Unit": "null"},
+    "age": {"Value": 0, "Unit": "null"}
+}}}
+Step By Step Analysis:
+
+[output]  {{"Calculate the CURB-65 Score for Pneumonia Severity.
+
+    The CURB-65 calculator can be used in the emergency department setting to risk stratify a patient’s community acquired pneumonia.
+    It includes points for confusion, blood urea nitrogen (BUN), respiratory rate, blood pressure, and age.
+    
+    Parameters:
+    confusion (int): Confusion status, where 0 = No and 1 = Yes.
+    bun (int): Blood urea nitrogen status, where 0 = BUN ≤ 19 mg/dL (≤ 7 mmol/L urea) and 1 = BUN > 19 mg/dL (> 7 mmol/L urea).
+    respiratory_rate (int): Respiratory rate status, where 0 = < 30 breaths/min and 1 = ≥ 30 breaths/min.
+    blood_pressure (int): Blood pressure status, where 0 = Systolic BP ≥ 90 mmHg and Diastolic BP > 60 mmHg, and 1 = Systolic BP < 90 mmHg or Diastolic BP ≤ 60 mmHg.
+    age (int): Age status, where 0 = < 65 years and 1 = ≥ 65 years.
+
+    Returns:
+    int: The CURB-65 score which ranges from 0 to 5, indicating the severity of pneumonia.
+
+    Usage:
+    This function can be used in emergency settings to quickly assess the severity of pneumonia in patients and to guide decisions regarding hospitalization and treatment initiation.
+    
+    Example:
+    >>> curb_65_score(1, 1, 1, 0, 1)
+    4
+   "}}
+
+{{"confusion": 
+    Parameter in Function Docstring: int
+    Parameter in Parameter List: int
+    Decision: calculate
+    Supplementary_information: "All parameters comply with the Function Docstring requirements. No unit conversion is needed as the parameters use indices to specify values."
+}}
+
+{{"bun": 
+    Parameter in Function Docstring: int
+    Parameter in Parameter List: int
+    Decision: calculate
+    Supplementary_information: "All parameters comply with the Function Docstring requirements. No unit conversion is needed as the parameters use indices to specify values."
+}}
+
+{{"respiratory_rate": 
+    Parameter in Function Docstring: int
+    Parameter in Parameter List: int
+    Decision: calculate
+    Supplementary_information: "All parameters comply with the Function Docstring requirements. No unit conversion is needed as the parameters use indices to specify values."
+}}
+
+{{"blood_pressure": 
+    Parameter in Function Docstring: int
+    Parameter in Parameter List: int
+    Decision: calculate
+    Supplementary_information: "All parameters comply with the Function Docstring requirements. No unit conversion is needed as the parameters use indices to specify values."
+}}
+
+{{"age": 
+    Parameter in Function Docstring: int
+    Parameter in Parameter List: int
+    Decision: calculate
+    Supplementary_information: "All parameters comply with the Function Docstring requirements. No unit conversion is needed as the parameters use indices to specify values."
+}}
+Final Answer:
+```json
+{
+    "chosen_decision_name": "calculate",
+    "supplementary_information": "All parameters comply with the Function Docstring requirements. No unit conversion is needed as the parameters use indices to specify values."
+}
+```

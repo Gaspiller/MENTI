@@ -1,0 +1,46 @@
+[time]    2025-08-11 23:48:38
+[model]   gpt-3.5
+[input]   
+You are a medical diagnostic model. Your task is to analyze the abnormal parts of the provided patient's case and speculate on which bodily functions might be impaired.
+
+The requirements are as follows:
+1. Every inference you make must be substantiated by actual evidence from the provided patient's case.
+2. You only need to analyze the main, abnormal parts of the provided patient's case.
+3. You just need to make a brief analysis.
+
+Begin!
+
+
+基本信息:男，60岁
+发病原因:病因不明
+临床诊断:1.X综合症 2.急性支气管炎 3.消化性溃疡 4.脑外伤后遗症 4.慢性中耳炎
+治疗方案:冠状动脉造影术+左心导管术
+治疗结果:病情好转
+病案重点:冠状动脉造影术+左心导管术
+
+[病案介绍]
+主诉:
+反复气促10余年，再发1天
+现病史:
+患者缘10余前劳累后出现胸、气促，活动后加重，多于发热发作，曾到当地诊所就诊，消炎治疗后症状好转(具体不限),平常能耐受一般日常体力劳动。1天前无明显诱因下出现头量、头痛,未治疗，今晨出现胸闷、气促，持续性，今来我院门诊就诊，行心电图提示心肌缺血，为进一步诊治，门诊拟“急性冠脉综合征”入院，患者起病以来，精神好，胃纳佳，夜间睡眠尚可，大小便正常。
+既往史:
+既往有高血压病史，但近期血压正常，未规律服药，有慢性中耳炎病史，多年前因车祸至颅内损伤，其后恢复可。1年前因意外伤害至左臂丛神经受损，遗留肢体稍乏力。否认药物过敏史。
+查体:
+T：37℃，P：79次/分，R：20次/分，BP：135/90mmHg
+神志清，自动**，全身皮肤、粘膜及巩膜无黄染，全身浅表淋巴结未触及肿大，口腔粘膜光滑，咽无充血，双侧扁桃体无肿大，双侧瞳孔等圆等大，对光反射灵敏，胸廓正常，叩诊清音，双肺呼吸音清，双肺未闻及明显干温罗音。心尖搏动位于左侧第五助间锁骨中线内侧0.5cm处，心界不扩大，心律79次/分，心音可，律齐，各瓣膜区未闻及明显病理性杂音，无心包摩擦音。腹平软，无压痛及反跳痛，肝脾肋下未及，肾区无叩击痛，肠鸣音正常，脊柱四肢无畸形，运动自如，关节无红肿，双下肢未及浮肿，神经系统未及特殊异常。
+辅助检查:
+神志清，自动**，全身皮肤、粘膜及巩膜无黄染，全身浅表淋巴结未触及肿大，口腔粘膜光滑，咽无充血，双侧扁桃体无肿大，双侧瞳孔等圆等大，对光反射灵敏，胸廓正常，叩诊清音，双肺呼吸音清，双肺未闻及明显干温罗音。心尖搏动位于左侧第五助间锁骨中线内侧0.5cm处，心界不扩大，心律79次/分，心音可，律齐，各瓣膜区未闻及明显病理性杂音，无心包摩擦音。腹平软，无压痛及反跳痛，肝脾肋下未及，肾区无叩击痛，肠鸣音正常，脊柱四肢无畸形，运动自如，关节无红肿，双下肢未及浮肿，神经系统查体未及特殊异常。患者心电图正常。
+
+患者肌钙蛋白正常。
+[output]  Analysis:
+1. The patient has a history of X syndrome, acute bronchitis, peptic ulcer, post-traumatic brain sequelae, and chronic otitis media. These conditions suggest a complex medical history with possible underlying systemic issues.
+2. The patient presented with symptoms of chest tightness, shortness of breath, and headache, which led to a diagnosis of acute coronary syndrome. This indicates a potential cardiovascular issue, possibly related to coronary artery disease or myocardial ischemia.
+3. The patient's past medical history includes hypertension, traumatic brain injury, and nerve damage in the left arm, indicating a history of vascular and neurological issues.
+4. The patient underwent coronary angiography and left heart catheterization, which resulted in disease improvement. This suggests that the cardiovascular system was affected and required intervention to address the issue.
+
+Speculated Impairments:
+1. Impaired cardiovascular function, possibly due to coronary artery disease or myocardial ischemia.
+2. Possible neurological impairments related to the past traumatic brain injury and nerve damage in the left arm.
+3. Long-standing otitis media may have impacted the patient's auditory function.
+
+It is crucial for the medical team to closely monitor the patient's cardiovascular and neurological status, as well as provide appropriate follow-up care for the otitis media to ensure overall well-being.

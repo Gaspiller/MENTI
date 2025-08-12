@@ -1,0 +1,41 @@
+[time]    2025-08-11 23:31:41
+[model]   gpt-3.5
+[input]   
+You are a medical diagnostic model. Your task is to analyze the abnormal parts of the provided patient's case and speculate on which bodily functions might be impaired.
+
+The requirements are as follows:
+1. Every inference you make must be substantiated by actual evidence from the provided patient's case.
+2. You only need to analyze the main, abnormal parts of the provided patient's case.
+3. You just need to make a brief analysis.
+
+Begin!
+
+
+基本信息:男，55岁，农民
+发病原因:病因不明
+临床诊断:1.右肾囊肿 2.慢性病毒性乙型肝炎 2.肝功能不全（腹水期）
+治疗方案:予过度通气，严密监测呼末CO2。迅速予以切除囊肿顶部，并彻底止血，置腹膜后引流管一根
+治疗结果:病情好转
+病案重点:皮下气肿的麻醉处理
+
+[病案介绍]
+主诉:
+右腰部胀痛不适半年余
+现病史:
+患者自诉半年前不明原因突发腰部胀痛。无血尿，无畏寒、发热，不伴尿频、尿急。曾在我院就诊，门诊B超检查提示右肾囊肿，未经任何治疗。今来我院门诊，门诊以"右肾囊肿"诊断收入院。患者病后精神可，食欲尚可，小便正常，大便正常。
+既往史:
+十余年前因胃穿孔行手术治疗，2019年于本院行脾脏切除术，否认高血压、糖尿病、心脏病病史，否认传染病史及药物过敏史。
+查体:
+T：36.5℃，P：80次/分，R：20次/分，BP：120/80mmHg
+神志清楚，自动体位，合作。皮肤粘膜无黄染，双瞳孔等大等圆，对光反射灵敏，耳鼻喉无异常，颈软，颈静脉无怒张，胸廓无畸形，双肺呼吸音清晰，未闻及干湿啰音，心律80次/分，律齐，各瓣膜区未闻及病理性杂音。腹平软，满腹无压痛，无反跳痛，右肾区叩痛，肠鸣音正常。脊柱正常，四肢活动自如，肛周外生殖器正常，生理反射存在，病理反射未引出。
+辅助检查:
+: 
+2019-11-30我院CT提示：右肾巨大囊性灶
+2019-12-01我院彩超提示：符合慢肝声图像；腹腔积液。            
+2019-11-30肝功能:TBIL 31.5 umol/L↑、DBIL 12.5 umol/L↑、IDBIL 19.0 umol/L↑、AST 71 U/L↑、ALT 34 U/L、AST/ALT 2.1 ↑、ALP 190 U/L↑、GGT 114 U/L↑、TBA 76.1 umol/L↑、5-NT 12.1 U/L↑、TP 79.6 g/L、ALB 27.0 g/L↓、GLO 52.6 g/L↑、A/G 0.51 ↓、PA 84 mg/L↓。    2019-11-30输血全套提示：慢性病毒性肝炎（小三阳） EKG正常心电图。 X线示双肺未见明显异常。 余结果见涂片患者血小板：200 × 10⁹/L
+[output]  根据提供的患者病史和辅助检查结果，可以得出以下结论：
+1. 右肾囊肿：患者被诊断出右肾囊肿，可能导致右腰部胀痛不适。
+2. 慢性病毒性乙型肝炎：患者被诊断出慢性病毒性乙型肝炎，表现在肝功能检查中出现TBIL、AST、ALP等指标升高，可能影响肝脏功能。
+3. 肝功能不全（腹水期）：由于肝功能异常，可能导致腹腔积液的产生，需要密切监测病情并进行相应的治疗。
+在治疗上，对囊肿进行切除和腹膜后引流管的置入可能有助于患者病情的好转。
+根据病历中提到的皮下气肿的麻醉处理，可能要考虑患者的体液平衡和手术后感染的预防。

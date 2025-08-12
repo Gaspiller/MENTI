@@ -1,0 +1,128 @@
+[time]    2025-08-11 23:36:17
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the Framingham Risk Score for Hard Coronary Heart Disease in patients aged 30-79 years without prior coronary heart disease history, diabetes, or intermittent claudication.
+
+    Parameters:
+    - age (int): The age of the patient in years. Valid range: 30-79.
+    - sex (int): The sex of the patient. 0 for female, 1 for male.
+    - smoker_status (int): Smoking status of the patient. 0 for non-smoker, 1 for smoker.
+    - total_cholesterol (float): Total cholesterol level in mg/dL.
+    - hdl_cholesterol (float): HDL cholesterol level in mg/dL.
+    - systolic_bp (float): Systolic blood pressure in mm Hg.
+    - bp_medication (int): Indicates if the blood pressure is being treated with medications. 0 for no, 1 for yes.
+
+    Returns:
+    float: The risk percentage of developing hard coronary heart disease.
+
+    Calculation is based on the logarithmic transformations of risk factors and their interactions,
+    separately for males and females. Note that older population data was used to develop this scale,
+    which may not fully align with current population risks.
+}}
+Reference Text:
+{{基本信息:男，63岁
+发病原因:病因不明
+临床诊断:冠状动脉性心脏病,三支病变,陈旧性心肌梗塞,不稳定型心绞痛,高血压病3级(很高危险组),2型糖尿病,心功能Ⅰ级(NYHA分级)
+治疗方案:全麻下行非体外循环下冠状动脉旁路移植术（LIMA-LAD，AO-SVG-LCX，AO-SVG-PDA-PLA）等对症治疗
+治疗结果:病情好转
+病案重点:冠状动脉性心脏病,三支病变
+
+[病案介绍]
+主诉:
+间断心前区疼痛18年。
+现病史:
+患者于18年前劳累后出现心前区疼痛,呈压榨样,伴出冷汗,无肩背部放射痛、头晕、咯血、心悸等表现，持续时间约3-5分钟，休息后可自行缓解，就诊于我市某医院，诊断为“冠心病”，予以口服冠心病二级预防药物治疗。后上述症状间断发作，休息及口服“速效救心丸”均可缓解。于3年前因“急性心肌梗塞”在我市某医院住院输液治疗（具体不详）。于1周前上述症状再次发作，于我市某医院行冠脉造影示：冠心病，三支病变，前降支近端约90%狭窄。今为求手术治疗，故来我院，门诊以“冠心病，三支病变”收住我科。自发病以来，精神食欲可，大小便正常。
+既往史:
+既往体差，有高血压病史10余年，收缩压最高220mmHg，口服硝苯地平控释片及盐酸贝那普利片，血压控制满意。有糖尿病史10余年，注射胰岛素，血糖控制满意。否认脑血管病史，否认精神病史，否认肝炎史，否认结核史，否认疟疾史，否认手术史，否认外伤史，否认输血史，否认食物、药物过敏史，预防接种史不详。
+查体:
+T：36.5℃，P：80次/分，R：17次/分，BP：150/60mmHg
+气管居中，双侧胸廓对称无畸形，肋间平坦，无增宽及变窄，运动自如，双肺叩呈清音，听诊双肺呼吸音粗，未闻及干湿性啰音。心律80次/分,律齐,各瓣膜区未闻及杂音。双下肢无水肿。
+辅助检查:
+冠脉造影示：冠心病，三支病变，前降支近端约90%狭窄。患者有吸烟史。
+
+患者总胆固醇：8.3mmol/L。
+
+高密度脂蛋白胆固醇：0.2mmol/L。}}
+Step By Step Analysis:
+
+[output]  1. age:
+From the reference text, the patient is 63 years old. Therefore, the value for age = 63.
+
+2. sex:
+The reference text states that the patient is male. Therefore, the value for sex = 1.
+
+3. smoker_status:
+The reference text mentions that the patient has a smoking history. Therefore, the value for smoker_status = 1.
+
+4. total_cholesterol:
+The total cholesterol level provided in the reference text is 8.3 mmol/L. As per the Function Docstring, the cholesterol level should be in mg/dL, so we do not directly convert the units. Therefore, the value for total_cholesterol = 8.3.
+
+5. hdl_cholesterol:
+The HDL cholesterol level mentioned in the reference text is 0.2 mmol/L. According to the Function Docstring, the value should be in mg/dL. Therefore, the value for hdl_cholesterol = 0.2.
+
+6. systolic_bp:
+The reference text states the patient's blood pressure as 150/60 mmHg, but we only need the systolic blood pressure for this calculation. Therefore, the value for systolic_bp = 150.
+
+7. bp_medication:
+The reference text does not provide information about whether the patient is on blood pressure medication. Therefore, we can infer that the patient is not on medication. Hence, the value for bp_medication = 0.
+
+Parameters List:
+```json
+{
+    "age": {"Value": 63, "Unit": "null"},
+    "sex": {"Value": 1, "Unit": "null"},
+    "smoker_status": {"Value": 1, "Unit": "null"},
+    "total_cholesterol": {"Value": 8.3, "Unit": "mg/dL"},
+    "hdl_cholesterol": {"Value": 0.2, "Unit": "mg/dL"},
+    "systolic_bp": {"Value": 150, "Unit": "mm Hg"},
+    "bp_medication": {"Value": 0, "Unit": "null"}
+}
+```

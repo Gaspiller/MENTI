@@ -1,0 +1,42 @@
+[time]    2025-08-11 23:52:24
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估患者的平均动脉压？
+
+Patient Case Analysis:
+
+根据提供的病例资料和检查结果，患者被诊断为肺源性心脏病。主要症状为憋气、喘气费力，伴有少量白色粘痰和咳嗽。体格检查显示双肺底少量干湿啰音，心律齐，心脏浊音界减小，心动图提示右心室增大，肺动脉高压等，这些都符合肺源性心脏病的表现。
+
+由于肺源性心脏病导致右心负荷大和肺动脉高压，可能会影响氧合作用和心脏功能，可能会导致氧气供应不足，出现氧分压下降等血气分析结果异常，以及出现呼吸困难等症状。治疗方案中给予利尿治疗和对症治疗，可以帮助缓解症状，治疗后病情有所好转。
+
+综合分析，该患者的肺源性心脏病可能导致了呼吸系统和心血管系统的功能受损，进而出现了相应的症状和体征。治疗方案的有效性也证实了这一诊断的准确性。
+
+[output]  ```json
+[
+    "哪些症状和体征可以提示患者可能患有肺源性心脏病？",
+    "除了肺源性心脏病的主要症状外，还有哪些表现可以帮助确认诊断？",
+    "肺源性心脏病患者可能会出现哪些与呼吸系统和心血管系统功能受损相关的血气分析结果异常？"
+]
+```

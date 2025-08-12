@@ -1,0 +1,36 @@
+[time]    2025-08-11 23:44:47
+[model]   gpt-3.5
+[input]   
+You are a medical diagnostic model. Your task is to analyze the abnormal parts of the provided patient's case and speculate on which bodily functions might be impaired.
+
+The requirements are as follows:
+1. Every inference you make must be substantiated by actual evidence from the provided patient's case.
+2. You only need to analyze the main, abnormal parts of the provided patient's case.
+3. You just need to make a brief analysis.
+
+Begin!
+
+
+基本信息:女，59岁， 农民
+
+[病案介绍]
+主诉:
+呕血3小时
+现病史:
+患者于3小时前无明显诱因出现呕血，多次呕血约800ml，呕吐物夹杂食物，未自行处理，患者家人急拨打120急救电话，由急救车接来我院急诊科救治，急诊医师予建立静脉通道，兰索拉唑抑酸护胃，蛇毒血凝酶止血治疗。因患者失血量大，患者处休克状态爱，病情危重，急诊医师以“1.急性上消化道出血 2失血性休克 3重度贫血 4肝癌”收重症监护室住院。刻下症见：神志清，精神差，面色无华，贫血貌，神疲懒言，乏力，大小便未行。
+既往史:
+患者既肝癌及消化道出血病史，曾行介入手术治疗。否认高血压病、糖尿病、冠心病病史。
+查体:
+T：36.3℃，P：103次/分，R：15次/分，BP：83/43mmHg
+T:36.3℃ ,P:103次/分,R:15次/分,BP:83/43/mmhg。神志清，精神差，面色无华，贫血貌，营养较差，巩膜黄染，浅表淋巴结未及明显肿大，眼睑结膜苍白，双瞳孔等大等圆，直径约3mm,对光反射存在。口唇浅白，咽部无明显充血红肿，胸部对称，双肺呼吸音低，未及明显干湿啰音，心前区无隆起，心律103次/分，律齐，心音低，各瓣膜区未闻及明显病理性杂音。腹平软，无明显压痛及反跳痛，肝脾肋下未及，双下肢无水肿生理反射存在，病理反射未引出。
+辅助检查:
+血常规 血红蛋白 57g/l， 红细胞2.43 x 109/L 血气分析：血红蛋白 50g/l，血乳酸 13.8mmol/l患者无肝病史。
+
+患者不存在心力衰竭。
+
+患者BUN：5.5mmol/L。
+
+患者头晕、胸闷，近期无晕厥。
+[output]  根据患者的病史和临床表现，可以初步推断患者的主要问题是急性上消化道出血导致的失血性休克和重度贫血。血常规和血红蛋白水平的显著降低以及血气分析中血红蛋白和血乳酸的异常值均支持这一推断。此外，患者的呕血症状和消化道出血病史也进一步证实了这一点。
+
+在这种情况下，失血性休克可能导致机体循环功能受损，进而影响全身组织器官的供氧和代谢功能。同时，重度贫血会影响氧气的输送和细胞的代谢活动。需立即采取止血和输血等治疗措施，并密切监测患者的病情变化和器官功能，以防止进一步的损害。

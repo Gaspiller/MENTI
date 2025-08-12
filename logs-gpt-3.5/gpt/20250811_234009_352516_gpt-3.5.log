@@ -1,0 +1,38 @@
+[time]    2025-08-11 23:40:09
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估患者的意识状态和昏迷程度？
+
+Patient Case Analysis:
+
+根据提供的病例信息，患者因服用安眠药（安定）大量入院，出现呼吸循环抑制导致昏迷状态，瞳孔对光反射均迟钝，可能存在神经系统功能受损，可能涉及脑干功能受损导致意识模糊，视觉、听觉功能受损。此外，患者在查体中四肢肌张力低，肌力不合作，可能存在肌肉功能受损的表现。辅助检查中凝血五项和生化指标异常，可能存在凝血功能障碍及肝脏功能异常。综合分析患者可能存在神经系统、肌肉功能和凝血功能受损等问题。
+
+[output]  ```json
+[
+    "除了昏迷程度，患者可能存在神经系统功能受损及凝血功能异常，应当关注这些问题。",
+    "是否有特定量表可同时评估患者的神经系统功能及凝血功能？",
+    "患者可能存在肌肉功能受损的情况，量表评估是否应考虑这一点？"
+]
+```

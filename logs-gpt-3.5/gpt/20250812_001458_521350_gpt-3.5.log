@@ -1,0 +1,29 @@
+[time]    2025-08-12 00:14:58
+[model]   gpt-3.5
+[input]   
+You are a medical diagnostic model. Your task is to analyze the abnormal parts of the provided patient's case and speculate on which bodily functions might be impaired.
+
+The requirements are as follows:
+1. Every inference you make must be substantiated by actual evidence from the provided patient's case.
+2. You only need to analyze the main, abnormal parts of the provided patient's case.
+3. You just need to make a brief analysis.
+
+Begin!
+
+
+基本信息:男，64岁，退休
+
+[病案介绍]
+主诉:
+男性,64岁,退休
+主因口干、口渴13年，加重伴双侧胫腓骨中下段前侧破溃3月入院。
+现病史:
+患者13年前因夜尿增多，尿中带有甜味，于当地诊所就诊，查尿糖3＋，空腹血糖13mmol/L，诊断为2型糖尿病，予口服二甲双胍控制血糖，血糖控制不佳，后多次自行调整剂量，血糖控制一般，今年一月份因血糖控制不佳来我院住院治疗，给予诺和灵50早26u晚26u餐前20分钟皮下注射，后自行减少胰岛素剂量，甚至停药。现血糖控制不佳，双侧胫腓骨中下段前侧皮肤破溃，已经结痂，大约2×2cm，饮食可，睡眠可，小便色黄，大便正常。
+既往史:
+高血压病病史10年，血压最高达170/110mmHg，平时服用“寿比山”控制血压； 脑梗死病史8年，遗留言语不清；右眼白内障手术5年。否认外伤输血史，否认药物食物过敏史。
+查体:
+T：36℃，P：67次/分，R：18次/分，BP：150/130mmHg
+。患者神志清楚，语言流利，合作，呼吸平稳，精神可，呼吸音清，未闻及干湿性啰音，叩诊心界不大，心律67次/分，心律齐，心音正常，心脏瓣膜听诊区未闻及病理性杂音，腹软无压痛，肝脾未触及，肝肾脾区无叩击痛。双下肢轻度浮肿，双足背动脉搏动正常，Babinski征弱阳性。
+辅助检查:
+入院查空腹血糖10.6mmol/L, 血沉23mm/h 肝功能：谷草转氨酶10u/L；碱性磷酸酶40u/L 甘油三酯1.72mmol/L。患者血钠140mmol/L。
+[output]  根据病史和辅助检查结果，患者被诊断为2型糖尿病并伴有口干、口渴症状。患者因血糖控制不佳导致双侧胫腓骨破溃，可能存在神经和血管并发症。此外，患者还有高血压病史、脑梗死病史和白内障手术史，可能存在心血管系统和视觉系统的问题。肝功能检查正常，但血液中的甘油三酯水平升高，可能存在脂代谢紊乱。需要进一步关注患者的血糖控制、神经血管情况和心血管系统健康。

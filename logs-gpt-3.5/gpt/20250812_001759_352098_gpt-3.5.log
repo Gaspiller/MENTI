@@ -1,0 +1,109 @@
+[time]    2025-08-12 00:17:59
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the Corrected Sodium for Hyperglycemia using Hillier's method from 1999.
+
+    This function computes the corrected sodium level in patients with hyperglycemia,
+    accounting for osmotic shifts of water from the intracellular to the extracellular space,
+    which can lead to dilutional hyponatremia. The formula uses a correction factor of 2.4 mEq/L
+    for every 100 mg/dL increase in serum glucose above the normal threshold of 100 mg/dL.
+
+    Parameters:
+        measured_sodium (float): The measured sodium level in mEq/L.
+        serum_glucose (float): The serum glucose level in mg/dL.
+
+    Returns:
+        float: The corrected sodium level in mEq/L.
+
+    Example:
+        >>> sodium_correction_hyperglycemia(140, 200)
+        142.4}}
+Reference Text:
+{{基本信息:女，68岁，农民
+
+[病案介绍]
+主诉:
+呕吐、腹泻2天，被人发现意识不清3小时。
+现病史:
+患者近2天无明显诱因出现恶心、呕吐、腹泻，经对症治疗（具体不详）后略有改善。昨晚大约22时左右入睡，入院前3小时被邻居发现未起床，呼之不应，遂破门而入，呼叫后意识逐渐转清，自述头晕，视物模糊，全身无力，遂急诊入院。自述睡前乏力。夜间未起来小便。
+既往史:
+有高血压3级病史10年，平时口服卡托普利25mgbid，有2型糖尿病病史7年，平时口服二甲双胍0.5tid，格列吡嗪片10mgtid，空腹血糖控制在8mmol/L左右。
+查体:
+T：36.3℃，P：80次/分，R：20次/分，BP：120/80mmHg
+T:36.3℃ ,P:80次/分,R:20次/分,BP:120/80/mmhg。神清，淡漠，双肺呼吸音清，心音有力，律齐，无杂音。肝脾不大。高级智能活动正常，可正确言语交流。精神不振，淡漠，头晕，视物模糊，余颅神经(-),四肢肌力4级，双侧巴彬斯基征阴性。
+辅助检查:
+随机血糖2.6mmol/L. 头颅CT：双侧侧脑室旁可见多个大小不等的斑片状低密度影，边界模糊。脑室系统正常。脑沟、脑裂、脑池均未见增宽或狭窄影。小脑半球未见明显异常征象。中线结构居中。其余未见明显异常。 2019-07-08，电解质：*氯104.8mmol/L，离子钙1.19mmol/L，标准钙1.17mmol/L，总钙2.34mmol/L，PH值7.42，*钾3.04mmol/L，*钠138.4mmol/L；
+
+For the Sodium, 钠, 138.4 mmol/L is equal to 138.4 mEq/L
+
+For the Glucose, 葡萄糖, 2.6 mmol/L is equal to 46.8416 mg/dL
+
+For the Sodium, 钠, 138.4 mmol/L is equal to 138.4 mEq/L}}
+Step By Step Analysis:
+
+[output]  Step By Step Analysis:
+1. Sodium:
+   - Reference Text: 钠, 138.4 mmol/L
+   - Value: 138.4
+   - Unit: mEq/L
+
+2. Glucose:
+   - Reference Text: 葡萄糖, 2.6 mmol/L
+   - Value: 46.8416
+   - Unit: mg/dL
+
+Parameters List:
+```json
+{
+    "measured_sodium": {"Value": 138.4, "Unit": "mEq/L"},
+    "serum_glucose": {"Value": 46.8416, "Unit": "mg/dL"}
+}
+```

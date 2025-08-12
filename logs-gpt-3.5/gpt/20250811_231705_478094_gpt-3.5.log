@@ -1,0 +1,38 @@
+[time]    2025-08-11 23:17:05
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估心房纤颤患者的卒中风险？
+
+Patient Case Analysis:
+
+Based on the provided patient's case, the main abnormality is coronary artery atherosclerotic heart disease, specifically atrial fibrillation (atrial fibrosis) and heart failure of grade II-III. The symptoms of chest tightness and palpitations, along with the irregular heart rhythm and enlarged heart borders on physical examination, suggest impaired cardiac function. The presence of atrial fibrillation on the ECG indicates possible compromised electrical conduction in the heart, leading to irregular heart rhythms. The treatment plan focusing on strengthening the heart, diuresis, vasodilation, and improving blood supply further supports the diagnosis of heart disease.
+
+[output]  ```json
+[
+    "Which scale is utilized to assess the stroke risk in patients with atrial fibrillation?",
+    "Can you recommend a scale for evaluating the stroke risk in individuals with atrial fibrillation?",
+    "What assessment tool is suitable for determining the stroke risk in patients diagnosed with atrial fibrillation?"
+]
+```

@@ -1,0 +1,32 @@
+[time]    2025-08-11 23:30:16
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. Your task is to transform the user's input search query into several similar queries, thereby helping the user to retrieve more useful information.
+
+The requirements are as follows:
+1. The generated queries must be closely related to the input search query.
+2. The generated queries must not alter the user's original intent.
+3. You need to generate 3 new queries, neither more nor less.
+4. You need to output a JSON file, which is a list where each item is a new query you have generated.
+5. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: The systolic_bp is specified in mmHg. It needs to be converted from the given format to the required format.
+
+[output]  ```json
+[
+    "Convert systolic BP from mmHg to the required format",
+    "Transformation of systolic BP from specified mmHg to required format",
+    "Converting systolic blood pressure from mmHg to the necessary format"
+]
+```

@@ -1,0 +1,43 @@
+[time]    2025-08-11 23:55:50
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表被用于评估患者的平均动脉压（MAP）？
+
+Patient Case Analysis:
+
+分析及假设：
+根据患者病史和临床表现，可以推测该患者存在胆总管结石伴急性化脓性胆管炎的情况。白细胞计数升高、CRP升高、腹部压痛以及彩超和CT检查显示胆总管结石、胆总管扩张等结果均支持这一推断。由于患者曾多次出现胆道系统感染的情况，可能存在胆道系统手术后感染的复发风险，需要重点关注并加强抗感染治疗。
+
+患者存在黄疸、肝肾功能异常、黏膜黄染等情况，这可能与胆总管结石伴胆管炎引起的胆汁梗阻、肝功能损害有关。需要密切监测患者的黄疸程度、肝功能指标，及时干预治疗。
+
+患者血压偏低，可能与感染引起的脓毒血症有关。需要密切监测患者的血压、心率等情况，及时调整治疗方案，防止脓毒血症发生并进一步恶化。
+
+[output]  ```json
+[
+    "哪一个量表被用于评估患者的平均动脉压（MAP）？患者存在胆总管结石伴急性化脓性胆管炎的情况。",
+    "哪一个量表被用于评估患者的平均动脉压（MAP）？患者存在黄疸、肝肾功能异常、黏膜黄染等情况。",
+    "哪一个量表被用于评估患者的平均动脉压（MAP）？患者血压偏低，可能与感染引起的脓毒血症有关。"
+]
+```

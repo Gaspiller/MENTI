@@ -1,0 +1,37 @@
+[time]    2025-08-12 00:13:32
+[model]   gpt-3.5
+[input]   
+You are a medical diagnostic model. Your task is to analyze the abnormal parts of the provided patient's case and speculate on which bodily functions might be impaired.
+
+The requirements are as follows:
+1. Every inference you make must be substantiated by actual evidence from the provided patient's case.
+2. You only need to analyze the main, abnormal parts of the provided patient's case.
+3. You just need to make a brief analysis.
+
+Begin!
+
+
+基本信息:男，79岁，无
+发病原因:不慎摔倒，右侧膝关节着地
+临床诊断:右侧髌骨骨折+冠心病 心功能Ⅱ级
+治疗方案:行右坐骨神经阻滞加右髂筋膜加股神经阻滞
+治疗结果:病情好转
+病案重点:右坐骨神经阻滞加右髂筋膜加股神经阻滞
+
+[病案介绍]
+主诉:
+右侧膝关节外伤疼痛伴活动受限2小时。
+现病史:
+患者于2小时前不慎摔倒，右侧膝关节着地，伤时感右侧膝关节疼痛，肿胀，活动受限，不伴右侧足趾麻木无力，无心慌胸闷，无恶心呕吐，由120以右侧膝关节外伤收住。发病以来，精神体力一般，未进食，大小便未解。
+既往史:
+八年前有睾丸切除手术史，有冠心病病史多年，平素可生活自理，无药物过敏史。
+查体:
+T：36.6℃，P：63次/分，R：17次/分，BP：136/57mmHg
+入院时，神清，精神尚可，神志清楚，急性痛苦貌，平车推入病房，自动体位，合作。皮肤粘膜无黄染，头颅无畸形，双瞳孔等大等圆，对光反射灵敏，颈软，颈静脉无怒张，胸廓对称，无皮下气肿及骨擦感，心音稍弱，各瓣膜区未闻及病理性杂音，双肺呼吸音弱，未闻及明显病理杂音。腹平肌软，全腹无压痛及反跳痛，肝脾双肾区无叩痛，肠鸣音正常。 专科情况：右侧膝关节髌骨前肿胀，髌骨前皮肤挫伤，髌骨中上段局部压痛，可扪及髌骨上级骨折端，末梢感觉血循良好。
+辅助检查:
+心脏彩超：升主动脉增宽 左心增大 主动脉瓣狭窄并重度返流 二尖瓣狭窄并返流 左心功能减低（43％）。EKG示：窦性心律 一度房室传导阻滞 左心室肥厚 可能继发性ST-T改变 异常心电图 DR:右侧髌骨骨折   查血：BNP 4720 pg/ml。患者无脑血管病史。
+
+患者术前肌酐值正常。
+
+患者无糖尿病史。
+[output]  根据提供的病例信息，患者的主要异常部分是右侧髌骨骨折和冠心病心功能Ⅱ级。右侧髌骨骨折可能导致右侧膝关节疼痛，肿胀，活动受限。对应的神经阻滞治疗可能有助于缓解症状。另外，冠心病的心功能减低、主动脉瓣和二尖瓣狭窄以及返流等情况也需要关注。这些情况可能会影响患者的心脏功能，需要进一步监测和治疗以维持心脏健康。

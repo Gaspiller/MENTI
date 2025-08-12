@@ -1,0 +1,38 @@
+[time]    2025-08-12 00:15:02
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表被用于计算高血糖患者的实际钠水平？
+
+Patient Case Analysis:
+
+根据病史和辅助检查结果，患者被诊断为2型糖尿病并伴有口干、口渴症状。患者因血糖控制不佳导致双侧胫腓骨破溃，可能存在神经和血管并发症。此外，患者还有高血压病史、脑梗死病史和白内障手术史，可能存在心血管系统和视觉系统的问题。肝功能检查正常，但血液中的甘油三酯水平升高，可能存在脂代谢紊乱。需要进一步关注患者的血糖控制、神经血管情况和心血管系统健康。
+
+[output]  ```json
+[
+    "哪一个量表被用于评估高血糖患者的实际钠水平？",
+    "哪种方法用于计算高血糖患者的实际钠水平？",
+    "高血糖患者的实际钠水平可以通过哪种方式进行评估？"
+]
+```

@@ -1,0 +1,38 @@
+[time]    2025-08-12 00:24:21
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表被用于评估患者进入ICU后的预期疾病严重程度和死亡率？
+
+Patient Case Analysis:
+
+根据患者病例，可以看出患者是因服用农药后出现腹痛、呕吐等症状。从临床表现以及辅助检查结果来看，患者可能受到了农药中毒的影响，这可能导致消化系统以及神经系统功能受损。具体表现为腹痛、恶心、呕吐以及头晕、胸闷、汗多等症状。血液检查结果也显示患者红细胞比容高，可能受到了毒素影响。因此，患者可能需要及时的解毒治疗和支持疗法来恢复相关功能。
+
+[output]  ```json
+[
+    "哪一个量表被用于评估患者进入ICU后的预期疾病严重程度和死亡率？",
+    "在患者服用农药后可能受到了毒素影响，是否有量表可用于评估其疾病严重程度和预后？",
+    "患者可能因农药中毒导致消化系统和神经系统功能受损，是否有评估死亡率的量表适用于此类患者？"
+]
+```

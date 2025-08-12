@@ -1,0 +1,38 @@
+[time]    2025-08-12 00:22:30
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估患者肺炎的严重程度？
+
+Patient Case Analysis:
+
+根据患者的病史和检查结果，可以初步推断患者出现了肺部感染和支气管扩张的情况。支气管扩张可能影响了呼吸系统的正常功能，导致咳嗽、咳痰等症状。肺部感染可能导致黄色痰、胸痛等症状，同时也可能对呼吸系统有一定的影响。此外，患者存在高血压和冠心病史，可能会对心血管系统造成影响，需要进一步诊断和治疗。
+
+[output]  ```json
+[
+    "哪些量表可以用于评估患者肺炎合并支气管扩张的严重程度？",
+    "肺炎并发支气管扩张的患者通常有哪些症状和体征？",
+    "患有高血压和冠心病史的患者在评估肺炎严重程度时需要考虑哪些因素？"
+]
+```

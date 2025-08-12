@@ -1,0 +1,299 @@
+[time]    2025-08-11 23:38:09
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Glasgow Coma Scale/Score (GCS)', 'Sequential Organ Failure Assessment (SOFA) Score', 'PHQ-9 (Patient Health Questionnaire-9)', 'Centor Score (Modified/McIsaac) for Strep Pharyngitis', 'GAD-7 (General Anxiety Disorder-7)', 'NIH Stroke Scale/Score (NIHSS)', 'HEART Score for Major Cardiac Events', 'CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk', 'PSI/PORT Score: Pneumonia Severity Index for CAP', 'Revised Cardiac Risk Index for Pre-Operative Risk']}}
+Detailed information of each tool: {{Glasgow Coma Scale/Score (GCS): Calculates the Glasgow Coma Scale/Score (GCS) based on the assessment of three key responses:
+    eye, verbal, and motor. The GCS is used to assess the level of consciousness in patients who are
+    in a coma due to medical or surgical causes and is applicable in various settings including
+    pre-hospital, acute care, and research.
+
+    The scale is particularly important for monitoring trends in a patient's mental status,
+    facilitating communication between healthcare providers, and aiding in decisions regarding
+    patient management.
+
+    Parameters:
+    eye_response (int or str): Score or 'NT' (not testable) for eye response
+    verbal_response (int or str): Score or 'NT' (not testable) for verbal response
+    motor_response (int or str): Score or 'NT' (not testable) for motor response
+
+    Returns:
+    int or None: Total GCS score if all components are testable, otherwise None
+
+    Notes:
+    - Scores for each component:
+      * Eye:    4 (spontaneous), 3 (to verbal command), 2 (to pain), 1 (none)
+      * Verbal: 5 (oriented), 4 (confused), 3 (inappropriate words),
+                2 (incomprehensible sounds), 1 (no verbal response)
+      * Motor:  6 (obeys commands), 5 (localizes pain), 4 (withdrawal from pain),
+                3 (flexion to pain), 2 (extension to pain), 1 (no motor response)
+    - If any component is 'NT' (not testable), the function returns None to indicate that
+      the GCS cannot be fully assessed.
+
+Sequential Organ Failure Assessment (SOFA) Score: "Calculate the Sequential Organ Failure Assessment (SOFA) Score which is used to assess the extent of a person's organ function or rate of failure.
+The score is used to track a patient's status during their stay in an intensive care unit to determine the extent of a person's organ function or rate of failure.
+
+Parameters:
+- pao2_fio2_ratio (float): The ratio of arterial oxygen partial pressure to fractional inspired oxygen (mmHg).
+- platelets (float): Platelet count in ×103/µL.
+- glasgow_coma_scale (int): Score on the Glasgow Coma Scale.
+- bilirubin (float): Serum bilirubin in mg/dL.
+- map_pressure (float): Mean arterial pressure in mmHg.
+- vasoactive_agents (int): Index indicating the vasoactive agents being used. Corresponds to 0 for no agents, 1 for low dose dopamine or any dose dobutamine, 2 for higher dose dopamine or low dose epinephrine/norepinephrine, 3 for very high dose of these agents.
+- creatinine (float): Serum creatinine in mg/dL.
+- urine_output (float): Urine output in mL/day.
+- o2_delivery_type (int): Index of the type of oxygen delivery method used. Types are as follows: 0 = nasal cannula, 1 = simple face mask, 2 = non-rebreather mask, 3 = high-flow nasal cannula.
+- o2_flow_rate (float): Flow rate of oxygen delivery in L/min.
+
+Returns:
+int: Total SOFA score which is the sum of individual scores across the specified parameters."
+
+PHQ-9 (Patient Health Questionnaire-9): Calculate the PHQ-9 (Patient Health Questionnaire-9) score.
+
+    The PHQ-9 is a clinical scale used to diagnose depression and to quantify and monitor the severity of depression symptoms.
+    It evaluates symptoms based on the 9 DSM criteria for major depressive disorder (MDD). Each criterion is scored from 0 to 3:
+    - "0" for 'Not at all'
+    - "1" for 'Several days'
+    - "2" for 'More than half the days'
+    - "3" for 'Nearly every day'
+    The function sums these scores to provide an overall severity score ranging from 0 to 27.
+
+    Parameters:
+    - interest_pleasure (int): Index from 0 to 3 indicating frequency of little interest or pleasure in doing things.
+    - feeling_down (int): Index from 0 to 3 indicating frequency of feeling down, depressed, or hopeless.
+    - sleep_issues (int): Index from 0 to 3 indicating trouble with falling or staying asleep, or sleeping too much.
+    - tired_energy (int): Index from 0 to 3 indicating feeling tired or having little energy.
+    - appetite_issues (int): Index from 0 to 3 indicating issues with poor appetite or overeating.
+    - self_feeling (int): Index from 0 to 3 indicating feelings of being bad about oneself, or feeling like a failure.
+    - concentration (int): Index from 0 to 3 indicating trouble concentrating on things.
+    - activity_level (int): Index from 0 to 3 indicating altered activity levels, either moving too slowly or being too fidgety.
+    - suicidal_thoughts (int): Index from 0 to 3 indicating frequency of thoughts of self-harm or being better off dead.
+
+    Returns:
+    - int: The total PHQ-9 score, which is the sum of all the individual scores for the symptoms listed above.
+
+
+Centor Score (Modified/McIsaac) for Strep Pharyngitis:  Calculate the Centor Score (Modified/McIsaac) for Strep Pharyngitis.
+    
+    This scoring system helps clinicians determine the likelihood of Group A Streptococcus (GAS) 
+    in patients with symptoms of pharyngitis, which is critical for deciding whether to proceed 
+    with testing for strep pharyngitis. The score integrates factors such as age, tonsillar exudate, 
+    cervical lymphadenopathy, temperature, and the presence of cough to stratify the risk.
+    
+    Parameters:
+    - age (int): Age of the patient in years.
+    - exudate_swelling (bool): True if there is exudate or swelling on the tonsils, False otherwise.
+    - tender_swollen_lymph_nodes (bool): True if there are tender/swollen anterior cervical lymph nodes, False otherwise.
+    - temperature (float): Patient's temperature in degrees Celsius.
+    - cough (bool): True if cough is present, False otherwise.
+
+    Returns:
+    - int: The calculated Centor Score, which ranges from -1 to 4.
+    
+    Usage:
+    Typically used in primary care settings to assess the necessity for further testing for GAS infection,
+    guiding the judicious use of antibiotics in managing pharyngitis. Higher scores suggest a higher probability
+    of streptococcal infection and may warrant testing and/or treatment.
+ 
+
+GAD-7 (General Anxiety Disorder-7): Calculate the GAD-7 (General Anxiety Disorder-7) score. This function computes the total score 
+    based on seven items that assess the severity of various signs of anxiety according to their 
+    frequency over the past two weeks. Each item is scored from 0 to 3 (0 = Not at all, 1 = Several days,
+    2 = More than half the days, 3 = Nearly every day).
+
+    This scale is a quick screening tool for detecting the presence of clinically significant anxiety disorders 
+    including Generalized Anxiety Disorder, Panic Disorder, Social Phobia, and Post-Traumatic Stress Disorder.
+    It is highly sensitive and specific across various cutoffs, used extensively in primary care and mental health settings 
+    to assess and monitor treatment responses.
+
+    Parameters:
+    - nervous (int): Score for feeling nervous, anxious, or on edge.
+    - control_worrying (int): Score for not being able to stop or control worrying.
+    - worry_too_much (int): Score for worrying too much about different things.
+    - trouble_relaxing (int): Score for having trouble relaxing.
+    - restlessness (int): Score for being so restless that it is hard to sit still.
+    - irritability (int): Score for becoming easily annoyed or irritable.
+    - fear_of_awful_events (int): Score for feeling afraid as if something awful might happen.
+
+    Returns:
+    int: The total GAD-7 score, ranging from 0 to 21.
+
+    Usage Example:
+    gad_7_score = calculate_gad_7(3, 2, 1, 3, 0, 2, 1)
+    print(f"GAD-7 Score: {gad_7_score}") # Outputs the calculated GAD-7 score
+
+
+NIH Stroke Scale/Score (NIHSS): 
+    Calculate the NIH Stroke Scale/Score (NIHSS).
+
+    The NIHSS helps physicians quantify the severity of a stroke in the acute setting. 
+    Increasing scores indicate a more severe stroke and correlate with the size of the infarction on both CT and MRI evaluation.
+    Scores assessed within the first 48 hours following a stroke have been shown to correlate with clinical outcomes at the 3-month and 1-year mark.
+    
+    Parameters:
+        loc_alertness (int): Level of consciousness - Alert (0), Arouses to minor stimulation (1), Requires repeated stimulation (2), Movements to pain (2), Postures or unresponsive (3)
+        loc_questions (int): Ask month and age - Both right (0), One right (1), None right (2), Dysarthric/intubated/trauma/language barrier (1), Aphasic (2)
+        loc_commands (int): 'Blink eyes' & 'squeeze hands' - Performs both (0), Performs one (1), Performs none (2)
+        horizontal_gaze (int): Horizontal extraocular movements - Normal (0), Partial palsy (1), Forced palsy (2)
+        visual_fields (int): Visual fields - No loss (0), Partial hemianopia (1), Complete hemianopia (2), Bilateral blindness (3), Bilateral hemianopia (3)
+        facial_palsy (int): Facial palsy - Normal (0), Minor (1), Partial (2), Unilateral complete (3), Bilateral complete (3)
+        left_arm_motor_drift (int): Left arm motor drift - No drift (0), Drift but doesn't hit bed (1), Drift, hits bed (2), Some effort against gravity (2), No effort against gravity (3), No movement (4), Amputation/joint fusion (0)
+        right_arm_motor_drift (int): Right arm motor drift - No drift (0), Drift but doesn't hit bed (1), Drift, hits bed (2), Some effort against gravity (2), No effort against gravity (3), No movement (4), Amputation/joint fusion (0)
+        left_leg_motor_drift (int): Left leg motor drift - No drift (0), Drift but doesn't hit bed (1), Drift, hits bed (2), Some effort against gravity (2), No effort against gravity (3), No movement (4), Amputation/joint fusion (0)
+        right_leg_motor_drift (int): Right leg motor drift - No drift (0), Drift but doesn't hit bed (1), Drift, hits bed (2), Some effort against gravity (2), No effort against gravity (3), No movement (4), Amputation/joint fusion (0)
+        limb_ataxia (int): Limb ataxia - No ataxia (0), Ataxia in 1 limb (1), Ataxia in 2 limbs (2), Does not understand (0), Paralyzed (0), Amputation/joint fusion (0)
+        sensation (int): Sensation - Normal (0), Mild-moderate loss (1), Mild-moderate loss (1), Complete loss (2), No response/quadriplegic (2), Coma/unresponsive (2)
+        language_aphasia (int): Language/aphasia - Normal (0), Mild-moderate aphasia (1), Severe aphasia (2), Mute/global aphasia (3), Coma/unresponsive (3)
+        dysarthria (int): Dysarthria - Normal (0), Mild-moderate (1), Severe (2), Mute/anarthric (2), Intubated/unable to test (0)
+        extinction_inattention (int): Extinction/inattention - No abnormality (0), Inattention (1), Extinction to bilateral stimulation (1), Profound hemi-inattention (2), Extinction to >1 modality (2)
+
+    Returns:
+        int: Total NIHSS score, summing all input values.
+   
+
+HEART Score for Major Cardiac Events:  Calculates the HEART Score for Major Cardiac Events based on five categories:
+    History, EKG, Age, Risk factors, and Troponin level. This score helps to
+    risk-stratify emergency department (ED) patients with chest pain into low,
+    moderate, and high-risk groups for acute coronary syndrome (ACS).
+
+    Args:
+    history_score (int): Score based on patient history assessment, where:
+        0 = Slightly suspicious,
+        1 = Moderately suspicious,
+        2 = Highly suspicious.
+    ekg_score (int): Score based on EKG findings, where:
+        0 = Normal,
+        1 = Non-specific repolarization disturbance,
+        2 = Significant ST deviation.
+    age_score (int): Score based on patient's age, where:
+        0 = less than 45,
+        1 = between 45 and 64,
+        2 = 65 or older.
+    risk_factors_score (int): Score based on number of cardiovascular risk factors, where:
+        0 = No known risk factors,
+        1 = 1–2 risk factors,
+        2 = 3 or more risk factors or history of atherosclerotic disease.
+    troponin_score (int): Score based on initial troponin levels, where:
+        0 = ≤ normal limit,
+        1 = 1–3 times normal limit,
+        2 = >3 times normal limit.
+
+    Returns:
+    int: The total HEART score, which can guide further management of chest pain patients
+         in the emergency setting. Total scores categorize risk as follows:
+         0-3 points indicate low risk,
+         4-6 points indicate moderate risk,
+         7-10 points indicate high risk.
+
+    Example:
+    >>> calculate_heart_score(2, 1, 1, 2, 1)
+    7
+
+
+CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk: Calculate the CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk.
+
+    The CHA2DS2-VASc score is a clinical prediction rule for estimating the risk of stroke in
+    patients with non-valvular atrial fibrillation. It is used to determine whether treatment with
+    anticoagulation or antiplatelet therapy is appropriate, based on the risk of thromboembolism.
+
+    Parameters:
+    - age (int): Age of the patient.
+    - sex (str): Biological sex of the patient, 'male' or 'female'.
+    - history_of_congestive_heart_failure (bool): True if the patient has a history of congestive heart failure, otherwise False.
+    - history_of_hypertension (bool): True if the patient has a history of hypertension, otherwise False.
+    - history_of_stroke_tia_thromboembolism (bool): True if the patient has a history of stroke, transient ischemic attack (TIA), or thromboembolism, otherwise False.
+    - history_of_vascular_disease (bool): True if the patient has a history of vascular disease (prior myocardial infarction, peripheral artery disease, or aortic plaque), otherwise False.
+    - history_of_diabetes (bool): True if the patient has a history of diabetes mellitus, otherwise False.
+
+    Returns:
+    - int: The total CHA2DS2-VASc score which is a sum of the points for each risk factor.
+
+    Example:
+    >>> calculate_cha2ds2_vasc_score(75, 'female', True, True, True, True, True)
+    9
+
+PSI/PORT Score: Pneumonia Severity Index for CAP: Calculate the PSI/PORT Score for Community-Acquired Pneumonia (CAP).
+
+    The PSI/PORT Score helps to risk stratify patients with community-acquired pneumonia in clinical or
+    emergency department settings. This score may underestimate severe pneumonia in younger, otherwise healthy patients.
+    It is important to consider other clinical factors such as sepsis, which may require additional testing
+    like lactate levels. Any patient over 50 years of age is automatically classified as risk class 2.
+
+    Parameters:
+    age (int): Patient's age in years.
+    sex (str): Patient's sex, either 'Female' or 'Male'.
+    nursing_home_resident (bool): True if the patient is a nursing home resident, False otherwise.
+    neoplastic_disease (bool): True if the patient has a history of neoplastic disease, False otherwise.
+    liver_disease (bool): True if the patient has a history of liver disease, False otherwise.
+    chf_history (bool): True if the patient has a history of congestive heart failure, False otherwise.
+    cerebrovascular_disease (bool): True if the patient has a history of cerebrovascular disease, False otherwise.
+    renal_disease (bool): True if the patient has a history of renal disease, False otherwise.
+    altered_mental_status (bool): True if the patient has altered mental status, False otherwise.
+    respiratory_rate (bool): True if respiratory rate is ≥30 breaths/min, False otherwise.
+    systolic_bp (bool): True if systolic blood pressure is <90 mmHg, False otherwise.
+    temperature (bool): True if temperature is <35°C or >39.9°C, False otherwise.
+    pulse (bool): True if pulse rate is ≥125 beats/min, False otherwise.
+    blood_ph (bool): True if blood pH is <7.35, False otherwise.
+    bun (bool): True if BUN is ≥30 mg/dL or ≥11 mmol/L, False otherwise.
+    sodium (bool): True if sodium level is <130 mmol/L, False otherwise.
+    glucose (bool): True if glucose level is ≥250 mg/dL or ≥14 mmol/L, False otherwise.
+    hematocrit (bool): True if hematocrit is <30%, False otherwise.
+    oxygen_pressure (bool): True if partial pressure of oxygen is <60 mmHg or <8 kPa, False otherwise.
+    pleural_effusion (bool): True if there is pleural effusion on x-ray, False otherwise.
+
+    Returns:
+    int: The total PSI/PORT Score indicating the severity of the pneumonia.
+
+Revised Cardiac Risk Index for Pre-Operative Risk: Calculate the Revised Cardiac Risk Index for Pre-Operative Risk.
+
+    This function calculates the Revised Cardiac Risk Index, which is used to assess the risk of major cardiac complications in patients undergoing elective or urgent/semi-urgent non-cardiac surgery. It is based on a set of specific risk factors and is valuable for risk stratification and aiding discussions about informed consent with patients.
+
+    Parameters:
+    elevated_risk_surgery (bool): True if the surgery is intraperitoneal, intrathoracic, or suprainguinal vascular.
+    history_of_ischemic_heart_disease (bool): True if there is a history of myocardial infarction, positive exercise test, current chest pain considered due to myocardial ischemia, or use of nitrate therapy or ECG showing pathological Q waves.
+    history_of_congestive_heart_failure (bool): True if there are signs such as pulmonary edema, bilateral rales or S3 gallop, paroxysmal nocturnal dyspnea, or chest X-ray showing pulmonary vascular redistribution.
+    history_of_cerebrovascular_disease (bool): True if there is a history of transient ischemic attack or stroke.
+    preop_treatment_with_insulin (bool): True if the patient is being treated with insulin pre-operatively.
+    preop_creatinine_above_threshold (bool): True if pre-operative creatinine levels are greater than 2 mg/dL or 176.8 µmol/L.
+
+    Returns:
+    int: The total Revised Cardiac Risk Index score, which is the sum of the individual risk factors present.
+
+    Usage:
+    The index is used primarily in the preoperative setting to assess cardiac risk. It assists healthcare providers in making informed decisions about further preoperative risk assessments and postoperative monitoring.
+ 
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{哪一个量表被用于评估患者的意识状态和昏迷程度？}}
+Task Scenario: {{Based on the provided patient's case, the main abnormality is the patient's state of coma and inability to respond. The patient was found unconscious with no response to stimuli, along with vomiting. This could suggest impairment in the patient's central nervous system, possibly involving the brainstem or higher cognitive functions. The normal vital signs and lack of specific focal neurological deficits may indicate a diffuse brain dysfunction rather than a localized lesion. Further evaluation and neuroimaging studies may be needed to determine the exact cause of the coma.}}
+Step By Step Analysis:
+
+[output]  1. The User Demand is asking for a tool used to assess a patient's level of consciousness and coma severity.
+2. Given the Task Scenario describing a patient with coma and inability to respond, the appropriate tool to use in this case would be the Glasgow Coma Scale/Score (GCS).
+3. The Glasgow Coma Scale is specifically designed to assess the conscious state of a patient by evaluating their eye, verbal, and motor responses.
+4. The GCS is commonly used in various medical settings to monitor changes in mental status, aid in communication among healthcare providers, and guide patient management decisions.
+5. In this scenario, where the patient is unconscious and unresponsive, the GCS can provide valuable information about the severity of the coma and help in determining the next steps in the patient's care.
+6. Therefore, the chosen tool from the Tool List based on the User Demand and Task Scenario is the Glasgow Coma Scale/Score (GCS).
+
+```json
+{
+    "chosen_tool_name": "Glasgow Coma Scale/Score (GCS)"
+}
+```

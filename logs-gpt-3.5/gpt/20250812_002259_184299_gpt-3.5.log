@@ -1,0 +1,264 @@
+[time]    2025-08-12 00:22:59
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Morphine Milligram Equivalents (MME) Calculator', 'HAS-BLED Score for Major Bleeding Risk', 'Mean Arterial Pressure (MAP)', 'Caprini Score for Venous Thromboembolism (2005)', 'ARISCAT Score for Postoperative Pulmonary Complications', 'CURB-65 Score for Pneumonia Severity', 'Fractional Excretion of Sodium (FENa)', 'Serum Osmolality/Osmolarity', 'Child-Pugh Score for Cirrhosis Mortality', 'APACHE II Score']}}
+Detailed information of each tool: {{Morphine Milligram Equivalents (MME) Calculator: Calculate the Morphine Milligram Equivalents (MME) per day based on the opioid dosage,
+    number of doses per day, and the drug used. This function can handle multiple drugs
+    to compute total MME/day by summing up MME for each drug.
+
+    Parameters:
+    - dosages (list of float): List of dosages for each drug in the units appropriate for the drug
+      (mcg/hr for fentanyl patches, mcg for fentanyl buccal/sublingual tablets, and mg for all other opioids).
+    - doses_per_day (list of int): List of doses per day for each corresponding drug.
+    - drugs (list of int): List of indexes representing drugs where each index corresponds to:
+      0: Codeine, 1: Fentanyl buccal or sublingual, 2: Fentanyl patch, 3: Hydrocodone,
+      4: Hydromorphone, 5: Methadone, 6: Morphine, 7: Oxycodone, 8: Oxymorphone,
+      9: Tapentadol, 10: Tramadol, 11: Buprenorphine (excluded from calculation).
+
+    Returns:
+    - float: Total MME/day calculated across all provided drugs.
+
+    Note:
+    - The conversion factors are based on standard estimates and may not account for individual differences.
+    - Buprenorphine is not included in the calculations as per its unique pharmacological profile.
+
+HAS-BLED Score for Major Bleeding Risk: Calculate the HAS-BLED Score for Major Bleeding Risk in patients with atrial fibrillation.
+    
+    The HAS-BLED Score is used to estimate the 1-year risk for major bleeding and helps guide decisions regarding anticoagulation therapy.
+    This scoring system can be considered alongside other bleeding risk scores or thromboembolic risk assessments to weigh the benefits and risks of anticoagulation.
+
+    Parameters:
+    hypertension (bool): True if the patient has hypertension, False otherwise.
+    renal_disease (bool): True if the patient has renal disease (dialysis, transplant, or Cr >2.26 mg/dL), False otherwise.
+    liver_disease (bool): True if the patient has liver disease (cirrhosis or bilirubin >2x normal with AST/ALT/AP >3x normal), False otherwise.
+    stroke_history (bool): True if the patient has a history of stroke, False otherwise.
+    major_bleeding_history (bool): True if the patient has had prior major bleeding or predisposition to bleeding, False otherwise.
+    labile_inr (bool): True if the patient has labile INR (unstable/high INRs, time in therapeutic range <60%), False otherwise.
+    elderly (bool): True if the patient is elderly (age >65), False otherwise.
+    medication_risk (bool): True if the patient uses medication that predisposes to bleeding (aspirin, clopidogrel, NSAIDs), False otherwise.
+    alcohol_usage (bool): True if the patient consumes alcohol significantly (≥8 drinks/week), False otherwise.
+
+    Returns:
+    int: The total HAS-BLED score, which is a sum of all applicable risk factors.
+
+    Example:
+    >>> calculate_has_bled_score(True, False, False, True, False, True, True, False, True)
+    5
+
+Mean Arterial Pressure (MAP): Calculate the Mean Arterial Pressure (MAP) from the systolic (SBP) and diastolic blood pressure (DBP).
+    
+    MAP is a crucial health metric used to assess tissue perfusion and blood flow. It is particularly important in
+    medical scenarios such as sepsis, trauma, stroke, intracranial bleeding, and hypertensive emergencies.
+    The formula used for calculating MAP is: MAP = 1/3 * SBP + 2/3 * DBP.
+    
+    Parameters:
+        systolic_bp (float): Systolic blood pressure in mmHg.
+        diastolic_bp (float): Diastolic blood pressure in mmHg.
+    
+    Returns:
+        float: The calculated mean arterial pressure in mmHg.
+    
+    Example:
+        >>> calculate_mean_arterial_pressure(120, 80)
+        93.33333333333333
+
+Caprini Score for Venous Thromboembolism (2005): Calculate the Caprini Score for Venous Thromboembolism (VTE) in surgical patients. The score assesses the risk of VTE
+    based on a variety of risk factors and stratifies patients for potential prophylactic interventions. Not applicable
+    to medical (non-surgical) patients. Requires patient interaction to ascertain certain historical risk factors.
+
+    Parameters:
+    age (int): Patient's age in years.
+    sex (int): Patient's sex (0 for male, 1 for female).
+    surgery_type (int): Type of surgery classified by duration and invasiveness (0 for none, 1 for minor, 2 for major, 5 for elective major lower extremity arthroplasty).
+    recent_event (int): Recent surgeries or events (0 for none, 1 for minor, 2 for major or laparoscopic over 45 min).
+    major_surgery (int): Whether the patient had major surgery (0 for no, 1 for yes).
+    chf (int): Congestive heart failure present (0 for no, 1 for yes).
+    sepsis (int): Sepsis present (0 for no, 1 for yes).
+    pneumonia (int): Pneumonia present (0 for no, 1 for yes).
+    plaster_cast (int): Presence of an immobilizing plaster cast (0 for no, 2 for yes).
+    fracture (int): Presence of hip, pelvis, or leg fracture (0 for no, 5 for yes).
+    stroke (int): History of stroke (0 for no, 5 for yes).
+    multiple_trauma (int): Presence of multiple traumas (0 for no, 5 for yes).
+    spinal_injury (int): Acute spinal cord injury causing paralysis (0 for no, 5 for yes).
+    varicose_veins (int): Presence of varicose veins (0 for no, 1 for yes).
+    swollen_legs (int): Currently swollen legs (0 for no, 1 for yes).
+    central_venous_access (int): Current central venous access (0 for no, 2 for yes).
+    history_dvt_pe (int): History of deep vein thrombosis or pulmonary embolism (0 for no, 3 for yes).
+    family_thrombosis (int): Family history of thrombosis (0 for no, 3 for yes).
+    factor_v_leiden (int): Positive Factor V Leiden mutation (0 for no, 3 for yes).
+    prothrombin_20210A (int): Positive prothrombin 20210A mutation (0 for no, 3 for yes).
+    homocysteine (int): Elevated serum homocysteine levels (0 for no, 3 for yes).
+    lupus_anticoagulant (int): Positive lupus anticoagulant (0 for no, 3 for yes).
+    anticardiolipin_antibody (int): Elevated anticardiolipin antibody levels (0 for no, 3 for yes).
+    heparin_thrombocytopenia (int): Heparin-induced thrombocytopenia (0 for no, 3 for yes).
+    thrombophilia (int): Other congenital or acquired thrombophilia (0 for no, 3 for yes).
+    mobility (int): Mobility status (0 for normal, out of bed, 1 for medical patient currently on bed rest, 2 for patient confined to bed >72 hours).
+    ibd (int): History of inflammatory bowel disease (0 for no, 1 for yes).
+    bmi_over_25 (int): BMI over 25 (0 for no, 1 for yes).
+    acute_mi (int): Acute myocardial infarction (0 for no, 1 for yes).
+    copd (int): Chronic obstructive pulmonary disease (0 for no, 1 for yes).
+    malignancy (int): Presence or history of malignancy (0 for no, 2 for yes).
+    other_risk_factors (int): Other unspecified risk factors (0 for no, 1 for yes).
+    contraceptives_hormones (int): Use of oral contraceptives or hormone replacement therapy (0 for no, 1 for yes).
+    reproductive_history (int): History of unexplained stillborn, ≥3 spontaneous abortions, or premature birth with toxemia or growth-restricted infant (0 for no, 1 for yes).
+
+    Returns:
+    int: The calculated Caprini score.
+
+
+ARISCAT Score for Postoperative Pulmonary Complications: Calculate the ARISCAT Score for Postoperative Pulmonary Complications.
+    This score helps predict the risk of pulmonary complications in patients undergoing surgery under general, neuraxial, or regional anesthesia.
+
+    Parameters:
+    age (int): Patient's age in years.
+    spo2 (int): Preoperative oxygen saturation (SpO2) percentage.
+    respiratory_infection (int): Indicates the presence of respiratory infection in the last month. 0 for 'No', 1 for 'Yes'.
+    anemia (int): Indicates preoperative anemia (Hgb ≤10 g/dL). 0 for 'No', 1 for 'Yes'.
+    surgical_incision (int): Type of surgical incision. 0 for 'Peripheral', 1 for 'Upper abdominal', 2 for 'Intrathoracic'.
+    surgery_duration (int): Duration of the surgery in hours.
+    emergency (int): Indicates if the procedure was an emergency. 0 for 'No', 1 for 'Yes'.
+
+    Returns:
+    int: The ARISCAT score, which is a summation of points based on the provided parameters.
+
+
+CURB-65 Score for Pneumonia Severity: 
+    Calculate the CURB-65 Score for Pneumonia Severity.
+
+    The CURB-65 calculator can be used in the emergency department setting to risk stratify a patient’s community acquired pneumonia.
+    It includes points for confusion, blood urea nitrogen (BUN), respiratory rate, blood pressure, and age.
+    
+    Parameters:
+    confusion (int): Confusion status, where 0 = No and 1 = Yes.
+    bun (int): Blood urea nitrogen status, where 0 = BUN ≤ 19 mg/dL (≤ 7 mmol/L urea) and 1 = BUN > 19 mg/dL (> 7 mmol/L urea).
+    respiratory_rate (int): Respiratory rate status, where 0 = < 30 breaths/min and 1 = ≥ 30 breaths/min.
+    blood_pressure (int): Blood pressure status, where 0 = Systolic BP ≥ 90 mmHg and Diastolic BP > 60 mmHg, and 1 = Systolic BP < 90 mmHg or Diastolic BP ≤ 60 mmHg.
+    age (int): Age status, where 0 = < 65 years and 1 = ≥ 65 years.
+
+    Returns:
+    int: The CURB-65 score which ranges from 0 to 5, indicating the severity of pneumonia.
+
+    Usage:
+    This function can be used in emergency settings to quickly assess the severity of pneumonia in patients and to guide decisions regarding hospitalization and treatment initiation.
+    
+    Example:
+    >>> curb_65_score(1, 1, 1, 0, 1)
+    4
+   
+
+Fractional Excretion of Sodium (FENa): Calculate the Fractional Excretion of Sodium (FENa) in percentage.
+    
+    The FENa is a clinical tool used to evaluate oliguria and/or acute kidney injury of unclear etiology. It is most
+    accurate in patients with oliguric acute kidney injury who have not been treated with diuretics, do not have
+    chronic kidney disease, urinary tract obstruction, or acute glomerular disease.
+    
+    Parameters:
+    serum_creatinine (float): Serum creatinine concentration (mg/dL)
+    urine_sodium (float): Urine sodium concentration (mmol/L)
+    serum_sodium (float): Serum sodium concentration (mmol/L)
+    urine_creatinine (float): Urine creatinine concentration (mg/dL)
+    
+    Returns:
+    float: The Fractional Excretion of Sodium (FENa) in percentage
+    
+    Note:
+    FENa is calculated using the formula:
+    FENa (%) = 100 × (serum_creatinine × urine_sodium) / (serum_sodium × urine_creatinine)
+
+Serum Osmolality/Osmolarity: Calculate the Serum Osmolality/Osmolarity using the Smithline-Gardner Formula.
+
+    This function calculates the serum osmolality/osmolarity based on the concentrations of sodium, glucose,
+    and blood urea nitrogen (BUN) in the blood. Serum osmolality is a measure of the solute concentration in the blood,
+    and it can be used to assess the body's fluid and electrolyte balance. An osmolar gap (difference between measured
+    and expected osmolality) greater than 10 can indicate the presence of certain toxic alcohols, mannitol, or propylene glycol.
+
+    Note: At extreme levels of serum glucose, such as in hyperosmolar hyperglycemic state (HHS), the osmolar gap may be skewed,
+    and clinical judgment should be used.
+
+    Parameters:
+    serum_na (float): Serum sodium concentration in mmol/L. Typical reference range is 135-145 mmol/L.
+    serum_glucose (float): Serum glucose concentration in mg/dL. Typical reference range is 70-100 mg/dL.
+    serum_bun (float): Blood urea nitrogen concentration in mg/dL. Typical reference range is 7-20 mg/dL.
+
+    Returns:
+    float: Calculated serum osmolality in mOsm/kg.
+
+    Formula:
+    Serum Osmolality (mOsm/kg) = 2 * (serum_na) + (serum_glucose / 18) + (serum_bun / 2.8)
+
+
+Child-Pugh Score for Cirrhosis Mortality: Calculate the Child-Pugh Score for Cirrhosis Mortality.
+
+    The Child-Pugh Score helps estimate the prognosis for a patient with cirrhosis.
+    Note that newer scores like the MELD and MELD-Na are generally preferred for their
+    increased accuracy in prognosis.
+
+    Parameters:
+    - bilirubin (float): Total bilirubin level in mg/dL.
+    - albumin (float): Albumin level in g/dL.
+    - inr (float): International Normalized Ratio.
+    - ascites (str): Describes the presence of ascites ('Absent', 'Slight', 'Moderate').
+    - encephalopathy (int): Grade of hepatic encephalopathy (0 for none, 1-2 for Grade 1-2, 3-4 for Grade 3-4).
+
+    Returns:
+    - int: The Child-Pugh Score, ranging from 5 (best) to 15 (worst).
+
+APACHE II Score: Calculate the APACHE II Score for a patient in the ICU, to assess severity and predict mortality.
+
+    Parameters:
+    - age (int): Age of the patient in years.
+    - temperature (float): Rectal temperature in degrees Celsius.
+    - mean_arterial_pressure (int): Mean arterial pressure in mm Hg.
+    - heart_rate (int): Heart rate in beats per minute.
+    - respiratory_rate (int): Respiratory rate in breaths per minute.
+    - sodium (float): Serum sodium in mmol/L.
+    - potassium (float): Serum potassium in mmol/L.
+    - creatinine (float): Serum creatinine in mg/100 mL.
+    - hematocrit (float): Hematocrit percentage.
+    - white_blood_cell_count (float): White blood cell count per cubic millimeter.
+    - gcs (int): Glasgow Coma Scale score, ranging from 3 (most impaired) to 15 (fully awake).
+    - ph (float): Arterial pH.
+    - history_of_severe_organ_insufficiency (int): Indicates the patient's history status, with 0 for 'No', 1 for 'Yes, and elective postoperative patient', and 2 for 'Yes, and nonoperative or emergency postoperative patient'.
+    - acute_renal_failure (int): Indicates if the patient has acute renal failure, with 0 for 'No' and 1 for 'Yes'.
+    - fio2 (int): Fraction of inspired oxygen, 0 for '<50%' and 1 for '≥50%'.
+    - pao2 (float, optional): Partial pressure of arterial oxygen, required if FiO2 < 50%.
+    - a_a_gradient (float, optional): Alveolar-arterial gradient, required if FiO2 ≥ 50%.
+
+    Returns:
+    - int: The computed APACHE II score.
+
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{The SpO2 percentage needs to be provided for calculation.}}
+Task Scenario: {{}}
+Step By Step Analysis:
+
+[output]  1. The user demand requires providing the SpO2 percentage for calculations.
+2. Based on the tool list, the suitable tool to choose is the ARISCAT Score for Postoperative Pulmonary Complications.
+3. The ARISCAT Score calculation requires parameters such as age, SpO2, respiratory infection status, anemia status, surgical incision type, surgery duration, and emergency status.
+4. We will utilize the parameters provided by the user to calculate the ARISCAT score.
+5. The calculated ARISCAT score will help predict the risk of postoperative pulmonary complications for the user. 
+
+```json
+{
+    "chosen_tool_name": "ARISCAT Score for Postoperative Pulmonary Complications"
+}
+```

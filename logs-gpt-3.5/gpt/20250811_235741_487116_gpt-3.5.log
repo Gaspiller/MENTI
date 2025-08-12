@@ -1,0 +1,186 @@
+[time]    2025-08-11 23:57:41
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Albumin, 白蛋白', 'Blood Urea Nitrogen (BUN), 尿素氮 (BUN)', 'Hemoglobin (HGB), 血红蛋白 (HGB)', 'Serotonin, 血清素', 'Acetone, 丙酮', 'Total Cholesterol, 总胆固醇', 'Digitalis Toxin, 毛地黄毒苷', 'Thyroglobulin (Tg), 甲状腺球蛋白 (Tg)', 'Creatinine, 肌酐', 'Mean Corpuscular Hemoglobin Concentration (MCHC), 平均红细胞血红蛋白浓度']}}
+Detailed information of each tool: {{Albumin, 白蛋白: Convert the value of Albumin from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'g/L', 'g/dL', 'g/100mL', 'g%', 'mg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Blood Urea Nitrogen (BUN), 尿素氮 (BUN): Convert the value of Blood Urea Nitrogen (BUN) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Hemoglobin (HGB), 血红蛋白 (HGB): Convert the value of Hemoglobin (HGB) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['g/L', 'g/dL', 'g/100mL', 'g%', 'mg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Serotonin, 血清素: Convert the value of Serotonin from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['µmol/L', 'ng/mL', 'µg/L', 'µg/dL', 'µg/100mL', 'µg%']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Acetone, 丙酮: Convert the value of Acetone from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Total Cholesterol, 总胆固醇: Convert the value of Total Cholesterol from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Digitalis Toxin, 毛地黄毒苷: Convert the value of Digitalis Toxin from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['nmol/L', 'ng/mL', 'µg/L', 'µg/dL', 'µg/100mL', 'µg%']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Thyroglobulin (Tg), 甲状腺球蛋白 (Tg): Convert the value of Thyroglobulin (Tg) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['ng/mL', 'ng/dL', 'ng/100mL', 'ng%', 'ng/L', 'µg/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Creatinine, 肌酐: Convert the value of Creatinine from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Mean Corpuscular Hemoglobin Concentration (MCHC), 平均红细胞血红蛋白浓度: Convert the value of Mean Corpuscular Hemoglobin Concentration (MCHC) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'mg/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/mL', '%']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{The albumin value needs to be provided in g/dL.}}
+Task Scenario: {{}}
+Step By Step Analysis:
+
+[output]  1. The user demands the albumin value to be provided in g/dL, which corresponds to the input_unit index of 2 in the Albumin tool.
+2. Considering the demand and the available tools, the most suitable tool from the Tool List is the Albumin tool.
+3. The user input_value, input_unit, and target_unit are required to convert the albumin value to g/dL.
+
+```json
+{
+    "chosen_tool_name": "Albumin, 白蛋白"
+}
+```

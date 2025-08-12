@@ -1,0 +1,254 @@
+[time]    2025-08-11 23:25:00
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['CKD-EPI Equations for Glomerular Filtration Rate (GFR)', 'Sequential Organ Failure Assessment (SOFA) Score', 'HAS-BLED Score for Major Bleeding Risk', 'Fractional Excretion of Sodium (FENa)', 'CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk', 'Creatinine Clearance (Cockcroft-Gault Equation)', 'CURB-65 Score for Pneumonia Severity', 'MDRD GFR Equation', 'Free Water Deficit in Hypernatremia', 'Framingham Risk Score for Hard Coronary Heart Disease']}}
+Detailed information of each tool: {{CKD-EPI Equations for Glomerular Filtration Rate (GFR): Calculate the 2021 CKD-EPI (Chronic Kidney Disease Epidemiology Collaboration) GFR (Glomerular Filtration Rate)
+    without the race component. This function estimates kidney function using creatinine-based equations and is intended
+    for patients with chronic (not acute) kidney disease. This calculation is particularly used by nephrologists to 
+    assess kidney function non-invasively and is considered more accurate than the MDRD Equation, especially in patients
+    with normal or mildly reduced eGFR.
+
+    Parameters:
+    - serum_creatinine (float): The serum creatinine level of the patient in mg/dL.
+    - age (int): The age of the patient in years.
+    - gender (int): The gender of the patient. Use 0 for male and 1 for female.
+
+    Returns:
+    - float: The estimated GFR in ml/min/1.73m^2.
+
+    Usage:
+    To use this function, provide the serum creatinine level, age, and gender index (0 for male, 1 for female).
+    For example, calculate_ckd_epi_gfr(0.9, 30, 0) calculates the GFR for a 30-year-old male with a serum creatinine of 0.9 mg/dL.
+
+    Note:
+    - Not intended for use in patients on dialysis.
+    - Less accurate in patients with diabetes (before progression to overt nephropathy), pregnant women, and those with unusual body mass.
+
+
+Sequential Organ Failure Assessment (SOFA) Score: "Calculate the Sequential Organ Failure Assessment (SOFA) Score which is used to assess the extent of a person's organ function or rate of failure.
+The score is used to track a patient's status during their stay in an intensive care unit to determine the extent of a person's organ function or rate of failure.
+
+Parameters:
+- pao2_fio2_ratio (float): The ratio of arterial oxygen partial pressure to fractional inspired oxygen (mmHg).
+- platelets (float): Platelet count in ×103/µL.
+- glasgow_coma_scale (int): Score on the Glasgow Coma Scale.
+- bilirubin (float): Serum bilirubin in mg/dL.
+- map_pressure (float): Mean arterial pressure in mmHg.
+- vasoactive_agents (int): Index indicating the vasoactive agents being used. Corresponds to 0 for no agents, 1 for low dose dopamine or any dose dobutamine, 2 for higher dose dopamine or low dose epinephrine/norepinephrine, 3 for very high dose of these agents.
+- creatinine (float): Serum creatinine in mg/dL.
+- urine_output (float): Urine output in mL/day.
+- o2_delivery_type (int): Index of the type of oxygen delivery method used. Types are as follows: 0 = nasal cannula, 1 = simple face mask, 2 = non-rebreather mask, 3 = high-flow nasal cannula.
+- o2_flow_rate (float): Flow rate of oxygen delivery in L/min.
+
+Returns:
+int: Total SOFA score which is the sum of individual scores across the specified parameters."
+
+HAS-BLED Score for Major Bleeding Risk: Calculate the HAS-BLED Score for Major Bleeding Risk in patients with atrial fibrillation.
+    
+    The HAS-BLED Score is used to estimate the 1-year risk for major bleeding and helps guide decisions regarding anticoagulation therapy.
+    This scoring system can be considered alongside other bleeding risk scores or thromboembolic risk assessments to weigh the benefits and risks of anticoagulation.
+
+    Parameters:
+    hypertension (bool): True if the patient has hypertension, False otherwise.
+    renal_disease (bool): True if the patient has renal disease (dialysis, transplant, or Cr >2.26 mg/dL), False otherwise.
+    liver_disease (bool): True if the patient has liver disease (cirrhosis or bilirubin >2x normal with AST/ALT/AP >3x normal), False otherwise.
+    stroke_history (bool): True if the patient has a history of stroke, False otherwise.
+    major_bleeding_history (bool): True if the patient has had prior major bleeding or predisposition to bleeding, False otherwise.
+    labile_inr (bool): True if the patient has labile INR (unstable/high INRs, time in therapeutic range <60%), False otherwise.
+    elderly (bool): True if the patient is elderly (age >65), False otherwise.
+    medication_risk (bool): True if the patient uses medication that predisposes to bleeding (aspirin, clopidogrel, NSAIDs), False otherwise.
+    alcohol_usage (bool): True if the patient consumes alcohol significantly (≥8 drinks/week), False otherwise.
+
+    Returns:
+    int: The total HAS-BLED score, which is a sum of all applicable risk factors.
+
+    Example:
+    >>> calculate_has_bled_score(True, False, False, True, False, True, True, False, True)
+    5
+
+Fractional Excretion of Sodium (FENa): Calculate the Fractional Excretion of Sodium (FENa) in percentage.
+    
+    The FENa is a clinical tool used to evaluate oliguria and/or acute kidney injury of unclear etiology. It is most
+    accurate in patients with oliguric acute kidney injury who have not been treated with diuretics, do not have
+    chronic kidney disease, urinary tract obstruction, or acute glomerular disease.
+    
+    Parameters:
+    serum_creatinine (float): Serum creatinine concentration (mg/dL)
+    urine_sodium (float): Urine sodium concentration (mmol/L)
+    serum_sodium (float): Serum sodium concentration (mmol/L)
+    urine_creatinine (float): Urine creatinine concentration (mg/dL)
+    
+    Returns:
+    float: The Fractional Excretion of Sodium (FENa) in percentage
+    
+    Note:
+    FENa is calculated using the formula:
+    FENa (%) = 100 × (serum_creatinine × urine_sodium) / (serum_sodium × urine_creatinine)
+
+CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk: Calculate the CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk.
+
+    The CHA2DS2-VASc score is a clinical prediction rule for estimating the risk of stroke in
+    patients with non-valvular atrial fibrillation. It is used to determine whether treatment with
+    anticoagulation or antiplatelet therapy is appropriate, based on the risk of thromboembolism.
+
+    Parameters:
+    - age (int): Age of the patient.
+    - sex (str): Biological sex of the patient, 'male' or 'female'.
+    - history_of_congestive_heart_failure (bool): True if the patient has a history of congestive heart failure, otherwise False.
+    - history_of_hypertension (bool): True if the patient has a history of hypertension, otherwise False.
+    - history_of_stroke_tia_thromboembolism (bool): True if the patient has a history of stroke, transient ischemic attack (TIA), or thromboembolism, otherwise False.
+    - history_of_vascular_disease (bool): True if the patient has a history of vascular disease (prior myocardial infarction, peripheral artery disease, or aortic plaque), otherwise False.
+    - history_of_diabetes (bool): True if the patient has a history of diabetes mellitus, otherwise False.
+
+    Returns:
+    - int: The total CHA2DS2-VASc score which is a sum of the points for each risk factor.
+
+    Example:
+    >>> calculate_cha2ds2_vasc_score(75, 'female', True, True, True, True, True)
+    9
+
+Creatinine Clearance (Cockcroft-Gault Equation): 
+    Calculate the Creatinine Clearance using the Cockcroft-Gault Equation.
+
+    This function estimates kidney function, useful for Chronic Kidney Disease (CKD) staging
+    and adjusting or discontinuing medications based on kidney function. It incorporates
+    the patient's age, weight, sex, and serum creatinine levels to calculate the clearance rate.
+    This is particularly relevant when considering medication dosages for patients with reduced
+    kidney function, despite potential overestimations in GFR with newer creatinine assays.
+
+    Parameters:
+    - age (int): The age of the patient in years. Should be a positive integer.
+    - weight (float): The weight of the patient in kilograms. Should be a positive decimal.
+    - creatinine (float): The serum creatinine level in mg/dL. Should be a positive decimal.
+    - sex (str): The sex of the patient. Acceptable values are 'male' or 'female'.
+                 This affects the calculation as there is a different multiplier for females.
+
+    Returns:
+    - float: The estimated creatinine clearance in mL/min.
+    
+    Example:
+    >>> calculate_creatinine_clearance(50, 70, 1.2, 'female')
+    49.30555555555556
+  
+
+CURB-65 Score for Pneumonia Severity: 
+    Calculate the CURB-65 Score for Pneumonia Severity.
+
+    The CURB-65 calculator can be used in the emergency department setting to risk stratify a patient’s community acquired pneumonia.
+    It includes points for confusion, blood urea nitrogen (BUN), respiratory rate, blood pressure, and age.
+    
+    Parameters:
+    confusion (int): Confusion status, where 0 = No and 1 = Yes.
+    bun (int): Blood urea nitrogen status, where 0 = BUN ≤ 19 mg/dL (≤ 7 mmol/L urea) and 1 = BUN > 19 mg/dL (> 7 mmol/L urea).
+    respiratory_rate (int): Respiratory rate status, where 0 = < 30 breaths/min and 1 = ≥ 30 breaths/min.
+    blood_pressure (int): Blood pressure status, where 0 = Systolic BP ≥ 90 mmHg and Diastolic BP > 60 mmHg, and 1 = Systolic BP < 90 mmHg or Diastolic BP ≤ 60 mmHg.
+    age (int): Age status, where 0 = < 65 years and 1 = ≥ 65 years.
+
+    Returns:
+    int: The CURB-65 score which ranges from 0 to 5, indicating the severity of pneumonia.
+
+    Usage:
+    This function can be used in emergency settings to quickly assess the severity of pneumonia in patients and to guide decisions regarding hospitalization and treatment initiation.
+    
+    Example:
+    >>> curb_65_score(1, 1, 1, 0, 1)
+    4
+   
+
+MDRD GFR Equation: Calculate the Modified Diet in Renal Disease (MDRD) Glomerular Filtration Rate (GFR).
+    This function estimates kidney function in patients with stable chronic kidney disease.
+    It should not be used to assess acute renal failure or when GFR is >60 ml/min/m2 as it underestimates GFR.
+
+    Parameters:
+    - serum_cr (float): Serum creatinine (Cr) level in mg/dL. Should be a positive float.
+    - age (int): Age of the patient in years. Should be a non-negative integer.
+    - race_index (int): Index representing the patient's race. 0 for non-black, 1 for black.
+    - gender_index (int): Index representing the patient's gender. 0 for male, 1 for female.
+
+    Returns:
+    - float: Estimated GFR in ml/min/1.73m2.
+
+    The formula used:
+    GFR = 175 × Serum Cr^{-1.154} × age^{-0.203} × 1.212 (if patient is black) × 0.742 (if female)
+
+
+Free Water Deficit in Hypernatremia: Calculate the Free Water Deficit (FWD) in a patient with hypernatremia.
+
+    The FWD is a measure used in the management of hypernatremia to determine the amount
+    of water a patient needs to ingest or be given intravenously to reach normal serum
+    sodium levels without inducing cellular edema.
+
+    Parameters:
+    - gender_age_group (int): Index representing the patient's gender and age group.
+      - 0: Adult male
+      - 1: Adult female
+      - 2: Elderly male
+      - 3: Elderly female
+      - 4: Child
+    - weight_kg (float): The weight of the patient in kilograms.
+    - current_na (float): The current serum sodium level of the patient (mmol/L).
+    - ideal_na (float): The target or ideal serum sodium level for the patient (mmol/L).
+
+    Returns:
+    - float: The calculated free water deficit in liters.
+
+    Usage:
+    Calculate the free water deficit for an elderly female weighing 70 kg with a current
+    sodium level of 155 mmol/L and an ideal sodium level of 140 mmol/L:
+    >>> calculate_free_water_deficit(3, 70, 155, 140)
+
+
+Framingham Risk Score for Hard Coronary Heart Disease: Calculate the Framingham Risk Score for Hard Coronary Heart Disease in patients aged 30-79 years without prior coronary heart disease history, diabetes, or intermittent claudication.
+
+    Parameters:
+    - age (int): The age of the patient in years. Valid range: 30-79.
+    - sex (int): The sex of the patient. 0 for female, 1 for male.
+    - smoker_status (int): Smoking status of the patient. 0 for non-smoker, 1 for smoker.
+    - total_cholesterol (float): Total cholesterol level in mg/dL.
+    - hdl_cholesterol (float): HDL cholesterol level in mg/dL.
+    - systolic_bp (float): Systolic blood pressure in mm Hg.
+    - bp_medication (int): Indicates if the blood pressure is being treated with medications. 0 for no, 1 for yes.
+
+    Returns:
+    float: The risk percentage of developing hard coronary heart disease.
+
+    Calculation is based on the logarithmic transformations of risk factors and their interactions,
+    separately for males and females. Note that older population data was used to develop this scale,
+    which may not fully align with current population risks.
+
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{哪一个量表用于评估患者的肾小球滤过率？}}
+Task Scenario: {{根据病例分析，患者存在右肾萎缩、左侧输尿管末端结石、左肾积水、肾周渗出等情况，这表明患者泌尿系统出现了严重问题，可能导致尿液正常排出的功能受损。此外，患者还出现了慢性肾衰竭急性加重的情况，提示肾功能受损且急性加重。结合房颤、肝脏多发占位性病变、心功能减低等情况，可能导致对心衰、循环系统等方面功能的影响，严重威胁患者的生命健康。治疗方案中的输尿管镜下钬激光碎石术的麻醉需要谨慎考虑，以免对患者身体其他系统造成更多影响。}}
+Step By Step Analysis:
+
+[output]  1. 根据用户需求，用户想要了解用于评估患者肾小球滤过率的量表。
+2. 查看量表列表，找到适合的工具。
+3. CKD-EPI方程用于计算患者的肾小球滤过率，特别适用于慢性肾病患者，可以通过血清肌酐水平、年龄和性别来估计肾功能。
+4. 根据病例分析，患者存在泌尿系统问题以及慢性肾衰竭急性加重的情况，需要对肾功能进行评估。
+5. 因此，选择CKD-EPI Equations for Glomerular Filtration Rate (GFR)这个工具来估算患者的肾小球滤过率信息。
+6. 将结果整理为JSON文件。
+
+```json
+{
+    "chosen_tool_name": "CKD-EPI Equations for Glomerular Filtration Rate (GFR)"
+}
+```

@@ -1,0 +1,38 @@
+[time]    2025-08-12 00:10:32
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表被用于评估患者在子宫肌瘤剔除术前的心脏风险？
+
+Patient Case Analysis:
+
+根据提供的病例资料，患者被诊断为子宫肌瘤和子宫内膜不规则增生。手术方式为子宫肌瘤剔除术，术前进行了VVI型心脏起搏器安置术后的麻醉处理。虽然在手术后病情好转，但需要关注在手术中可能存在的心脏功能方面的风险，因为心脏起搏器对心脏功能有一定影响。需要密切监测患者的心脏功能是否受到影响，并在术后进行定期复查以确保心脏的正常功能。
+
+[output]  ```json
+[
+    "哪一个量表被用于评估患者在子宫肌瘤剔除术前的心脏风险？手术前VVI型心脏起搏器安置术后的麻醉处理如何影响心脏功能？",
+    "哪一个量表被用于评估患者在子宫肌瘤剔除术前的心脏风险？手术后需要如何密切监测心脏功能的变化？",
+    "哪一个量表被用于评估患者在子宫肌瘤剔除术前的心脏风险？术后心脏起搏器对心脏功能可能产生怎样的影响？"
+]
+```

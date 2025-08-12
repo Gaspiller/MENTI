@@ -1,0 +1,53 @@
+[time]    2025-08-12 00:14:00
+[model]   gpt-3.5
+[input]   
+You are a medical diagnostic model. Your task is to analyze the abnormal parts of the provided patient's case and speculate on which bodily functions might be impaired.
+
+The requirements are as follows:
+1. Every inference you make must be substantiated by actual evidence from the provided patient's case.
+2. You only need to analyze the main, abnormal parts of the provided patient's case.
+3. You just need to make a brief analysis.
+
+Begin!
+
+
+基本信息:女，27岁，军人
+发病原因:病因不明
+临床诊断:1.妊娠合并子宫瘢痕 2.经剖宫产术分娩（孕4产2宫内妊娠39+2周LOA单活婴） 3.妊娠期糖尿病 4.先天性心脏病（室间隔缺损修补术后） 5.心功能Ⅰ级 6.IVF-ET术后 7.妊娠合并盆腔粘连
+治疗方案:腰硬联合麻醉下行子宫下段剖宫产+盆腔粘连松解术
+治疗结果:病情好转
+病案重点:腰硬联合麻醉下行子宫下段剖宫产+盆腔粘连松解术
+
+[病案介绍]
+主诉:
+停经39+2周,发现血糖升高三月余
+现病史:
+孕妇平素月经规则，末次月经2019年05月1日，预产期2020年02月8日；行IVF-ET术妊娠，孕早期未出现纳差不适，无放射线接触史；早孕期无病毒感染，未接触其他有害物；孕4月出现胎动,孕12周在我院建卡检查共14次；唐氏三联筛查低风险。各次查胎心血压均正常。2019-11-08糖耐量试验：5.88-9.17-8.43mmol/L，诊断为妊娠期糖尿病，自行饮食控制，血糖控制可。现孕妇孕39+2周，轻微胸闷、头晕、乏力，无气促、咳嗽，无发热，无胸痛，无腹痛，无阴道流血，无阴道流液，自觉胎动正常。现门诊拟“妊娠期糖尿病，妊娠合并子宫瘢痕”收入院。停经以来孕妇无腹痛,无腹坠胀；无阴道流血，无阴道流液，无头痛、头晕，无眼花、视曚，无肢体浮肿及抽搐。无发热。食欲食量良好，睡眠情况良好，孕前体重55.00kg，体重增加13公斤，大便正常，小便正常。
+既往史:
+约6岁时因“室间隔缺损”行修补术。2007年年因异位妊娠切除左侧输卵管（开腹），2009年因异位妊娠切除右侧输卵管（开腹）。否认肝炎、结核、疟疾病史，否认高血压、冠心病等慢性疾病病史，否认脑血管疾病、精神疾病史，否认外伤、输血史。
+过敏史：否认食物、药物过敏史。
+查体:
+T：37.1℃，P：83次/分，R：20次/分，BP：115/68mmHg
+发育正常，营养良好，正常面容，表情自如，自动体位，神志清楚，精神状态良好，语音清晰，合作，对答切题。全身皮肤黏膜无黄染，无皮疹、皮下出血，无皮下结节，毛发分布正常，皮下无水肿，无肝脏、蜘蛛痣。全身浅表淋巴结无肿大。头颅无畸形、压痛、包块、无眼睑水肿，结膜未见异常，眼球运动未见异常，巩膜无黄染，瞳孔等大等圆，直径约3mm，对光反射灵敏，外耳道无异常分泌物，乳突区无压痛。外鼻无畸形，鼻通气畅，鼻翼无扇动，两侧副鼻窦区无压痛。口唇无发绀，口腔粘膜未见异常。伸舌无偏斜、震颤，齿龈未见异常，咽部粘膜未见异常，扁桃体无肿大。颈软无抵抗，气管居中，颈动脉搏动未见异常，颈静脉无怒张，肝颈静脉回流征阴性，甲状腺无肿大，无压痛、震颤、血管杂音。胸廓未见异常，胸部正中可见纵行长约12cm手术瘢痕，胸骨无压痛，胸部正常对称，**凸。呼吸运动未见异常，肋间隙未见异常，语颤未见异常。叩诊清音，呼吸规整，双肺呼吸音清晰，双侧肺未闻及干、湿性啰音，无胸膜摩擦音。心前区无隆起，心尖搏动未见异常，心浊音界未见异常，心律83次/分，律齐，各瓣膜听诊区未闻及病理性杂音，无心包摩擦音。腹膨隆，无腹壁静脉曲张，腹部柔软，下腹部见一长约12cm横向手术疤痕，无压痛，腹部无压痛、反跳痛，腹部无包块。肝脏肋下未触及，脾脏肋下未触及，Murphy氏征阴性，肝区无叩击痛，肾区无叩击痛，无移动性浊音。肠鸣音未见异常，4次/分。脊柱正常生理弯曲，四肢活动自如，无畸形、下肢静脉曲张、杵状指（趾），关节未见异常，双下肢无浮肿。四肢肌力、肌张力正常，生理反射正常，病理反射未引出。
+专科检查：宫底高度33.0cm，腹围94.0cm，估计胎儿大小3300.00g，胎方位左枕前(LOA)，宫缩未扪及，先露头，未衔接，胎心音140次/分。阴检未查。
+辅助检查:
+血分析、尿分析、凝血四项、肝功八项及生化八项均无明显异常。地贫检查正常、G-6-PD正常。妊娠甲功三项：TSH 1.112mIU/L  FT4 9.59pmol/L  TPO 3.11IU/ml。
+血型“B”型，RH阳性。TRUST阴性、HIV阴性、HCV阴性，乙肝五项示：HBsAg（阴性），HBsAb（阳性），HBeAg（阴性）,HBeAb（阴性）,HBcAb（阴性）
+唐氏筛查：21-三体综合征：低风险，18-三体：低风险，开放性脊柱裂：低风险。
+糖耐量试验：5.88-9.17-8.43mmol/L。糖化血红蛋白5.4%
+2020年01月06日本院二维彩超：宫内妊娠，单活胎，胎儿脐动脉血流频谱测值偏高，胎儿超声四项生物物理评分8分（BPD83mm，HC304mm，AC295mm，FL66mm，AFV44mm，AFI155mm，胎盘位于后壁，厚40mm，成熟度II-度，S/D 3.00-3.22，胎儿估重2244g+/-328g）。
+2019-11-18胎儿超声心动图：胎儿心内结果未见复杂畸形，胎儿循环阻力未见明显异常。
+2020-02-1我院心脏彩超：先天性心脏病术后，具体不详，房、室间隔未见明显残留分流，二尖瓣关闭不全（轻度）、三尖瓣关闭不全（轻度），左室收缩功能正常。EF=68%。
+2020-02-1B型钠尿肽 11.9pg/ml。2020-02-12 D-二聚体4.78mg/L，血分析、肝功八项、生化八项、凝血四项未见明显异常。
+2020-02-1胸片未见明显异常
+2020-02-1新型冠状病毒RNA监测未见明显异常。患者术前肌酐值正常。
+
+患者无心力衰竭病史。
+[output]  Analysis:
+1. The patient was diagnosed with uterine scar, pregnancy with pelvic adhesions, gestational diabetes, congenital heart disease (with previous repair of ventricular septal defect), and undergone IVF-ET. These conditions indicate potential complications with pregnancy and possible impaired fertility.
+2. The patient's history of surgery for ectopic pregnancies and repair of ventricular septal defect suggests a history of reproductive health issues and heart conditions.
+3. The presence of gestational diabetes during pregnancy indicates impaired glucose metabolism and potential complications for both the mother and baby during pregnancy.
+4. The diagnosis of congenital heart disease with mild valve regurgitation suggests a potential impairment in cardiac function, although the patient's current heart function is classified as Class I.
+5. Overall, the patient's main abnormal conditions involve reproductive health, glucose metabolism, and cardiac function, which could impact fertility, pregnancy outcomes, and overall cardiovascular health. 
+
+Further monitoring and management may be necessary to ensure a successful pregnancy and optimal health for both the patient and the baby.

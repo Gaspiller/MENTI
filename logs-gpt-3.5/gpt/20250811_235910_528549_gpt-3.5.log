@@ -1,0 +1,110 @@
+[time]    2025-08-11 23:59:10
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the estimated due date (EDD) for a pregnancy based on the last menstrual period and cycle length.
+
+    This function uses a standard method recommended by the American College of Obstetricians and Gynecologists (ACOG),
+    which considers the first trimester ultrasound measurements to be the most accurate method to establish gestational age.
+
+    Parameters:
+    - cycle_length (int): The length of the menstrual cycle in days. Standard cycle is 28 days.
+                           If cycle_length is more than 28, the difference is added to the 40-week period.
+    - last_menstrual_period (str): The first day of the last menstrual period in 'YYYY/MM/DD' format.
+
+    Returns:
+    - str: The estimated due date in the format 'Day, Month DD, YYYY'.
+
+    Usage:
+    The function is intended for use by healthcare providers to estimate due dates for pregnant patients,
+    which can help in managing pregnancy timelines effectively and in planning medical care accordingly.
+
+    Example:
+    'Monday, Oct 16, 2023'
+}}
+Reference Text:
+{{基本信息:女，27岁，教师
+发病原因:病因不明
+临床诊断:1.胎膜早破 2.头位顺产（孕2产1宫内妊娠39+5周LOA单活婴） 3.脐带绕颈
+治疗方案:顺产+产后予以口服生化汤加减以养血活血、祛瘀生新、温经止痛
+治疗结果:病情好转
+病案重点:胎膜早破
+
+[病案介绍]
+主诉:
+停经39+5周，阴道流液1小时
+现病史:
+孕妇平素月经规则，末次月经2019年05月19日，预产期2020年02月26日；停经40天测尿HCG阳性。停经早期未出现纳差不适，无放射线接触史；早孕期无病毒感染，未接触其他有害物；停经4月出现胎动,停经18周在我院建卡检查共11次；唐氏三联筛查唐氏综合征、18-三体低风险；开放性脊柱裂高危险。各次查胎心血压均正常。现孕妇停经39+5周，患者今天早上00：30无诱因出现阴道流液,色清,无下腹痛，偶有宫缩，无**见红，自觉胎动正常。现急诊拟“1.胎膜早破 2.先兆临产”收入院。停经以来孕妇无腹痛,无腹坠胀；无**流血，有**流液，无头痛、头晕，无眼花、视曚，无肢体浮肿及抽搐。无发热。食欲食量良好，睡眠情况良好，孕前体重45.00kg，体重增加14公斤，大便正常，小便正常。
+既往史:
+既往双眼激光视力矫正术(具体不详),否认肝炎、结核、疟疾病史，否认高血压、冠心病、糖尿病等慢性疾病病史，否认脑血管疾病、精神疾病史，否认其他手术、外伤、输血史。
+查体:
+T：36.8℃，P：76次/分，R：20次/分，BP：111/71mmHg
+发育正常，营养良好，正常面容，表情自如，自动体位，神志清楚，精神状态良好，语音清晰，合作，对答切题。全身皮肤黏膜无黄染，无皮疹、皮下出血，无皮下结节、瘢痕，毛发分布正常，皮下无水肿，无肝脏、蜘蛛痣。全身浅表淋巴结无肿大。头颅无畸形、压痛、包块、无眼睑水肿，结膜未见异常，眼球运动未见异常，巩膜无黄染，瞳孔等大等圆，直径约3mm，对光反射灵敏，外耳道无异常分泌物，乳突区无压痛。外鼻无畸形，鼻通气畅，鼻翼无扇动，两侧副鼻窦区无压痛。口唇无发绀，口腔粘膜未见异常。伸舌无偏斜、震颤，齿龈未见异常，咽部粘膜未见异常，扁桃体无肿大。颈软无抵抗，气管居中，颈动脉搏动未见异常，颈静脉无怒张，肝颈静脉回流征阴性，甲状腺无肿大，无压痛、震颤、血管杂音。胸廓未见异常，胸骨无压痛，**正常对称，**凸。呼吸运动未见异常，肋间隙未见异常，语颤未见异常。叩诊清音，呼吸规整，双肺呼吸音清晰，双侧肺未闻及干、湿性啰音，无胸膜摩擦音。心前区无隆起，心尖搏动未见异常，心浊音界未见异常，心律76次/分，律齐，各瓣膜听诊区未闻及病理性杂音，无心包摩擦音。腹膨隆，无腹壁静脉曲张，腹部柔软，无压痛、反跳痛，腹部无包块。肝脏肋下未触及，脾脏肋下未触及，Murphy氏征阴性，肝区无叩击痛，肾区无叩击痛，无移动性浊音。肠鸣音未见异常，4次/分。脊柱正常生理弯曲，四肢活动自如，无畸形、下肢静脉曲张、杵状指（趾），关节未见异常，双下肢无浮肿。四肢肌力、肌张力正常，生理反射正常，病理反射未引出。 
+专科情况：宫底高度34.0cm，腹围95.0cm，估计胎儿大小3400.00g，胎方位左枕前(LOA)，宫缩不规则，强度弱，先露头，已衔接，胎心音140次/分。阴检：宫颈质地软，宫颈位置后，宫颈消退100.00%，可容1指，宫颈扩张0.0cm。先露位置S-2。胎膜已破，羊水{清}，PH>7。骨盆测量：髂前上棘间径24.0cm，髂嵴间径26.0cm，骶耻外径19.0cm，坐骨结节间径9.0cm。
+辅助检查:
+血分析、尿分析、凝血四项、肝功八项及生化八项均无明显异常。地贫检查正常、G-6-PD正常。妊娠甲功三项：TSH 1.073mIU/L  FT4 8.65pmol/L  TPO 172.28IU/ml。 血型“O”型，RH阳性。TRUST阴性、HIV阴性、HCV阴性，乙肝五项示：HBsAg（阴性），HBsAb（阴性），HBeAg（阴性）,HBeAb（阴性）,HBcAb（阴性） 唐氏筛查：21-三体综合征：低风险，18-三体：低风险，开放性脊柱裂：高风险。 糖耐量试验：4.39-5.13-5.23mmol/L。入院时未做新型冠状病毒RNA检测及胸部CT。心电图未见明显异常。 2020年02月20日本院二维彩超：宫内妊娠，单活胎，脐带绕颈一周，胎儿脐动脉血流频谱测值正常，胎儿超声四项生物物理评分8分（BPD93mm，HC334mm，AC333mm，FL73mm，AFV59mm，AFI139mm，胎盘位于前壁，厚36mm，成熟度III度，S/D2.2，胎儿估重3216g+/-470g）。患者月经周期为28天。}}
+Step By Step Analysis:
+
+[output]  1. Analyze the parameter "cycle_length":
+   - The menstrual cycle length is not explicitly stated in the Reference Text.
+   - According to the Function Docstring, the standard cycle length is 28 days. If the cycle length is more than 28, the difference is added to the 40-week period. 
+   - In this case, since the menstrual cycle length is not provided, we will assume the standard cycle length of 28 days for this patient.
+
+2. Analyze the parameter "last_menstrual_period":
+   - The patient's last menstrual period is stated as "2019/05/19" in the Reference Text.
+   - The format of the last menstrual period date in the reference text is already in the required format 'YYYY/MM/DD'.
+
+Parameters List:
+```json
+{
+    "cycle_length": {"Value": 28, "Unit": "days"},
+    "last_menstrual_period": {"Value": "2019/05/19", "Unit": null}
+}
+```

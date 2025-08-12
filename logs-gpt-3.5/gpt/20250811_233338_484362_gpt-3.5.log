@@ -1,0 +1,38 @@
+[time]    2025-08-11 23:33:38
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估患者10年内冠状动脉粥样硬化性心脏病发作风险？
+
+Patient Case Analysis:
+
+根据病历资料分析，患者出现急性左心衰竭、冠状动脉粥样硬化性心脏病和缺血性心肌病的临床诊断，血钾值偏低，心电图显示ST压低，T波低平或倒置，心脏超声显示左室舒张功能减低，这些表明患者心脏功能受损且可能存在心肌缺血。除此之外，患者有慢性支气管炎急性发作的病史，可能导致呼吸系统功能受损。综上所述，患者的心脏和呼吸系统功能可能受损，需要针对心衰和缺血性心脏病等方面进行治疗。
+
+[output]  ```json
+[
+    "Which scale is used to assess the risk of myocardial infarction in patients with coronary atherosclerotic heart disease within 10 years?",
+    "What assessment tool is recommended for evaluating the likelihood of a heart attack in patients with coronary artery atherosclerosis within a decade?",
+    "Is there a specific scoring system for predicting the risk of myocardial infarction within 10 years in patients with coronary artery atherosclerosis?"
+]
+```

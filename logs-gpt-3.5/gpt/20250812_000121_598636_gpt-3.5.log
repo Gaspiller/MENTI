@@ -1,0 +1,280 @@
+[time]    2025-08-12 00:01:21
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Sequential Organ Failure Assessment (SOFA) Score', 'Centor Score (Modified/McIsaac) for Strep Pharyngitis', 'Child-Pugh Score for Cirrhosis Mortality', 'HEART Score for Major Cardiac Events', 'Revised Cardiac Risk Index for Pre-Operative Risk', 'APACHE II Score', 'Caprini Score for Venous Thromboembolism (2005)', 'Framingham Risk Score for Hard Coronary Heart Disease', 'ARISCAT Score for Postoperative Pulmonary Complications', 'HAS-BLED Score for Major Bleeding Risk']}}
+Detailed information of each tool: {{Sequential Organ Failure Assessment (SOFA) Score: "Calculate the Sequential Organ Failure Assessment (SOFA) Score which is used to assess the extent of a person's organ function or rate of failure.
+The score is used to track a patient's status during their stay in an intensive care unit to determine the extent of a person's organ function or rate of failure.
+
+Parameters:
+- pao2_fio2_ratio (float): The ratio of arterial oxygen partial pressure to fractional inspired oxygen (mmHg).
+- platelets (float): Platelet count in ×103/µL.
+- glasgow_coma_scale (int): Score on the Glasgow Coma Scale.
+- bilirubin (float): Serum bilirubin in mg/dL.
+- map_pressure (float): Mean arterial pressure in mmHg.
+- vasoactive_agents (int): Index indicating the vasoactive agents being used. Corresponds to 0 for no agents, 1 for low dose dopamine or any dose dobutamine, 2 for higher dose dopamine or low dose epinephrine/norepinephrine, 3 for very high dose of these agents.
+- creatinine (float): Serum creatinine in mg/dL.
+- urine_output (float): Urine output in mL/day.
+- o2_delivery_type (int): Index of the type of oxygen delivery method used. Types are as follows: 0 = nasal cannula, 1 = simple face mask, 2 = non-rebreather mask, 3 = high-flow nasal cannula.
+- o2_flow_rate (float): Flow rate of oxygen delivery in L/min.
+
+Returns:
+int: Total SOFA score which is the sum of individual scores across the specified parameters."
+
+Centor Score (Modified/McIsaac) for Strep Pharyngitis:  Calculate the Centor Score (Modified/McIsaac) for Strep Pharyngitis.
+    
+    This scoring system helps clinicians determine the likelihood of Group A Streptococcus (GAS) 
+    in patients with symptoms of pharyngitis, which is critical for deciding whether to proceed 
+    with testing for strep pharyngitis. The score integrates factors such as age, tonsillar exudate, 
+    cervical lymphadenopathy, temperature, and the presence of cough to stratify the risk.
+    
+    Parameters:
+    - age (int): Age of the patient in years.
+    - exudate_swelling (bool): True if there is exudate or swelling on the tonsils, False otherwise.
+    - tender_swollen_lymph_nodes (bool): True if there are tender/swollen anterior cervical lymph nodes, False otherwise.
+    - temperature (float): Patient's temperature in degrees Celsius.
+    - cough (bool): True if cough is present, False otherwise.
+
+    Returns:
+    - int: The calculated Centor Score, which ranges from -1 to 4.
+    
+    Usage:
+    Typically used in primary care settings to assess the necessity for further testing for GAS infection,
+    guiding the judicious use of antibiotics in managing pharyngitis. Higher scores suggest a higher probability
+    of streptococcal infection and may warrant testing and/or treatment.
+ 
+
+Child-Pugh Score for Cirrhosis Mortality: Calculate the Child-Pugh Score for Cirrhosis Mortality.
+
+    The Child-Pugh Score helps estimate the prognosis for a patient with cirrhosis.
+    Note that newer scores like the MELD and MELD-Na are generally preferred for their
+    increased accuracy in prognosis.
+
+    Parameters:
+    - bilirubin (float): Total bilirubin level in mg/dL.
+    - albumin (float): Albumin level in g/dL.
+    - inr (float): International Normalized Ratio.
+    - ascites (str): Describes the presence of ascites ('Absent', 'Slight', 'Moderate').
+    - encephalopathy (int): Grade of hepatic encephalopathy (0 for none, 1-2 for Grade 1-2, 3-4 for Grade 3-4).
+
+    Returns:
+    - int: The Child-Pugh Score, ranging from 5 (best) to 15 (worst).
+
+HEART Score for Major Cardiac Events:  Calculates the HEART Score for Major Cardiac Events based on five categories:
+    History, EKG, Age, Risk factors, and Troponin level. This score helps to
+    risk-stratify emergency department (ED) patients with chest pain into low,
+    moderate, and high-risk groups for acute coronary syndrome (ACS).
+
+    Args:
+    history_score (int): Score based on patient history assessment, where:
+        0 = Slightly suspicious,
+        1 = Moderately suspicious,
+        2 = Highly suspicious.
+    ekg_score (int): Score based on EKG findings, where:
+        0 = Normal,
+        1 = Non-specific repolarization disturbance,
+        2 = Significant ST deviation.
+    age_score (int): Score based on patient's age, where:
+        0 = less than 45,
+        1 = between 45 and 64,
+        2 = 65 or older.
+    risk_factors_score (int): Score based on number of cardiovascular risk factors, where:
+        0 = No known risk factors,
+        1 = 1–2 risk factors,
+        2 = 3 or more risk factors or history of atherosclerotic disease.
+    troponin_score (int): Score based on initial troponin levels, where:
+        0 = ≤ normal limit,
+        1 = 1–3 times normal limit,
+        2 = >3 times normal limit.
+
+    Returns:
+    int: The total HEART score, which can guide further management of chest pain patients
+         in the emergency setting. Total scores categorize risk as follows:
+         0-3 points indicate low risk,
+         4-6 points indicate moderate risk,
+         7-10 points indicate high risk.
+
+    Example:
+    >>> calculate_heart_score(2, 1, 1, 2, 1)
+    7
+
+
+Revised Cardiac Risk Index for Pre-Operative Risk: Calculate the Revised Cardiac Risk Index for Pre-Operative Risk.
+
+    This function calculates the Revised Cardiac Risk Index, which is used to assess the risk of major cardiac complications in patients undergoing elective or urgent/semi-urgent non-cardiac surgery. It is based on a set of specific risk factors and is valuable for risk stratification and aiding discussions about informed consent with patients.
+
+    Parameters:
+    elevated_risk_surgery (bool): True if the surgery is intraperitoneal, intrathoracic, or suprainguinal vascular.
+    history_of_ischemic_heart_disease (bool): True if there is a history of myocardial infarction, positive exercise test, current chest pain considered due to myocardial ischemia, or use of nitrate therapy or ECG showing pathological Q waves.
+    history_of_congestive_heart_failure (bool): True if there are signs such as pulmonary edema, bilateral rales or S3 gallop, paroxysmal nocturnal dyspnea, or chest X-ray showing pulmonary vascular redistribution.
+    history_of_cerebrovascular_disease (bool): True if there is a history of transient ischemic attack or stroke.
+    preop_treatment_with_insulin (bool): True if the patient is being treated with insulin pre-operatively.
+    preop_creatinine_above_threshold (bool): True if pre-operative creatinine levels are greater than 2 mg/dL or 176.8 µmol/L.
+
+    Returns:
+    int: The total Revised Cardiac Risk Index score, which is the sum of the individual risk factors present.
+
+    Usage:
+    The index is used primarily in the preoperative setting to assess cardiac risk. It assists healthcare providers in making informed decisions about further preoperative risk assessments and postoperative monitoring.
+ 
+
+APACHE II Score: Calculate the APACHE II Score for a patient in the ICU, to assess severity and predict mortality.
+
+    Parameters:
+    - age (int): Age of the patient in years.
+    - temperature (float): Rectal temperature in degrees Celsius.
+    - mean_arterial_pressure (int): Mean arterial pressure in mm Hg.
+    - heart_rate (int): Heart rate in beats per minute.
+    - respiratory_rate (int): Respiratory rate in breaths per minute.
+    - sodium (float): Serum sodium in mmol/L.
+    - potassium (float): Serum potassium in mmol/L.
+    - creatinine (float): Serum creatinine in mg/100 mL.
+    - hematocrit (float): Hematocrit percentage.
+    - white_blood_cell_count (float): White blood cell count per cubic millimeter.
+    - gcs (int): Glasgow Coma Scale score, ranging from 3 (most impaired) to 15 (fully awake).
+    - ph (float): Arterial pH.
+    - history_of_severe_organ_insufficiency (int): Indicates the patient's history status, with 0 for 'No', 1 for 'Yes, and elective postoperative patient', and 2 for 'Yes, and nonoperative or emergency postoperative patient'.
+    - acute_renal_failure (int): Indicates if the patient has acute renal failure, with 0 for 'No' and 1 for 'Yes'.
+    - fio2 (int): Fraction of inspired oxygen, 0 for '<50%' and 1 for '≥50%'.
+    - pao2 (float, optional): Partial pressure of arterial oxygen, required if FiO2 < 50%.
+    - a_a_gradient (float, optional): Alveolar-arterial gradient, required if FiO2 ≥ 50%.
+
+    Returns:
+    - int: The computed APACHE II score.
+
+
+Caprini Score for Venous Thromboembolism (2005): Calculate the Caprini Score for Venous Thromboembolism (VTE) in surgical patients. The score assesses the risk of VTE
+    based on a variety of risk factors and stratifies patients for potential prophylactic interventions. Not applicable
+    to medical (non-surgical) patients. Requires patient interaction to ascertain certain historical risk factors.
+
+    Parameters:
+    age (int): Patient's age in years.
+    sex (int): Patient's sex (0 for male, 1 for female).
+    surgery_type (int): Type of surgery classified by duration and invasiveness (0 for none, 1 for minor, 2 for major, 5 for elective major lower extremity arthroplasty).
+    recent_event (int): Recent surgeries or events (0 for none, 1 for minor, 2 for major or laparoscopic over 45 min).
+    major_surgery (int): Whether the patient had major surgery (0 for no, 1 for yes).
+    chf (int): Congestive heart failure present (0 for no, 1 for yes).
+    sepsis (int): Sepsis present (0 for no, 1 for yes).
+    pneumonia (int): Pneumonia present (0 for no, 1 for yes).
+    plaster_cast (int): Presence of an immobilizing plaster cast (0 for no, 2 for yes).
+    fracture (int): Presence of hip, pelvis, or leg fracture (0 for no, 5 for yes).
+    stroke (int): History of stroke (0 for no, 5 for yes).
+    multiple_trauma (int): Presence of multiple traumas (0 for no, 5 for yes).
+    spinal_injury (int): Acute spinal cord injury causing paralysis (0 for no, 5 for yes).
+    varicose_veins (int): Presence of varicose veins (0 for no, 1 for yes).
+    swollen_legs (int): Currently swollen legs (0 for no, 1 for yes).
+    central_venous_access (int): Current central venous access (0 for no, 2 for yes).
+    history_dvt_pe (int): History of deep vein thrombosis or pulmonary embolism (0 for no, 3 for yes).
+    family_thrombosis (int): Family history of thrombosis (0 for no, 3 for yes).
+    factor_v_leiden (int): Positive Factor V Leiden mutation (0 for no, 3 for yes).
+    prothrombin_20210A (int): Positive prothrombin 20210A mutation (0 for no, 3 for yes).
+    homocysteine (int): Elevated serum homocysteine levels (0 for no, 3 for yes).
+    lupus_anticoagulant (int): Positive lupus anticoagulant (0 for no, 3 for yes).
+    anticardiolipin_antibody (int): Elevated anticardiolipin antibody levels (0 for no, 3 for yes).
+    heparin_thrombocytopenia (int): Heparin-induced thrombocytopenia (0 for no, 3 for yes).
+    thrombophilia (int): Other congenital or acquired thrombophilia (0 for no, 3 for yes).
+    mobility (int): Mobility status (0 for normal, out of bed, 1 for medical patient currently on bed rest, 2 for patient confined to bed >72 hours).
+    ibd (int): History of inflammatory bowel disease (0 for no, 1 for yes).
+    bmi_over_25 (int): BMI over 25 (0 for no, 1 for yes).
+    acute_mi (int): Acute myocardial infarction (0 for no, 1 for yes).
+    copd (int): Chronic obstructive pulmonary disease (0 for no, 1 for yes).
+    malignancy (int): Presence or history of malignancy (0 for no, 2 for yes).
+    other_risk_factors (int): Other unspecified risk factors (0 for no, 1 for yes).
+    contraceptives_hormones (int): Use of oral contraceptives or hormone replacement therapy (0 for no, 1 for yes).
+    reproductive_history (int): History of unexplained stillborn, ≥3 spontaneous abortions, or premature birth with toxemia or growth-restricted infant (0 for no, 1 for yes).
+
+    Returns:
+    int: The calculated Caprini score.
+
+
+Framingham Risk Score for Hard Coronary Heart Disease: Calculate the Framingham Risk Score for Hard Coronary Heart Disease in patients aged 30-79 years without prior coronary heart disease history, diabetes, or intermittent claudication.
+
+    Parameters:
+    - age (int): The age of the patient in years. Valid range: 30-79.
+    - sex (int): The sex of the patient. 0 for female, 1 for male.
+    - smoker_status (int): Smoking status of the patient. 0 for non-smoker, 1 for smoker.
+    - total_cholesterol (float): Total cholesterol level in mg/dL.
+    - hdl_cholesterol (float): HDL cholesterol level in mg/dL.
+    - systolic_bp (float): Systolic blood pressure in mm Hg.
+    - bp_medication (int): Indicates if the blood pressure is being treated with medications. 0 for no, 1 for yes.
+
+    Returns:
+    float: The risk percentage of developing hard coronary heart disease.
+
+    Calculation is based on the logarithmic transformations of risk factors and their interactions,
+    separately for males and females. Note that older population data was used to develop this scale,
+    which may not fully align with current population risks.
+
+
+ARISCAT Score for Postoperative Pulmonary Complications: Calculate the ARISCAT Score for Postoperative Pulmonary Complications.
+    This score helps predict the risk of pulmonary complications in patients undergoing surgery under general, neuraxial, or regional anesthesia.
+
+    Parameters:
+    age (int): Patient's age in years.
+    spo2 (int): Preoperative oxygen saturation (SpO2) percentage.
+    respiratory_infection (int): Indicates the presence of respiratory infection in the last month. 0 for 'No', 1 for 'Yes'.
+    anemia (int): Indicates preoperative anemia (Hgb ≤10 g/dL). 0 for 'No', 1 for 'Yes'.
+    surgical_incision (int): Type of surgical incision. 0 for 'Peripheral', 1 for 'Upper abdominal', 2 for 'Intrathoracic'.
+    surgery_duration (int): Duration of the surgery in hours.
+    emergency (int): Indicates if the procedure was an emergency. 0 for 'No', 1 for 'Yes'.
+
+    Returns:
+    int: The ARISCAT score, which is a summation of points based on the provided parameters.
+
+
+HAS-BLED Score for Major Bleeding Risk: Calculate the HAS-BLED Score for Major Bleeding Risk in patients with atrial fibrillation.
+    
+    The HAS-BLED Score is used to estimate the 1-year risk for major bleeding and helps guide decisions regarding anticoagulation therapy.
+    This scoring system can be considered alongside other bleeding risk scores or thromboembolic risk assessments to weigh the benefits and risks of anticoagulation.
+
+    Parameters:
+    hypertension (bool): True if the patient has hypertension, False otherwise.
+    renal_disease (bool): True if the patient has renal disease (dialysis, transplant, or Cr >2.26 mg/dL), False otherwise.
+    liver_disease (bool): True if the patient has liver disease (cirrhosis or bilirubin >2x normal with AST/ALT/AP >3x normal), False otherwise.
+    stroke_history (bool): True if the patient has a history of stroke, False otherwise.
+    major_bleeding_history (bool): True if the patient has had prior major bleeding or predisposition to bleeding, False otherwise.
+    labile_inr (bool): True if the patient has labile INR (unstable/high INRs, time in therapeutic range <60%), False otherwise.
+    elderly (bool): True if the patient is elderly (age >65), False otherwise.
+    medication_risk (bool): True if the patient uses medication that predisposes to bleeding (aspirin, clopidogrel, NSAIDs), False otherwise.
+    alcohol_usage (bool): True if the patient consumes alcohol significantly (≥8 drinks/week), False otherwise.
+
+    Returns:
+    int: The total HAS-BLED score, which is a sum of all applicable risk factors.
+
+    Example:
+    >>> calculate_has_bled_score(True, False, False, True, False, True, True, False, True)
+    5
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{哪一个量表用于评估该患者肺炎的严重程度？}}
+Task Scenario: {{根据提供的病例，患者的临床诊断为支气管炎和中性粒细胞减少症。在辅助检查中，患者的中性粒细胞数绝对值低于正常范围，降钙素原测定结果也显示偏低。这表明患者存在中性粒细胞减少症，可能导致免疫功能下降和抵抗力降低，容易出现感染等症状。支气管炎引起的呼吸道疾病也可能加重患者症状。需要进一步关注患者的免疫系统功能和呼吸道情况，以便针对病因进行治疗。}}
+Step By Step Analysis:
+
+[output]  1. 根据用户需求，用户需要评估患者肺炎的严重程度，因此需要选择一个对肺部疾病进行评估的工具。
+
+2. 在工具列表中，我们可以选择“ARISCAT Score for Postoperative Pulmonary Complications”来评估患者肺炎的严重程度。该工具用于预测手术后肺部并发症的风险，可以在这种情况下进行调整以评估肺炎的严重程度。
+
+3. 因此，我们将选择“ARISCAT Score for Postoperative Pulmonary Complications”作为最适合的工具，并为患者的肺炎情况进行评估。
+
+```json
+{
+    "chosen_tool_name": "ARISCAT Score for Postoperative Pulmonary Complications"
+}
+```

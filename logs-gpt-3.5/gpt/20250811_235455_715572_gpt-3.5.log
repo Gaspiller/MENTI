@@ -1,0 +1,38 @@
+[time]    2025-08-11 23:54:55
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于计算患者的平均动脉压（MAP）？
+
+Patient Case Analysis:
+
+根据患者的病史和临床表现，他被锐器刺伤左胸部导致穿透性心脏损伤和急性心脏压塞。手术治疗包括全身麻醉下行心脏裂口修补术，这表明他可能出现了心包积液导致的心脏压塞。辅助检查显示心脏X线显示心影增大且心梗消失，心电图呈现窦速和ST-T改变，血液检查显示贫血。这些结果暗示患者的心脏功能受损，可能导致心功能不全和心脏压塞等问题。
+
+[output]  ```json
+[
+    "哪一个量表用于评估患者心脏功能的损伤程度？",
+    "哪个评估方法适用于患者可能出现的心功能不全情况？",
+    "用于测量患者平均动脉压（MAP）的量表应如何选择？"
+]
+```

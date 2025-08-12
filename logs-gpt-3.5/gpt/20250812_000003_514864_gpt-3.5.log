@@ -1,0 +1,181 @@
+[time]    2025-08-12 00:00:03
+[model]   gpt-3.5
+[input]   
+You are a Parameter List checking model.
+
+You will receive a Function Docstring, and Parameter List. You need to verify that the entries in the Parameter List comply with the requirements described in the Function Docstring, including the Value and Unit.
+If all units are consistent, choose "calculate". If there are any discrepancies in the units, choose "toolcall".
+You should not perform unit conversions directly. When converting units is needed, you must choose "toolcall" and elaborate on this unit conversion task in the "supplementary_information", including the parameter value, the current unit of the parameter, and the target unit of the parameter.
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis of each parameter in the parameter list. You need to output each parameter's Function Docstring individually, then analyze and compare them.
+2. You especially need to compare the Unit of the Parameter List with the units required in the Function Docstring. 
+3. If the units are inconsistent, please select "toolcall" and specify the numerical value of the parameter required for unit conversion, as well as the units before and after the conversion in the "supplementary_information".
+4. The unit conversion task may require converting units of different parameters, and you need to break down the task into individual unit conversion tasks for each parameter. Therefore, "supplementary_information" is a list of strings, each of which represents a standalone, minimalized unit conversion task.
+5. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+
+Here are some examples:
+Function Docstring:
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Parameter List：
+{{{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 1.75, "Unit": "m"}
+}}}
+Step By Step Analysis:
+{{(Here is your step-by-step analysis. You need to ouptput the corresponding Function Docstring first for each parameter, and systematically compare each parameter with the corresponding information in the Parameter List and Function Docstring.)}}
+Final Answer:
+```json
+{
+    "chosen_decision_name": "toolcall",
+    "supplementary_information": ["The height is 1.75m. The height needs to be converted from meters to centimeters."]
+}
+```
+
+Function Docstring:
+{{Calculate the Corrected Sodium for Hyperglycemia using Hillier's method from 1999.
+
+Parameters:
+ measured_sodium (float): The measured sodium level in mEq/L.
+ serum_glucose (float): The serum glucose level in mg/dL.
+
+Returns:
+ float: The corrected sodium level in mEq/L.
+
+}}
+Parameter List：
+{{{
+    "measured_sodium": {"Value": 140, "Unit": "mmol/L"},
+    "serum_glucose": {"Value": 80, "Unit": "mmol/L"}
+}}}
+Step By Step Analysis:
+{{(Here is your step-by-step analysis. You need to ouptput the corresponding Function Docstring first for each parameter, and systematically compare each parameter with the corresponding information in the Parameter List and Function Docstring.)}}
+Final Answer:
+```json
+{
+    "chosen_decision_name": "toolcall",
+    "supplementary_information": ["The measured_sodium is 140 mmol/L. It needs to be converted from mmol/L to mEq/L.", "The serum_glucose is 80 mmol/L. It needs to be converted from mmol/L to mg/dL."]
+}
+```
+
+Function Docstring:
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Parameter List：
+{{{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}}}
+Step By Step Analysis:
+{{(Here is your step-by-step analysis. You need to ouptput the corresponding Function Docstring first for each parameter, and systematically compare each parameter with the corresponding information in the Parameter List and Function Docstring.)}}
+Final Answer:
+```json
+{
+    "chosen_decision_name": "calculate",
+    "supplementary_information": "All parameters comply with the Function Docstring requirements. No unit conversion is needed as the parameters use indices to specify units."
+}
+```
+
+Attention: The Final Answer must be wrapped by ```json and ```. In the 'supplementary_information', the Value of the parameter is required!!!
+
+Begin!
+
+Function Docstring:
+{{Calculate the estimated due date (EDD) for a pregnancy based on the last menstrual period and cycle length.
+
+    This function uses a standard method recommended by the American College of Obstetricians and Gynecologists (ACOG),
+    which considers the first trimester ultrasound measurements to be the most accurate method to establish gestational age.
+
+    Parameters:
+    - cycle_length (int): The length of the menstrual cycle in days. Standard cycle is 28 days.
+                           If cycle_length is more than 28, the difference is added to the 40-week period.
+    - last_menstrual_period (str): The first day of the last menstrual period in 'YYYY/MM/DD' format.
+
+    Returns:
+    - str: The estimated due date in the format 'Day, Month DD, YYYY'.
+
+    Usage:
+    The function is intended for use by healthcare providers to estimate due dates for pregnant patients,
+    which can help in managing pregnancy timelines effectively and in planning medical care accordingly.
+
+    Example:
+    'Monday, Oct 16, 2023'
+}}
+Parameter List：{{{
+    "cycle_length": {"Value": 28, "Unit": "null"},
+    "last_menstrual_period": {"Value": "2018/03/15", "Unit": "null"}
+}}}
+Step By Step Analysis:
+
+[output]  Function Docstring:
+Calculate the estimated due date (EDD) for a pregnancy based on the last menstrual period and cycle length.
+
+    This function uses a standard method recommended by the American College of Obstetricians and Gynecologists (ACOG),
+    which considers the first trimester ultrasound measurements to be the most accurate method to establish gestational age.
+
+    Parameters:
+    - cycle_length (int): The length of the menstrual cycle in days. Standard cycle is 28 days.
+                           If cycle_length is more than 28, the difference is added to the 40-week period.
+    - last_menstrual_period (str): The first day of the last menstrual period in 'YYYY/MM/DD' format.
+
+    Returns:
+    - str: The estimated due date in the format 'Day, Month DD, YYYY'.
+
+    Usage:
+    The function is intended for use by healthcare providers to estimate due dates for pregnant patients,
+    which can help in managing pregnancy timelines effectively and in planning medical care accordingly.
+
+    Example:
+    'Monday, Oct 16, 2023'
+
+Parameter List：
+{
+    "cycle_length": {"Value": 28, "Unit": "null"},
+    "last_menstrual_period": {"Value": "2018/03/15", "Unit": "null"}
+}
+
+Step By Step Analysis:
+Cycle Length:
+Parameter Value: 28
+Docstring Unit: days
+Parameter Unit: null
+
+Last Menstrual Period:
+Parameter Value: "2018/03/15"
+Docstring Unit: 'YYYY/MM/DD'
+Parameter Unit: null
+
+Final Answer:
+```json
+{
+    "chosen_decision_name": "calculate",
+    "supplementary_information": "All parameters comply with the Function Docstring requirements. No unit conversion is needed as the parameters are in the correct format."
+}
+```

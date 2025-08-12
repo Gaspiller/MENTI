@@ -1,0 +1,186 @@
+[time]    2025-08-12 00:13:25
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Acetone, 丙酮', 'Serine, 丝氨酸', 'Ferritin, 铁蛋白', 'Red Blood Cell, 红细胞', 'Vitamin B3 (Niacin, Nicotinic Acid), 维生素 B3(烟酸、烟酸)', 'Creatinine, 肌酐', 'Ammonia (NH3), 氨(NH3)', 'Total Iron Binding Capacity (TIBC), 总铁结合力 (TIBC)', 'Total Bilirubin, 总胆红素', 'Vitamin C (Ascorbic Acid), 维生素 C(抗坏血酸)']}}
+Detailed information of each tool: {{Acetone, 丙酮: Convert the value of Acetone from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Serine, 丝氨酸: Convert the value of Serine from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'ng/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Ferritin, 铁蛋白: Convert the value of Ferritin from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['nmol/L', 'pmol/L', 'µg/L', 'µg/dL', 'µg/100mL', 'µg%', 'ng/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Red Blood Cell, 红细胞: Convert the value of Red Blood Cell from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['10^9/L', 'T/L', 'Tpt/L', 'cells/L', '106/µL (1000000/µL)', '106/mm3 (1000000/mm3)', 'M/µL', 'M/mm3', 'cells/µL', 'cells/mm^3']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Vitamin B3 (Niacin, Nicotinic Acid), 维生素 B3(烟酸、烟酸): Convert the value of Vitamin B3 (Niacin, Nicotinic Acid) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['ng/mL', 'µg/L', 'µg/dL', 'µg/100mL', 'µg%', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Creatinine, 肌酐: Convert the value of Creatinine from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Ammonia (NH3), 氨(NH3): Convert the value of Ammonia (NH3) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['µmol/L', 'µg/dL', 'µg/100mL', 'µg%', 'µg/mL', 'µg/L', 'mg/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Total Iron Binding Capacity (TIBC), 总铁结合力 (TIBC): Convert the value of Total Iron Binding Capacity (TIBC) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['µmol/L', 'mmol/L', 'µg/dL', 'µg/100mL', 'µg%', 'µg/L', 'ng/mL', 'mg/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Total Bilirubin, 总胆红素: Convert the value of Total Bilirubin from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Vitamin C (Ascorbic Acid), 维生素 C(抗坏血酸): Convert the value of Vitamin C (Ascorbic Acid) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{The 'spo2' parameter needs to be converted to a percentage.}}
+Task Scenario: {{}}
+Step By Step Analysis:
+
+[output]  1. Identify the tool in the Tool List that can convert a value to a percentage.
+2. Vitamin B3 (Niacin, Nicotinic Acid) tool can convert values to percentages.
+3. Choose the tool "Vitamin B3 (Niacin, Nicotinic Acid)" from the Tool List.
+
+```json
+{
+    "chosen_tool_name": "Vitamin B3 (Niacin, Nicotinic Acid)"
+}
+```

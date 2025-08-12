@@ -1,0 +1,38 @@
+[time]    2025-08-11 23:58:22
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表被用于评估该患者抑郁症的严重程度？
+
+Patient Case Analysis:
+
+Based on the provided patient's case, the main abnormality appears to be severe major depressive disorder without psychotic symptoms. The patient has a history of worsening mood, sleep disturbances, excessive worrying, feelings of hopelessness, and suicidal ideation. Additionally, the patient exhibits physical symptoms such as rigidity in limbs and involuntary movements, which could indicate impairment in motor functions. The patient's refusal of treatment and lack of insight into their condition also suggest cognitive impairment and possible delusional thinking. The MRI results showing abnormalities in the frontal lobes and sinuses could be related to the patient's presenting symptoms but further evaluation is needed to determine the exact impact on bodily functions.
+
+[output]  ```json
+[
+    "Which scale is commonly used to assess the severity of depression in this patient?"
+    "What tool is typically employed to evaluate the degree of depression in this particular case?"
+    "Which instrument is utilized for gauging the severity of depression in this patient's current state?"
+]
+```

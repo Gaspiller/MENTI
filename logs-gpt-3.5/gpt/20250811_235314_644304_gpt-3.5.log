@@ -1,0 +1,38 @@
+[time]    2025-08-11 23:53:14
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估患者的平均动脉压（MAP）？
+
+Patient Case Analysis:
+
+根据患者的病史和临床表现，可以看出患者出现了精神症状，包括兴奋、话多、逻辑混乱、情绪波动等，且存在妄想和冲动行为。根据治疗方案中使用的药物和病情好转的情况来看，病因诊断为颅内感染所致精神障碍，可能影响了患者的认知功能、情绪控制和行为调节能力。治疗措施主要是控制兴奋、冲动和精神病性症状，进一步治疗可能需要继续注重精神状态的调节和抑制症状的发作。
+
+[output]  ```json
+[
+    "哪一个评估工具适用于测量患者的平均动脉压（MAP）？",
+    "患者表现出精神症状，这种情况是否会影响平均动脉压（MAP）的测量结果？",
+    "治疗颅内感染所致精神障碍的方案是否会影响患者的平均动脉压（MAP）？"
+]
+```

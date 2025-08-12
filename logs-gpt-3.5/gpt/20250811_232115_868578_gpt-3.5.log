@@ -1,0 +1,47 @@
+[time]    2025-08-11 23:21:15
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估乙肝肝硬化失代偿期患者肝硬化的严重程度？
+
+Patient Case Analysis:
+
+Analysis:
+1. The patient presents with symptoms of jaundice, abdominal distension, oliguria, fatigue, poor appetite, and lower limb edema. These symptoms are indicative of liver dysfunction.
+2. Clinical diagnoses of severe hepatitis, chronic hepatitis B, decompensated cirrhosis due to hepatitis B suggest impaired liver function and progression of liver disease.
+3. Laboratory findings show elevated levels of serum bilirubin, AST, ALT, prolonged prothrombin time, and elevated white blood cell count, indicating liver damage and inflammation.
+4. Imaging studies reveal hepatomegaly, thickened gallbladder wall, splenomegaly, bilateral renal stones, and ascites, further supporting the diagnosis of liver disease and its complications.
+5. The absence of hepatic encephalopathy suggests that the patient's liver function is still able to adequately detoxify ammonia.
+6. The patient's INR of 2.4 indicates impaired blood clotting function, likely due to liver dysfunction leading to decreased synthesis of clotting factors.
+
+Speculation:
+Based on the evidence provided, the patient is likely experiencing significant liver dysfunction, indicated by jaundice, hepatomegaly, elevated liver enzymes, coagulopathy, and ascites. The presence of multiple complications such as renal stones and splenomegaly may suggest advanced liver disease with portal hypertension. The treatment with antibiotics and supportive therapy aims to manage the underlying liver disease and prevent further complications. Continued monitoring and intervention are essential to prevent disease progression.
+
+[output]  ```json
+[
+    "哪一个评估标准适用于测量乙型肝炎肝硬化失代偿期患者肝硬化的严重程度？",
+    "哪种测定方法可用于评估乙型肝炎患者的肝源性脑病程度？",
+    "哪种检测指标可用于评估乙型肝炎合并肝功能不全患者的病情严重程度？"
+]
+```

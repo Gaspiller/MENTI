@@ -1,0 +1,128 @@
+[time]    2025-08-11 23:42:27
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the Glasgow-Blatchford Bleeding Score (GBS) for adult patients being considered for hospital admission due to upper GI bleeding.
+    
+    Parameters:
+    - hemoglobin (float): Patient's hemoglobin level in g/dL.
+    - bun (float): Blood Urea Nitrogen (BUN) level in mg/dL.
+    - systolic_bp (int): Initial systolic blood pressure in mm Hg.
+    - sex (int): Patient's sex, 0 for female, 1 for male.
+    - heart_rate (int): Indicates if heart rate is ≥100 per minute, 0 for no, 1 for yes.
+    - melena (int): Indicates if melena is present, 0 for no, 1 for yes.
+    - syncope (int): Indicates if there has been a recent syncope, 0 for no, 2 for yes.
+    - hepatic_disease (int): Indicates history of hepatic disease, 0 for no, 2 for yes.
+    - cardiac_failure (int): Indicates if cardiac failure is present, 0 for no, 2 for yes.
+
+    Returns:
+    - int: Glasgow-Blatchford Score, ranging from 0 to 23.
+
+    This scoring system aids in determining the necessity for hospital admission based on the severity of the patient's condition.
+    Lower scores indicate lower risk, while higher scores suggest higher risk and potential need for acute intervention.
+}}
+Reference Text:
+{{基本信息:男，65岁，退休
+发病原因:病因不明
+临床诊断:1.胃癌并出血 2.缺铁性贫血 3.左肾小结石 4.高脂血症 5.颈动脉粥样硬化
+治疗方案:予奥美拉唑20mg bid iv抑酸、补液、输红细胞、蔗糖铁100mg iv qod等对症支持治疗+行胃大部分切除术
+治疗结果:转外科手术治疗
+病案重点:胃癌并出血
+
+[病案介绍]
+主诉:
+乏力3天，黑便1天
+现病史:
+患者3天前无明显诱因出现乏力，无腹痛、腹泻、头晕、心慌等，休息后可缓解。1天前于搬重物后出现明显乏力、大汗，伴头晕、面色苍白，排黑便2次，总量约500mL，无晕厥，无反酸、嗳气，无腹痛、腹胀，休息后未见明显缓解。至我院急诊就诊，查血常规示血红蛋白 77g/L，诊断考虑“消化道出血”，予以禁饮食、抑酸、补液、止血等治疗，患者乏力稍缓解。为进一步治疗，收入我科。自发病以来，患者精神差，饮食、睡眠可，小便正常，体重无明显变化。
+既往史:
+高脂血症5年，口服立普妥1片 qn；“脑血管供血不足”病史2年，口服阿司匹林100mg qd治疗；“颈内动脉粥样硬化”病史3年。
+个人史:
+无特殊
+查体:
+T：36.2℃，P：100次/分，R：19次/分，BP：117/76mmHg
+神志清，精神尚可。贫血貌。双肺呼吸音清，双肺未闻及干湿性啰音。心律齐，各瓣膜听诊区未闻及病理性杂音。腹软，无压痛及反跳痛，肝脾肋下未及。肠鸣音存在。双下肢无浮肿。
+辅助检查:
+入院后完善相关检查：血常规:血红蛋白 67g/L。粪便常规+隐血试验:胶体金法潜血 弱阳性/LP。肝功能：白蛋白33.4g/L。肾功:尿素 10.8mmol/L。铁蛋白 10.55ng/mL。肿瘤标志物筛查、血清转铁蛋白测定、糖化血红蛋白、血脂、血糖、凝血均无明显异常。腹部CT平扫：胃内见团片状混杂高密度影。胃内积血？左肾小结石。除外禁忌后，行胃镜检查：胃窦可见一巨大不规则肿块，表面不平整，边界欠清，周边粘膜聚集；粘膜粗糙，红白相间，以白为主，粘膜下血管透见。慢性萎缩性胃炎 胃癌。患者无肝病史。
+
+患者不存在心力衰竭。}}
+Step By Step Analysis:
+
+[output]  1. hemoglobin: The hemoglobin level of the patient is given in the Reference Text as 77g/L and 67g/L. We will consider using the latest value mentioned, which is 67g/L.
+
+2. bun: There is no direct mention of the BUN level in the Reference Text. Since BUN is an important parameter for the Glasgow-Blatchford Bleeding Score and typically ranges from 7-20 mg/dL in adults, we will randomly assign a value within this range. Let's choose 15 mg/dL for this case.
+
+3. systolic_bp: The initial systolic blood pressure of the patient is indicated as 117/76 mmHg. We will use 117 as the value for the systolic blood pressure.
+
+4. sex: The sex of the patient is specified as male, which corresponds to a value of 1 in the scoring system.
+
+5. heart_rate: The patient's heart rate is mentioned as 100 beats per minute. Since the scoring system considers heart rate ≥100 per minute as a factor, we will assign a value of 1 for heart_rate.
+
+6. melena: Melena is mentioned as present in the patient, which corresponds to a value of 1 in the scoring system.
+
+7. syncope: There is an indication of recent syncope in the patient. The scoring system assigns a value of 2 for yes, so we will use 2 for syncope.
+
+8. hepatic_disease: There is no clear mention of hepatic disease in the Reference Text. Since hepatic disease is an important factor, we will infer based on the liver-related history provided in the text and assign a value of 2 for hepatic_disease.
+
+9. cardiac_failure: There is no mention of cardiac failure in the Reference Text. Since cardiac failure is an important factor, we will assume its absence and assign a value of 0 for cardiac_failure.
+
+Parameters List:
+```json
+{
+    "hemoglobin": {"Value": 67, "Unit": "g/L"},
+    "bun": {"Value": 15, "Unit": "mg/dL"},
+    "systolic_bp": {"Value": 117, "Unit": "mm Hg"},
+    "sex": {"Value": 1, "Unit": null},
+    "heart_rate": {"Value": 1, "Unit": null},
+    "melena": {"Value": 1, "Unit": null},
+    "syncope": {"Value": 2, "Unit": null},
+    "hepatic_disease": {"Value": 2, "Unit": null},
+    "cardiac_failure": {"Value": 0, "Unit": null}
+}
+```

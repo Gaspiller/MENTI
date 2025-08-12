@@ -1,0 +1,38 @@
+[time]    2025-08-12 00:09:05
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估患者在行髌骨内固定术之前的心脏手术风险？
+
+Patient Case Analysis:
+
+根据患者病历提供的信息，主要的异常部分包括右髌骨骨折和起搏器术后。右髌骨骨折导致右膝关节疼痛、肿胀和活动受限，需要进行内固定术治疗。患者同时患有高血压和慢性病毒性丙型肝炎。起搏器术后，在心电图上显示心室起搏心律和T波改变。彩超检查显示左心室舒张功能减低，双下肢动脉中膜增厚伴斑块，以及右侧颈动脉内中膜增厚伴斑块。这些情况可能影响患者的心血管功能和全身血液循环系统，进一步观察和治疗是必要的。
+
+[output]  ```json
+[
+    "哪一个评估工具适用于评估患者在行髌骨内固定术之前的心脏手术风险？",
+    "患者在行髌骨内固定术前的心脏手术风险可以受到右髌骨骨折、高血压、慢性病毒性丙型肝炎和心脏起搏器影响吗？",
+    "除了右髌骨骨折和心脏起搏器术后，患者的其他心血管情况是否会影响其行髌骨内固定术前的心脏手术风险？"
+]
+```

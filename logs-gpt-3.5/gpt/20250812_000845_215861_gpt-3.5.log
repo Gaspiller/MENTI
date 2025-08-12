@@ -1,0 +1,133 @@
+[time]    2025-08-12 00:08:45
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the Revised Cardiac Risk Index for Pre-Operative Risk.
+
+    This function calculates the Revised Cardiac Risk Index, which is used to assess the risk of major cardiac complications in patients undergoing elective or urgent/semi-urgent non-cardiac surgery. It is based on a set of specific risk factors and is valuable for risk stratification and aiding discussions about informed consent with patients.
+
+    Parameters:
+    elevated_risk_surgery (bool): True if the surgery is intraperitoneal, intrathoracic, or suprainguinal vascular.
+    history_of_ischemic_heart_disease (bool): True if there is a history of myocardial infarction, positive exercise test, current chest pain considered due to myocardial ischemia, or use of nitrate therapy or ECG showing pathological Q waves.
+    history_of_congestive_heart_failure (bool): True if there are signs such as pulmonary edema, bilateral rales or S3 gallop, paroxysmal nocturnal dyspnea, or chest X-ray showing pulmonary vascular redistribution.
+    history_of_cerebrovascular_disease (bool): True if there is a history of transient ischemic attack or stroke.
+    preop_treatment_with_insulin (bool): True if the patient is being treated with insulin pre-operatively.
+    preop_creatinine_above_threshold (bool): True if pre-operative creatinine levels are greater than 2 mg/dL or 176.8 µmol/L.
+
+    Returns:
+    int: The total Revised Cardiac Risk Index score, which is the sum of the individual risk factors present.
+
+    Usage:
+    The index is used primarily in the preoperative setting to assess cardiac risk. It assists healthcare providers in making informed decisions about further preoperative risk assessments and postoperative monitoring.
+ }}
+Reference Text:
+{{基本信息:女，23岁
+
+[病案介绍]
+主诉:
+停经39+1周,规则腹痛1小时
+现病史:
+青年女性，孕1产0，孕妇平素月经不规则，预产期2018年07月3日；停经40天测尿HCG阳性。停经早期未出现纳差不适，无放射线接触史；早孕期无病毒感染，未接触其他有害物；停经4月出现胎动,停经13周在本院 建卡检查共10次；未行唐氏三联筛查。各次查胎心血压均正常。患者1小时前无诱因出现规律下腹痛，约5-6分钟一次，一次持续30秒，有**见红，无**流液，自觉胎动正常。现门诊拟临产收入院。停经以来孕妇无腹痛,无腹坠胀；无**流血，无**流液，无头痛、头晕，无眼花、视曚，无肢体浮肿及抽搐。无发热。食欲食量良好，睡眠情况良好，体重增加21公斤，大便正常，小便正常。
+既往史:
+否认肝炎、结核、疟疾病史，否认高血压、冠心病、糖尿病等慢性疾病病史，否认脑血管疾病、精神疾病史，否认手术、外伤、输血史。
+查体:
+T：37.2℃，P：78次/分，R：23次/分，BP：110/60mmHg
+宫高32cm，腹围99cm，估计胎儿大小3400g，胎方位LOA，宫缩规律，强度中，先露头，已衔接，胎心音131次/分。阴检：宫颈质地软，宫颈位置中，宫颈消退80%，宫颈扩张0cm。先露位置S-2。胎膜未破。骨盆测量：髂前上棘间径24cm，髂嵴间径26cm，骶耻外径20cm，坐骨结节间径9cm。
+辅助检查:
+本院二维彩超：宫内妊娠39+周，单活胎，胎儿脐动脉血流频谱测值正常，胎儿超声四项生物物理评分6分，胎盘位于前壁，厚38mm，成熟度II度，S/D2.32。患者无缺血性心脏病病史。
+
+患者无脑血管病史。
+
+患者术前肌酐值正常。
+
+患者无心力衰竭病史。}}
+Step By Step Analysis:
+
+[output]  1. "elevated_risk_surgery":
+    - Reference Text: The patient is scheduled for labor induction.
+    - Inference: Since the patient is not undergoing intraperitoneal, intrathoracic, or suprainguinal vascular surgery, the value for this parameter is False.
+    - Output: False
+
+2. "history_of_ischemic_heart_disease":
+    - Reference Text: The patient has no history of ischemic heart disease or symptoms related to it.
+    - Inference: Based on the absence of history or symptoms related to ischemic heart disease, the value for this parameter is False.
+    - Output: False
+
+3. "history_of_congestive_heart_failure":
+    - Reference Text: The patient has no signs or symptoms of congestive heart failure.
+    - Inference: Since there are no signs of congestive heart failure in the patient, the value for this parameter is False.
+    - Output: False
+
+4. "history_of_cerebrovascular_disease":
+    - Reference Text: The patient has no history of cerebrovascular disease.
+    - Inference: Considering the absence of any history of cerebrovascular disease, the value for this parameter is False.
+    - Output: False
+
+5. "preop_treatment_with_insulin":
+    - Reference Text: There is no indication of the patient receiving pre-operative treatment with insulin.
+    - Inference: As there is no mention of pre-operative insulin treatment for the patient, the value for this parameter is False.
+    - Output: False
+
+6. "preop_creatinine_above_threshold":
+    - Reference Text: The patient's preoperative creatinine levels are normal.
+    - Inference: Given that the patient's preoperative creatinine levels are within the normal range, the value for this parameter is False.
+    - Output: False
+
+Parameters List:
+```json
+{
+    "elevated_risk_surgery": {"Value": false, "Unit": "null"},
+    "history_of_ischemic_heart_disease": {"Value": false, "Unit": "null"},
+    "history_of_congestive_heart_failure": {"Value": false, "Unit": "null"},
+    "history_of_cerebrovascular_disease": {"Value": false, "Unit": "null"},
+    "preop_treatment_with_insulin": {"Value": false, "Unit": "null"},
+    "preop_creatinine_above_threshold": {"Value": false, "Unit": "null"}
+}
+```

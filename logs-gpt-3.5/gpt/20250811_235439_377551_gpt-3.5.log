@@ -1,0 +1,97 @@
+[time]    2025-08-11 23:54:39
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the Mean Arterial Pressure (MAP) from the systolic (SBP) and diastolic blood pressure (DBP).
+    
+    MAP is a crucial health metric used to assess tissue perfusion and blood flow. It is particularly important in
+    medical scenarios such as sepsis, trauma, stroke, intracranial bleeding, and hypertensive emergencies.
+    The formula used for calculating MAP is: MAP = 1/3 * SBP + 2/3 * DBP.
+    
+    Parameters:
+        systolic_bp (float): Systolic blood pressure in mmHg.
+        diastolic_bp (float): Diastolic blood pressure in mmHg.
+    
+    Returns:
+        float: The calculated mean arterial pressure in mmHg.
+    
+    Example:
+        >>> calculate_mean_arterial_pressure(120, 80)
+        93.33333333333333}}
+Reference Text:
+{{基本信息:女，54岁，农民
+
+[病案介绍]
+主诉:
+头晕、头痛、恶心2天。
+现病史:
+患者2天前村在卫生所体检发现血压高测不出，自觉头晕、头痛，心悸，伴恶心，予以“吲哒帕胺片 2.5mg 1日1次”“卡托普利 50mg 1日1次”，今日下午血压仍未测出，村卫生所医生积极予以“甘露醇注射液 250ml 静滴”，测血压仍高，240/150mmHg，急入我院。自发病以来，患者精神食欲差，无呕吐，大小便正常。
+既往史:
+平素身体健康,否认肝炎、结核等传染病史，发现血压高2年，血压最高170/100mmHg，未服降压药。偶测血糖11.0mmol/L，未监测血糖。否认心脏病史，否认手术外伤史，否认药物、食物过敏史，否认输血史。
+查体:
+T：36.5℃，P：90次/分，R：20次/分，BP：240/140mmHg
+T:36.5℃ ,P:90次/分,R:20次/分,BP:240/140/mmhg。发育正常,体型中等；神志清楚,言语流利,合作。全身皮肤无黄染、皮疹及出血点。全身各浅表性淋巴结未触及病理性肿大。头颅大小及形态正常，无畸形。眼睑无水肿，双侧眼球活动自如，无震颤，双侧瞳孔等大等圆，直径2.5mm，对光反射灵敏。耳廓正常，外耳道通畅，粗测听力正常。唇红无紫绀，咽无充血，双侧扁桃体无肿大，悬壅垂居中。颈软无抵抗，颈静脉无怒张，未见颈动脉异常搏动，肝颈静脉回流征阴性，气管居中，甲状腺未触及肿大，未闻及血管杂音。胸廓对称，无畸形。双肺呼吸音清。心前区无局限隆起。心律90次/分，心律齐，各瓣膜听诊区未闻及杂音。腹部平坦、软，无压痛。四肢无畸形，肢体活动正常，双下肢无水肿。
+辅助检查:
+即刻血糖：17.7mmol/L；心电图示：窦性心律 心电轴正常 心电图不正常 ST-T异常。 头颅CT诊断：双侧基底节区侧脑室旁腔隙性脑梗塞。}}
+Step By Step Analysis:
+
+[output]  1. Identify the systolic blood pressure (SBP) in the Reference Text:
+   - SBP: 240 mmHg
+
+2. Identify the diastolic blood pressure (DBP) in the Reference Text:
+   - DBP: 140 mmHg
+
+3. Fill in the values of SBP and DBP in the Parameters List:
+```json
+{
+    "systolic_bp": {"Value": 240, "Unit": "mmHg"},
+    "diastolic_bp": {"Value": 140, "Unit": "mmHg"}
+}
+```

@@ -1,0 +1,188 @@
+[time]    2025-08-11 23:22:19
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Sex Hormone Binding Globulin, 性激素结合球蛋白', 'Estradiol, 雌二醇', 'Testosterone, 睾酮', 'Estrone, 雌酮', 'Free Estradiol, 游离雌三醇', 'Thyroid uptake, 甲状腺摄取', 'Hematocrit (HCT), 血细胞比容(HCT)', 'Pregnancy-associated plasma protein A, 妊娠相关血浆蛋白 A', 'Macroprolactinemia, 巨泌乳素', 'Human Chorionic Gonadotropin (hCG), 人绒毛膜促性腺激素 (hCG)']}}
+Detailed information of each tool: {{Sex Hormone Binding Globulin, 性激素结合球蛋白: Convert the value of Sex Hormone Binding Globulin from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['nmol/L', 'µg/mL', 'µg/dL', 'µg/100mL', 'µg%', 'µg/L', 'mg/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Estradiol, 雌二醇: Convert the value of Estradiol from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['pmol/L', 'pg/mL', 'pg/dL', 'pg/100mL', 'pg%', 'pg/L', 'ng/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Testosterone, 睾酮: Convert the value of Testosterone from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['nmol/L', 'ng/mL', 'ng/dL', 'ng/100mL', 'ng%', 'ng/L', 'µg/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Estrone, 雌酮: Convert the value of Estrone from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['pmol/L', 'ng/dL', 'ng/100mL', 'ng%', 'ng/L', 'pg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Free Estradiol, 游离雌三醇: Convert the value of Free Estradiol from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'ng/mL', 'ng/dL', 'ng/100mL', 'ng%', 'ng/L', 'µg/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Thyroid uptake, 甲状腺摄取: Convert the value of Thyroid uptake from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['Proportion of 1.0', '%']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Hematocrit (HCT), 血细胞比容(HCT): Convert the value of Hematocrit (HCT) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['L/L', 'Proportion of 1.0', 'volume fraction', '%']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Pregnancy-associated plasma protein A, 妊娠相关血浆蛋白 A: Convert the value of Pregnancy-associated plasma protein A from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mIU/L', 'µIU/mL', 'IU/L', 'mIU/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Macroprolactinemia, 巨泌乳素: Convert the value of Macroprolactinemia from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['Fraction', '%']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Human Chorionic Gonadotropin (hCG), 人绒毛膜促性腺激素 (hCG): Convert the value of Human Chorionic Gonadotropin (hCG) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mIU/mL', 'IU/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{The gender is 1 null. The gender needs to be specified as 0 for male or 1 for female.}}
+Task Scenario: {{}}
+Step By Step Analysis:
+
+[output]  1. The user demand requires specifying the gender as 0 for male or 1 for female.
+2. The task scenario provided is empty, so we do not have specific information about the context in which the tool will be used.
+3. Considering the user demand, we can identify that tools related to sex hormones, such as Sex Hormone Binding Globulin, Estradiol, Testosterone, Estrone, and Free Estradiol, may be relevant based on the gender specification requirement.
+4. Among these tools, we can select the tool "Sex Hormone Binding Globulin" as the most suitable tool for the user. It can provide information about the binding of sex hormones in the blood, which is relevant to gender-specific hormone levels.
+5. We will provide the chosen_tool_name in the final JSON file.
+
+```json
+{
+    "chosen_tool_name": "Sex Hormone Binding Globulin, 性激素结合球蛋白"
+}
+```

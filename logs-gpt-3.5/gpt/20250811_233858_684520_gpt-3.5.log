@@ -1,0 +1,38 @@
+[time]    2025-08-11 23:38:58
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表被用于评估患者昏迷程度和神志状态的严重度？
+
+Patient Case Analysis:
+
+根据患者的主诉和现病史，患者可能患有急性一氧化碳中毒。这可以解释患者意识障碍、昏迷状态和呼吸系统的正常听诊结果。一氧化碳中毒通常会导致意识障碍、头晕、恶心等症状，严重的中毒情况可能导致昏迷甚至死亡。需要对患者进行一氧化碳中毒的治疗和监测，以尽快帮助恢复其健康。
+
+[output]  ```json
+[
+    "哪个评估工具可用于检测患者可能的一氧化碳中毒引起的昏迷和神志状态的严重程度？",
+    "患者的昏迷和意识障碍是否可能与一氧化碳中毒有关，是否有相关评估量表可供参考？",
+    "是否存在特定的量表可用于评估患者呼吸系统的状况和一氧化碳中毒的严重程度？"
+]
+```

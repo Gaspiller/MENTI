@@ -1,0 +1,40 @@
+[time]    2025-08-11 23:29:12
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估支气管肺炎患者的严重程度？
+
+Patient Case Analysis:
+
+根据患者的病史和临床表现，可以看出患儿患有支气管肺炎和腺病毒感染，同时出现胃肠功能紊乱的症状。支气管肺炎表现为发热、咳嗽、肺部湿啰音等症状，而腺病毒感染可能导致全身症状，如发热和乏力。胃肠功能紊乱则表现为排稀便、腹部膨隆等症状。
+
+综合分析支气管肺炎和腺病毒感染的症状，可以推测患儿呼吸道和免疫系统可能存在一定的功能障碍，表现为呼吸困难、易感染等。而胃肠功能紊乱可能暗示着消化系统的功能异常，可能导致吸收和排出物质的问题。治疗方案中包括抗感染治疗和对症治疗，有助于改善患儿的症状和病情好转。
+
+[output]  ```json
+[
+    "哪种评估工具适用于评估支气管肺炎患者的疾病严重程度？",
+    "除了支气管肺炎，患儿还受到腺病毒感染和胃肠功能紊乱的影响，这些可能会对患儿的治疗方案产生影响吗？",
+    "患儿患有支气管肺炎和腺病毒感染，加上胃肠功能紊乱，这些情况可能反映出患儿的免疫系统和消化系统存在一定问题吗？"
+]
+```

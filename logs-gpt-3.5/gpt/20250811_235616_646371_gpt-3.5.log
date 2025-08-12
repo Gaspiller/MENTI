@@ -1,0 +1,42 @@
+[time]    2025-08-11 23:56:16
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表被用于评估肝硬化患者肝功能疾病严重程度和肝移植候选资格？
+
+Patient Case Analysis:
+
+根据提供的病历资料显示，该患者主要病情为乙型肝炎后肝硬化及晚期HCC（肝细胞癌）。血液检查显示白蛋白（ALB）水平较低，存在缺铁性贫血病史，腹水征阳性，以及肝功能指标如天门冬氨酸氨基转移酶（AST）、丙氨酸氨基转移酶（ALT）、碱性磷酸酶（ALP）和γ-谷氨酰转肽酶（GGT）的异常升高等，均反映了患者肝功能受损。
+
+此外，彩色超声及增强CT显示肝脏结构异常，出现了肝硬化、脾大、腹水，门脉栓子形成，肿瘤标志物如AFP和PIVKAⅡ的升高提示HCC的存在。患者出现上消化道大出血，复查CT显示胸腔积液及双肺下叶膨胀不全等表现，提示可能存在门静脉高压导致的并发症。
+
+综合分析，该患者的乙型肝炎后肝硬化主要表现为肝功能减退、门脉高压、腹水等并发症，同时合并HCC的情况使得肝损伤更加复杂。针对这些表现，治疗方案应包括止血、输血、维持器官功能、抑制肿瘤生长等综合治疗措施。
+
+[output]  ```json
+[
+    "哪种评估工具可用于评估乙型肝炎后肝硬化患者的肝功能疾病程度和肝移植候选资格？",
+    "乙型肝炎后肝硬化患者的肝功能疾病程度和肝移植候选资格评估中，哪些因素需要特别关注？",
+    "评估肝硬化患者肝功能疾病程度和肝移植候选资格时，乙型肝炎后患者合并HCC的情况如何影响评估标准？"
+]
+```

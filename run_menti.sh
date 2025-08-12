@@ -1,7 +1,7 @@
 for i in $(seq 0 100); do
     python MENTI.py \
         --test \
-        --llm_model gpt-3.5 \
+        --llm_model gpt-4 \
         --embedding_model m3e \
         --eval_index $i \
         --case_path "./CalcQA/clinical_case.json" \

@@ -1,0 +1,38 @@
+[time]    2025-08-11 23:53:41
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估患者的平均动脉压？
+
+Patient Case Analysis:
+
+根据患者的病史和体格检查结果，可以推测患者可能患有急性脑梗死导致的右侧肢体活动不利和言语障碍。此外，患者同时存在高血压和冠状动脉粥样硬化性心脏病病史，可能加重了脑血管疾病的风险。神经系统的受累表现为右侧半身不遂、言语謇涩、感觉未见异常等症状。头颅CT显示右额叶深部及左侧半卵圆中心缺血病变，脑桥、双侧放射冠多发腔隙灶，脑白质疏松、脑萎缩，进一步支持了急性脑梗死的诊断。治疗方面需要以康复治疗为主，并且需持续控制高血压和心脏病，以预防进一步的脑血管事件。
+
+[output]  ```json
+[
+    "哪一个量表用于评估患者的平均动脉压？患者可能患有急性脑梗死导致的右侧肢体活动不利和言语障碍。",
+    "哪一个量表用于评估患者的平均动脉压？患者同时存在高血压和冠状动脉粥样硬化性心脏病病史，可能加重了脑血管疾病的风险。",
+    "哪一个量表用于评估患者的平均动脉压？患者头颅CT显示右额叶深部及左侧半卵圆中心缺血病变，脑桥、双侧放射冠多发腔隙灶，脑白质疏松、脑萎缩，支持了急性脑梗死的诊断。"
+]
+```  

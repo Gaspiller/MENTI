@@ -1,0 +1,45 @@
+[time]    2025-08-11 23:35:59
+[model]   gpt-3.5
+[input]   
+You are a medical diagnostic model. Your task is to analyze the abnormal parts of the provided patient's case and speculate on which bodily functions might be impaired.
+
+The requirements are as follows:
+1. Every inference you make must be substantiated by actual evidence from the provided patient's case.
+2. You only need to analyze the main, abnormal parts of the provided patient's case.
+3. You just need to make a brief analysis.
+
+Begin!
+
+
+基本信息:男，63岁
+发病原因:病因不明
+临床诊断:冠状动脉性心脏病,三支病变,陈旧性心肌梗塞,不稳定型心绞痛,高血压病3级(很高危险组),2型糖尿病,心功能Ⅰ级(NYHA分级)
+治疗方案:全麻下行非体外循环下冠状动脉旁路移植术（LIMA-LAD，AO-SVG-LCX，AO-SVG-PDA-PLA）等对症治疗
+治疗结果:病情好转
+病案重点:冠状动脉性心脏病,三支病变
+
+[病案介绍]
+主诉:
+间断心前区疼痛18年。
+现病史:
+患者于18年前劳累后出现心前区疼痛,呈压榨样,伴出冷汗,无肩背部放射痛、头晕、咯血、心悸等表现，持续时间约3-5分钟，休息后可自行缓解，就诊于我市某医院，诊断为“冠心病”，予以口服冠心病二级预防药物治疗。后上述症状间断发作，休息及口服“速效救心丸”均可缓解。于3年前因“急性心肌梗塞”在我市某医院住院输液治疗（具体不详）。于1周前上述症状再次发作，于我市某医院行冠脉造影示：冠心病，三支病变，前降支近端约90%狭窄。今为求手术治疗，故来我院，门诊以“冠心病，三支病变”收住我科。自发病以来，精神食欲可，大小便正常。
+既往史:
+既往体差，有高血压病史10余年，收缩压最高220mmHg，口服硝苯地平控释片及盐酸贝那普利片，血压控制满意。有糖尿病史10余年，注射胰岛素，血糖控制满意。否认脑血管病史，否认精神病史，否认肝炎史，否认结核史，否认疟疾史，否认手术史，否认外伤史，否认输血史，否认食物、药物过敏史，预防接种史不详。
+查体:
+T：36.5℃，P：80次/分，R：17次/分，BP：150/60mmHg
+气管居中，双侧胸廓对称无畸形，肋间平坦，无增宽及变窄，运动自如，双肺叩呈清音，听诊双肺呼吸音粗，未闻及干湿性啰音。心律80次/分,律齐,各瓣膜区未闻及杂音。双下肢无水肿。
+辅助检查:
+冠脉造影示：冠心病，三支病变，前降支近端约90%狭窄。患者有吸烟史。
+
+患者总胆固醇：8.3mmol/L。
+
+高密度脂蛋白胆固醇：0.2mmol/L。
+[output]  Analysis:
+The main abnormal parts of the patient's case include coronary artery heart disease with three-vessel disease, old myocardial infarction, unstable angina, severe hypertension (3rd stage), type 2 diabetes, and impaired high-density lipoprotein cholesterol levels.
+
+Speculated impaired bodily functions:
+1. Cardiovascular function: The patient has a history of coronary artery heart disease with three-vessel disease, old myocardial infarction, and unstable angina. This indicates impaired cardiovascular function, specifically coronary artery circulation and heart muscle function.
+2. Metabolic function: The patient has type 2 diabetes, which indicates impaired insulin function and glucose metabolism.
+3. Lipid metabolism: The patient has significantly low high-density lipoprotein cholesterol levels, which indicates impaired lipid metabolism and may contribute to the progression of coronary artery disease.
+
+Overall, the patient's case highlights impairments in cardiovascular, metabolic, and lipid metabolism functions, necessitating comprehensive treatment and management strategies.

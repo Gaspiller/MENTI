@@ -1,0 +1,119 @@
+[time]    2025-08-11 23:25:10
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the 2021 CKD-EPI (Chronic Kidney Disease Epidemiology Collaboration) GFR (Glomerular Filtration Rate)
+    without the race component. This function estimates kidney function using creatinine-based equations and is intended
+    for patients with chronic (not acute) kidney disease. This calculation is particularly used by nephrologists to 
+    assess kidney function non-invasively and is considered more accurate than the MDRD Equation, especially in patients
+    with normal or mildly reduced eGFR.
+
+    Parameters:
+    - serum_creatinine (float): The serum creatinine level of the patient in mg/dL.
+    - age (int): The age of the patient in years.
+    - gender (int): The gender of the patient. Use 0 for male and 1 for female.
+
+    Returns:
+    - float: The estimated GFR in ml/min/1.73m^2.
+
+    Usage:
+    To use this function, provide the serum creatinine level, age, and gender index (0 for male, 1 for female).
+    For example, calculate_ckd_epi_gfr(0.9, 30, 0) calculates the GFR for a 30-year-old male with a serum creatinine of 0.9 mg/dL.
+
+    Note:
+    - Not intended for use in patients on dialysis.
+    - Less accurate in patients with diabetes (before progression to overt nephropathy), pregnant women, and those with unusual body mass.
+}}
+Reference Text:
+{{基本信息:男，69岁，农民
+发病原因:病因不明
+临床诊断:右肾萎缩，左侧输尿管末端结石，左肾积水，肾周渗出，泌尿系感染+慢性肾衰竭急性加重+扩张型心肌病 心衰3度 .心包积液 房颤+慢支肺气肿 肺部感染+凝血功能异常+高血压病3级 很高危
+治疗方案:入室监测IBP SPO2 HR RR 等，开放静脉缓慢补液，右侧卧位下于L3-4穿刺，成功后腰麻（0.5%罗哌卡因）
+治疗结果:病情好转
+病案重点:ASA3级患者行输尿管镜下钬激光碎石术的麻醉
+
+[病案介绍]
+主诉:
+男性,69岁,农民
+左侧腰痛6天
+现病史:
+患者于6天前无明显诱因感腰部疼痛，呈阵发性胀痛，伴有肉眼血尿，有尿频、尿急、无尿痛，无恶心，呕吐，稍喘气、无心慌、胸闷、胸痛、无发热、畏寒，无头晕、头痛，无咳嗽、咳痰，无腹泻，无肢体麻木及抽搐，2天前于城关医院治疗，病情无明显好转，查肌酐538.1umol/L，遂急来我院，门诊以 泌尿系结石合并感染、慢性肾衰竭 收治入院。起病以来，患者精神、食欲欠佳，大小便异常，体力稍下降，体重无明显变化。
+既往史:
+既往有高血压病史3年，具体服用药物不祥，扩张型心肌病 心衰3度 、房颤，心包积液 、慢支肺气肿 肺部感染、凝血功能异常、否认糖尿病史，无肝炎及结核病史等传染病史及其他传染病史，否认过敏史，无手术史、无外伤史，否认与新冠病毒性肺炎接触史及其他地区人员接触史。
+查体:
+T：36.4℃，P：120次/分，R：20次/分，BP：121/75mmHg
+T:36.4℃，P:120次/分，R:20次/分，BP:121/75mmHg。神志清楚，步入病房，检查合作，眼睑下水肿，皮肤巩膜未见明显黄染，全身浅表淋巴结未触及，颈软，双肺呼吸音清晰，未闻及罗音，HR131次/分，律不齐，心音强弱不等、无杂音，腹平软，无压痛及反跳痛，肝、脾肋下未及，左肾区叩击痛（+），右肾区叩击痛（—），肠鸣音正常。双下肢无水肿，神经、四肢系统未见异常。 专科情况：HR131次/分，律不齐，心音强弱不等、无杂音，左肾区叩击痛（+），右肾区叩击痛（-）
+辅助检查:
+门诊及院外重要检查结果：外院出院小结：1.慢性肾功能不全，2.尿石症并感染，3.高血压1级很高危，4.冠状动脉粥样硬化 超声显示：肝多发囊肿，胆囊腔内多发稍强回声，脾大、肾体积缩小、双肾结石、前列腺增大。我院；科内心电图，异常心电图，房颤。随机血糖：7.0mmol/L，指脉氧99％ 乙肝三系列测定：乙肝表面抗原 阴性(-)、乙肝表面抗体 阳性(+)、乙肝e抗原 阴性(-)、乙肝e抗体 阴性(-)、乙肝核心抗体 阴性(-)，梅毒螺旋体抗体：梅毒螺旋体抗体 阴性(-)，丙型肝炎抗体HCV：丙型肝炎抗体HCV 阴性(-)，丙型肝炎核心抗原测定：丙型肝炎核心抗原测定 阴性(-)，HIV抗体：HIV抗体 阴性(-)，新型冠状病毒肺炎抗体检测：新冠抗体IgM 阴性、新冠抗体IgG 阴性，凝血全套：凝血酶原时间 17.30 s、国际标准化比值 1.47、D-二聚体 3.39 mg/L， 感染三项w：超敏C反应蛋白w >5.0 mg/L、C—反应蛋白w 50.39 mg/L，B型钠尿肽前体（BNP）：B-钠尿肽前体 1370.00 pg/ml，2020-11-23 09:21 血糖测定：葡萄糖 5.07 mmol/L，心肌酶谱：α-羟丁酸脱氢酶 219 U/L，同型半胱氨酸：同型半胱氨酸 21.9 umol/L，肾功能：尿素 21.99 mmol/L、肌酐 561.5 umol/L、尿酸 435.3 umol/L、β2微球蛋白 4.06 mg/L、胱抑素C 1.27 mg/L，肝功能：总胆红素 20.9 umol/L、谷草/谷丙 1.9， 血常规：中性细胞比率 86.60 %、淋巴细胞数 0.42×10^9/L、淋巴细胞比率 6.60 %，尿常规：镜检红细胞 1658 /ul、镜检白细胞 26 /ul。超声显示：升主动脉增宽、左心增大、二尖瓣返流（中度）  三尖瓣返流（轻-中度）、心功能减低、心包少量积液 CT显示；双肺上叶少许小叶性肺气肿；双侧胸腔少量积液；左心增大；左侧输尿管膀胱入口处结石，伴其上段输尿管周围渗出性病变；双侧髂总动脉上述影像表现，建议结合临床行相关检查；前列腺增殖钙化灶，建议行MRI检查；右肾萎缩；肝脏多发占位性病变；}}
+Step By Step Analysis:
+
+[output]  1. Extract the patient's gender.
+   - Gender: Male
+
+2. Extract the patient's age.
+   - Age: 69 years
+
+3. Extract the patient's serum creatinine level.
+   - Serum Creatinine: null
+
+4. Estimate the Glomerular Filtration Rate (GFR) using the CKD-EPI formula with the extracted serum creatinine, age, and gender.
+   - Estimated GFR: null
+
+5. Determine the unit for serum creatinine based on the Function Docstring, which is in mg/dL. Fill in the unit for the extracted serum creatinine level accordingly.
+   - Unit for Serum Creatinine: mg/dL
+
+Parameters List:
+```json
+{
+    "serum_creatinine": {"Value": null, "Unit": "mg/dL"},
+    "age": {"Value": 69, "Unit": null},
+    "gender": {"Value": 0, "Unit": null}
+}
+```
