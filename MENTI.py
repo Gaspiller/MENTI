@@ -16,7 +16,7 @@ from Prompts import Prompts
 
 # ===== 日志部分改动：每次运行新文件 =====
 os.makedirs("./logs", exist_ok=True)
-log_filename = time.strftime("menti_process_%Y%m%d_%H%M%S.log")
+log_filename = time.strftime("{args.log_index}%Y%m%d_%H%M%S.log")
 log_path = os.path.join("./logs", log_filename)
 
 logging.basicConfig(
