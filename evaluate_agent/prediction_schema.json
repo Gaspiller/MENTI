@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "properties": {
+    "index": { "anyOf": [{ "type": "integer" }, { "type": "null" }] },
+    "pred": {
+      "type": "object",
+      "properties": {
+        "calculator": { "anyOf": [{ "type": "string" }, { "type": "null" }] },
+        "slots": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "value": { "anyOf": [{ "type": "number" }, { "type": "integer" }] },
+              "unit": { "anyOf": [{ "type": "string" }, { "type": "null" }] }
+            },
+            "required": ["value", "unit"]
+          }
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "value": { "anyOf": [{ "type": "number" }, { "type": "integer" }, { "type": "null" }] }
+          },
+          "required": ["value"]
+        }
+      },
+      "required": ["calculator", "slots", "result"]
+    }
+  },
+  "required": ["pred"]
+}

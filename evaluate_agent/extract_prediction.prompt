@@ -1,0 +1,27 @@
+You are an extraction agent. Read the following noisy log and output a SINGLE JSON object with this exact schema:
+
+{
+  "index": <int or null>,
+  "pred": {
+    "calculator": <string or null>,
+    "slots": {
+      "<name>": {"value": <number or int>, "unit": <string or null>},
+      ...
+    },
+    "result": {"value": <number or int or null>}
+  }
+}
+
+Rules:
+- Output JSON ONLY. No explanations.
+- Slot names must be the exact identifiers used by APACHE II:
+["age","temperature","mean_arterial_pressure","heart_rate","respiratory_rate","sodium","potassium","creatinine","hematocrit","white_blood_cell_count","gcs","ph","history_of_severe_organ_insufficiency","acute_renal_failure","fio2","pao2","a_a_gradient"].
+- If a slot is missing, omit it from "slots".
+- For the final numeric result, take the last standalone number after any "Now in Calculate" marker; otherwise, the last standalone number in the log.
+- If multiple parameter JSON blocks exist, prefer the one under "Parameters List".
+- If a unit is not present, use null.
+
+LOG:
+<<<
+{{RAW_LOG}}
+>>>

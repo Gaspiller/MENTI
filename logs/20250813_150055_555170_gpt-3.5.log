@@ -1,0 +1,293 @@
+[time]    2025-08-13 15:00:55
+[model]   gpt-3.5
+[input]   
+You are a Parameter List checking model.
+
+You will receive a Function Docstring, and Parameter List. You need to verify that the entries in the Parameter List comply with the requirements described in the Function Docstring, including the Value and Unit.
+If all units are consistent, choose "calculate". If there are any discrepancies in the units, choose "toolcall".
+You should not perform unit conversions directly. When converting units is needed, you must choose "toolcall" and elaborate on this unit conversion task in the "supplementary_information", including the parameter value, the current unit of the parameter, and the target unit of the parameter.
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis of each parameter in the parameter list. You need to output each parameter's Function Docstring individually, then analyze and compare them.
+2. You especially need to compare the Unit of the Parameter List with the units required in the Function Docstring. 
+3. If the units are inconsistent, please select "toolcall" and specify the numerical value of the parameter required for unit conversion, as well as the units before and after the conversion in the "supplementary_information".
+4. The unit conversion task may require converting units of different parameters, and you need to break down the task into individual unit conversion tasks for each parameter. Therefore, "supplementary_information" is a list of strings, each of which represents a standalone, minimalized unit conversion task.
+5. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+
+Here are some examples:
+Function Docstring:
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Parameter List：
+{{{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 1.75, "Unit": "m"}
+}}}
+Step By Step Analysis:
+{{(Here is your step-by-step analysis. You need to ouptput the corresponding Function Docstring first for each parameter, and systematically compare each parameter with the corresponding information in the Parameter List and Function Docstring.)}}
+Final Answer:
+```json
+{
+    "chosen_decision_name": "toolcall",
+    "supplementary_information": ["The height is 1.75m. The height needs to be converted from meters to centimeters."]
+}
+```
+
+Function Docstring:
+{{Calculate the Corrected Sodium for Hyperglycemia using Hillier's method from 1999.
+
+Parameters:
+ measured_sodium (float): The measured sodium level in mEq/L.
+ serum_glucose (float): The serum glucose level in mg/dL.
+
+Returns:
+ float: The corrected sodium level in mEq/L.
+
+}}
+Parameter List：
+{{{
+    "measured_sodium": {"Value": 140, "Unit": "mmol/L"},
+    "serum_glucose": {"Value": 80, "Unit": "mmol/L"}
+}}}
+Step By Step Analysis:
+{{(Here is your step-by-step analysis. You need to ouptput the corresponding Function Docstring first for each parameter, and systematically compare each parameter with the corresponding information in the Parameter List and Function Docstring.)}}
+Final Answer:
+```json
+{
+    "chosen_decision_name": "toolcall",
+    "supplementary_information": ["The measured_sodium is 140 mmol/L. It needs to be converted from mmol/L to mEq/L.", "The serum_glucose is 80 mmol/L. It needs to be converted from mmol/L to mg/dL."]
+}
+```
+
+Function Docstring:
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Parameter List：
+{{{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}}}
+Step By Step Analysis:
+{{(Here is your step-by-step analysis. You need to ouptput the corresponding Function Docstring first for each parameter, and systematically compare each parameter with the corresponding information in the Parameter List and Function Docstring.)}}
+Final Answer:
+```json
+{
+    "chosen_decision_name": "calculate",
+    "supplementary_information": "All parameters comply with the Function Docstring requirements. No unit conversion is needed as the parameters use indices to specify units."
+}
+```
+
+Attention: The Final Answer must be wrapped by ```json and ```. In the 'supplementary_information', the Value of the parameter is required!!!
+
+Begin!
+
+Function Docstring:
+{{Calculate the APACHE II Score for a patient in the ICU, to assess severity and predict mortality.
+
+    Parameters:
+    - age (int): Age of the patient in years.
+    - temperature (float): Rectal temperature in degrees Celsius.
+    - mean_arterial_pressure (int): Mean arterial pressure in mm Hg.
+    - heart_rate (int): Heart rate in beats per minute.
+    - respiratory_rate (int): Respiratory rate in breaths per minute.
+    - sodium (float): Serum sodium in mmol/L.
+    - potassium (float): Serum potassium in mmol/L.
+    - creatinine (float): Serum creatinine in mg/100 mL.
+    - hematocrit (float): Hematocrit percentage.
+    - white_blood_cell_count (float): White blood cell count per cubic millimeter.
+    - gcs (int): Glasgow Coma Scale score, ranging from 3 (most impaired) to 15 (fully awake).
+    - ph (float): Arterial pH.
+    - history_of_severe_organ_insufficiency (int): Indicates the patient's history status, with 0 for 'No', 1 for 'Yes, and elective postoperative patient', and 2 for 'Yes, and nonoperative or emergency postoperative patient'.
+    - acute_renal_failure (int): Indicates if the patient has acute renal failure, with 0 for 'No' and 1 for 'Yes'.
+    - fio2 (int): Fraction of inspired oxygen, 0 for '<50%' and 1 for '≥50%'.
+    - pao2 (float, optional): Partial pressure of arterial oxygen, required if FiO2 < 50%.
+    - a_a_gradient (float, optional): Alveolar-arterial gradient, required if FiO2 ≥ 50%.
+
+    Returns:
+    - int: The computed APACHE II score.
+}}
+Parameter List：{{{
+    "age": {"Value": 35, "Unit": null},
+    "temperature": {"Value": 36.6, "Unit": "Celsius"},
+    "mean_arterial_pressure": {"Value": 87, "Unit": "mmHg"},
+    "heart_rate": {"Value": 62, "Unit": "beats per minute"},
+    "respiratory_rate": {"Value": 26, "Unit": "breaths per minute"},
+    "sodium": {"Value": 160, "Unit": "mmol/L"},
+    "potassium": {"Value": 5.5, "Unit": "mmol/L"},
+    "creatinine": {"Value": 1.0, "Unit": null},
+    "hematocrit": {"Value": 55, "Unit": "Percentage"},
+    "white_blood_cell_count": {"Value": 7.4, "Unit": "×10^9/L"},
+    "gcs": {"Value": 5, "Unit": null},
+    "ph": {"Value": 7.45, "Unit": null},
+    "history_of_severe_organ_insufficiency": {"Value": 0, "Unit": null},
+    "acute_renal_failure": {"Value": 0, "Unit": null},
+    "fio2": {"Value": 0, "Unit": null},
+    "pao2": {"Value": 85, "Unit": "mmHg"},
+    "a_a_gradient": {"Value": 0, "Unit": null}
+}}}
+Step By Step Analysis:
+
+[output]  Function Docstring:
+{{"Calculate the APACHE II Score for a patient in the ICU, to assess severity and predict mortality.
+
+    Parameters:
+    - age (int): Age of the patient in years.
+    - temperature (float): Rectal temperature in degrees Celsius.
+    - mean_arterial_pressure (int): Mean arterial pressure in mm Hg.
+    - heart_rate (int): Heart rate in beats per minute.
+    - respiratory_rate (int): Respiratory rate in breaths per minute.
+    - sodium (float): Serum sodium in mmol/L.
+    - potassium (float): Serum potassium in mmol/L.
+    - creatinine (float): Serum creatinine in mg/100 mL.
+    - hematocrit (float): Hematocrit percentage.
+    - white_blood_cell_count (float): White blood cell count per cubic millimeter.
+    - gcs (int): Glasgow Coma Scale score, ranging from 3 (most impaired) to 15 (fully awake).
+    - ph (float): Arterial pH.
+    - history_of_severe_organ_insufficiency (int): Indicates the patient's history status, with 0 for 'No', 1 for 'Yes, and elective postoperative patient', and 2 for 'Yes, and nonoperative or emergency postoperative patient'.
+    - acute_renal_failure (int): Indicates if the patient has acute renal failure, with 0 for 'No' and 1 for 'Yes'.
+    - fio2 (int): Fraction of inspired oxygen, 0 for '<50%' and 1 for '≥50%'.
+    - pao2 (float, optional): Partial pressure of arterial oxygen, required if FiO2 < 50%.
+    - a_a_gradient (float, optional): Alveolar-arterial gradient, required if FiO2 ≥ 50%.
+
+    Returns:
+    - int: The computed APACHE II score.
+"}}
+Parameter List：
+{{{
+    "age": {"Value": 35, "Unit": null},
+    "temperature": {"Value": 36.6, "Unit": "Celsius"},
+    "mean_arterial_pressure": {"Value": 87, "Unit": "mmHg"},
+    "heart_rate": {"Value": 62, "Unit": "beats per minute"},
+    "respiratory_rate": {"Value": 26, "Unit": "breaths per minute"},
+    "sodium": {"Value": 160, "Unit": "mmol/L"},
+    "potassium": {"Value": 5.5, "Unit": "mmol/L"},
+    "creatinine": {"Value": 1.0, "Unit": null},
+    "hematocrit": {"Value": 55, "Unit": "Percentage"},
+    "white_blood_cell_count": {"Value": 7.4, "Unit": "×10^9/L"},
+    "gcs": {"Value": 5, "Unit": null},
+    "ph": {"Value": 7.45, "Unit": null},
+    "history_of_severe_organ_insufficiency": {"Value": 0, "Unit": null},
+    "acute_renal_failure": {"Value": 0, "Unit": null},
+    "fio2": {"Value": 0, "Unit": null},
+    "pao2": {"Value": 85, "Unit": "mmHg"},
+    "a_a_gradient": {"Value": 0, "Unit": null}
+}}}
+Step By Step Analysis:
+1. age:
+   - Function Docstring: Age of the patient in years.
+   - Parameter List: 35
+   - Decision: calculate
+
+2. temperature:
+   - Function Docstring: Rectal temperature in degrees Celsius.
+   - Parameter List: 36.6 Celsius
+   - Decision: calculate
+
+3. mean_arterial_pressure:
+   - Function Docstring: Mean arterial pressure in mm Hg.
+   - Parameter List: 87 mmHg
+   - Decision: calculate
+
+4. heart_rate:
+   - Function Docstring: Heart rate in beats per minute.
+   - Parameter List: 62 beats per minute
+   - Decision: calculate
+
+5. respiratory_rate:
+   - Function Docstring: Respiratory rate in breaths per minute.
+   - Parameter List: 26 breaths per minute
+   - Decision: calculate
+
+6. sodium:
+   - Function Docstring: Serum sodium in mmol/L.
+   - Parameter List: 160 mmol/L
+   - Decision: calculate
+
+7. potassium:
+   - Function Docstring: Serum potassium in mmol/L.
+   - Parameter List: 5.5 mmol/L
+   - Decision: calculate
+
+8. creatinine:
+   - Function Docstring: Serum creatinine in mg/100 mL.
+   - Parameter List: 1.0
+   - Decision: calculate
+
+9. hematocrit:
+   - Function Docstring: Hematocrit percentage.
+   - Parameter List: 55 Percentage
+   - Decision: calculate
+
+10. white_blood_cell_count:
+    - Function Docstring: White blood cell count per cubic millimeter.
+    - Parameter List: 7.4 ×10^9/L
+    - Decision: calculate
+
+11. gcs:
+    - Function Docstring: Glasgow Coma Scale score, ranging from 3 (most impaired) to 15 (fully awake).
+    - Parameter List: 5
+    - Decision: calculate
+
+12. ph:
+    - Function Docstring: Arterial pH.
+    - Parameter List: 7.45
+    - Decision: calculate
+
+13. history_of_severe_organ_insufficiency:
+    - Function Docstring: Indicates the patient's history status, with 0 for 'No', 1 for 'Yes, and elective postoperative patient', and 2 for 'Yes, and nonoperative or emergency postoperative patient'.
+    - Parameter List: 0
+    - Decision: calculate
+
+14. acute_renal_failure:
+    - Function Docstring: Indicates if the patient has acute renal failure, with 0 for 'No' and 1 for 'Yes'.
+    - Parameter List: 0
+    - Decision: calculate
+
+15. fio2:
+    - Function Docstring: Fraction of inspired oxygen, 0 for '<50%' and 1 for '≥50%'.
+    - Parameter List: 0
+    - Decision: calculate
+
+16. pao2:
+    - Function Docstring: Partial pressure of arterial oxygen, required if FiO2 < 50%.
+    - Parameter List: 85 mmHg
+    - Decision: calculate
+
+17. a_a_gradient:
+    - Function Docstring: Alveolar-arterial gradient, required if FiO2 ≥ 50%.
+    - Parameter List: 0
+    - Decision: calculate
+
+Final Answer:
+```json
+{
+    "chosen_decision_name": "calculate",
+    "supplementary_information": "All parameters comply with the Function Docstring requirements. No unit conversion is needed as the parameters use indices to specify units."
+}
+```
