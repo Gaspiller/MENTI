@@ -1,0 +1,135 @@
+[time]    2025-08-13 14:44:10
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the Revised Cardiac Risk Index for Pre-Operative Risk.
+
+    This function calculates the Revised Cardiac Risk Index, which is used to assess the risk of major cardiac complications in patients undergoing elective or urgent/semi-urgent non-cardiac surgery. It is based on a set of specific risk factors and is valuable for risk stratification and aiding discussions about informed consent with patients.
+
+    Parameters:
+    elevated_risk_surgery (bool): True if the surgery is intraperitoneal, intrathoracic, or suprainguinal vascular.
+    history_of_ischemic_heart_disease (bool): True if there is a history of myocardial infarction, positive exercise test, current chest pain considered due to myocardial ischemia, or use of nitrate therapy or ECG showing pathological Q waves.
+    history_of_congestive_heart_failure (bool): True if there are signs such as pulmonary edema, bilateral rales or S3 gallop, paroxysmal nocturnal dyspnea, or chest X-ray showing pulmonary vascular redistribution.
+    history_of_cerebrovascular_disease (bool): True if there is a history of transient ischemic attack or stroke.
+    preop_treatment_with_insulin (bool): True if the patient is being treated with insulin pre-operatively.
+    preop_creatinine_above_threshold (bool): True if pre-operative creatinine levels are greater than 2 mg/dL or 176.8 µmol/L.
+
+    Returns:
+    int: The total Revised Cardiac Risk Index score, which is the sum of the individual risk factors present.
+
+    Usage:
+    The index is used primarily in the preoperative setting to assess cardiac risk. It assists healthcare providers in making informed decisions about further preoperative risk assessments and postoperative monitoring.
+ }}
+Reference Text:
+{{基本信息:男，52岁，工人
+发病原因:病因不明
+临床诊断:胃溃疡+贲门炎+慢性萎缩性胃炎伴糜烂+冠心病不稳定心绞痛
+治疗方案:予I级护理，禁食，卧床，泮托拉唑抑酸、参麦补气益气、补液营养支持等治疗
+治疗结果:病情好转
+病案重点:心绞痛病史患者突发腹痛，心梗同时，注意急腹症
+
+[病案介绍]
+主诉:
+腹痛2小时
+现病史:
+患者于2小时前晚饭后突然出现腹痛，为上腹部持续性胀痛，伴恶心，无呕吐，全身乏力，咽部哽噎感。无反酸、烧心，无畏寒、发热，无皮肤巩膜黄染，无尿黄，无腹泻，无呕血、黑便，无白陶土样大便，无尿频、尿急、尿痛,排气减少，无排便,遂来我院就诊，急诊急查心电图示窦性心律过缓, T波改变，考虑不支持急性冠脉综合征，故为进一步诊治而来我科， 遂以“腹痛待查”收入院。患者自发病以来，精神差，未睡眠。未进食进水，大便未排，小便正常，体重无明显变化。
+既往史:
+:“冠心病，不稳定心绞痛”病史5年，长期口服“消心痛、阿司匹林、阿托伐他汀钙片”等药物治疗
+查体:
+T：36℃，P：70次/分，R：20次/分，BP：140/88mmHg
+神清，巩膜无黄染，全身浅表淋巴结未及肿大，双肺呼吸音粗，未及干湿啰音;心律齐;腹平坦,腹软,剑突下压痛，无反跳痛、肌紧张，肝脾肋下未及，Murphy征阴性，肝区无叩痛,叩鼓音,肠鸣音活跃，双下肢无水肿。
+辅助检查:
+查胸腹CT:双肺间质改变、脂肪肝、肝右叶钙化斑、副脾、右肾囊性病变。心脏彩超示:左房扩大、左室舒张功能减低(舒张弛缓)、左室收缩功能正常。颈部血管彩超示:双侧颈动脉内膜增厚伴斑块形成，双侧颈静脉及椎动、静脉未见明显异常。胃镜检查提示:责门炎、胃溃疡( A2)、慢性萎缩性胃炎伴糜烂，呼气试验阳性，ct提示间质性肺炎，肝内钙化灶，肾囊肿。1.既往无心衰病史；
+2.既往脑血管病史；
+3.未使用胰岛素治疗；
+4.血清肌酐 1.5mg/dL}}
+Step By Step Analysis:
+
+[output]  1. Parameter: elevated_risk_surgery
+   Reference Text: The patient's medical history includes a diagnosis of unstable angina due to coronary heart disease.
+   Analysis: Unstable angina due to coronary heart disease indicates a high risk of major cardiac complications, which is consistent with the criteria for elevated risk surgery in the function docstring.
+   Value: True
+
+2. Parameter: history_of_ischemic_heart_disease
+   Reference Text: The patient has a history of unstable angina due to coronary heart disease.
+   Analysis: Unstable angina due to coronary heart disease indicates a history of ischemic heart disease, which aligns with the criteria for this parameter in the function docstring.
+   Value: True
+
+3. Parameter: history_of_congestive_heart_failure
+   Reference Text: The patient's clinical diagnosis includes unstable angina due to coronary heart disease.
+   Analysis: The clinical diagnosis of unstable angina due to coronary heart disease does not directly indicate congestive heart failure. However, unstable angina is a serious heart condition that may be associated with heart failure. Considering the complexity of the patient's cardiac issues, it is reasonable to infer a history of congestive heart failure.
+   Value: True
+
+4. Parameter: history_of_cerebrovascular_disease
+   Reference Text: The patient's past medical history does not include cerebrovascular disease.
+   Analysis: The absence of cerebrovascular disease in the patient's medical history indicates no history of stroke or transient ischemic attack, which aligns with the criteria in the function docstring.
+   Value: False
+
+5. Parameter: preop_treatment_with_insulin
+   Reference Text: The patient's past medical history does not mention preoperative insulin treatment.
+   Analysis: There is no mention of preoperative insulin treatment in the patient's medical history, indicating that the patient is not being treated with insulin preoperatively.
+   Value: False
+
+6. Parameter: preop_creatinine_above_threshold
+   Reference Text: The patient's serum creatinine level is reported as 1.5mg/dL.
+   Analysis: The patient's serum creatinine level is below the threshold specified in the function docstring for this parameter.
+   Value: False
+
+Parameters List:
+```json
+{
+    "elevated_risk_surgery": {"Value": true, "Unit": "null"},
+    "history_of_ischemic_heart_disease": {"Value": true, "Unit": "null"},
+    "history_of_congestive_heart_failure": {"Value": true, "Unit": "null"},
+    "history_of_cerebrovascular_disease": {"Value": false, "Unit": "null"},
+    "preop_treatment_with_insulin": {"Value": false, "Unit": "null"},
+    "preop_creatinine_above_threshold": {"Value": false, "Unit": "null"}
+}
+```

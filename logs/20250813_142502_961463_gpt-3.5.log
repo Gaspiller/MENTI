@@ -1,0 +1,276 @@
+[time]    2025-08-13 14:25:02
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Mean Arterial Pressure (MAP)', 'CKD-EPI Equations for Glomerular Filtration Rate (GFR)', 'PHQ-9 (Patient Health Questionnaire-9)', 'PSI/PORT Score: Pneumonia Severity Index for CAP', 'HEART Score for Major Cardiac Events', 'Revised Cardiac Risk Index for Pre-Operative Risk', 'STOP-BANG Score for Obstructive Sleep Apnea', 'Corrected QT Interval (QTc)', 'MDRD GFR Equation', 'CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk']}}
+Detailed information of each tool: {{Mean Arterial Pressure (MAP): Calculate the Mean Arterial Pressure (MAP) from the systolic (SBP) and diastolic blood pressure (DBP).
+    
+    MAP is a crucial health metric used to assess tissue perfusion and blood flow. It is particularly important in
+    medical scenarios such as sepsis, trauma, stroke, intracranial bleeding, and hypertensive emergencies.
+    The formula used for calculating MAP is: MAP = 1/3 * SBP + 2/3 * DBP.
+    
+    Parameters:
+        systolic_bp (float): Systolic blood pressure in mmHg.
+        diastolic_bp (float): Diastolic blood pressure in mmHg.
+    
+    Returns:
+        float: The calculated mean arterial pressure in mmHg.
+    
+    Example:
+        >>> calculate_mean_arterial_pressure(120, 80)
+        93.33333333333333
+
+CKD-EPI Equations for Glomerular Filtration Rate (GFR): Calculate the 2021 CKD-EPI (Chronic Kidney Disease Epidemiology Collaboration) GFR (Glomerular Filtration Rate)
+    without the race component. This function estimates kidney function using creatinine-based equations and is intended
+    for patients with chronic (not acute) kidney disease. This calculation is particularly used by nephrologists to 
+    assess kidney function non-invasively and is considered more accurate than the MDRD Equation, especially in patients
+    with normal or mildly reduced eGFR.
+
+    Parameters:
+    - serum_creatinine (float): The serum creatinine level of the patient in mg/dL.
+    - age (int): The age of the patient in years.
+    - gender (int): The gender of the patient. Use 0 for male and 1 for female.
+
+    Returns:
+    - float: The estimated GFR in ml/min/1.73m^2.
+
+    Usage:
+    To use this function, provide the serum creatinine level, age, and gender index (0 for male, 1 for female).
+    For example, calculate_ckd_epi_gfr(0.9, 30, 0) calculates the GFR for a 30-year-old male with a serum creatinine of 0.9 mg/dL.
+
+    Note:
+    - Not intended for use in patients on dialysis.
+    - Less accurate in patients with diabetes (before progression to overt nephropathy), pregnant women, and those with unusual body mass.
+
+
+PHQ-9 (Patient Health Questionnaire-9): Calculate the PHQ-9 (Patient Health Questionnaire-9) score.
+
+    The PHQ-9 is a clinical scale used to diagnose depression and to quantify and monitor the severity of depression symptoms.
+    It evaluates symptoms based on the 9 DSM criteria for major depressive disorder (MDD). Each criterion is scored from 0 to 3:
+    - "0" for 'Not at all'
+    - "1" for 'Several days'
+    - "2" for 'More than half the days'
+    - "3" for 'Nearly every day'
+    The function sums these scores to provide an overall severity score ranging from 0 to 27.
+
+    Parameters:
+    - interest_pleasure (int): Index from 0 to 3 indicating frequency of little interest or pleasure in doing things.
+    - feeling_down (int): Index from 0 to 3 indicating frequency of feeling down, depressed, or hopeless.
+    - sleep_issues (int): Index from 0 to 3 indicating trouble with falling or staying asleep, or sleeping too much.
+    - tired_energy (int): Index from 0 to 3 indicating feeling tired or having little energy.
+    - appetite_issues (int): Index from 0 to 3 indicating issues with poor appetite or overeating.
+    - self_feeling (int): Index from 0 to 3 indicating feelings of being bad about oneself, or feeling like a failure.
+    - concentration (int): Index from 0 to 3 indicating trouble concentrating on things.
+    - activity_level (int): Index from 0 to 3 indicating altered activity levels, either moving too slowly or being too fidgety.
+    - suicidal_thoughts (int): Index from 0 to 3 indicating frequency of thoughts of self-harm or being better off dead.
+
+    Returns:
+    - int: The total PHQ-9 score, which is the sum of all the individual scores for the symptoms listed above.
+
+
+PSI/PORT Score: Pneumonia Severity Index for CAP: Calculate the PSI/PORT Score for Community-Acquired Pneumonia (CAP).
+
+    The PSI/PORT Score helps to risk stratify patients with community-acquired pneumonia in clinical or
+    emergency department settings. This score may underestimate severe pneumonia in younger, otherwise healthy patients.
+    It is important to consider other clinical factors such as sepsis, which may require additional testing
+    like lactate levels. Any patient over 50 years of age is automatically classified as risk class 2.
+
+    Parameters:
+    age (int): Patient's age in years.
+    sex (str): Patient's sex, either 'Female' or 'Male'.
+    nursing_home_resident (bool): True if the patient is a nursing home resident, False otherwise.
+    neoplastic_disease (bool): True if the patient has a history of neoplastic disease, False otherwise.
+    liver_disease (bool): True if the patient has a history of liver disease, False otherwise.
+    chf_history (bool): True if the patient has a history of congestive heart failure, False otherwise.
+    cerebrovascular_disease (bool): True if the patient has a history of cerebrovascular disease, False otherwise.
+    renal_disease (bool): True if the patient has a history of renal disease, False otherwise.
+    altered_mental_status (bool): True if the patient has altered mental status, False otherwise.
+    respiratory_rate (bool): True if respiratory rate is ≥30 breaths/min, False otherwise.
+    systolic_bp (bool): True if systolic blood pressure is <90 mmHg, False otherwise.
+    temperature (bool): True if temperature is <35°C or >39.9°C, False otherwise.
+    pulse (bool): True if pulse rate is ≥125 beats/min, False otherwise.
+    blood_ph (bool): True if blood pH is <7.35, False otherwise.
+    bun (bool): True if BUN is ≥30 mg/dL or ≥11 mmol/L, False otherwise.
+    sodium (bool): True if sodium level is <130 mmol/L, False otherwise.
+    glucose (bool): True if glucose level is ≥250 mg/dL or ≥14 mmol/L, False otherwise.
+    hematocrit (bool): True if hematocrit is <30%, False otherwise.
+    oxygen_pressure (bool): True if partial pressure of oxygen is <60 mmHg or <8 kPa, False otherwise.
+    pleural_effusion (bool): True if there is pleural effusion on x-ray, False otherwise.
+
+    Returns:
+    int: The total PSI/PORT Score indicating the severity of the pneumonia.
+
+HEART Score for Major Cardiac Events:  Calculates the HEART Score for Major Cardiac Events based on five categories:
+    History, EKG, Age, Risk factors, and Troponin level. This score helps to
+    risk-stratify emergency department (ED) patients with chest pain into low,
+    moderate, and high-risk groups for acute coronary syndrome (ACS).
+
+    Args:
+    history_score (int): Score based on patient history assessment, where:
+        0 = Slightly suspicious,
+        1 = Moderately suspicious,
+        2 = Highly suspicious.
+    ekg_score (int): Score based on EKG findings, where:
+        0 = Normal,
+        1 = Non-specific repolarization disturbance,
+        2 = Significant ST deviation.
+    age_score (int): Score based on patient's age, where:
+        0 = less than 45,
+        1 = between 45 and 64,
+        2 = 65 or older.
+    risk_factors_score (int): Score based on number of cardiovascular risk factors, where:
+        0 = No known risk factors,
+        1 = 1–2 risk factors,
+        2 = 3 or more risk factors or history of atherosclerotic disease.
+    troponin_score (int): Score based on initial troponin levels, where:
+        0 = ≤ normal limit,
+        1 = 1–3 times normal limit,
+        2 = >3 times normal limit.
+
+    Returns:
+    int: The total HEART score, which can guide further management of chest pain patients
+         in the emergency setting. Total scores categorize risk as follows:
+         0-3 points indicate low risk,
+         4-6 points indicate moderate risk,
+         7-10 points indicate high risk.
+
+    Example:
+    >>> calculate_heart_score(2, 1, 1, 2, 1)
+    7
+
+
+Revised Cardiac Risk Index for Pre-Operative Risk: Calculate the Revised Cardiac Risk Index for Pre-Operative Risk.
+
+    This function calculates the Revised Cardiac Risk Index, which is used to assess the risk of major cardiac complications in patients undergoing elective or urgent/semi-urgent non-cardiac surgery. It is based on a set of specific risk factors and is valuable for risk stratification and aiding discussions about informed consent with patients.
+
+    Parameters:
+    elevated_risk_surgery (bool): True if the surgery is intraperitoneal, intrathoracic, or suprainguinal vascular.
+    history_of_ischemic_heart_disease (bool): True if there is a history of myocardial infarction, positive exercise test, current chest pain considered due to myocardial ischemia, or use of nitrate therapy or ECG showing pathological Q waves.
+    history_of_congestive_heart_failure (bool): True if there are signs such as pulmonary edema, bilateral rales or S3 gallop, paroxysmal nocturnal dyspnea, or chest X-ray showing pulmonary vascular redistribution.
+    history_of_cerebrovascular_disease (bool): True if there is a history of transient ischemic attack or stroke.
+    preop_treatment_with_insulin (bool): True if the patient is being treated with insulin pre-operatively.
+    preop_creatinine_above_threshold (bool): True if pre-operative creatinine levels are greater than 2 mg/dL or 176.8 µmol/L.
+
+    Returns:
+    int: The total Revised Cardiac Risk Index score, which is the sum of the individual risk factors present.
+
+    Usage:
+    The index is used primarily in the preoperative setting to assess cardiac risk. It assists healthcare providers in making informed decisions about further preoperative risk assessments and postoperative monitoring.
+ 
+
+STOP-BANG Score for Obstructive Sleep Apnea: Calculate the STOP-BANG Score for screening Obstructive Sleep Apnea (OSA).
+
+    This score is useful for patients undergoing preoperative evaluation but should not be used if a patient
+    has already been diagnosed with OSA or uses CPAP at night. It helps in identifying patients who might have
+    OSA and are at increased risk of perioperative cardiopulmonary complications, as well as other morbidity
+    associated with OSA like daytime sleepiness and cardiopulmonary conditions.
+
+    Parameters:
+    - snore_loudly (bool): True if the patient snores loudly (louder than talking or loud enough to be heard through closed doors), False otherwise.
+    - feel_tired_daytime (bool): True if the patient often feels tired, fatigued, or sleepy during the daytime, False otherwise.
+    - observed_apnea (bool): True if anyone has observed the patient stop breathing during sleep, False otherwise.
+    - high_blood_pressure (bool): True if the patient has or is being treated for high blood pressure, False otherwise.
+    - bmi (float): Body Mass Index of the patient.
+    - age (int): Age of the patient in years.
+    - neck_circumference (float): Neck circumference of the patient in centimeters.
+    - gender (str): Gender of the patient. Expected values: 'Female' or 'Male'.
+
+    Returns:
+    int: The total STOP-BANG score, ranging from 0 to 8.
+
+    Usage:
+    >>> calculate_stop_bang_score(True, True, True, True, 36, 51, 41, 'Male')
+    8
+
+Corrected QT Interval (QTc): Calculate the Corrected QT Interval (QTc) for a patient.
+
+    The QTc is used primarily to assess the risk of ventricular arrhythmias, especially torsades de pointes, 
+    in patients with syncope or those receiving multiple QT-prolonging medications. A prolonged QT interval 
+    can indicate a higher risk of cardiac arrhythmias. This function corrects the QT interval to a heart rate 
+    of 60 beats per minute, accounting for variations due to different heart rates.
+
+    Parameters:
+        qt_interval (float): The measured QT interval in milliseconds.
+        heart_rate (float): The patient's heart rate in beats per minute.
+        formula (str): The formula to use for correction. Options are 'Bazett', 'Fridericia', 
+                       'Framingham', 'Hodges', and 'Rautaharju'.
+
+    Returns:
+        float: The corrected QT interval (QTc) in milliseconds.
+
+    Example:
+        >>> calculate_qtc(300, 70, 'Bazett')
+        357.0
+
+MDRD GFR Equation: Calculate the Modified Diet in Renal Disease (MDRD) Glomerular Filtration Rate (GFR).
+    This function estimates kidney function in patients with stable chronic kidney disease.
+    It should not be used to assess acute renal failure or when GFR is >60 ml/min/m2 as it underestimates GFR.
+
+    Parameters:
+    - serum_cr (float): Serum creatinine (Cr) level in mg/dL. Should be a positive float.
+    - age (int): Age of the patient in years. Should be a non-negative integer.
+    - race_index (int): Index representing the patient's race. 0 for non-black, 1 for black.
+    - gender_index (int): Index representing the patient's gender. 0 for male, 1 for female.
+
+    Returns:
+    - float: Estimated GFR in ml/min/1.73m2.
+
+    The formula used:
+    GFR = 175 × Serum Cr^{-1.154} × age^{-0.203} × 1.212 (if patient is black) × 0.742 (if female)
+
+
+CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk: Calculate the CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk.
+
+    The CHA2DS2-VASc score is a clinical prediction rule for estimating the risk of stroke in
+    patients with non-valvular atrial fibrillation. It is used to determine whether treatment with
+    anticoagulation or antiplatelet therapy is appropriate, based on the risk of thromboembolism.
+
+    Parameters:
+    - age (int): Age of the patient.
+    - sex (str): Biological sex of the patient, 'male' or 'female'.
+    - history_of_congestive_heart_failure (bool): True if the patient has a history of congestive heart failure, otherwise False.
+    - history_of_hypertension (bool): True if the patient has a history of hypertension, otherwise False.
+    - history_of_stroke_tia_thromboembolism (bool): True if the patient has a history of stroke, transient ischemic attack (TIA), or thromboembolism, otherwise False.
+    - history_of_vascular_disease (bool): True if the patient has a history of vascular disease (prior myocardial infarction, peripheral artery disease, or aortic plaque), otherwise False.
+    - history_of_diabetes (bool): True if the patient has a history of diabetes mellitus, otherwise False.
+
+    Returns:
+    - int: The total CHA2DS2-VASc score which is a sum of the points for each risk factor.
+
+    Example:
+    >>> calculate_cha2ds2_vasc_score(75, 'female', True, True, True, True, True)
+    9
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{哪一个量表用于评估患者的平均动脉压？}}
+Task Scenario: {{根据患者的病历信息和辅助检查结果，可以推测患者患有急性脑梗死导致的右侧肢体活动不利。此外，患者的双侧瞳孔等大等圆，伸舌右偏，言语謇涩，以及右侧肢体运动功能不全，提示可能存在与脑梗死相关的神经系统损伤。血压控制不佳也可能加重了脑血管病变的风险。整体来看，患者可能存在语言障碍、肢体运动障碍和认知功能减退等问题。}}
+Step By Step Analysis:
+
+[output]  1. 通过用户需求可知，用户想要评估患者的平均动脉压。根据工具列表，"Mean Arterial Pressure (MAP)"是用来计算平均动脉压的工具。
+
+2. 根据任务情景描述，患者可能患有急性脑梗死导致的右侧肢体活动不利，双侧瞳孔等大等圆，伸舌右偏，言语謇涩，以及右侧肢体运动功能不全。这些迹象表明可能存在与脑梗死相关的神经系统损伤，血压不稳定可能加重脑血管病变的风险。因此，需要快速评估患者的平均动脉压以及组织灌注情况。
+
+3. 综上所述，根据用户需求和任务情景描述，最适合的工具是"Mean Arterial Pressure (MAP)"。
+
+```json
+{
+    "chosen_tool_name": "Mean Arterial Pressure (MAP)"
+}
+```

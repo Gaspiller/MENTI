@@ -1,0 +1,259 @@
+[time]    2025-08-13 13:30:22
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Sequential Organ Failure Assessment (SOFA) Score', 'CKD-EPI Equations for Glomerular Filtration Rate (GFR)', 'APACHE II Score', 'PSI/PORT Score: Pneumonia Severity Index for CAP', 'Centor Score (Modified/McIsaac) for Strep Pharyngitis', 'Body Mass Index (BMI) and Body Surface Area (BSA)', 'NIH Stroke Scale/Score (NIHSS)', 'Maintenance Fluids Calculations', 'HOMA-IR (Homeostatic Model Assessment for Insulin Resistance)', 'Ideal Body Weight and Adjusted Body Weight']}}
+Detailed information of each tool: {{Sequential Organ Failure Assessment (SOFA) Score: "Calculate the Sequential Organ Failure Assessment (SOFA) Score which is used to assess the extent of a person's organ function or rate of failure.
+The score is used to track a patient's status during their stay in an intensive care unit to determine the extent of a person's organ function or rate of failure.
+
+Parameters:
+- pao2_fio2_ratio (float): The ratio of arterial oxygen partial pressure to fractional inspired oxygen (mmHg).
+- platelets (float): Platelet count in ×103/µL.
+- glasgow_coma_scale (int): Score on the Glasgow Coma Scale.
+- bilirubin (float): Serum bilirubin in mg/dL.
+- map_pressure (float): Mean arterial pressure in mmHg.
+- vasoactive_agents (int): Index indicating the vasoactive agents being used. Corresponds to 0 for no agents, 1 for low dose dopamine or any dose dobutamine, 2 for higher dose dopamine or low dose epinephrine/norepinephrine, 3 for very high dose of these agents.
+- creatinine (float): Serum creatinine in mg/dL.
+- urine_output (float): Urine output in mL/day.
+- o2_delivery_type (int): Index of the type of oxygen delivery method used. Types are as follows: 0 = nasal cannula, 1 = simple face mask, 2 = non-rebreather mask, 3 = high-flow nasal cannula.
+- o2_flow_rate (float): Flow rate of oxygen delivery in L/min.
+
+Returns:
+int: Total SOFA score which is the sum of individual scores across the specified parameters."
+
+CKD-EPI Equations for Glomerular Filtration Rate (GFR): Calculate the 2021 CKD-EPI (Chronic Kidney Disease Epidemiology Collaboration) GFR (Glomerular Filtration Rate)
+    without the race component. This function estimates kidney function using creatinine-based equations and is intended
+    for patients with chronic (not acute) kidney disease. This calculation is particularly used by nephrologists to 
+    assess kidney function non-invasively and is considered more accurate than the MDRD Equation, especially in patients
+    with normal or mildly reduced eGFR.
+
+    Parameters:
+    - serum_creatinine (float): The serum creatinine level of the patient in mg/dL.
+    - age (int): The age of the patient in years.
+    - gender (int): The gender of the patient. Use 0 for male and 1 for female.
+
+    Returns:
+    - float: The estimated GFR in ml/min/1.73m^2.
+
+    Usage:
+    To use this function, provide the serum creatinine level, age, and gender index (0 for male, 1 for female).
+    For example, calculate_ckd_epi_gfr(0.9, 30, 0) calculates the GFR for a 30-year-old male with a serum creatinine of 0.9 mg/dL.
+
+    Note:
+    - Not intended for use in patients on dialysis.
+    - Less accurate in patients with diabetes (before progression to overt nephropathy), pregnant women, and those with unusual body mass.
+
+
+APACHE II Score: Calculate the APACHE II Score for a patient in the ICU, to assess severity and predict mortality.
+
+    Parameters:
+    - age (int): Age of the patient in years.
+    - temperature (float): Rectal temperature in degrees Celsius.
+    - mean_arterial_pressure (int): Mean arterial pressure in mm Hg.
+    - heart_rate (int): Heart rate in beats per minute.
+    - respiratory_rate (int): Respiratory rate in breaths per minute.
+    - sodium (float): Serum sodium in mmol/L.
+    - potassium (float): Serum potassium in mmol/L.
+    - creatinine (float): Serum creatinine in mg/100 mL.
+    - hematocrit (float): Hematocrit percentage.
+    - white_blood_cell_count (float): White blood cell count per cubic millimeter.
+    - gcs (int): Glasgow Coma Scale score, ranging from 3 (most impaired) to 15 (fully awake).
+    - ph (float): Arterial pH.
+    - history_of_severe_organ_insufficiency (int): Indicates the patient's history status, with 0 for 'No', 1 for 'Yes, and elective postoperative patient', and 2 for 'Yes, and nonoperative or emergency postoperative patient'.
+    - acute_renal_failure (int): Indicates if the patient has acute renal failure, with 0 for 'No' and 1 for 'Yes'.
+    - fio2 (int): Fraction of inspired oxygen, 0 for '<50%' and 1 for '≥50%'.
+    - pao2 (float, optional): Partial pressure of arterial oxygen, required if FiO2 < 50%.
+    - a_a_gradient (float, optional): Alveolar-arterial gradient, required if FiO2 ≥ 50%.
+
+    Returns:
+    - int: The computed APACHE II score.
+
+
+PSI/PORT Score: Pneumonia Severity Index for CAP: Calculate the PSI/PORT Score for Community-Acquired Pneumonia (CAP).
+
+    The PSI/PORT Score helps to risk stratify patients with community-acquired pneumonia in clinical or
+    emergency department settings. This score may underestimate severe pneumonia in younger, otherwise healthy patients.
+    It is important to consider other clinical factors such as sepsis, which may require additional testing
+    like lactate levels. Any patient over 50 years of age is automatically classified as risk class 2.
+
+    Parameters:
+    age (int): Patient's age in years.
+    sex (str): Patient's sex, either 'Female' or 'Male'.
+    nursing_home_resident (bool): True if the patient is a nursing home resident, False otherwise.
+    neoplastic_disease (bool): True if the patient has a history of neoplastic disease, False otherwise.
+    liver_disease (bool): True if the patient has a history of liver disease, False otherwise.
+    chf_history (bool): True if the patient has a history of congestive heart failure, False otherwise.
+    cerebrovascular_disease (bool): True if the patient has a history of cerebrovascular disease, False otherwise.
+    renal_disease (bool): True if the patient has a history of renal disease, False otherwise.
+    altered_mental_status (bool): True if the patient has altered mental status, False otherwise.
+    respiratory_rate (bool): True if respiratory rate is ≥30 breaths/min, False otherwise.
+    systolic_bp (bool): True if systolic blood pressure is <90 mmHg, False otherwise.
+    temperature (bool): True if temperature is <35°C or >39.9°C, False otherwise.
+    pulse (bool): True if pulse rate is ≥125 beats/min, False otherwise.
+    blood_ph (bool): True if blood pH is <7.35, False otherwise.
+    bun (bool): True if BUN is ≥30 mg/dL or ≥11 mmol/L, False otherwise.
+    sodium (bool): True if sodium level is <130 mmol/L, False otherwise.
+    glucose (bool): True if glucose level is ≥250 mg/dL or ≥14 mmol/L, False otherwise.
+    hematocrit (bool): True if hematocrit is <30%, False otherwise.
+    oxygen_pressure (bool): True if partial pressure of oxygen is <60 mmHg or <8 kPa, False otherwise.
+    pleural_effusion (bool): True if there is pleural effusion on x-ray, False otherwise.
+
+    Returns:
+    int: The total PSI/PORT Score indicating the severity of the pneumonia.
+
+Centor Score (Modified/McIsaac) for Strep Pharyngitis:  Calculate the Centor Score (Modified/McIsaac) for Strep Pharyngitis.
+    
+    This scoring system helps clinicians determine the likelihood of Group A Streptococcus (GAS) 
+    in patients with symptoms of pharyngitis, which is critical for deciding whether to proceed 
+    with testing for strep pharyngitis. The score integrates factors such as age, tonsillar exudate, 
+    cervical lymphadenopathy, temperature, and the presence of cough to stratify the risk.
+    
+    Parameters:
+    - age (int): Age of the patient in years.
+    - exudate_swelling (bool): True if there is exudate or swelling on the tonsils, False otherwise.
+    - tender_swollen_lymph_nodes (bool): True if there are tender/swollen anterior cervical lymph nodes, False otherwise.
+    - temperature (float): Patient's temperature in degrees Celsius.
+    - cough (bool): True if cough is present, False otherwise.
+
+    Returns:
+    - int: The calculated Centor Score, which ranges from -1 to 4.
+    
+    Usage:
+    Typically used in primary care settings to assess the necessity for further testing for GAS infection,
+    guiding the judicious use of antibiotics in managing pharyngitis. Higher scores suggest a higher probability
+    of streptococcal infection and may warrant testing and/or treatment.
+ 
+
+Body Mass Index (BMI) and Body Surface Area (BSA): Calculate the Body Mass Index (BMI) and Body Surface Area (BSA) using provided weight and height.
+
+    BMI is a measure of body fat based on weight and height that applies to adult men and women.
+    It can be misleading for very muscular individuals or in specific ethnic groups with different
+    body compositions and statures.
+
+    BSA is often used in medical settings to determine the dosages of medications that are more 
+    accurately calculated using body surface area rather than weight.
+
+    Parameters:
+    - weight_kg (float): Weight of the individual in kilograms.
+    - height_cm (float): Height of the individual in centimeters.
+
+    Returns:
+    - dict: Dictionary containing 'BMI' and 'BSA' with their respective values.
+
+NIH Stroke Scale/Score (NIHSS): 
+    Calculate the NIH Stroke Scale/Score (NIHSS).
+
+    The NIHSS helps physicians quantify the severity of a stroke in the acute setting. 
+    Increasing scores indicate a more severe stroke and correlate with the size of the infarction on both CT and MRI evaluation.
+    Scores assessed within the first 48 hours following a stroke have been shown to correlate with clinical outcomes at the 3-month and 1-year mark.
+    
+    Parameters:
+        loc_alertness (int): Level of consciousness - Alert (0), Arouses to minor stimulation (1), Requires repeated stimulation (2), Movements to pain (2), Postures or unresponsive (3)
+        loc_questions (int): Ask month and age - Both right (0), One right (1), None right (2), Dysarthric/intubated/trauma/language barrier (1), Aphasic (2)
+        loc_commands (int): 'Blink eyes' & 'squeeze hands' - Performs both (0), Performs one (1), Performs none (2)
+        horizontal_gaze (int): Horizontal extraocular movements - Normal (0), Partial palsy (1), Forced palsy (2)
+        visual_fields (int): Visual fields - No loss (0), Partial hemianopia (1), Complete hemianopia (2), Bilateral blindness (3), Bilateral hemianopia (3)
+        facial_palsy (int): Facial palsy - Normal (0), Minor (1), Partial (2), Unilateral complete (3), Bilateral complete (3)
+        left_arm_motor_drift (int): Left arm motor drift - No drift (0), Drift but doesn't hit bed (1), Drift, hits bed (2), Some effort against gravity (2), No effort against gravity (3), No movement (4), Amputation/joint fusion (0)
+        right_arm_motor_drift (int): Right arm motor drift - No drift (0), Drift but doesn't hit bed (1), Drift, hits bed (2), Some effort against gravity (2), No effort against gravity (3), No movement (4), Amputation/joint fusion (0)
+        left_leg_motor_drift (int): Left leg motor drift - No drift (0), Drift but doesn't hit bed (1), Drift, hits bed (2), Some effort against gravity (2), No effort against gravity (3), No movement (4), Amputation/joint fusion (0)
+        right_leg_motor_drift (int): Right leg motor drift - No drift (0), Drift but doesn't hit bed (1), Drift, hits bed (2), Some effort against gravity (2), No effort against gravity (3), No movement (4), Amputation/joint fusion (0)
+        limb_ataxia (int): Limb ataxia - No ataxia (0), Ataxia in 1 limb (1), Ataxia in 2 limbs (2), Does not understand (0), Paralyzed (0), Amputation/joint fusion (0)
+        sensation (int): Sensation - Normal (0), Mild-moderate loss (1), Mild-moderate loss (1), Complete loss (2), No response/quadriplegic (2), Coma/unresponsive (2)
+        language_aphasia (int): Language/aphasia - Normal (0), Mild-moderate aphasia (1), Severe aphasia (2), Mute/global aphasia (3), Coma/unresponsive (3)
+        dysarthria (int): Dysarthria - Normal (0), Mild-moderate (1), Severe (2), Mute/anarthric (2), Intubated/unable to test (0)
+        extinction_inattention (int): Extinction/inattention - No abnormality (0), Inattention (1), Extinction to bilateral stimulation (1), Profound hemi-inattention (2), Extinction to >1 modality (2)
+
+    Returns:
+        int: Total NIHSS score, summing all input values.
+   
+
+Maintenance Fluids Calculations: Calculate the Maintenance Fluids rate using the "4-2-1" Rule.
+    
+    This function determines the intravenous (IV) fluid rate for patients who are not taking oral fluids,
+    addressing needs such as vomiting, NPO status, dehydration, insensible losses, or third spacing. It uses
+    a weight-based dosing method to ensure appropriate fluid volume according to patient's weight.
+    
+    Parameters:
+    - weight (float): The weight of the patient in kilograms.
+    
+    Returns:
+    - float: The calculated IV fluid rate in mL per hour.
+    
+    Usage:
+    - This calculation is crucial in medical settings where accurate fluid replacement is necessary,
+      particularly in settings where patients cannot intake fluids orally.
+    
+    Example:
+    - calculate_maintenance_fluids(25)  # Calculates fluid rate for a 25 kg patient.
+
+HOMA-IR (Homeostatic Model Assessment for Insulin Resistance): Calculate the Homeostatic Model Assessment for Insulin Resistance (HOMA-IR).
+
+    The HOMA-IR is a clinical tool used to estimate insulin resistance (IR), which can be
+    indicative of potential glucose intolerance and diabetes. It is particularly useful
+    in scenarios where more invasive and time-consuming methods like the clamp measurement
+    (considered the gold standard for measuring IR) are not feasible. Although the HOMA-IR
+    provides a reasonable correlation with clamp measurements, it is less accurate on an
+    individual basis, which suggests a need for caution in its clinical application and
+    interpretation.
+
+    Parameters:
+    - fasting_insulin (float): The fasting insulin level in uIU/mL.
+    - fasting_glucose (float): The fasting glucose level in mg/dL.
+
+    Returns:
+    - float: The estimated insulin resistance (HOMA-IR score).
+
+    Formula:
+    HOMA-IR score = (fasting insulin * fasting glucose) / 405
+
+Ideal Body Weight and Adjusted Body Weight: Calculate the Ideal Body Weight (IBW) and Adjusted Body Weight (ABW) based on height and gender.
+    
+    The IBW calculation uses the Devine formula, which is applicable for individuals who are at least 60 inches tall.
+    For individuals shorter than 5 feet, the IBW is adjusted by subtracting 2-5 lbs for each inch below 60 inches.
+    The ABW is used for obese patients where the actual body weight exceeds the IBW, calculated as:
+    ABW = IBW + 0.4 * (actual body weight - IBW).
+    
+    Parameters:
+        height_in_inches (int): The height of the individual in inches.
+        actual_body_weight (float): The actual body weight of the individual in kilograms.
+        gender (str): The gender of the individual ("male" or "female").
+
+    Returns:
+        list: A list containing the IBW and ABW in kilograms. If the individual is not obese, ABW is set equal to IBW.
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{哪一个量表用于评估患者的肾小球滤过率？}}
+Task Scenario: {{根据提供的病例信息，患者表现出右肾萎缩，左肾积水，左侧输尿管末端结石，肾周渗出等症状，提示泌尿系感染及慢性肾衰竭急性加重。此外，还出现了扩张型心肌病心衰3度，心包积液，心律失常，肺气肿，肺部感染，凝血功能异常，高血压等多系统并发症。根据这些异常表现，推测患者的泌尿系统功能、心肌功能、肺部功能和凝血功能可能受到影响。治疗方案中提到了输尿管镜下钬激光碎石术，旨在治疗输尿管结石，可能有助于改善部分泌尿系统功能。综合来看，患者整体情况危急，需要全面治疗以维持重要器官功能。}}
+Step By Step Analysis:
+
+[output]  1. 根据用户需求，用户想要了解用于评估患者的肾小球滤过率的工具。
+
+2. 寻找工具列表中与肾小球滤过率相关的工具，根据病例信息中对患者肾脏功能出现问题的描述，可以选择使用"CKD-EPI Equations for Glomerular Filtration Rate (GFR)"这个工具来评估患者的肾小球滤过率。
+
+3. "CKD-EPI Equations for Glomerular Filtration Rate (GFR)"工具可以通过提供患者的血清肌酐水平、年龄和性别来估算肾小球滤过率。
+
+4. 由于病例信息中涉及到患者肾脏问题，这个工具可以帮助医生更准确地评估患者的肾功能状态，对于患者的诊断和治疗方案制定具有重要意义。
+
+```json
+{
+    "chosen_tool_name": "CKD-EPI Equations for Glomerular Filtration Rate (GFR)"
+}
+```

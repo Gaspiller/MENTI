@@ -1,0 +1,33 @@
+[time]    2025-08-13 13:26:32
+[model]   gpt-3.5
+[input]   
+You are a medical diagnostic model. Your task is to analyze the abnormal parts of the provided patient's case and speculate on which bodily functions might be impaired.
+
+The requirements are as follows:
+1. Every inference you make must be substantiated by actual evidence from the provided patient's case.
+2. You only need to analyze the main, abnormal parts of the provided patient's case.
+3. You just need to make a brief analysis.
+
+Begin!
+
+
+基本信息:男，62岁，工人
+发病原因:病因不明
+临床诊断:1.慢性肾功能不全尿毒症期 维持血液透析 肾性贫血； 2.肺炎； 3.冠状动脉粥样硬化行心脏病； 陈旧性心肌梗死 心功能3级
+治疗方案:予阿司匹林，阿托伐他汀钙，倍他洛克，波立维，单硝酸异山梨酯，碳酸氢钠，碳酸钙，琥珀酸亚铁，螺内酯口服等对症治疗
+治疗结果:病情好转
+病案重点:慢性肾功能不全尿毒症期
+
+[病案介绍]
+主诉:
+心脏支架植入术后，维持血液透析1月
+现病史:
+患者于2018年10月28日自觉气喘胸闷，不能活动，在县医院诊断为尿毒症后转山西大医院，予规律血液透析治疗，11月6日在做动静脉瘘时突然出现胸闷加重，急做心电图示 急性前壁心肌梗死，转入心内科做介入治疗，植入支架两枚，胸闷缓解，每日口服阿司匹林，波立维，阿托伐他汀等药，并维持血液透析，病情稳定后于于11月27日转回我院，继续维持血液透析
+既往史:
+否认高血压病史，胸闷憋气4年，未正规检查治疗。个人史：无嗜烟酒史。
+查体:
+T：36.4℃，P：68次/分，R：19次/分，BP：128/86mmHg
+发育正常，营养良好，体形中等，喘息貌，精神萎靡，皮肤粘膜苍白，眼睑轻度浮肿，口唇稍紫绀，双肺呼吸音稍低，可闻及湿啰音，心界稍大，心律68次/分，律不齐，腹平，无压痛，双下肢轻度水肿。
+辅助检查:
+血肌酐 869.0umol/l  尿素 20.45umol/l 血常规 血色素72g/l，白细胞  12.0*10^9/l C反应蛋白85.5mg/l  B型脑钠肽>10000pg/ml。肌红蛋白212.30ng/ml。心电图示 陈旧性心肌梗死 胸部CT示 双侧胸腔积液  心包积液  左肺炎症.
+[output]  根据提供的病例信息，患者主要病情为慢性肾功能不全尿毒症期。这导致血肌酐和尿素升高，同时出现肾性贫血的现象，表明肾脏功能受损。在病史中还有心脏支架植入术后出现急性前壁心肌梗死的情况，心功能为3级，心脏病是一个重要并发症。另外，还发现血常规中血红蛋白偏低，白细胞升高，说明可能存在贫血和炎症反应。综合来看，患者可能存在肾功能下降、贫血、心脏病和肺炎等多种问题，需要综合治疗。

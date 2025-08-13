@@ -1,0 +1,49 @@
+[time]    2025-08-13 14:43:20
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估患者在行髌骨内固定术之前的心脏手术风险？
+
+Patient Case Analysis:
+
+Based on the provided patient's case, the main abnormal parts are:
+
+1. Right patellar fracture: The patient presented with pain, swelling, and limited mobility in the right knee joint following a fall, which was confirmed with imaging showing a right patellar fracture.
+
+2. Post-pacemaker surgery: The patient had a history of heart failure and had a pacemaker implanted ten years ago.
+
+Speculated impaired bodily functions:
+1. Mobility and physical function: The right patellar fracture may impair the patient's ability to walk and perform daily activities that require the use of the affected knee joint.
+2. Cardiac function: The patient's history of heart failure, post-pacemaker surgery, and abnormal cardiac findings on ECG and echocardiogram suggest impaired cardiac function that may affect overall cardiovascular health.
+3. Blood circulation: The presence of thrombus formation in the right superficial femoral vein and intermuscular veins of the calf suggests impaired blood circulation in the lower extremities, which could potentially lead to complications such as venous thrombosis.
+
+Further medical evaluation and management are necessary to address these issues and prevent potential complications.
+
+[output]  ```json
+[
+    "Which scale is used to assess the cardiac surgical risk of a patient before undergoing femoral patellar fixation surgery?",
+    "What is the recommended assessment tool for evaluating the cardiovascular risks of patients prior to undergoing patellar internal fixation surgery?",
+    "Is there a specific scoring system for evaluating the cardiac surgery risk of patients before proceeding with a femoral patellar fixation procedure?"
+]
+```

@@ -1,0 +1,258 @@
+[time]    2025-08-13 13:32:28
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Sequential Organ Failure Assessment (SOFA) Score', 'CKD-EPI Equations for Glomerular Filtration Rate (GFR)', 'CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk', 'MDRD GFR Equation', 'NIH Stroke Scale/Score (NIHSS)', 'Calcium Correction for Hypoalbuminemia', 'HOMA-IR (Homeostatic Model Assessment for Insulin Resistance)', 'PSI/PORT Score: Pneumonia Severity Index for CAP', 'Body Mass Index (BMI) and Body Surface Area (BSA)', 'PHQ-9 (Patient Health Questionnaire-9)']}}
+Detailed information of each tool: {{Sequential Organ Failure Assessment (SOFA) Score: "Calculate the Sequential Organ Failure Assessment (SOFA) Score which is used to assess the extent of a person's organ function or rate of failure.
+The score is used to track a patient's status during their stay in an intensive care unit to determine the extent of a person's organ function or rate of failure.
+
+Parameters:
+- pao2_fio2_ratio (float): The ratio of arterial oxygen partial pressure to fractional inspired oxygen (mmHg).
+- platelets (float): Platelet count in ×103/µL.
+- glasgow_coma_scale (int): Score on the Glasgow Coma Scale.
+- bilirubin (float): Serum bilirubin in mg/dL.
+- map_pressure (float): Mean arterial pressure in mmHg.
+- vasoactive_agents (int): Index indicating the vasoactive agents being used. Corresponds to 0 for no agents, 1 for low dose dopamine or any dose dobutamine, 2 for higher dose dopamine or low dose epinephrine/norepinephrine, 3 for very high dose of these agents.
+- creatinine (float): Serum creatinine in mg/dL.
+- urine_output (float): Urine output in mL/day.
+- o2_delivery_type (int): Index of the type of oxygen delivery method used. Types are as follows: 0 = nasal cannula, 1 = simple face mask, 2 = non-rebreather mask, 3 = high-flow nasal cannula.
+- o2_flow_rate (float): Flow rate of oxygen delivery in L/min.
+
+Returns:
+int: Total SOFA score which is the sum of individual scores across the specified parameters."
+
+CKD-EPI Equations for Glomerular Filtration Rate (GFR): Calculate the 2021 CKD-EPI (Chronic Kidney Disease Epidemiology Collaboration) GFR (Glomerular Filtration Rate)
+    without the race component. This function estimates kidney function using creatinine-based equations and is intended
+    for patients with chronic (not acute) kidney disease. This calculation is particularly used by nephrologists to 
+    assess kidney function non-invasively and is considered more accurate than the MDRD Equation, especially in patients
+    with normal or mildly reduced eGFR.
+
+    Parameters:
+    - serum_creatinine (float): The serum creatinine level of the patient in mg/dL.
+    - age (int): The age of the patient in years.
+    - gender (int): The gender of the patient. Use 0 for male and 1 for female.
+
+    Returns:
+    - float: The estimated GFR in ml/min/1.73m^2.
+
+    Usage:
+    To use this function, provide the serum creatinine level, age, and gender index (0 for male, 1 for female).
+    For example, calculate_ckd_epi_gfr(0.9, 30, 0) calculates the GFR for a 30-year-old male with a serum creatinine of 0.9 mg/dL.
+
+    Note:
+    - Not intended for use in patients on dialysis.
+    - Less accurate in patients with diabetes (before progression to overt nephropathy), pregnant women, and those with unusual body mass.
+
+
+CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk: Calculate the CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk.
+
+    The CHA2DS2-VASc score is a clinical prediction rule for estimating the risk of stroke in
+    patients with non-valvular atrial fibrillation. It is used to determine whether treatment with
+    anticoagulation or antiplatelet therapy is appropriate, based on the risk of thromboembolism.
+
+    Parameters:
+    - age (int): Age of the patient.
+    - sex (str): Biological sex of the patient, 'male' or 'female'.
+    - history_of_congestive_heart_failure (bool): True if the patient has a history of congestive heart failure, otherwise False.
+    - history_of_hypertension (bool): True if the patient has a history of hypertension, otherwise False.
+    - history_of_stroke_tia_thromboembolism (bool): True if the patient has a history of stroke, transient ischemic attack (TIA), or thromboembolism, otherwise False.
+    - history_of_vascular_disease (bool): True if the patient has a history of vascular disease (prior myocardial infarction, peripheral artery disease, or aortic plaque), otherwise False.
+    - history_of_diabetes (bool): True if the patient has a history of diabetes mellitus, otherwise False.
+
+    Returns:
+    - int: The total CHA2DS2-VASc score which is a sum of the points for each risk factor.
+
+    Example:
+    >>> calculate_cha2ds2_vasc_score(75, 'female', True, True, True, True, True)
+    9
+
+MDRD GFR Equation: Calculate the Modified Diet in Renal Disease (MDRD) Glomerular Filtration Rate (GFR).
+    This function estimates kidney function in patients with stable chronic kidney disease.
+    It should not be used to assess acute renal failure or when GFR is >60 ml/min/m2 as it underestimates GFR.
+
+    Parameters:
+    - serum_cr (float): Serum creatinine (Cr) level in mg/dL. Should be a positive float.
+    - age (int): Age of the patient in years. Should be a non-negative integer.
+    - race_index (int): Index representing the patient's race. 0 for non-black, 1 for black.
+    - gender_index (int): Index representing the patient's gender. 0 for male, 1 for female.
+
+    Returns:
+    - float: Estimated GFR in ml/min/1.73m2.
+
+    The formula used:
+    GFR = 175 × Serum Cr^{-1.154} × age^{-0.203} × 1.212 (if patient is black) × 0.742 (if female)
+
+
+NIH Stroke Scale/Score (NIHSS): 
+    Calculate the NIH Stroke Scale/Score (NIHSS).
+
+    The NIHSS helps physicians quantify the severity of a stroke in the acute setting. 
+    Increasing scores indicate a more severe stroke and correlate with the size of the infarction on both CT and MRI evaluation.
+    Scores assessed within the first 48 hours following a stroke have been shown to correlate with clinical outcomes at the 3-month and 1-year mark.
+    
+    Parameters:
+        loc_alertness (int): Level of consciousness - Alert (0), Arouses to minor stimulation (1), Requires repeated stimulation (2), Movements to pain (2), Postures or unresponsive (3)
+        loc_questions (int): Ask month and age - Both right (0), One right (1), None right (2), Dysarthric/intubated/trauma/language barrier (1), Aphasic (2)
+        loc_commands (int): 'Blink eyes' & 'squeeze hands' - Performs both (0), Performs one (1), Performs none (2)
+        horizontal_gaze (int): Horizontal extraocular movements - Normal (0), Partial palsy (1), Forced palsy (2)
+        visual_fields (int): Visual fields - No loss (0), Partial hemianopia (1), Complete hemianopia (2), Bilateral blindness (3), Bilateral hemianopia (3)
+        facial_palsy (int): Facial palsy - Normal (0), Minor (1), Partial (2), Unilateral complete (3), Bilateral complete (3)
+        left_arm_motor_drift (int): Left arm motor drift - No drift (0), Drift but doesn't hit bed (1), Drift, hits bed (2), Some effort against gravity (2), No effort against gravity (3), No movement (4), Amputation/joint fusion (0)
+        right_arm_motor_drift (int): Right arm motor drift - No drift (0), Drift but doesn't hit bed (1), Drift, hits bed (2), Some effort against gravity (2), No effort against gravity (3), No movement (4), Amputation/joint fusion (0)
+        left_leg_motor_drift (int): Left leg motor drift - No drift (0), Drift but doesn't hit bed (1), Drift, hits bed (2), Some effort against gravity (2), No effort against gravity (3), No movement (4), Amputation/joint fusion (0)
+        right_leg_motor_drift (int): Right leg motor drift - No drift (0), Drift but doesn't hit bed (1), Drift, hits bed (2), Some effort against gravity (2), No effort against gravity (3), No movement (4), Amputation/joint fusion (0)
+        limb_ataxia (int): Limb ataxia - No ataxia (0), Ataxia in 1 limb (1), Ataxia in 2 limbs (2), Does not understand (0), Paralyzed (0), Amputation/joint fusion (0)
+        sensation (int): Sensation - Normal (0), Mild-moderate loss (1), Mild-moderate loss (1), Complete loss (2), No response/quadriplegic (2), Coma/unresponsive (2)
+        language_aphasia (int): Language/aphasia - Normal (0), Mild-moderate aphasia (1), Severe aphasia (2), Mute/global aphasia (3), Coma/unresponsive (3)
+        dysarthria (int): Dysarthria - Normal (0), Mild-moderate (1), Severe (2), Mute/anarthric (2), Intubated/unable to test (0)
+        extinction_inattention (int): Extinction/inattention - No abnormality (0), Inattention (1), Extinction to bilateral stimulation (1), Profound hemi-inattention (2), Extinction to >1 modality (2)
+
+    Returns:
+        int: Total NIHSS score, summing all input values.
+   
+
+Calcium Correction for Hypoalbuminemia: Calculate the corrected calcium level in patients with suspected hypocalcemia
+    who have low albumin levels. Hypocalcemia might not be apparent if serum albumin is low,
+    thus this formula adjusts the calcium level based on albumin discrepancy.
+
+    Args:
+    normal_albumin (float): The normal albumin level in g/dL assumed for the calculation.
+    patient_albumin (float): The patient's measured albumin level in g/dL.
+    serum_ca (float): The patient's measured serum calcium level in mg/dL.
+
+    Returns:
+    float: The corrected serum calcium level in mg/dL.
+
+    Example:
+    >>> corrected_calcium(4.0, 3.2, 8.5)
+    8.84
+ 
+
+HOMA-IR (Homeostatic Model Assessment for Insulin Resistance): Calculate the Homeostatic Model Assessment for Insulin Resistance (HOMA-IR).
+
+    The HOMA-IR is a clinical tool used to estimate insulin resistance (IR), which can be
+    indicative of potential glucose intolerance and diabetes. It is particularly useful
+    in scenarios where more invasive and time-consuming methods like the clamp measurement
+    (considered the gold standard for measuring IR) are not feasible. Although the HOMA-IR
+    provides a reasonable correlation with clamp measurements, it is less accurate on an
+    individual basis, which suggests a need for caution in its clinical application and
+    interpretation.
+
+    Parameters:
+    - fasting_insulin (float): The fasting insulin level in uIU/mL.
+    - fasting_glucose (float): The fasting glucose level in mg/dL.
+
+    Returns:
+    - float: The estimated insulin resistance (HOMA-IR score).
+
+    Formula:
+    HOMA-IR score = (fasting insulin * fasting glucose) / 405
+
+PSI/PORT Score: Pneumonia Severity Index for CAP: Calculate the PSI/PORT Score for Community-Acquired Pneumonia (CAP).
+
+    The PSI/PORT Score helps to risk stratify patients with community-acquired pneumonia in clinical or
+    emergency department settings. This score may underestimate severe pneumonia in younger, otherwise healthy patients.
+    It is important to consider other clinical factors such as sepsis, which may require additional testing
+    like lactate levels. Any patient over 50 years of age is automatically classified as risk class 2.
+
+    Parameters:
+    age (int): Patient's age in years.
+    sex (str): Patient's sex, either 'Female' or 'Male'.
+    nursing_home_resident (bool): True if the patient is a nursing home resident, False otherwise.
+    neoplastic_disease (bool): True if the patient has a history of neoplastic disease, False otherwise.
+    liver_disease (bool): True if the patient has a history of liver disease, False otherwise.
+    chf_history (bool): True if the patient has a history of congestive heart failure, False otherwise.
+    cerebrovascular_disease (bool): True if the patient has a history of cerebrovascular disease, False otherwise.
+    renal_disease (bool): True if the patient has a history of renal disease, False otherwise.
+    altered_mental_status (bool): True if the patient has altered mental status, False otherwise.
+    respiratory_rate (bool): True if respiratory rate is ≥30 breaths/min, False otherwise.
+    systolic_bp (bool): True if systolic blood pressure is <90 mmHg, False otherwise.
+    temperature (bool): True if temperature is <35°C or >39.9°C, False otherwise.
+    pulse (bool): True if pulse rate is ≥125 beats/min, False otherwise.
+    blood_ph (bool): True if blood pH is <7.35, False otherwise.
+    bun (bool): True if BUN is ≥30 mg/dL or ≥11 mmol/L, False otherwise.
+    sodium (bool): True if sodium level is <130 mmol/L, False otherwise.
+    glucose (bool): True if glucose level is ≥250 mg/dL or ≥14 mmol/L, False otherwise.
+    hematocrit (bool): True if hematocrit is <30%, False otherwise.
+    oxygen_pressure (bool): True if partial pressure of oxygen is <60 mmHg or <8 kPa, False otherwise.
+    pleural_effusion (bool): True if there is pleural effusion on x-ray, False otherwise.
+
+    Returns:
+    int: The total PSI/PORT Score indicating the severity of the pneumonia.
+
+Body Mass Index (BMI) and Body Surface Area (BSA): Calculate the Body Mass Index (BMI) and Body Surface Area (BSA) using provided weight and height.
+
+    BMI is a measure of body fat based on weight and height that applies to adult men and women.
+    It can be misleading for very muscular individuals or in specific ethnic groups with different
+    body compositions and statures.
+
+    BSA is often used in medical settings to determine the dosages of medications that are more 
+    accurately calculated using body surface area rather than weight.
+
+    Parameters:
+    - weight_kg (float): Weight of the individual in kilograms.
+    - height_cm (float): Height of the individual in centimeters.
+
+    Returns:
+    - dict: Dictionary containing 'BMI' and 'BSA' with their respective values.
+
+PHQ-9 (Patient Health Questionnaire-9): Calculate the PHQ-9 (Patient Health Questionnaire-9) score.
+
+    The PHQ-9 is a clinical scale used to diagnose depression and to quantify and monitor the severity of depression symptoms.
+    It evaluates symptoms based on the 9 DSM criteria for major depressive disorder (MDD). Each criterion is scored from 0 to 3:
+    - "0" for 'Not at all'
+    - "1" for 'Several days'
+    - "2" for 'More than half the days'
+    - "3" for 'Nearly every day'
+    The function sums these scores to provide an overall severity score ranging from 0 to 27.
+
+    Parameters:
+    - interest_pleasure (int): Index from 0 to 3 indicating frequency of little interest or pleasure in doing things.
+    - feeling_down (int): Index from 0 to 3 indicating frequency of feeling down, depressed, or hopeless.
+    - sleep_issues (int): Index from 0 to 3 indicating trouble with falling or staying asleep, or sleeping too much.
+    - tired_energy (int): Index from 0 to 3 indicating feeling tired or having little energy.
+    - appetite_issues (int): Index from 0 to 3 indicating issues with poor appetite or overeating.
+    - self_feeling (int): Index from 0 to 3 indicating feelings of being bad about oneself, or feeling like a failure.
+    - concentration (int): Index from 0 to 3 indicating trouble concentrating on things.
+    - activity_level (int): Index from 0 to 3 indicating altered activity levels, either moving too slowly or being too fidgety.
+    - suicidal_thoughts (int): Index from 0 to 3 indicating frequency of thoughts of self-harm or being better off dead.
+
+    Returns:
+    - int: The total PHQ-9 score, which is the sum of all the individual scores for the symptoms listed above.
+
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{哪一个量表被用于评估患者的肾小球滤过率？}}
+Task Scenario: {{根据提供的病例资料，患者主诉双下肢水肿，伴有乏力、眼睑浮肿、心慌、喘气等症状，经检查发现肌酐、尿酸升高，尿常规出现葡萄糖、蛋白异常，肾功能受损。同时，检查结果显示患者存在肝脂肪变性，心脏瓣膜返流，以及多个脑部异常，如脑梗塞、白质脑病、脑萎缩等。这些异常表明患者存在慢性肾衰竭代偿期，可能导致肾功能不全，引起水电解质紊乱和代谢异常，进而影响心脏、肝脏等器官功能，同时还可能导致脑部血液供应不足与神经损伤。治疗结果显示病情好转，但仍需密切监测肾功能、心脏功能、神经系统状况等，采取相应治疗措施以维持稳定状态。}}
+Step By Step Analysis:
+
+[output]  1. 根据用户需求，用户想要了解哪一个量表用于评估患者的肾小球滤过率。
+2. 在给出的任务场景中，患者展示了肾功能受损的症状，包括肌酐、尿酸升高，尿常规异常等，这表明患者存在肾功能不全的情况。
+3. 病例还显示患者存在肝脂肪变性、心脏瓣膜返流和多个脑部异常，这些进一步支持了患者可能存在的慢性肾衰竭代偿期。
+4. 鉴于患者可能存在慢性肾衰竭情况，需要评估患者的肾小球滤过率以更好地监测肾功能状况。
+5. 在工具列表中，存在两种可以评估肾小球滤过率的工具：CKD-EPI Equations for Glomerular Filtration Rate (GFR)和MDRD GFR Equation。
+6. 根据用户需求和患者情况，选择CKD-EPI Equations for Glomerular Filtration Rate (GFR)作为最合适的工具。
+7. 最终答案是一个JSON文件，选择的工具名称为"CKD-EPI Equations for Glomerular Filtration Rate (GFR)"。
+
+```json
+{
+    "chosen_tool_name": "CKD-EPI Equations for Glomerular Filtration Rate (GFR)"
+}
+```

@@ -1,0 +1,31 @@
+[time]    2025-08-13 13:33:21
+[model]   gpt-3.5
+[input]   
+You are a medical diagnostic model. Your task is to analyze the abnormal parts of the provided patient's case and speculate on which bodily functions might be impaired.
+
+The requirements are as follows:
+1. Every inference you make must be substantiated by actual evidence from the provided patient's case.
+2. You only need to analyze the main, abnormal parts of the provided patient's case.
+3. You just need to make a brief analysis.
+
+Begin!
+
+
+基本信息:女，47岁，农民
+
+[病案介绍]
+主诉:
+女性,47岁,农民
+咳嗽，咳痰，气短半年余
+现病史:
+约半年前，患者无明显诱因出现咳嗽，咳痰，伴有气喘症状，当时以为是受凉感冒，在家自服“感冒药，消炎药”（具体不详），后症状无好转，在当地社区门诊进行输液治疗一周后，症状稍有好转。半年来坚持服用各种止咳平喘的药物治疗，患者发现症状夜间和晨起，以及活动后明显加重。为进一步治疗，来我院就诊，门诊以“喘息性支气管炎”收住院，发病以来饮食睡眠可，大小便情况，体重无明显变化。
+既往史:
+既往体健，否认肝炎，结核等传染病史，否认高血压，糖尿病病史，无外伤手术输血史，无疫区疫水接触史，生于本地，既往无哮喘病史。
+查体:
+T：36.6℃，P：76次/分，R：20次/分，BP：110/75mmHg
+。发育正常，营养良好，神志清，精神差，步入病房，自动**，合作。全身皮肤粘膜无黄染及出血点，浅表淋巴结未触及肿大，头颈部检查未见明显异常，胸廓对称无畸形，双乳对称，双肺呼吸音粗，可闻及散在哮鸣音，左侧明显，左下肺呼吸音弱，心脏，腹部检查未见明显异常，脊柱四肢无畸形，四肢活动正常，双下肢不肿，生理反射存在，病理反射未引出。
+辅助检查:
+胸片显示，左侧肺门处肿块形成患者BUN：3.8mmol/L。
+
+患者未感到局促不安。
+[output]  根据病史和体格检查结果，患者主要表现为咳嗽、咳痰、气短半年余，胸部听诊可闻及散在哮鸣音，左下肺呼吸音弱，胸片显示左侧肺门处肿块。这些症状和表现可能提示患者患有支气管炎并可能伴有肺部肿块，需要进一步的检查和治疗以确定诊断和处理相应病变。可疑的诊断包括支气管炎并发肺部病变，但需要进一步检查以确诊和确定具体的治疗方案。

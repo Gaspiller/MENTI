@@ -1,0 +1,40 @@
+[time]    2025-08-13 14:42:09
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表被用于术前评估患者的心脏风险？
+
+Patient Case Analysis:
+
+根据患者的病史和检查结果显示，患者是一名怀孕39周的孕妇，主诉规则腹痛。经过检查发现胎儿大小为3400g，胎方位LOA，宫颈已经开始消退，但宫颈扩张仍为0cm，胎膜未破。二维彩超显示胎儿健康状况良好，胎盘位于前壁。
+
+根据以上情况可以推断，患者可能有一种称为盆腔不全的病情，即宫颈没有开始扩张，可能会导致分娩的困难和并发症。需要密切监测患者的情况，必要时可能需要进行干预措施来促进宫颈扩张以顺利进行分娩。
+
+[output]  ```json
+[
+    "哪种评估量表可用于术前评估孕妇的盆腔状况？",
+    "术前评估孕妇盆腔健康风险时通常采用哪种量表？",
+    "用于评估孕妇盆腔状况的量表有哪些？"
+]
+```

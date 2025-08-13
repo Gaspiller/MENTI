@@ -1,0 +1,38 @@
+[time]    2025-08-13 13:49:46
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估该患者肝纤维化的严重程度？
+
+Patient Case Analysis:
+
+根据患者病史和辅助检查结果，可以推测患者可能患有肝癌，肺癌（小细胞癌），脾胃胆囊疾病等疾病。肝占位可能导致右胁部胀痛加重，而肝内实质性低密度影多发，密度不均，结合免疫组化标记结果显示有恶性肿瘤倾向；肺部病理活检显示右上叶开口肉芽增生，肺功能不全导致右肺不张，肺阻塞性疾病等病变。这些病变可能导致腹部压痛，消化系统功能障碍等症状。综合来看，患者的肝肺功能可能受到一定的影响。需进一步诊断和治疗。
+
+[output]  ```json
+[
+    "哪种评估工具可用于检测该患者肝纤维化的程度？",
+    "用于评估该患者肝纤维化严重程度的评分表是哪一个？",
+    "患者可能有肝癌、肺癌、脾胃胆囊疾病等多种疾病，这些可能影响到哪个量表来评估肝纤维化？"
+]
+```

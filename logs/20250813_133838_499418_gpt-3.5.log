@@ -1,0 +1,44 @@
+[time]    2025-08-13 13:38:38
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表被用于评估患者的肝纤维化程度？
+
+Patient Case Analysis:
+
+根据患者病史和辅助检查结果，可以得出以下分析：
+
+1. 右肾囊肿：患者主诉右腰部胀痛，经B超检查提示右肾囊肿，需要手术治疗。右肾囊肿可能导致肾功能受损，如影响尿液排泄和水电解质平衡。
+
+2. 慢性病毒性乙型肝炎及肝功能不全：患者被诊断为慢性病毒性乙型肝炎和肝功能不全，表现为肝功能指标异常，如TBIL、DBIL、ALT、AST等数值增高或减低。肝功能不全可能导致蛋白质代谢紊乱、凝血功能异常等问题。
+
+根据病情好转的治疗结果，可以初步推断患者在右肾囊肿手术和肝功能不全治疗后有明显改善。需要继续密切监测肾脏功能和肝功能，以确保病情稳定。
+
+[output]  ```json
+[
+    "哪一种手术方式适用于患者的右肾囊肿治疗？",
+    "患者的乙型肝炎是否与肝功能不全有关？",
+    "患者肝功能不全可能导致哪些相关健康问题？"
+]
+```

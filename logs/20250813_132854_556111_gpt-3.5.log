@@ -1,0 +1,189 @@
+[time]    2025-08-13 13:28:54
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Estradiol, 雌二醇', 'Sex Hormone Binding Globulin, 性激素结合球蛋白', 'Free Estradiol, 游离雌三醇', 'Estrone, 雌酮', 'Testosterone, 睾酮', 'Urea, 尿素', 'Blood Urea Nitrogen (BUN), 尿素氮 (BUN)', 'Luteinizing Hormone (LH), 黄体生成素 (LH)', 'Cancer Antigen 19-9, 癌抗原 19-9', 'C-peptide, C肽']}}
+Detailed information of each tool: {{Estradiol, 雌二醇: Convert the value of Estradiol from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['pmol/L', 'pg/mL', 'pg/dL', 'pg/100mL', 'pg%', 'pg/L', 'ng/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Sex Hormone Binding Globulin, 性激素结合球蛋白: Convert the value of Sex Hormone Binding Globulin from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['nmol/L', 'µg/mL', 'µg/dL', 'µg/100mL', 'µg%', 'µg/L', 'mg/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Free Estradiol, 游离雌三醇: Convert the value of Free Estradiol from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'ng/mL', 'ng/dL', 'ng/100mL', 'ng%', 'ng/L', 'µg/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Estrone, 雌酮: Convert the value of Estrone from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['pmol/L', 'ng/dL', 'ng/100mL', 'ng%', 'ng/L', 'pg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Testosterone, 睾酮: Convert the value of Testosterone from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['nmol/L', 'ng/mL', 'ng/dL', 'ng/100mL', 'ng%', 'ng/L', 'µg/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Urea, 尿素: Convert the value of Urea from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Blood Urea Nitrogen (BUN), 尿素氮 (BUN): Convert the value of Blood Urea Nitrogen (BUN) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Luteinizing Hormone (LH), 黄体生成素 (LH): Convert the value of Luteinizing Hormone (LH) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mIU/mL', 'IU/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Cancer Antigen 19-9, 癌抗原 19-9: Convert the value of Cancer Antigen 19-9 from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['U/mL', 'kU/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+C-peptide, C肽: Convert the value of C肽 from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['nmol/L', 'pmol/L', 'ng/mL', 'ng/dL', 'ng/100mL', 'ng%', 'ng/L', 'µg/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{The gender is 0. It needs to be converted from null to an integer value representing gender (0 for male, 1 for female).}}
+Task Scenario: {{}}
+Step By Step Analysis:
+
+[output]  1. The user demand is to convert the gender from null to an integer value representing gender (0 for male, 1 for female).
+
+2. Among the tools provided in the Tool List, the most suitable tool for this task is not directly related to the conversion of gender. Therefore, a custom tool or function is required to fulfill this specific user demand.
+
+3. Creating a custom tool or function involves defining a function that takes the input gender value (null) and returns the corresponding integer value (0 for male, 1 for female).
+
+Final Answer:
+```json
+{
+    "chosen_tool_name": "Custom Tool or Function"
+}
+```

@@ -1,0 +1,30 @@
+[time]    2025-08-13 14:18:44
+[model]   gpt-3.5
+[input]   
+You are a toolkit selection model. Below is a toolkit list and their descriptions, and you need to select the appropriate toolkit based on the user query. Your answer should be wrapped by ```json and ```
+
+toolkit list: ["unit", "scale"]
+"unit": This is a unit toolkit that contains a variety of medical unit conversion tools. When you need to perform unit conversions, you will need to select this tookit.
+"scale": This is a medical calculator toolkit, which is used for assessing and quantifying specific health conditions of individuals in the medical field. When you need to analyze a patient's health condition, or when a user has made a query regarding health status, you will need to select this toolkit.
+
+Requirements:
+1. You can only select one toolkit, and it must be from the toolkit list provided.
+2. You need to output a JSON file.
+3. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{
+    "chosen_toolkit_name": Str(toolkit you choose)
+}
+```
+
+Begin!
+
+user query: 哪一个量表被用于预测患者在6周内发生重大心脏不良事件的风险？
+
+[output]  ```json
+{
+    "chosen_toolkit_name": "scale"
+}
+```

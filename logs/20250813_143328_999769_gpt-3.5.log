@@ -1,0 +1,44 @@
+[time]    2025-08-13 14:33:29
+[model]   gpt-3.5
+[input]   
+You are a medical diagnostic model. Your task is to analyze the abnormal parts of the provided patient's case and speculate on which bodily functions might be impaired.
+
+The requirements are as follows:
+1. Every inference you make must be substantiated by actual evidence from the provided patient's case.
+2. You only need to analyze the main, abnormal parts of the provided patient's case.
+3. You just need to make a brief analysis.
+
+Begin!
+
+
+基本信息:女，44岁，居民
+
+[病案介绍]
+主诉:
+咳嗽咳痰伴发热3天
+现病史:
+3天前，患者受凉后出现咳嗽，咳黄色痰，发热等症状，当时无气短，胸痛等，以为是感冒，在家自服“感冒药”后，症状无明显好转，3天来，上述症状持续存在，为诊治来我院就诊，门诊测体温38.6℃，拍胸片提示：支气管肺炎，以“支气管肺炎”收住院，发病以来，饮食睡眠差，二便正常，体重无明显变化。
+既往史:
+既往体健，否认肝炎结核病史，否认食物药物过敏史，否认外伤手术史，否认疫区疫水接触史，无遗传病史。
+查体:
+T：38.6℃，P：82次/分，R：20次/分，BP：120/75mmHg
+T:38.6℃ ,P:82次/分,R:20次/分,BP:120/75mmhg。发育正常，营养中等，神志清，精神差，发热面容，步入病房，自动**，合作，全身皮肤黏膜无黄染及出血点，浅表淋巴结未触及肿大，头颅五官对称，眼耳鼻检查未见异常，唇干燥无发绀，咽红，扁桃腺不大，颈软，气管居中，甲状腺不大，胸廓对称无畸形，双乳对称，双肺呼吸音粗，双下肺可闻及散在湿啰音，心脏，腹部未见异常，脊柱四肢无畸形，关节活动度好，双下肢不肿，病理征阴性。
+辅助检查:
+胸片：支气管肺炎，血常规：白细胞14.6万，中性粒细胞82%。患者脉搏：82次/分。
+
+患者PH值：7.36。
+
+患者血尿素氮：15mg/dl。
+
+患者血钠：138mmol/L。
+
+患者血糖：5.0mmol/L。
+
+患者血细胞比容：42%。
+
+患者氧分压：92mmHg。
+
+患者胸片示无胸腔积液。
+[output]  根据患者的病史和辅助检查结果，患者主要表现为咳嗽咳痰伴发热，胸片提示支气管肺炎，血常规显示白细胞计数偏高，中性粒细胞占比偏高，这可能表明患者存在一种炎症性疾病。此外，患者的氧分压在正常范围内，排除了氧合障碍的可能性。
+
+根据上述情况，患者可能存在呼吸道感染导致的支气管肺炎，炎症反应引起的白细胞增高和中性粒细胞占比偏高。治疗上应注意控制感染，缓解炎症，保持呼吸道通畅，及时给予抗生素治疗。

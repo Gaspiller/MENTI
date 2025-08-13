@@ -1,0 +1,128 @@
+[time]    2025-08-13 14:15:26
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the Glasgow-Blatchford Bleeding Score (GBS) for adult patients being considered for hospital admission due to upper GI bleeding.
+    
+    Parameters:
+    - hemoglobin (float): Patient's hemoglobin level in g/dL.
+    - bun (float): Blood Urea Nitrogen (BUN) level in mg/dL.
+    - systolic_bp (int): Initial systolic blood pressure in mm Hg.
+    - sex (int): Patient's sex, 0 for female, 1 for male.
+    - heart_rate (int): Indicates if heart rate is ≥100 per minute, 0 for no, 1 for yes.
+    - melena (int): Indicates if melena is present, 0 for no, 1 for yes.
+    - syncope (int): Indicates if there has been a recent syncope, 0 for no, 2 for yes.
+    - hepatic_disease (int): Indicates history of hepatic disease, 0 for no, 2 for yes.
+    - cardiac_failure (int): Indicates if cardiac failure is present, 0 for no, 2 for yes.
+
+    Returns:
+    - int: Glasgow-Blatchford Score, ranging from 0 to 23.
+
+    This scoring system aids in determining the necessity for hospital admission based on the severity of the patient's condition.
+    Lower scores indicate lower risk, while higher scores suggest higher risk and potential need for acute intervention.
+}}
+Reference Text:
+{{基本信息:女，59岁， 农民
+
+[病案介绍]
+主诉:
+呕血3小时
+现病史:
+患者于3小时前无明显诱因出现呕血，多次呕血约800ml，呕吐物夹杂食物，未自行处理，患者家人急拨打120急救电话，由急救车接来我院急诊科救治，急诊医师予建立静脉通道，兰索拉唑抑酸护胃，蛇毒血凝酶止血治疗。因患者失血量大，患者处休克状态爱，病情危重，急诊医师以“1.急性上消化道出血 2失血性休克 3重度贫血 4肝癌”收重症监护室住院。刻下症见：神志清，精神差，面色无华，贫血貌，神疲懒言，乏力，大小便未行。
+既往史:
+患者既肝癌及消化道出血病史，曾行介入手术治疗。否认高血压病、糖尿病、冠心病病史。
+查体:
+T：36.3℃，P：103次/分，R：15次/分，BP：83/43mmHg
+T:36.3℃ ,P:103次/分,R:15次/分,BP:83/43/mmhg。神志清，精神差，面色无华，贫血貌，营养较差，巩膜黄染，浅表淋巴结未及明显肿大，眼睑结膜苍白，双瞳孔等大等圆，直径约3mm,对光反射存在。口唇浅白，咽部无明显充血红肿，胸部对称，双肺呼吸音低，未及明显干湿啰音，心前区无隆起，心律103次/分，律齐，心音低，各瓣膜区未闻及明显病理性杂音。腹平软，无明显压痛及反跳痛，肝脾肋下未及，双下肢无水肿生理反射存在，病理反射未引出。
+辅助检查:
+血常规 血红蛋白 57g/l， 红细胞2.43 x 109/L 血气分析：血红蛋白 50g/l，血乳酸 13.8mmol/l患者无肝病史。
+
+患者不存在心力衰竭。
+
+患者BUN：5.5mmol/L。
+
+患者头晕、胸闷，近期无晕厥。}}
+Step By Step Analysis:
+
+[output]  1. Extract the patient's sex:
+- According to the reference text, the patient is female.
+2. Extract the patient's age:
+- The reference text indicates that the patient is 59 years old.
+3. Extract the patient's hemoglobin level:
+- The reference text shows that the patient's hemoglobin level is 57g/l.
+4. Extract the patient's BUN level:
+- The reference text provides the BUN level as 5.5mmol/L.
+5. Extract the patient's systolic blood pressure:
+- The reference text states the initial systolic blood pressure as 83/43mmHg, so the systolic_bp parameter should be around 83 mm Hg.
+6. Determine if the patient's heart rate is ≥100 per minute:
+- The reference text mentions that the patient has a heart rate of 103 beats per minute, indicating a heart rate ≥100, so the heart_rate parameter should be 1.
+7. Determine if melena is present:
+- The presence of melena is not explicitly stated in the reference text, so we will infer that melena is absent.
+8. Determine if there has been recent syncope:
+- The reference text mentions that there has been no recent syncope, so the syncope parameter should be 0.
+9. Determine if the patient has a history of hepatic disease:
+- The reference text states that there is no history of hepatic disease, so the hepatic_disease parameter should be 0.
+10. Determine if cardiac failure is present:
+- The reference text indicates that cardiac failure is not present, so the cardiac_failure parameter should be 0.
+
+Parameters List:
+```json
+{
+    "hemoglobin": {"Value": 57, "Unit": "g/l"},
+    "bun": {"Value": 5.5, "Unit": "mmol/L"},
+    "systolic_bp": {"Value": 83, "Unit": "mm Hg"},
+    "sex": {"Value": 0, "Unit": "null"},
+    "heart_rate": {"Value": 1, "Unit": "null"},
+    "melena": {"Value": 0, "Unit": "null"},
+    "syncope": {"Value": 0, "Unit": "null"},
+    "hepatic_disease": {"Value": 0, "Unit": "null"},
+    "cardiac_failure": {"Value": 0, "Unit": "null"}
+}
+```

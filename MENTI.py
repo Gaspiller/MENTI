@@ -14,20 +14,6 @@ from Configuration import Configuration
 from Models import LLMs
 from Prompts import Prompts
 
-# ===== 日志部分改动：每次运行新文件 =====
-os.makedirs("./logs", exist_ok=True)
-log_filename = time.strftime("{args.log_index}%Y%m%d_%H%M%S.log")
-log_path = os.path.join("./logs", log_filename)
-
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    filename=log_path,  # 使用带时间戳的新文件
-    filemode='w'
-)
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
 
 # =====================================
 
@@ -60,6 +46,21 @@ class Agent:
 if __name__ == "__main__":
     with open(args.case_path, encoding="UTF-8") as file:
         datas = json.loads(file.read())
+    
+    # ===== 日志部分:每次运行新文件 =====
+    index = datas[args.eval_index]["index"]
+    os.makedirs("./logs", exist_ok=True)
+    log_filename = time.strftime(f"{index}_%Y%m%d_%H%M%S.log")
+    log_path = os.path.join("./logs", log_filename)
+
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        filename=log_path, 
+        filemode='w'
+    )
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
 
     agent = Agent()
     agent.docagent(datas[args.eval_index]["doctor_query"], datas[args.eval_index]["patient_case"])

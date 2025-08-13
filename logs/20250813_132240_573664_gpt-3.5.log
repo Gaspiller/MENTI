@@ -1,0 +1,373 @@
+[time]    2025-08-13 13:22:40
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Fibrosis-4 (FIB-4) Index for Liver Fibrosis', 'Child-Pugh Score for Cirrhosis Mortality', 'Revised Cardiac Risk Index for Pre-Operative Risk', 'CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk', 'Caprini Score for Venous Thromboembolism (2005)', 'Sequential Organ Failure Assessment (SOFA) Score', 'HAS-BLED Score for Major Bleeding Risk', 'PSI/PORT Score: Pneumonia Severity Index for CAP', 'CIWA-Ar for Alcohol Withdrawal', 'Gupta Perioperative Risk for Myocardial Infarction or Cardiac Arrest (MICA)']}}
+Detailed information of each tool: {{Fibrosis-4 (FIB-4) Index for Liver Fibrosis: Calculate the Fibrosis-4 (FIB-4) Index for Liver Fibrosis.
+
+    This function calculates the FIB-4 Index, a non-invasive scoring system used to estimate the
+    level of liver fibrosis. It is particularly useful for patients with risk factors for liver disease
+    such as chronic hepatitis, alcoholic liver disease, NAFLD, and other liver conditions. The FIB-4
+    Index helps monitor liver fibrosis over time without the need for invasive procedures like liver
+    biopsy, which carries risks and may only provide a limited assessment due to sampling errors.
+
+    Parameters:
+        age (int or float): Age of the patient in years.
+        ast (float): Aspartate aminotransferase level in U/L.
+        platelets (float): Platelet count is measured in units of × 10⁹ per liter (× 10⁹ / L).
+        alt (float): Alanine aminotransferase level in U/L.
+
+    Returns:
+        float: The FIB-4 Index score, which can be used to categorize liver fibrosis into mild,
+               moderate, or severe stages.
+
+    Note:
+        The accuracy of FIB-4 Index may be reduced in patients younger than 35 or older than 65 years.
+
+
+Child-Pugh Score for Cirrhosis Mortality: Calculate the Child-Pugh Score for Cirrhosis Mortality.
+
+    The Child-Pugh Score helps estimate the prognosis for a patient with cirrhosis.
+    Note that newer scores like the MELD and MELD-Na are generally preferred for their
+    increased accuracy in prognosis.
+
+    Parameters:
+    - bilirubin (float): Total bilirubin level in mg/dL.
+    - albumin (float): Albumin level in g/dL.
+    - inr (float): International Normalized Ratio.
+    - ascites (str): Describes the presence of ascites ('Absent', 'Slight', 'Moderate').
+    - encephalopathy (int): Grade of hepatic encephalopathy (0 for none, 1-2 for Grade 1-2, 3-4 for Grade 3-4).
+
+    Returns:
+    - int: The Child-Pugh Score, ranging from 5 (best) to 15 (worst).
+
+Revised Cardiac Risk Index for Pre-Operative Risk: Calculate the Revised Cardiac Risk Index for Pre-Operative Risk.
+
+    This function calculates the Revised Cardiac Risk Index, which is used to assess the risk of major cardiac complications in patients undergoing elective or urgent/semi-urgent non-cardiac surgery. It is based on a set of specific risk factors and is valuable for risk stratification and aiding discussions about informed consent with patients.
+
+    Parameters:
+    elevated_risk_surgery (bool): True if the surgery is intraperitoneal, intrathoracic, or suprainguinal vascular.
+    history_of_ischemic_heart_disease (bool): True if there is a history of myocardial infarction, positive exercise test, current chest pain considered due to myocardial ischemia, or use of nitrate therapy or ECG showing pathological Q waves.
+    history_of_congestive_heart_failure (bool): True if there are signs such as pulmonary edema, bilateral rales or S3 gallop, paroxysmal nocturnal dyspnea, or chest X-ray showing pulmonary vascular redistribution.
+    history_of_cerebrovascular_disease (bool): True if there is a history of transient ischemic attack or stroke.
+    preop_treatment_with_insulin (bool): True if the patient is being treated with insulin pre-operatively.
+    preop_creatinine_above_threshold (bool): True if pre-operative creatinine levels are greater than 2 mg/dL or 176.8 µmol/L.
+
+    Returns:
+    int: The total Revised Cardiac Risk Index score, which is the sum of the individual risk factors present.
+
+    Usage:
+    The index is used primarily in the preoperative setting to assess cardiac risk. It assists healthcare providers in making informed decisions about further preoperative risk assessments and postoperative monitoring.
+ 
+
+CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk: Calculate the CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk.
+
+    The CHA2DS2-VASc score is a clinical prediction rule for estimating the risk of stroke in
+    patients with non-valvular atrial fibrillation. It is used to determine whether treatment with
+    anticoagulation or antiplatelet therapy is appropriate, based on the risk of thromboembolism.
+
+    Parameters:
+    - age (int): Age of the patient.
+    - sex (str): Biological sex of the patient, 'male' or 'female'.
+    - history_of_congestive_heart_failure (bool): True if the patient has a history of congestive heart failure, otherwise False.
+    - history_of_hypertension (bool): True if the patient has a history of hypertension, otherwise False.
+    - history_of_stroke_tia_thromboembolism (bool): True if the patient has a history of stroke, transient ischemic attack (TIA), or thromboembolism, otherwise False.
+    - history_of_vascular_disease (bool): True if the patient has a history of vascular disease (prior myocardial infarction, peripheral artery disease, or aortic plaque), otherwise False.
+    - history_of_diabetes (bool): True if the patient has a history of diabetes mellitus, otherwise False.
+
+    Returns:
+    - int: The total CHA2DS2-VASc score which is a sum of the points for each risk factor.
+
+    Example:
+    >>> calculate_cha2ds2_vasc_score(75, 'female', True, True, True, True, True)
+    9
+
+Caprini Score for Venous Thromboembolism (2005): Calculate the Caprini Score for Venous Thromboembolism (VTE) in surgical patients. The score assesses the risk of VTE
+    based on a variety of risk factors and stratifies patients for potential prophylactic interventions. Not applicable
+    to medical (non-surgical) patients. Requires patient interaction to ascertain certain historical risk factors.
+
+    Parameters:
+    age (int): Patient's age in years.
+    sex (int): Patient's sex (0 for male, 1 for female).
+    surgery_type (int): Type of surgery classified by duration and invasiveness (0 for none, 1 for minor, 2 for major, 5 for elective major lower extremity arthroplasty).
+    recent_event (int): Recent surgeries or events (0 for none, 1 for minor, 2 for major or laparoscopic over 45 min).
+    major_surgery (int): Whether the patient had major surgery (0 for no, 1 for yes).
+    chf (int): Congestive heart failure present (0 for no, 1 for yes).
+    sepsis (int): Sepsis present (0 for no, 1 for yes).
+    pneumonia (int): Pneumonia present (0 for no, 1 for yes).
+    plaster_cast (int): Presence of an immobilizing plaster cast (0 for no, 2 for yes).
+    fracture (int): Presence of hip, pelvis, or leg fracture (0 for no, 5 for yes).
+    stroke (int): History of stroke (0 for no, 5 for yes).
+    multiple_trauma (int): Presence of multiple traumas (0 for no, 5 for yes).
+    spinal_injury (int): Acute spinal cord injury causing paralysis (0 for no, 5 for yes).
+    varicose_veins (int): Presence of varicose veins (0 for no, 1 for yes).
+    swollen_legs (int): Currently swollen legs (0 for no, 1 for yes).
+    central_venous_access (int): Current central venous access (0 for no, 2 for yes).
+    history_dvt_pe (int): History of deep vein thrombosis or pulmonary embolism (0 for no, 3 for yes).
+    family_thrombosis (int): Family history of thrombosis (0 for no, 3 for yes).
+    factor_v_leiden (int): Positive Factor V Leiden mutation (0 for no, 3 for yes).
+    prothrombin_20210A (int): Positive prothrombin 20210A mutation (0 for no, 3 for yes).
+    homocysteine (int): Elevated serum homocysteine levels (0 for no, 3 for yes).
+    lupus_anticoagulant (int): Positive lupus anticoagulant (0 for no, 3 for yes).
+    anticardiolipin_antibody (int): Elevated anticardiolipin antibody levels (0 for no, 3 for yes).
+    heparin_thrombocytopenia (int): Heparin-induced thrombocytopenia (0 for no, 3 for yes).
+    thrombophilia (int): Other congenital or acquired thrombophilia (0 for no, 3 for yes).
+    mobility (int): Mobility status (0 for normal, out of bed, 1 for medical patient currently on bed rest, 2 for patient confined to bed >72 hours).
+    ibd (int): History of inflammatory bowel disease (0 for no, 1 for yes).
+    bmi_over_25 (int): BMI over 25 (0 for no, 1 for yes).
+    acute_mi (int): Acute myocardial infarction (0 for no, 1 for yes).
+    copd (int): Chronic obstructive pulmonary disease (0 for no, 1 for yes).
+    malignancy (int): Presence or history of malignancy (0 for no, 2 for yes).
+    other_risk_factors (int): Other unspecified risk factors (0 for no, 1 for yes).
+    contraceptives_hormones (int): Use of oral contraceptives or hormone replacement therapy (0 for no, 1 for yes).
+    reproductive_history (int): History of unexplained stillborn, ≥3 spontaneous abortions, or premature birth with toxemia or growth-restricted infant (0 for no, 1 for yes).
+
+    Returns:
+    int: The calculated Caprini score.
+
+
+Sequential Organ Failure Assessment (SOFA) Score: "Calculate the Sequential Organ Failure Assessment (SOFA) Score which is used to assess the extent of a person's organ function or rate of failure.
+The score is used to track a patient's status during their stay in an intensive care unit to determine the extent of a person's organ function or rate of failure.
+
+Parameters:
+- pao2_fio2_ratio (float): The ratio of arterial oxygen partial pressure to fractional inspired oxygen (mmHg).
+- platelets (float): Platelet count in ×103/µL.
+- glasgow_coma_scale (int): Score on the Glasgow Coma Scale.
+- bilirubin (float): Serum bilirubin in mg/dL.
+- map_pressure (float): Mean arterial pressure in mmHg.
+- vasoactive_agents (int): Index indicating the vasoactive agents being used. Corresponds to 0 for no agents, 1 for low dose dopamine or any dose dobutamine, 2 for higher dose dopamine or low dose epinephrine/norepinephrine, 3 for very high dose of these agents.
+- creatinine (float): Serum creatinine in mg/dL.
+- urine_output (float): Urine output in mL/day.
+- o2_delivery_type (int): Index of the type of oxygen delivery method used. Types are as follows: 0 = nasal cannula, 1 = simple face mask, 2 = non-rebreather mask, 3 = high-flow nasal cannula.
+- o2_flow_rate (float): Flow rate of oxygen delivery in L/min.
+
+Returns:
+int: Total SOFA score which is the sum of individual scores across the specified parameters."
+
+HAS-BLED Score for Major Bleeding Risk: Calculate the HAS-BLED Score for Major Bleeding Risk in patients with atrial fibrillation.
+    
+    The HAS-BLED Score is used to estimate the 1-year risk for major bleeding and helps guide decisions regarding anticoagulation therapy.
+    This scoring system can be considered alongside other bleeding risk scores or thromboembolic risk assessments to weigh the benefits and risks of anticoagulation.
+
+    Parameters:
+    hypertension (bool): True if the patient has hypertension, False otherwise.
+    renal_disease (bool): True if the patient has renal disease (dialysis, transplant, or Cr >2.26 mg/dL), False otherwise.
+    liver_disease (bool): True if the patient has liver disease (cirrhosis or bilirubin >2x normal with AST/ALT/AP >3x normal), False otherwise.
+    stroke_history (bool): True if the patient has a history of stroke, False otherwise.
+    major_bleeding_history (bool): True if the patient has had prior major bleeding or predisposition to bleeding, False otherwise.
+    labile_inr (bool): True if the patient has labile INR (unstable/high INRs, time in therapeutic range <60%), False otherwise.
+    elderly (bool): True if the patient is elderly (age >65), False otherwise.
+    medication_risk (bool): True if the patient uses medication that predisposes to bleeding (aspirin, clopidogrel, NSAIDs), False otherwise.
+    alcohol_usage (bool): True if the patient consumes alcohol significantly (≥8 drinks/week), False otherwise.
+
+    Returns:
+    int: The total HAS-BLED score, which is a sum of all applicable risk factors.
+
+    Example:
+    >>> calculate_has_bled_score(True, False, False, True, False, True, True, False, True)
+    5
+
+PSI/PORT Score: Pneumonia Severity Index for CAP: Calculate the PSI/PORT Score for Community-Acquired Pneumonia (CAP).
+
+    The PSI/PORT Score helps to risk stratify patients with community-acquired pneumonia in clinical or
+    emergency department settings. This score may underestimate severe pneumonia in younger, otherwise healthy patients.
+    It is important to consider other clinical factors such as sepsis, which may require additional testing
+    like lactate levels. Any patient over 50 years of age is automatically classified as risk class 2.
+
+    Parameters:
+    age (int): Patient's age in years.
+    sex (str): Patient's sex, either 'Female' or 'Male'.
+    nursing_home_resident (bool): True if the patient is a nursing home resident, False otherwise.
+    neoplastic_disease (bool): True if the patient has a history of neoplastic disease, False otherwise.
+    liver_disease (bool): True if the patient has a history of liver disease, False otherwise.
+    chf_history (bool): True if the patient has a history of congestive heart failure, False otherwise.
+    cerebrovascular_disease (bool): True if the patient has a history of cerebrovascular disease, False otherwise.
+    renal_disease (bool): True if the patient has a history of renal disease, False otherwise.
+    altered_mental_status (bool): True if the patient has altered mental status, False otherwise.
+    respiratory_rate (bool): True if respiratory rate is ≥30 breaths/min, False otherwise.
+    systolic_bp (bool): True if systolic blood pressure is <90 mmHg, False otherwise.
+    temperature (bool): True if temperature is <35°C or >39.9°C, False otherwise.
+    pulse (bool): True if pulse rate is ≥125 beats/min, False otherwise.
+    blood_ph (bool): True if blood pH is <7.35, False otherwise.
+    bun (bool): True if BUN is ≥30 mg/dL or ≥11 mmol/L, False otherwise.
+    sodium (bool): True if sodium level is <130 mmol/L, False otherwise.
+    glucose (bool): True if glucose level is ≥250 mg/dL or ≥14 mmol/L, False otherwise.
+    hematocrit (bool): True if hematocrit is <30%, False otherwise.
+    oxygen_pressure (bool): True if partial pressure of oxygen is <60 mmHg or <8 kPa, False otherwise.
+    pleural_effusion (bool): True if there is pleural effusion on x-ray, False otherwise.
+
+    Returns:
+    int: The total PSI/PORT Score indicating the severity of the pneumonia.
+
+CIWA-Ar for Alcohol Withdrawal: Calculate the CIWA-Ar scale score for assessing alcohol withdrawal severity.
+
+    The CIWA-Ar scale is intended for use in various medical settings where alcohol withdrawal is suspected.
+    This tool helps in quantifying the severity of alcohol withdrawal through several symptom dimensions,
+    each scored independently. The cumulative score helps guide clinical decisions regarding the necessity
+    and intensity of treatment for withdrawal.
+
+    Parameters:
+    nausea_vomiting (int): Index for nausea and vomiting severity. Range: 0-7.
+        - 0: No nausea and no vomiting
+        - 1: Mild nausea and no vomiting
+        - 2-3: More severe nausea without vomiting
+        - 4: Intermittent nausea with dry heaves
+        - 5-6: Increasing severity of nausea and dry heaves
+        - 7: Constant nausea, frequent dry heaves and vomiting
+    tremor (int): Index for tremor severity. Range: 0-7.
+        - 0: No tremor
+        - 1: Not visible, but can be felt fingertip to fingertip
+        - 2-3: More severe tremors without visible shaking
+        - 4: Moderate tremor with arms extended
+        - 5-6: Severe tremor, visible with arms extended
+        - 7: Very severe tremor, even with arms not extended
+    paroxysmal_sweats (int): Index for sweating severity. Range: 0-7.
+        - 0: No sweat visible
+        - 1: Barely perceptible sweating, palms moist
+        - 2-3: More perceptible sweating without drenching
+        - 4: Beads of sweat obvious on forehead
+        - 5-6: Severe sweating
+        - 7: Drenching sweats
+    anxiety (int): Index for anxiety level. Range: 0-7.
+        - 0: No anxiety, at ease
+        - 1: Mildly anxious
+        - 2-3: Moderate anxiety
+        - 4: Moderately anxious, or guarded, so anxiety is inferred
+        - 5-6: Severe anxiety, similar to panic states
+        - 7: Equivalent to acute panic states as seen in severe delirium or acute schizophrenic reactions
+    agitation (int): Index for agitation level. Range: 0-7.
+        - 0: Normal activity
+        - 1: Somewhat more activity than normal
+        - 2-3: More active, moderately fidgety and restless
+        - 4: Moderately fidgety and restless
+        - 5-6: Severe restlessness
+        - 7: Paces back and forth during most of the interview, or constantly thrashes about
+    tactile_disturbances (int): Index for tactile disturbances. Range: 0-7.
+        - 0: None
+        - 1-2: Mild to moderate itching, pin and needles, burning, or numbness
+        - 3-4: Moderate to moderately severe hallucinations
+        - 5-6: Severe to extremely severe hallucinations
+        - 7: Continuous hallucinations
+    visual_disturbances (int): Index for visual disturbances. Range: 0-7.
+        - 0: No visual disturbances
+        - 1-2: Mild to moderate sensitivity
+        - 3-4: Moderate to moderately severe hallucinations
+        - 5-6: Severe to extremely severe hallucinations
+        - 7: Continuous hallucinations
+    headache_fullness (int): Index for headache or fullness in head. Range: 0-7.
+        - 0: No headache
+        - 1-2: Mild to moderate headache
+        - 3-4: Moderate to moderately severe headache
+        - 5-6: Severe to very severe headache
+        - 7: Extremely severe headache
+    orientation_sensorium (int): Index for orientation or clouding of sensorium. Range: 0-4.
+        - 0: Fully oriented, can do serial additions
+        - 1: Can't do serial additions or is uncertain about date
+        - 2: Disoriented for date by no more than 2 calendar days
+        - 3: Disoriented for date by more than 2 calendar days
+        - 4: Disoriented to place or person
+
+    Returns:
+    int: The total CIWA-Ar score, representing the severity of alcohol withdrawal.
+
+    Usage:
+    score = calculate_ciwa_ar(2, 4, 1, 3, 5, 2, 0, 6, 1)
+    print("CIWA-Ar score:", score)
+
+
+Gupta Perioperative Risk for Myocardial Infarction or Cardiac Arrest (MICA): 
+    Calculate the Gupta Perioperative Risk for Myocardial Infarction or Cardiac Arrest (MICA).
+
+    This function estimates the cardiac risk percentage for patients undergoing surgery based on various factors.
+    
+    Parameters:
+    age (int): The age of the patient in years.
+    functional_status (int): Functional status of the patient. 
+                             Options are: 
+                             0 - Independent
+                             1 - Partially dependent
+                             2 - Totally dependent
+    asa_class (int): ASA class of the patient. 
+                     Options are:
+                     1 - Normal healthy patient
+                     2 - Mild systemic disease
+                     3 - Severe systemic disease
+                     4 - Severe systemic disease that is a constant threat to life
+                     5 - Moribund, not expected to survive without surgery
+    creatinine (int): Creatinine level status. 
+                      Options are:
+                      0 - Normal (≤1.5 mg/dL, 133 µmol/L)
+                      1 - Elevated (>1.5 mg/dL, 133 µmol/L)
+                      2 - Unknown
+    procedure_type (int): Type of procedure being performed. 
+                          Options are:
+                          0 - Anorectal
+                          1 - Aortic
+                          2 - Bariatric
+                          3 - Brain
+                          4 - Breast
+                          5 - Cardiac
+                          6 - ENT (except thyroid/parathyroid)
+                          7 - Foregut or hepatopancreatobiliary
+                          8 - Gallbladder, appendix, adrenals, or spleen
+                          9 - Hernia (ventral, inguinal, femoral)
+                          10 - Intestinal
+                          11 - Neck (thyroid/parathyroid)
+                          12 - Obstetric/gynecologic
+                          13 - Orthopedic and non-vascular extremity
+                          14 - Other abdominal
+                          15 - Peripheral vascular (Non-aortic, non-vein vascular surgeries)
+                          16 - Skin
+                          17 - Spine
+                          18 - Non-esophageal thoracic
+                          19 - Vein
+                          20 - Urology
+
+    Returns:
+    float: The estimated cardiac risk percentage.
+   
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{哪一个量表用于评估酒精性肝硬化患者的肝功能程度和预后风险？}}
+Task Scenario: {{Analysis:
+The patient presents with a history of alcoholic cirrhosis, portal vein biliary disease leading to subacute liver failure. The main abnormality observed is the significantly elevated levels of total bilirubin (536.0μmol/L) and direct bilirubin (293.0μmol/L), indicating impaired liver function and obstructive jaundice. The presence of ascites and splenomegaly suggests portal hypertension. Additionally, the presence of multiple liver cysts, dilated intrahepatic bile ducts, and gallbladder inflammation with multiple stones further confirms the pre-existing liver pathology.
+
+Speculated Impairments:
+1. Impaired bile excretion due to obstructive jaundice from portal vein biliary disease.
+2. Impaired liver synthetic function due to significantly elevated bilirubin levels.
+3. Portal hypertension leading to ascites and splenomegaly.
+4. Possible cholestatic liver damage indicated by elevated liver enzymes AST and ALT.
+
+Further investigations and treatment, such as liver transplantation, are necessary to address the underlying liver dysfunction and complications.}}
+Step By Step Analysis:
+
+[output]  1. The user is asking for a tool to assess liver function and prognosis risk in patients with alcoholic cirrhosis. Based on the request, we need to choose a tool related to liver function assessment and prognosis in cirrhotic patients.
+
+2. Among the tools provided in the Tool List, the most suitable tool for assessing liver function and prognosis in cirrhotic patients is the "Child-Pugh Score for Cirrhosis Mortality."
+
+3. The Child-Pugh Score is specifically designed to estimate the prognosis of patients with cirrhosis, including alcoholic cirrhosis, by assessing various parameters such as bilirubin levels, albumin levels, INR, ascites presence, and encephalopathy grade.
+
+4. By calculating the Child-Pugh Score for the patient with the mentioned clinical presentation, we can evaluate the severity of liver disease, predict mortality risk, and guide further management decisions.
+
+```json
+{
+    "chosen_tool_name": "Child-Pugh Score for Cirrhosis Mortality"
+}
+```

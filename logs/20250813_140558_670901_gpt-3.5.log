@@ -1,0 +1,189 @@
+[time]    2025-08-13 14:05:58
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Cysteine, 半胱氨酸', 'Hematocrit (HCT), 血细胞比容(HCT)', 'Hemoglobin (HGB), 血红蛋白 (HGB)', 'Cystine, 胱氨酸', 'Mean Corpuscular Hemoglobin Concentration (MCHC), 平均红细胞血红蛋白浓度', 'Cystatin C, 胱抑素C', 'Homocysteine (HCY), 同型半胱氨酸 (HCY)', 'Coagulation Time (TT), 凝血酶时间 (TT)', 'Mean Corpuscular Hemoglobin Concentration (MCHC), 平均红细胞血红蛋白含量', 'Hemoglobin Tetramer, 血红蛋白四聚体']}}
+Detailed information of each tool: {{Cysteine, 半胱氨酸: Convert the value of Cysteine from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Hematocrit (HCT), 血细胞比容(HCT): Convert the value of Hematocrit (HCT) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['L/L', 'Proportion of 1.0', 'volume fraction', '%']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Hemoglobin (HGB), 血红蛋白 (HGB): Convert the value of Hemoglobin (HGB) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['g/L', 'g/dL', 'g/100mL', 'g%', 'mg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Cystine, 胱氨酸: Convert the value of Cystine from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Mean Corpuscular Hemoglobin Concentration (MCHC), 平均红细胞血红蛋白浓度: Convert the value of Mean Corpuscular Hemoglobin Concentration (MCHC) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'mg/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/mL', '%']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Cystatin C, 胱抑素C: Convert the value of Cystatin C from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mg/L', 'mg/dL', 'mg/100mL', 'mg%', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Homocysteine (HCY), 同型半胱氨酸 (HCY): Convert the value of Homocysteine (HCY) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Coagulation Time (TT), 凝血酶时间 (TT): Convert the value of Coagulation Time (TT) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['s', 'sec']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Mean Corpuscular Hemoglobin Concentration (MCHC), 平均红细胞血红蛋白含量: Convert the value of Mean Corpuscular Hemoglobin Concentration (MCHC) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['fmol', 'fmol/cell', 'pg', 'pg/cell']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Hemoglobin Tetramer, 血红蛋白四聚体: Convert the value of Hemoglobin Tetramer from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'g/L', 'g/dL', 'g/100mL', 'g%', 'mg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{The systolic_bp is 110 mmHg. It needs to be converted from mmHg to mm Hg.}}
+Task Scenario: {{}}
+Step By Step Analysis:
+
+[output]  1. Identify the user demand: The user needs to convert the systolic blood pressure (systolic_bp) value from mmHg to a different unit.
+2. Check the Tool List to find a suitable tool for converting units related to blood pressure.
+3. Since there is no specific tool in the Tool List for converting blood pressure units, we need to look for a tool that can handle general unit conversions.
+4. From the Tool List, a tool that can be used for general unit conversion is "Hematocrit (HCT), 血细胞比容(HCT)" which can convert values to different units.
+5. Choose the tool "Hematocrit (HCT), 血细胞比容(HCT)" from the Tool List as the most suitable tool for this scenario.
+6. Create the Final Answer JSON file with the chosen tool.
+
+```json
+{
+    "chosen_tool_name": "Hematocrit (HCT), 血细胞比容(HCT)"
+}
+```

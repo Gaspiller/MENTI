@@ -1,0 +1,126 @@
+[time]    2025-08-13 13:19:32
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{ Calculate the Centor Score (Modified/McIsaac) for Strep Pharyngitis.
+    
+    This scoring system helps clinicians determine the likelihood of Group A Streptococcus (GAS) 
+    in patients with symptoms of pharyngitis, which is critical for deciding whether to proceed 
+    with testing for strep pharyngitis. The score integrates factors such as age, tonsillar exudate, 
+    cervical lymphadenopathy, temperature, and the presence of cough to stratify the risk.
+    
+    Parameters:
+    - age (int): Age of the patient in years.
+    - exudate_swelling (bool): True if there is exudate or swelling on the tonsils, False otherwise.
+    - tender_swollen_lymph_nodes (bool): True if there are tender/swollen anterior cervical lymph nodes, False otherwise.
+    - temperature (float): Patient's temperature in degrees Celsius.
+    - cough (bool): True if cough is present, False otherwise.
+
+    Returns:
+    - int: The calculated Centor Score, which ranges from -1 to 4.
+    
+    Usage:
+    Typically used in primary care settings to assess the necessity for further testing for GAS infection,
+    guiding the judicious use of antibiotics in managing pharyngitis. Higher scores suggest a higher probability
+    of streptococcal infection and may warrant testing and/or treatment.
+ }}
+Reference Text:
+{{基本信息:男，1岁5个月，无
+发病原因:病因不明
+临床诊断:支气管肺炎,中性粒细胞减少症,心肌损害
+治疗方案:予头孢替唑静点抗感染治疗，布地奈德、乙酰半胱氨酸、复方异丙托溴铵泵吸缓解呼吸道症状等对症治疗
+治疗结果:病情好转
+病案重点:支气管肺炎
+
+[病案介绍]
+主诉:
+咽有痰声3天，发热、咳嗽2天
+现病史:
+患儿于入院前3天无明显诱因出现反复嗓子呼噜音，不会吐出，入院前2天，患儿出现发热，最高体温38.8℃，口服对乙酰胺基酚混悬液5ml或使用复方退热栓剂体温可降至37.5℃左右，每日3次，伴单声咳，非犬吠样，无声音嘶哑，咳后有痰，无喘，无呼吸困难，入院前1天，患儿出现流涕，无鼻塞，口服肺宁颗粒、环酯红霉素3天，奥司他韦2天（具体剂量未提供），患儿无好转，现家长为系统治疗来我院，门诊以“支气管炎”收入院，病程中患儿无盗汗，无恶心及呕吐，无腹痛，饮食欠佳，睡眠安，排稀便2天，每日1-2次，尿量正常。
+既往史:
+患儿平时身体一般。患儿为早产儿，出生后于某住院治疗，具体诊断及治疗不详，治疗20余天，好转出院；出生后1个月因“支气管肺炎住院治疗，未好转，转诊其他医院，诊断“支气管肺炎、卵圆孔未闭”并住院治疗10余天，好转出院，出院至今未复查肺CT、心脏彩超。否认肝炎、结核、伤寒等传染病史及接触史，否认肝、肾等重要脏器疾病史。否认外伤史，否认手术史，无输血史，否认药物过敏史、否认食物过敏史。预防接种按计划进行，已接种卡介苗、乙肝疫苗、百白破疫苗、脊髓灰质炎、麻疹疫苗、乙脑疫苗。
+查体:
+T：37.2℃，P：136次/分，R：34次/分，BP：未测mmHg
+T:37.2℃ ,P:136次/分,R:34次/分,BP:未测/mmhg。呼吸平稳，咽有充血，扁桃体I度肿大，表面充血，双肺呼吸音粗，可闻及痰鸣音，心音有力，节律齐，未闻及杂音，腹软，肠鸣音略活跃。四肢活动自如，神经系统无异常。
+辅助检查:
+入院后查肺CT：右肺上叶见少许淡片状影，病灶边缘不清晰。提示：右肺上叶少许炎性病变。结合患儿有发热、咳嗽症状，查体闻及痰鸣音，诊断支气管肺炎成立。
+心脏彩超提示心功能正常，二、三尖瓣少量返流。血常规提示白细胞总数正常，分类淋巴细胞为主，中性粒细胞数患儿颈前淋巴结未发现肿大。}}
+Step By Step Analysis:
+
+[output]  1. Age:
+- The patient's age is 1 year and 5 months.
+- As the age needs to be in years, we need to convert the patient's age to years. The patient's age is 1 year.
+
+2. Exudate_swelling:
+- There is no specific mention of exudate or swelling on the tonsils in the reference text.
+- Since there is no clear indication of exudate or swelling, we will assume the value to be False.
+
+3. Tender_swollen_lymph_nodes:
+- The reference text does not mention the presence of tender/swollen anterior cervical lymph nodes.
+- As there is no information to suggest the presence of tender/swollen lymph nodes, we will assume the value to be False.
+
+4. Temperature:
+- The patient's temperature is mentioned to be 38.8℃.
+- We will use this value as the temperature for the calculation.
+
+5. Cough:
+- The reference text mentions the presence of a non-barking cough with sputum production.
+- Since there is clear evidence of cough, we will assume the value to be True.
+
+Parameters List:
+```json
+{
+    "age": {"Value": 1, "Unit": "years"},
+    "exudate_swelling": {"Value": false, "Unit": "null"},
+    "tender_swollen_lymph_nodes": {"Value": false, "Unit": "null"},
+    "temperature": {"Value": 38.8, "Unit": "°C"},
+    "cough": {"Value": true, "Unit": "null"}
+}
+```

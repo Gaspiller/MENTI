@@ -1,0 +1,154 @@
+[time]    2025-08-13 14:08:12
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the PHQ-9 (Patient Health Questionnaire-9) score.
+
+    The PHQ-9 is a clinical scale used to diagnose depression and to quantify and monitor the severity of depression symptoms.
+    It evaluates symptoms based on the 9 DSM criteria for major depressive disorder (MDD). Each criterion is scored from 0 to 3:
+    - "0" for 'Not at all'
+    - "1" for 'Several days'
+    - "2" for 'More than half the days'
+    - "3" for 'Nearly every day'
+    The function sums these scores to provide an overall severity score ranging from 0 to 27.
+
+    Parameters:
+    - interest_pleasure (int): Index from 0 to 3 indicating frequency of little interest or pleasure in doing things.
+    - feeling_down (int): Index from 0 to 3 indicating frequency of feeling down, depressed, or hopeless.
+    - sleep_issues (int): Index from 0 to 3 indicating trouble with falling or staying asleep, or sleeping too much.
+    - tired_energy (int): Index from 0 to 3 indicating feeling tired or having little energy.
+    - appetite_issues (int): Index from 0 to 3 indicating issues with poor appetite or overeating.
+    - self_feeling (int): Index from 0 to 3 indicating feelings of being bad about oneself, or feeling like a failure.
+    - concentration (int): Index from 0 to 3 indicating trouble concentrating on things.
+    - activity_level (int): Index from 0 to 3 indicating altered activity levels, either moving too slowly or being too fidgety.
+    - suicidal_thoughts (int): Index from 0 to 3 indicating frequency of thoughts of self-harm or being better off dead.
+
+    Returns:
+    - int: The total PHQ-9 score, which is the sum of all the individual scores for the symptoms listed above.
+}}
+Reference Text:
+{{基本信息:女，74岁，农民
+发病原因:病因不明
+临床诊断:1.心脏神经官能症 2.冠状动脉粥样硬化性心脏病 3.胃炎 4.高血压
+治疗方案:给予口服
+治疗结果:病情好转
+病案重点:心脏神经官能症
+
+[病案介绍]
+主诉:
+"心慌、气短1个月"
+现病史:
+患者于1个月前无明显诱因出现心慌、气短，伴有头晕，无天旋地转感，呈阵发性，恶心，未呕吐，双下肢酸沉，烦躁，右眼视物模糊，无胸痛，无头痛，无咳嗽、咳痰，无晕厥，于家中未做特殊处理，上述症状无缓解，为求进一步诊治而来我院,现症见：心慌、气短，头晕，烧心，恶心，双下肢酸沉，烦躁，右眼视物模糊，舌质淡，苔黄腻，脉弦数。患者自发病以来，神志清，精神尚可,纳差，睡眠可，大小便正常。
+既往史:
+既往"高血压、冠心病"病史多年，常年口服药物治疗；胃脘部不适多年，间断对症治疗；"脑梗塞"病史近2年，未遗留明显后遗症；否认"糖尿病"病史。否认"肝炎、结核"等传染性疾病及接触史，否认外伤及手术史，否认食物、药物过敏史，否认输血史，预防接种史不详。
+查体:
+T：36.3℃，P：84次/分，R：19次/分，BP：110/70mmHg
+BP:，神志清，精神尚可，双侧瞳孔正大等圆，对光反射灵敏，口唇紫绀，口角不偏，伸舌居中，双侧颈静脉无怒张，双肺呼吸音清，未闻及干、湿性啰音，心律84次/分，律齐，心音可，未闻及病理性杂音。腹平软，剑突下按压不适，全腹无反跳痛及肌紧张，肝脾未及肿大，叩鼓音，肠鸣音正常存在。四肢肌力5级，肌张力正常，双下肢无水肿。双侧Babinski征（-）。
+辅助检查:
+心电图示：窦性心律，T波异常。1.近几天来感到紧张、焦虑
+2.没有无法停止或控制的担忧
+3.近几天来对入院治疗过于担心
+4.几乎每天都难以放松
+5.近期入院后感到焦躁不安
+6.无生气或易怒
+7.入院后感到害怕，好像有什么可怕的事情发生。
+8.上述症状对于日常生活有一定影响。}}
+Step By Step Analysis:
+
+[output]  1. interest_pleasure:
+Based on the provided text, there is no specific mention of the patient's interest or pleasure in doing things. However, considering the patient is experiencing symptoms like feeling down, depressed, and hopeless, it is likely that the interest or pleasure is affected. We can infer a moderate impact on interest/pleasure.
+Filling Value: 2
+
+2. feeling_down:
+The patient's symptoms include feeling down, depressed, and hopeless, as mentioned in the text.
+Filling Value: 3
+
+3. sleep_issues:
+There is no direct mention of sleep issues in the text. However, the patient describes symptoms of trouble concentrating, head dizziness, and feeling restless, which could potentially be related to sleep problems. We can infer a mild impact on sleep.
+Filling Value: 1
+
+4. tired_energy:
+The patient does not specifically state feelings of tiredness or lack of energy. However, considering the overall presentation of symptoms, it is reasonable to assume some level of fatigue or lack of energy.
+Filling Value: 2
+
+5. appetite_issues:
+The text does not provide information about appetite problems. Since the patient's main complaints are related to cardiovascular and neurological symptoms, we can assume a neutral impact on appetite.
+Filling Value: 0
+
+6. self_feeling:
+The patient does not directly mention feelings of being bad about oneself or like a failure. Given the presence of other depressive symptoms, it is reasonable to infer some negative self-feelings.
+Filling Value: 1
+
+7. concentration:
+The patient reports trouble concentrating as part of the symptoms. This indicates a direct impact on concentration.
+Filling Value: 2
+
+8. activity_level:
+Although there is no specific mention of altered activity levels in the text, symptoms like restlessness, being fidgety, and feeling tired can indirectly suggest changes in activity levels. We can infer a moderate impact on activity level.
+Filling Value: 2
+
+9. suicidal_thoughts:
+The patient denies suicidal thoughts in the text. Therefore, we can assume the absence of suicidal thoughts.
+Filling Value: 0
+
+Parameters List:
+```json
+{
+    "interest_pleasure": {"Value": 2, "Unit": "null"},
+    "feeling_down": {"Value": 3, "Unit": "null"},
+    "sleep_issues": {"Value": 1, "Unit": "null"},
+    "tired_energy": {"Value": 2, "Unit": "null"},
+    "appetite_issues": {"Value": 0, "Unit": "null"},
+    "self_feeling": {"Value": 1, "Unit": "null"},
+    "concentration": {"Value": 2, "Unit": "null"},
+    "activity_level": {"Value": 2, "Unit": "null"},
+    "suicidal_thoughts": {"Value": 0, "Unit": "null"}
+}
+```

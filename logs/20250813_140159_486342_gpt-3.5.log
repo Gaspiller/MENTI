@@ -1,0 +1,38 @@
+[time]    2025-08-13 14:01:59
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估患者10年内冠状动脉粥样硬化性心脏病发作风险？
+
+Patient Case Analysis:
+
+根据患者的病史和临床表现，可以看出他患有急性左心衰竭、冠状动脉粥样硬化性心脏病缺血性心肌病以及慢性支气管炎急性发作等疾病。重点关注的是急性左心衰竭和冠状动脉粥样硬化性心脏病缺血性心肌病，这些情况可能导致心脏舒张功能减低，左心室射血分数减少，心电图异常（ST段压低、T波倒置）、心动过速等心脏功能下降的表现。此外，患者血常规显示白细胞正常，但中性粒细胞百分比偏高，可能是身体在应对炎症、感染等情况。另外，患者血钾值较低，存在低钾血症的情况，可能对心脏功能和肌肉功能产生影响。综上所述，急性左心衰竭和冠状动脉粥样硬化性心脏病缺血性心肌病是该患者的主要问题，可能导致心脏功能减退和相关症状的出现。
+
+[output]  ```json
+[
+    "哪一个评估量表可用于预测患者10年内冠状动脉粥样硬化性心脏病发作风险？",
+    "患者患有急性左心衰竭和冠状动脉粥样硬化性心脏病缺血性心肌病，这些病情可能导致心脏功能下降，是否有特定的评估工具可用？",
+    "根据患者的病史，重点关注急性左心衰竭和心肌病缺血性心肌病，是否存在特定量表用于评估10年内冠状动脉粥样硬化性心脏病发作风险？"
+]
+```

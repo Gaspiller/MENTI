@@ -22,8 +22,7 @@ class Config:
         parser.add_argument('--case_path', type=str, default="./CalcQA/clinical_case.json")
         parser.add_argument('--tool_scale_path', type=str, default="./CalcQA/tool_scale.json")
         parser.add_argument('--tool_unit_path', type=str, default="./CalcQA/tool_unit.json")
-        parser.add_argument('--log_index', type=int, default=1, help="Log file index number")
-
+        
 
         self.pargs = parser.parse_args()
         for key, value in vars(self.pargs).items():

@@ -1,0 +1,36 @@
+[time]    2025-08-13 14:42:04
+[model]   gpt-3.5
+[input]   
+You are a medical diagnostic model. Your task is to analyze the abnormal parts of the provided patient's case and speculate on which bodily functions might be impaired.
+
+The requirements are as follows:
+1. Every inference you make must be substantiated by actual evidence from the provided patient's case.
+2. You only need to analyze the main, abnormal parts of the provided patient's case.
+3. You just need to make a brief analysis.
+
+Begin!
+
+
+基本信息:女，23岁
+
+[病案介绍]
+主诉:
+停经39+1周,规则腹痛1小时
+现病史:
+青年女性，孕1产0，孕妇平素月经不规则，预产期2018年07月3日；停经40天测尿HCG阳性。停经早期未出现纳差不适，无放射线接触史；早孕期无病毒感染，未接触其他有害物；停经4月出现胎动,停经13周在本院 建卡检查共10次；未行唐氏三联筛查。各次查胎心血压均正常。患者1小时前无诱因出现规律下腹痛，约5-6分钟一次，一次持续30秒，有**见红，无**流液，自觉胎动正常。现门诊拟临产收入院。停经以来孕妇无腹痛,无腹坠胀；无**流血，无**流液，无头痛、头晕，无眼花、视曚，无肢体浮肿及抽搐。无发热。食欲食量良好，睡眠情况良好，体重增加21公斤，大便正常，小便正常。
+既往史:
+否认肝炎、结核、疟疾病史，否认高血压、冠心病、糖尿病等慢性疾病病史，否认脑血管疾病、精神疾病史，否认手术、外伤、输血史。
+查体:
+T：37.2℃，P：78次/分，R：23次/分，BP：110/60mmHg
+宫高32cm，腹围99cm，估计胎儿大小3400g，胎方位LOA，宫缩规律，强度中，先露头，已衔接，胎心音131次/分。阴检：宫颈质地软，宫颈位置中，宫颈消退80%，宫颈扩张0cm。先露位置S-2。胎膜未破。骨盆测量：髂前上棘间径24cm，髂嵴间径26cm，骶耻外径20cm，坐骨结节间径9cm。
+辅助检查:
+本院二维彩超：宫内妊娠39+周，单活胎，胎儿脐动脉血流频谱测值正常，胎儿超声四项生物物理评分6分，胎盘位于前壁，厚38mm，成熟度II度，S/D2.32。患者无缺血性心脏病病史。
+
+患者无脑血管病史。
+
+患者术前肌酐值正常。
+
+患者无心力衰竭病史。
+[output]  根据患者的病史和检查结果显示，患者是一名怀孕39周的孕妇，主诉规则腹痛。经过检查发现胎儿大小为3400g，胎方位LOA，宫颈已经开始消退，但宫颈扩张仍为0cm，胎膜未破。二维彩超显示胎儿健康状况良好，胎盘位于前壁。
+
+根据以上情况可以推断，患者可能有一种称为盆腔不全的病情，即宫颈没有开始扩张，可能会导致分娩的困难和并发症。需要密切监测患者的情况，必要时可能需要进行干预措施来促进宫颈扩张以顺利进行分娩。

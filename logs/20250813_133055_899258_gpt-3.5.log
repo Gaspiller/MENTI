@@ -1,0 +1,271 @@
+[time]    2025-08-13 13:30:55
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Sequential Organ Failure Assessment (SOFA) Score', 'CKD-EPI Equations for Glomerular Filtration Rate (GFR)', 'NIH Stroke Scale/Score (NIHSS)', 'MDRD GFR Equation', 'Creatinine Clearance (Cockcroft-Gault Equation)', 'HAS-BLED Score for Major Bleeding Risk', 'HEART Score for Major Cardiac Events', 'ARISCAT Score for Postoperative Pulmonary Complications', 'Centor Score (Modified/McIsaac) for Strep Pharyngitis', 'Maintenance Fluids Calculations']}}
+Detailed information of each tool: {{Sequential Organ Failure Assessment (SOFA) Score: "Calculate the Sequential Organ Failure Assessment (SOFA) Score which is used to assess the extent of a person's organ function or rate of failure.
+The score is used to track a patient's status during their stay in an intensive care unit to determine the extent of a person's organ function or rate of failure.
+
+Parameters:
+- pao2_fio2_ratio (float): The ratio of arterial oxygen partial pressure to fractional inspired oxygen (mmHg).
+- platelets (float): Platelet count in ×103/µL.
+- glasgow_coma_scale (int): Score on the Glasgow Coma Scale.
+- bilirubin (float): Serum bilirubin in mg/dL.
+- map_pressure (float): Mean arterial pressure in mmHg.
+- vasoactive_agents (int): Index indicating the vasoactive agents being used. Corresponds to 0 for no agents, 1 for low dose dopamine or any dose dobutamine, 2 for higher dose dopamine or low dose epinephrine/norepinephrine, 3 for very high dose of these agents.
+- creatinine (float): Serum creatinine in mg/dL.
+- urine_output (float): Urine output in mL/day.
+- o2_delivery_type (int): Index of the type of oxygen delivery method used. Types are as follows: 0 = nasal cannula, 1 = simple face mask, 2 = non-rebreather mask, 3 = high-flow nasal cannula.
+- o2_flow_rate (float): Flow rate of oxygen delivery in L/min.
+
+Returns:
+int: Total SOFA score which is the sum of individual scores across the specified parameters."
+
+CKD-EPI Equations for Glomerular Filtration Rate (GFR): Calculate the 2021 CKD-EPI (Chronic Kidney Disease Epidemiology Collaboration) GFR (Glomerular Filtration Rate)
+    without the race component. This function estimates kidney function using creatinine-based equations and is intended
+    for patients with chronic (not acute) kidney disease. This calculation is particularly used by nephrologists to 
+    assess kidney function non-invasively and is considered more accurate than the MDRD Equation, especially in patients
+    with normal or mildly reduced eGFR.
+
+    Parameters:
+    - serum_creatinine (float): The serum creatinine level of the patient in mg/dL.
+    - age (int): The age of the patient in years.
+    - gender (int): The gender of the patient. Use 0 for male and 1 for female.
+
+    Returns:
+    - float: The estimated GFR in ml/min/1.73m^2.
+
+    Usage:
+    To use this function, provide the serum creatinine level, age, and gender index (0 for male, 1 for female).
+    For example, calculate_ckd_epi_gfr(0.9, 30, 0) calculates the GFR for a 30-year-old male with a serum creatinine of 0.9 mg/dL.
+
+    Note:
+    - Not intended for use in patients on dialysis.
+    - Less accurate in patients with diabetes (before progression to overt nephropathy), pregnant women, and those with unusual body mass.
+
+
+NIH Stroke Scale/Score (NIHSS): 
+    Calculate the NIH Stroke Scale/Score (NIHSS).
+
+    The NIHSS helps physicians quantify the severity of a stroke in the acute setting. 
+    Increasing scores indicate a more severe stroke and correlate with the size of the infarction on both CT and MRI evaluation.
+    Scores assessed within the first 48 hours following a stroke have been shown to correlate with clinical outcomes at the 3-month and 1-year mark.
+    
+    Parameters:
+        loc_alertness (int): Level of consciousness - Alert (0), Arouses to minor stimulation (1), Requires repeated stimulation (2), Movements to pain (2), Postures or unresponsive (3)
+        loc_questions (int): Ask month and age - Both right (0), One right (1), None right (2), Dysarthric/intubated/trauma/language barrier (1), Aphasic (2)
+        loc_commands (int): 'Blink eyes' & 'squeeze hands' - Performs both (0), Performs one (1), Performs none (2)
+        horizontal_gaze (int): Horizontal extraocular movements - Normal (0), Partial palsy (1), Forced palsy (2)
+        visual_fields (int): Visual fields - No loss (0), Partial hemianopia (1), Complete hemianopia (2), Bilateral blindness (3), Bilateral hemianopia (3)
+        facial_palsy (int): Facial palsy - Normal (0), Minor (1), Partial (2), Unilateral complete (3), Bilateral complete (3)
+        left_arm_motor_drift (int): Left arm motor drift - No drift (0), Drift but doesn't hit bed (1), Drift, hits bed (2), Some effort against gravity (2), No effort against gravity (3), No movement (4), Amputation/joint fusion (0)
+        right_arm_motor_drift (int): Right arm motor drift - No drift (0), Drift but doesn't hit bed (1), Drift, hits bed (2), Some effort against gravity (2), No effort against gravity (3), No movement (4), Amputation/joint fusion (0)
+        left_leg_motor_drift (int): Left leg motor drift - No drift (0), Drift but doesn't hit bed (1), Drift, hits bed (2), Some effort against gravity (2), No effort against gravity (3), No movement (4), Amputation/joint fusion (0)
+        right_leg_motor_drift (int): Right leg motor drift - No drift (0), Drift but doesn't hit bed (1), Drift, hits bed (2), Some effort against gravity (2), No effort against gravity (3), No movement (4), Amputation/joint fusion (0)
+        limb_ataxia (int): Limb ataxia - No ataxia (0), Ataxia in 1 limb (1), Ataxia in 2 limbs (2), Does not understand (0), Paralyzed (0), Amputation/joint fusion (0)
+        sensation (int): Sensation - Normal (0), Mild-moderate loss (1), Mild-moderate loss (1), Complete loss (2), No response/quadriplegic (2), Coma/unresponsive (2)
+        language_aphasia (int): Language/aphasia - Normal (0), Mild-moderate aphasia (1), Severe aphasia (2), Mute/global aphasia (3), Coma/unresponsive (3)
+        dysarthria (int): Dysarthria - Normal (0), Mild-moderate (1), Severe (2), Mute/anarthric (2), Intubated/unable to test (0)
+        extinction_inattention (int): Extinction/inattention - No abnormality (0), Inattention (1), Extinction to bilateral stimulation (1), Profound hemi-inattention (2), Extinction to >1 modality (2)
+
+    Returns:
+        int: Total NIHSS score, summing all input values.
+   
+
+MDRD GFR Equation: Calculate the Modified Diet in Renal Disease (MDRD) Glomerular Filtration Rate (GFR).
+    This function estimates kidney function in patients with stable chronic kidney disease.
+    It should not be used to assess acute renal failure or when GFR is >60 ml/min/m2 as it underestimates GFR.
+
+    Parameters:
+    - serum_cr (float): Serum creatinine (Cr) level in mg/dL. Should be a positive float.
+    - age (int): Age of the patient in years. Should be a non-negative integer.
+    - race_index (int): Index representing the patient's race. 0 for non-black, 1 for black.
+    - gender_index (int): Index representing the patient's gender. 0 for male, 1 for female.
+
+    Returns:
+    - float: Estimated GFR in ml/min/1.73m2.
+
+    The formula used:
+    GFR = 175 × Serum Cr^{-1.154} × age^{-0.203} × 1.212 (if patient is black) × 0.742 (if female)
+
+
+Creatinine Clearance (Cockcroft-Gault Equation): 
+    Calculate the Creatinine Clearance using the Cockcroft-Gault Equation.
+
+    This function estimates kidney function, useful for Chronic Kidney Disease (CKD) staging
+    and adjusting or discontinuing medications based on kidney function. It incorporates
+    the patient's age, weight, sex, and serum creatinine levels to calculate the clearance rate.
+    This is particularly relevant when considering medication dosages for patients with reduced
+    kidney function, despite potential overestimations in GFR with newer creatinine assays.
+
+    Parameters:
+    - age (int): The age of the patient in years. Should be a positive integer.
+    - weight (float): The weight of the patient in kilograms. Should be a positive decimal.
+    - creatinine (float): The serum creatinine level in mg/dL. Should be a positive decimal.
+    - sex (str): The sex of the patient. Acceptable values are 'male' or 'female'.
+                 This affects the calculation as there is a different multiplier for females.
+
+    Returns:
+    - float: The estimated creatinine clearance in mL/min.
+    
+    Example:
+    >>> calculate_creatinine_clearance(50, 70, 1.2, 'female')
+    49.30555555555556
+  
+
+HAS-BLED Score for Major Bleeding Risk: Calculate the HAS-BLED Score for Major Bleeding Risk in patients with atrial fibrillation.
+    
+    The HAS-BLED Score is used to estimate the 1-year risk for major bleeding and helps guide decisions regarding anticoagulation therapy.
+    This scoring system can be considered alongside other bleeding risk scores or thromboembolic risk assessments to weigh the benefits and risks of anticoagulation.
+
+    Parameters:
+    hypertension (bool): True if the patient has hypertension, False otherwise.
+    renal_disease (bool): True if the patient has renal disease (dialysis, transplant, or Cr >2.26 mg/dL), False otherwise.
+    liver_disease (bool): True if the patient has liver disease (cirrhosis or bilirubin >2x normal with AST/ALT/AP >3x normal), False otherwise.
+    stroke_history (bool): True if the patient has a history of stroke, False otherwise.
+    major_bleeding_history (bool): True if the patient has had prior major bleeding or predisposition to bleeding, False otherwise.
+    labile_inr (bool): True if the patient has labile INR (unstable/high INRs, time in therapeutic range <60%), False otherwise.
+    elderly (bool): True if the patient is elderly (age >65), False otherwise.
+    medication_risk (bool): True if the patient uses medication that predisposes to bleeding (aspirin, clopidogrel, NSAIDs), False otherwise.
+    alcohol_usage (bool): True if the patient consumes alcohol significantly (≥8 drinks/week), False otherwise.
+
+    Returns:
+    int: The total HAS-BLED score, which is a sum of all applicable risk factors.
+
+    Example:
+    >>> calculate_has_bled_score(True, False, False, True, False, True, True, False, True)
+    5
+
+HEART Score for Major Cardiac Events:  Calculates the HEART Score for Major Cardiac Events based on five categories:
+    History, EKG, Age, Risk factors, and Troponin level. This score helps to
+    risk-stratify emergency department (ED) patients with chest pain into low,
+    moderate, and high-risk groups for acute coronary syndrome (ACS).
+
+    Args:
+    history_score (int): Score based on patient history assessment, where:
+        0 = Slightly suspicious,
+        1 = Moderately suspicious,
+        2 = Highly suspicious.
+    ekg_score (int): Score based on EKG findings, where:
+        0 = Normal,
+        1 = Non-specific repolarization disturbance,
+        2 = Significant ST deviation.
+    age_score (int): Score based on patient's age, where:
+        0 = less than 45,
+        1 = between 45 and 64,
+        2 = 65 or older.
+    risk_factors_score (int): Score based on number of cardiovascular risk factors, where:
+        0 = No known risk factors,
+        1 = 1–2 risk factors,
+        2 = 3 or more risk factors or history of atherosclerotic disease.
+    troponin_score (int): Score based on initial troponin levels, where:
+        0 = ≤ normal limit,
+        1 = 1–3 times normal limit,
+        2 = >3 times normal limit.
+
+    Returns:
+    int: The total HEART score, which can guide further management of chest pain patients
+         in the emergency setting. Total scores categorize risk as follows:
+         0-3 points indicate low risk,
+         4-6 points indicate moderate risk,
+         7-10 points indicate high risk.
+
+    Example:
+    >>> calculate_heart_score(2, 1, 1, 2, 1)
+    7
+
+
+ARISCAT Score for Postoperative Pulmonary Complications: Calculate the ARISCAT Score for Postoperative Pulmonary Complications.
+    This score helps predict the risk of pulmonary complications in patients undergoing surgery under general, neuraxial, or regional anesthesia.
+
+    Parameters:
+    age (int): Patient's age in years.
+    spo2 (int): Preoperative oxygen saturation (SpO2) percentage.
+    respiratory_infection (int): Indicates the presence of respiratory infection in the last month. 0 for 'No', 1 for 'Yes'.
+    anemia (int): Indicates preoperative anemia (Hgb ≤10 g/dL). 0 for 'No', 1 for 'Yes'.
+    surgical_incision (int): Type of surgical incision. 0 for 'Peripheral', 1 for 'Upper abdominal', 2 for 'Intrathoracic'.
+    surgery_duration (int): Duration of the surgery in hours.
+    emergency (int): Indicates if the procedure was an emergency. 0 for 'No', 1 for 'Yes'.
+
+    Returns:
+    int: The ARISCAT score, which is a summation of points based on the provided parameters.
+
+
+Centor Score (Modified/McIsaac) for Strep Pharyngitis:  Calculate the Centor Score (Modified/McIsaac) for Strep Pharyngitis.
+    
+    This scoring system helps clinicians determine the likelihood of Group A Streptococcus (GAS) 
+    in patients with symptoms of pharyngitis, which is critical for deciding whether to proceed 
+    with testing for strep pharyngitis. The score integrates factors such as age, tonsillar exudate, 
+    cervical lymphadenopathy, temperature, and the presence of cough to stratify the risk.
+    
+    Parameters:
+    - age (int): Age of the patient in years.
+    - exudate_swelling (bool): True if there is exudate or swelling on the tonsils, False otherwise.
+    - tender_swollen_lymph_nodes (bool): True if there are tender/swollen anterior cervical lymph nodes, False otherwise.
+    - temperature (float): Patient's temperature in degrees Celsius.
+    - cough (bool): True if cough is present, False otherwise.
+
+    Returns:
+    - int: The calculated Centor Score, which ranges from -1 to 4.
+    
+    Usage:
+    Typically used in primary care settings to assess the necessity for further testing for GAS infection,
+    guiding the judicious use of antibiotics in managing pharyngitis. Higher scores suggest a higher probability
+    of streptococcal infection and may warrant testing and/or treatment.
+ 
+
+Maintenance Fluids Calculations: Calculate the Maintenance Fluids rate using the "4-2-1" Rule.
+    
+    This function determines the intravenous (IV) fluid rate for patients who are not taking oral fluids,
+    addressing needs such as vomiting, NPO status, dehydration, insensible losses, or third spacing. It uses
+    a weight-based dosing method to ensure appropriate fluid volume according to patient's weight.
+    
+    Parameters:
+    - weight (float): The weight of the patient in kilograms.
+    
+    Returns:
+    - float: The calculated IV fluid rate in mL per hour.
+    
+    Usage:
+    - This calculation is crucial in medical settings where accurate fluid replacement is necessary,
+      particularly in settings where patients cannot intake fluids orally.
+    
+    Example:
+    - calculate_maintenance_fluids(25)  # Calculates fluid rate for a 25 kg patient.
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{哪一个量表用于评估患者的肾小球滤过率？}}
+Task Scenario: {{Based on the patient's case, the abnormal parts include gross hematuria, proteinuria, and bilateral lower limb edema. The urine analysis showed increased levels of protein and blood. Additionally, the patient's 24-hour urine protein quantification was elevated.
+
+These findings suggest a potential impairment in the patient's kidney function, specifically indicating a possible diagnosis of IgA nephropathy. Further investigation and management focused on kidney function and renal health may be warranted.}}
+Step By Step Analysis:
+
+[output]  1. The user demand is to identify which tool is used to assess a patient's glomerular filtration rate.
+2. The task scenario provided involves a patient with abnormal findings in their kidney function, specifically indicating a potential diagnosis of IgA nephropathy.
+3. From the tool list, the tool that best fits the user demand and task scenario is the "CKD-EPI Equations for Glomerular Filtration Rate (GFR)".
+4. This tool is specifically designed to estimate kidney function using creatinine-based equations, which aligns with the assessment needed for the patient in the scenario.
+5. The CKD-EPI equation takes into account the patient's serum creatinine level, age, and gender to calculate the estimated GFR.
+6. By choosing the "CKD-EPI Equations for Glomerular Filtration Rate (GFR)" tool, we can provide the user with a suitable calculation method to assess the patient's kidney function accurately.
+
+```json
+{
+    "chosen_tool_name": "CKD-EPI Equations for Glomerular Filtration Rate (GFR)"
+}
+```

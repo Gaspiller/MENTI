@@ -1,0 +1,38 @@
+[time]    2025-08-13 14:49:32
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估该患者在非心脏手术后心脏并发症的风险？
+
+Patient Case Analysis:
+
+根据患者的病例资料，可以看到患者同时患有妊娠合并子宫瘢痕、妊娠期糖尿病、先天性心脏病（室间隔缺损修补术后）、心功能Ⅰ级，以及经历过IVF-ET术后和妊娠合并盆腔粘连等情况。这些情况表明患者可能存在子宫功能异常、代谢异常（血糖升高）、心脏病变、妊娠期并发症等问题。尤其需要关注心脏功能是否能够满足妊娠期间的需求，以及妊娠期糖尿病对胎儿和孕妇自身的影响。在手术治疗后病情有好转，但需要进一步关注术后恢复情况和长期管理。
+
+[output]  ```json
+[
+    "哪一个评估量表可用于预测该患者在非心脏手术后心脏并发症的风险？",
+    "该患者拥有多种并发症，手术治疗后病情有所改善，需要特别关注妊娠期糖尿病和心脏病变对患者的影响。",
+    "除了心脏相关并发症，该患者还需关注子宫功能、代谢异常和妊娠期并发症等问题。"
+]
+```  

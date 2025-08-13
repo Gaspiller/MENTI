@@ -1,0 +1,38 @@
+[time]    2025-08-13 14:44:31
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估患者在进行利凡诺穿刺引产术前的心脏风险？
+
+Patient Case Analysis:
+
+根据患者的病例资料，主要异常为停经14周，产检无创检查显示18三体高风险，并且患者要求引产。根据唐氏筛查和无创DNA检查，患者被诊断为18三体高风险。由于18三体综合症是一种遗传性疾病，可能导致多个身体系统的异常发育和功能障碍，如智力发育迟缓、器官畸形等。因此可以推测，患者可能存在智力和器官发育方面的异常。
+
+[output]  ```json
+[
+    "哪一种评估工具用于评估患者在进行利凡诺穿刺引产术前的智力和器官发育风险？",
+    "患者在进行利凡诺穿刺引产术前，哪些评估方法可以帮助评估18三体高风险的影响？",
+    "患者在18三体高风险情况下引产前需要关注哪些方面的风险评估？"
+]
+```

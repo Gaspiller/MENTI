@@ -1,0 +1,45 @@
+[time]    2025-08-13 13:35:53
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪个评估量表被用于评估患者支气管炎肺炎的严重程度？
+
+Patient Case Analysis:
+
+Based on the provided patient's case, the main abnormality is the presence of cough with yellow sputum, fever, and chest CT findings of bronchitis with inflammatory changes in the right lung. Additionally, the patient has a history of hypertension and type 2 diabetes.
+
+Potential impaired bodily functions may include:
+1. Respiratory system: The cough with yellow sputum, fever, and abnormal breath sounds (wheezing and moist rales) indicate a respiratory infection like bronchitis, which may impair the patient's ability to breathe properly and clear respiratory secretions.
+2. Immune system: The presence of a respiratory infection suggests a compromised immune system response, leading to the development of the infection in the lungs.
+3. Cardiovascular system: The elevated blood pressure (168/85mmHg) and the history of hypertension may indicate a potential impairment in the cardiovascular system, which could lead to complications such as heart disease or stroke.
+
+Further diagnostic evaluations and treatment are recommended to address the respiratory infection and manage the underlying chronic conditions.
+
+[output]  ```json
+[
+    "Which assessment scale is commonly used to evaluate the severity of bronchitis with inflammatory changes in the right lung?",
+    "What is the standard evaluation tool for assessing the seriousness of respiratory infections like bronchitis in patients with a history of hypertension and type 2 diabetes?",
+    "How is the severity of respiratory infections, such as bronchitis with inflammatory changes in the right lung, usually assessed in patients with a history of hypertension and type 2 diabetes?"
+]
+```

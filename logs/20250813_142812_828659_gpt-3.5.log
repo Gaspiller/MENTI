@@ -1,0 +1,115 @@
+[time]    2025-08-13 14:28:12
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the Child-Pugh Score for Cirrhosis Mortality.
+
+    The Child-Pugh Score helps estimate the prognosis for a patient with cirrhosis.
+    Note that newer scores like the MELD and MELD-Na are generally preferred for their
+    increased accuracy in prognosis.
+
+    Parameters:
+    - bilirubin (float): Total bilirubin level in mg/dL.
+    - albumin (float): Albumin level in g/dL.
+    - inr (float): International Normalized Ratio.
+    - ascites (str): Describes the presence of ascites ('Absent', 'Slight', 'Moderate').
+    - encephalopathy (int): Grade of hepatic encephalopathy (0 for none, 1-2 for Grade 1-2, 3-4 for Grade 3-4).
+
+    Returns:
+    - int: The Child-Pugh Score, ranging from 5 (best) to 15 (worst).}}
+Reference Text:
+{{基本信息:男，53岁
+发病原因:HBV感染
+临床诊断:乙型肝炎后肝硬化（失代偿期）；HCC（晚期）
+治疗方案:予三腔二囊管压迫止血、输血补液扩容、加强抑酸护胃、维护脏器功能、呼吸机辅助呼吸等治疗
+治疗结果:病情平稳
+病案重点:乙型肝炎后肝硬化（失代偿期）；HCC（晚期）
+
+[病案介绍]
+主诉:
+腹泻半月
+现病史:
+腹泻为稀便，每日4～5次，无腹痛、里急后重、发热。
+既往史:
+患者既往有乙型肝炎后肝硬化病史5年，缺铁性贫血病史2年。
+查体:
+T：36.8℃，P：74次/分，R：20次/分，BP：75/120mmHg
+体温36.8 ℃，脉搏74次/分，呼吸20次/分，血压75/120 mmHg（1 mmHg = 133.32 Pa）。神清，浅表淋巴结不大。甲状腺不大。右肺呼吸音低，未闻及啰音。心律齐，心音有力，未闻及杂音。腹平软，肝脾肋下未触及，腹水征（－），双下肢无水肿。
+辅助检查:
+血液检查：白细胞（WBC）3.84 ×10^9/L，N 39.6%、血小板计数（BPC）62×10^9/L，天门冬氨酸氨基转移酶（AST）154.0 U/L，丙氨酸氨基转移酶（ALT）59.0 U/L，白蛋白（ALB）29.0 g/L，碱性磷酸酶（ALP）166.0 U/L，γ-谷氨酰转肽酶（GGT）166.0 U/L，总胆红素（TBil）57.4 μmol/L。肿瘤标志物：甲胎蛋白（AFP）52.3 ng/ml，PIVFK-Ⅱ 25507 mAU/ml，CA125 876.0 U/ml。HBV DNA 5.95 × 10^6 IU/ml。胃镜：食管静脉曲张重度，慢性萎缩性胃炎，HP呼气试验阴性。彩色超声：肝硬化，脾大，腹水（少量），门静脉栓子形成，可疑肝内实性结节。增强CT：门脉栓子形成，门静脉海绵样变性，肝硬化、脾大、腹水，食管胃底静脉曲张，右侧中-大量胸腔积液并右下肺膨胀不全。胸水化验：李凡它试验（-），无色透明，细胞总数2080.0 × 10^6/L，WBC 450.0 × 10^6/L，N 20.0%，L 64.0%。彩色超声（7月1日复查）：肝硬化、脾大、腹水（中量），门静脉栓子形成，肝内多发片状回声减低区，右侧胸腔积液（大量）。7月5日突发上消化道大出血，予三腔二囊管压迫止血、输血补液扩容、加强抑酸护胃、维护脏器功能、呼吸机辅助呼吸等治疗。以后反复出现上消化道出血。复查增强CT（7月16日）：主动脉和肺动脉增强未见明显异常，双侧少量胸腔积液并双肺下叶膨胀不全；肝硬化、脾大、腹水、食管胃底静脉曲张，胆囊增大。降结肠及横结肠肠管密度增高（结合病史考虑消化道出血）；门静脉栓子形成，门静脉海绵样变性。第2次诊治情况：2016年10月24日，因“右侧季肋区胀痛2周”入院。体格检查：体温37.0 ℃，脉搏78次/分，呼吸22次/分，血压80/120mmHg。神清，双肺未闻及啰音。心律齐，心音有力。腹平软，肝脾肋下3 cm，剑突下9 cm，质地硬，腹水征（+），双下肢水肿。血液检查：BPC 95×10^9/L，血红蛋白（HGB）108 g/L，NA 127.3 mmol/L，AST 52.9 U/L，TBil 56.3μmol/L，DBil 36.8μmol/L，GGT 121.6 U/L，A 26.5 g/L，TBA 106.9 μmol/L，AKP176.8 U/L，HBV DNA 2.59×10^6 IU/ml。肿瘤标志物：AFP 1421.000 ng/ml，PIVKA-Ⅱ 33176 mAU/ml，CA125 1813.000 U/ml。彩色超声：肝硬化、脾大、腹水（中-大量）、肝内多发片状回声减低区、门静脉栓子形成、胆汁淤积、双侧胸腔积液（少量）。肝脏增强MRI：肝癌伴门静脉瘤栓形成，肝硬化，脾大，腹水，胸腔积液。1.过去一周内没有进行透析
+2.肌酐60μmol/L
+3.INR 1.0}}
+Step By Step Analysis:
+
+[output]  1. Extract the bilirubin level:
+- From the Reference Text: Total bilirubin level is mentioned as 56.3 μmol/L in the blood test results.
+
+2. Extract the albumin level:
+- From the Reference Text: Albumin level is mentioned as 26.5 g/L in the blood test results.
+
+3. Extract the INR (International Normalized Ratio):
+- From the Reference Text: INR is mentioned as 1.0 in the past medical history report.
+
+4. Extract the presence of ascites:
+- From the Reference Text: Presence of ascites is not directly mentioned. We can infer that it is most likely present based on the diagnosis of liver cirrhosis and the mention of moderate to large amounts of abdominal fluid in the imaging reports. Therefore, we can assume ascites to be 'Moderate'.
+
+5. Extract the grade of encephalopathy:
+- From the Reference Text: Grade of encephalopathy is not directly mentioned. Since the hepatic encephalopathy is not specifically described, we can assume the encephalopathy grade to be 0 (none).
+
+Parameters List:
+```json
+{
+    "bilirubin": {"Value": 56.3, "Unit": "μmol/L"},
+    "albumin": {"Value": 26.5, "Unit": "g/L"},
+    "inr": {"Value": 1.0, "Unit": null},
+    "ascites": {"Value": "Moderate", "Unit": null},
+    "encephalopathy": {"Value": 0, "Unit": null}
+}
+```

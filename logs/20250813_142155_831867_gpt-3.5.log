@@ -1,0 +1,35 @@
+[time]    2025-08-13 14:21:55
+[model]   gpt-3.5
+[input]   
+You are a medical diagnostic model. Your task is to analyze the abnormal parts of the provided patient's case and speculate on which bodily functions might be impaired.
+
+The requirements are as follows:
+1. Every inference you make must be substantiated by actual evidence from the provided patient's case.
+2. You only need to analyze the main, abnormal parts of the provided patient's case.
+3. You just need to make a brief analysis.
+
+Begin!
+
+
+基本信息:男，70岁，退休工人
+发病原因:病因不明
+临床诊断:1.冠状动脉粥样硬化性心脏病 急性非ST段抬高型下壁心肌梗死 心功能I级（Killip分级） 2.心律失常 三度房室传导阻滞 3.2型糖尿病
+治疗方案:住院后立即给予完善血生化检查，给予临时起搏器植入术，拜阿司匹林片300mg嚼服，口服硫酸氢氯吡格雷片300mg，口服阿托伐他汀钙片20mg，以及扩冠、营养心肌等治疗
+治疗结果:病情好转
+病案重点:急性心肌梗塞引起三度房室传导阻滞
+
+[病案介绍]
+主诉:
+头晕伴黒矇2天
+现病史:
+2天前无明显诱因出现头晕，同时伴有黒矇，以活动后症状显著，休息后减轻，无胸痛、胸闷、气短，无恶心、呕吐，休息后不缓解，为求进一步诊治遂来我院，门诊查心电图示“窦性心律，三度房室传导阻滞” 以“心律失常”收住我科。发病以来，神志清，精神可，食纳可，二便调。
+既往史:
+2型糖尿病病史15年，一直口服二甲双胍片及格列美脲片治疗。否认高血压、肾炎、甲亢、脑梗塞病史。
+个人史:
+吸烟40年，平均20支/日，否认其它不良嗜好。
+查体:
+T：36.3℃，P：33次/分，R：20次/分，BP：120/70mmHg
+神志清，精神可。发育正常，营养良好。双肺呼吸音清，未闻及干湿性啰音。心界不大，心律33次/分，律齐，各瓣膜听诊区未闻及病理性杂音。腹软，无压痛及反跳痛。双下肢无水肿。四肢肌力5级，肌张力正常。双侧巴彬氏征阴性。
+辅助检查:
+1.心电图示:窦性心律，下壁ST-T改变，三度房室传导阻滞; 2.肌钙蛋白I:22.3ng/ml; 3.心肌酶谱:CK853U/L，CK_MB1041U/L，LDH662U/L; 4.肝功、肾功、电解质、血常规、凝血四项均正常。
+[output]  根据病例资料，患者出现了急性非ST段抬高型下壁心肌梗死，导致三度房室传导阻滞。这表明患者可能存在心脏功能受损，可能出现心律失常和心肌缺血的情况。此外，患者还被诊断为2型糖尿病，说明患者的胰岛素可能存在异常，对血糖的调控可能受到影响，需要密切监测血糖水平。综合来看，患者可能存在多个系统功能受损，需要综合治疗控制病情。

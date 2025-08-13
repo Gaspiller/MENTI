@@ -1,0 +1,32 @@
+[time]    2025-08-13 14:08:56
+[model]   gpt-3.5
+[input]   
+You are a medical diagnostic model. Your task is to analyze the abnormal parts of the provided patient's case and speculate on which bodily functions might be impaired.
+
+The requirements are as follows:
+1. Every inference you make must be substantiated by actual evidence from the provided patient's case.
+2. You only need to analyze the main, abnormal parts of the provided patient's case.
+3. You just need to make a brief analysis.
+
+Begin!
+
+
+基本信息:女，80岁，农民
+
+[病案介绍]
+主诉:
+患者主因"恶心、呕吐9天，意识模糊8小时"入院；
+现病史:
+患者于9天前因受凉后出现恶心呕吐，呈非喷射状，呕吐物为胃内容物，未见咖啡色样物质，量未计，并出现阵发性的意识恍惚，在当地诊所输液治疗8天，具体用药提供不详，效果欠佳，于发病第4天未再呕吐，但意识恍惚症状时轻时重，于来院8小时前突然出现意识模糊，呼叫有反应，反应迟钝，不能言语，无大小便失禁，未作特殊处理，症状持续无缓解，（因患者不能言语，上诉症状均为其女儿及孙子代述）求进一步诊治来院，由急诊收入我科。现症见：意识模糊，牙关禁闭，不能言语，舌质红，苔薄白，脉滑数。
+既往史:
+既往"高血压"病史10年余，间断口服药物治疗，具体用药及血压控制情况提供不详，其他病史其家属提供不详，否认"脑梗塞、糖尿病、心脏病"病史，否认"肝炎、结核"等传染病病史，无药、食物过敏史，无重大手术及外伤史，预防接种不详。
+个人史:
+生于原籍，久居当地，未到过疫区及牧区，无放射性物质及有毒物质接触史，否认性病史及接触史。
+查体:
+T：36℃，P：107次/分，R：19次/分，BP：120/80mmHg
+T:36℃ ,P:107次/分,R:19次/分,BP:120/80/mmhg。意识模糊，呼叫有反应，反应迟钝，不能言语，欠合作，舌红，苔薄白，脉细数。平车推入病房，自动体位，不合作。双侧瞳孔正大等圆，对光反射迟钝，口唇无紫绀，牙关紧闭，咽喉部未查，颈强直，颈静脉无充盈，双肺呼吸音粗重，可闻及湿啰音，心律107次/分，律齐，心音低顿，未闻及病理性杂音。腹胀，全腹无压痛、反跳痛反应，无肌紧张，肝脾未及肿大，叩鼓音，肠鸣音正常。四肢肌张力正常，肌力查不合作，双下肢无水肿。双侧Babinski征（-）。
+辅助检查:
+生化全项：ALB 26.70 g/L↓、C3 0.67 g/l↓、AMY 169.00 U/L↑、CO2cp 53.70 mmol/L↑、Ca 1.83 mmol/L↓、HDL-C 1.84 mmol/L↑、AST 48.30 U/L↑、CK 214.00 U/L↑、K 2.02 mmol/L↓↓、CL 54.50 mmol/L↓↓、IgG 5.47 g/L↓、Na 108.40 mmol/L↓↓、Urea 2.06 mmol/L↓、UA 59.00 umol/L↓、GLU 6.35 mmol/L↑、P 0.79 mmol/L↓、TP 55.80 g/L↓；患者不能睁眼。
+[output]  根据患者的病史和辅助检查结果，可以初步推断患者可能存在电解质紊乱，包括低钠血症（Na 108.40 mmol/L↓↓）和低氯血症（Cl 54.50 mmol/L↓↓）。这种电解质紊乱可能导致神经系统功能受损，进而出现意识模糊、反应迟钝等症状。此外，患者的白蛋白水平降低（ALB 26.70 g/L↓），也可能与慢性疾病或营养不良有关。
+
+综上所述，患者可能存在电解质紊乱和蛋白质代谢异常，导致神经系统功能异常，表现为意识障碍和神经反应迟钝。需要进一步详细的检查和治疗来确认诊断并帮助患者恢复健康。

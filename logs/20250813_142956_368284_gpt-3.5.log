@@ -1,0 +1,152 @@
+[time]    2025-08-13 14:29:56
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the PHQ-9 (Patient Health Questionnaire-9) score.
+
+    The PHQ-9 is a clinical scale used to diagnose depression and to quantify and monitor the severity of depression symptoms.
+    It evaluates symptoms based on the 9 DSM criteria for major depressive disorder (MDD). Each criterion is scored from 0 to 3:
+    - "0" for 'Not at all'
+    - "1" for 'Several days'
+    - "2" for 'More than half the days'
+    - "3" for 'Nearly every day'
+    The function sums these scores to provide an overall severity score ranging from 0 to 27.
+
+    Parameters:
+    - interest_pleasure (int): Index from 0 to 3 indicating frequency of little interest or pleasure in doing things.
+    - feeling_down (int): Index from 0 to 3 indicating frequency of feeling down, depressed, or hopeless.
+    - sleep_issues (int): Index from 0 to 3 indicating trouble with falling or staying asleep, or sleeping too much.
+    - tired_energy (int): Index from 0 to 3 indicating feeling tired or having little energy.
+    - appetite_issues (int): Index from 0 to 3 indicating issues with poor appetite or overeating.
+    - self_feeling (int): Index from 0 to 3 indicating feelings of being bad about oneself, or feeling like a failure.
+    - concentration (int): Index from 0 to 3 indicating trouble concentrating on things.
+    - activity_level (int): Index from 0 to 3 indicating altered activity levels, either moving too slowly or being too fidgety.
+    - suicidal_thoughts (int): Index from 0 to 3 indicating frequency of thoughts of self-harm or being better off dead.
+
+    Returns:
+    - int: The total PHQ-9 score, which is the sum of all the individual scores for the symptoms listed above.
+}}
+Reference Text:
+{{基本信息:女，26岁，学生
+发病原因:感情受挫等打击
+临床诊断:中重度抑郁
+治疗方案:予精神病护理，给予抗抑郁药物系统治疗，初始用药：曲唑酮50mg qn，舍曲林50mg qd，佐匹克隆7.5mg qn等对症治疗
+治疗结果:病情平稳
+病案重点:中重度抑郁
+
+[病案介绍]
+主诉:
+情绪低落，心烦，无故哭泣2个月伴头痛1个月
+现病史:
+患者于住院前2个月前因情感受挫、工作失利缓慢起病，主要表现为情绪不好，心烦，对什么都提不起来兴趣，不愿出门，不愿主动与人交流，经常感觉心里憋闷难受，无故哭泣，饮食差，看见什么都没胃口，睡眠质量明显下降，失眠多梦，半夜易醒，醒后就独坐一处发呆，难以再次入睡。1个月后病症加重，天天就在家待着哪里也不去，晚上一宿宿不睡觉，在床上玩手机，常感觉无故头痛。家人与入住我院前1周带其至“济南神康医院”住院治疗5天，诊断为“抑郁障碍”，予以“米氮平、西酞普兰”等药物治疗，自感疗效欠佳，办理出院手续，后在我院门诊就诊，予以“佐匹克隆片”治疗，服药后睡眠可，但仍情绪不好，心烦，无故哭泣。现来我院就医，要求住院系统治疗。
+既往史:
+平素身体健康状况良好。无重大躯体疾病。无肝炎、结核等传染病史。无感染、中毒、高热、昏迷、手术及骨折史，无颅脑外伤及抽搐发作史。无输血史及药物、食物过敏史，预防接种史随当地。
+查体:
+T：36.3℃，P：78次/分，R：18次/分，BP：123/71mmHg
+发育正常，营养一般。自主体位，合作。皮肤黏膜无黄染、皮疹、出血点及蜘蛛痣。全身浅表淋巴结未触及肿大。头颅无畸形。眼睑无浮肿，两侧瞳孔等大等圆，对光反射存在。耳无脓性分泌物，鼻通气良好，口腔无特殊气味，咽部无充血，扁桃体无肿大。颈软，气管居中，甲状腺无肿大。胸廓无畸形，双肺呼吸音清，未闻及干湿性啰音。心率78次/分，心律规整，各瓣膜听诊区未闻及病理性杂音。腹部平坦、软、无压痛及反跳痛，无移动性浊音，肠鸣音正常。肝、脾未触及，肝肾区无叩痛。肛门、直肠、外生殖器拒查。脊柱、四肢无畸形，运动无障碍，关节无红肿，无肌肉萎缩，四肢肌张力正常，无不自主运动，无共济失调。腹壁反射、肱二头肌反射、肱三头肌反射、膝腱反射、跟腱反射正常。巴彬斯基征，脑膜刺激征阴性。 
+精神检查：衣着整齐，貌龄相符。在病房更衣合作，表现被动，对检查、治疗、护理均合作。生活能自理，进食尚规律，夜间睡眠差。接触被动，意识清，精神活动连续完整，与周围环境接触密切，时间、地点、人物及自我定向均正确。否认有错觉、幻觉、感知综合障碍。语量、语速可，语音低，思维联想可，未引出关系妄想、被害妄想，及其他妄想性体验。无明显思维破裂、语词新作、逻辑倒错性思维等思维形式障碍。主动注意力及被动注意力减弱。即刻记忆、近记忆力及远记忆力均无明显增强或减退。无遗忘、错构及虚构。智能正常，计算力、理解力、分析概括能力及对一般常识及专业知识的掌握均符合其所受教育及社会阅历水平。情绪较低落，哭泣，情感反应与内心体验及周围环境协调。意志活动减退，承认有病，对病态表现有一定分析及评判能力，存在部分自知力。
+辅助检查:
+血常规 示PLT 308×109/L，白细胞数8.69×109/L，红细胞数 4.25×1012/L，心电图未见异常，胸部CT无明显异常。患者对自己的感觉不好。
+
+患者未感到疲倦。
+
+患者未想过死亡。}}
+Step By Step Analysis:
+
+[output]  1. interest_pleasure:
+   - In the Reference Text, it mentions that the patient has been feeling down, depressed, and hopeless for 2 months. Given the severity of these symptoms, it is reasonable to infer that the patient is experiencing a lack of interest or pleasure in doing things.
+   - Since the frequency is not explicitly stated but the severity is implied, we can assign a value of 2 to indicate 'More than half the days' from the Function Docstring for this parameter.
+   
+2. feeling_down:
+   - It is explicitly mentioned in the Reference Text that the patient has been feeling down, depressed, and hopeless.
+   - Given the severity of this symptom, we can assign a value of 3 to indicate 'Nearly every day' as per the Function Docstring.
+   
+3. sleep_issues:
+   - The Reference Text indicates that the patient has been experiencing trouble falling or staying asleep for a month. This aligns with the sleep_issues parameter in the Function Docstring.
+   - Since the frequency is not mentioned but the issue is there, we can assign a value of 2 to indicate 'More than half the days' from the Function Docstring.
+   
+4. tired_energy:
+   - While the Reference Text does not explicitly state tiredness or lack of energy, based on the patient's depression symptoms, it is common for individuals to experience fatigue.
+   - Considering this, we can assign a value of 2 to indicate 'More than half the days' as per the Function Docstring.
+   
+5. appetite_issues:
+   - The Reference Text mentions appetite problems such as poor appetite.
+   - Given this, we can assign a value of 2 to indicate 'More than half the days' for the appetite_issues parameter.
+   
+6. self_feeling:
+   - The patient expresses feelings of being bad about oneself in the Reference Text.
+   - We can assign a value of 2 to indicate 'More than half the days' for the self_feeling parameter.
+   
+7. concentration:
+   - Although not directly mentioned in the Reference Text, the patient's difficulty in focusing and memory issues can be inferred from the depressive symptoms described.
+   - Considering this, we can assign a value of 2 to indicate 'More than half the days' for the concentration parameter.
+   
+8. activity_level:
+   - The Reference Text describes the patient's altered activity levels, where the patient stays at home all day and plays on the phone. This could indicate a change in activity level.
+   - We can assign a value of 2 to indicate 'More than half the days' for the activity_level parameter.
+   
+9. suicidal_thoughts:
+   - The patient denies having suicidal thoughts or wanting to die in the Reference Text.
+   - Therefore, we can assign a value of 0 to indicate 'Not at all' for the suicidal_thoughts parameter.
+
+Parameters List:
+```json
+{
+    "interest_pleasure": {"Value": 2, "Unit": null},
+    "feeling_down": {"Value": 3, "Unit": null},
+    "sleep_issues": {"Value": 2, "Unit": null},
+    "tired_energy": {"Value": 2, "Unit": null},
+    "appetite_issues": {"Value": 2, "Unit": null},
+    "self_feeling": {"Value": 2, "Unit": null},
+    "concentration": {"Value": 2, "Unit": null},
+    "activity_level": {"Value": 2, "Unit": null},
+    "suicidal_thoughts": {"Value": 0, "Unit": null}
+}
+```

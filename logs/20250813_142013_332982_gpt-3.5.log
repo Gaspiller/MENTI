@@ -1,0 +1,310 @@
+[time]    2025-08-13 14:20:13
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['HEART Score for Major Cardiac Events', 'Framingham Risk Score for Hard Coronary Heart Disease', 'Revised Cardiac Risk Index for Pre-Operative Risk', 'Corrected QT Interval (QTc)', 'Sequential Organ Failure Assessment (SOFA) Score', 'CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk', 'Caprini Score for Venous Thromboembolism (2005)', 'Gupta Perioperative Risk for Myocardial Infarction or Cardiac Arrest (MICA)', 'Mean Arterial Pressure (MAP)', 'Child-Pugh Score for Cirrhosis Mortality']}}
+Detailed information of each tool: {{HEART Score for Major Cardiac Events:  Calculates the HEART Score for Major Cardiac Events based on five categories:
+    History, EKG, Age, Risk factors, and Troponin level. This score helps to
+    risk-stratify emergency department (ED) patients with chest pain into low,
+    moderate, and high-risk groups for acute coronary syndrome (ACS).
+
+    Args:
+    history_score (int): Score based on patient history assessment, where:
+        0 = Slightly suspicious,
+        1 = Moderately suspicious,
+        2 = Highly suspicious.
+    ekg_score (int): Score based on EKG findings, where:
+        0 = Normal,
+        1 = Non-specific repolarization disturbance,
+        2 = Significant ST deviation.
+    age_score (int): Score based on patient's age, where:
+        0 = less than 45,
+        1 = between 45 and 64,
+        2 = 65 or older.
+    risk_factors_score (int): Score based on number of cardiovascular risk factors, where:
+        0 = No known risk factors,
+        1 = 1–2 risk factors,
+        2 = 3 or more risk factors or history of atherosclerotic disease.
+    troponin_score (int): Score based on initial troponin levels, where:
+        0 = ≤ normal limit,
+        1 = 1–3 times normal limit,
+        2 = >3 times normal limit.
+
+    Returns:
+    int: The total HEART score, which can guide further management of chest pain patients
+         in the emergency setting. Total scores categorize risk as follows:
+         0-3 points indicate low risk,
+         4-6 points indicate moderate risk,
+         7-10 points indicate high risk.
+
+    Example:
+    >>> calculate_heart_score(2, 1, 1, 2, 1)
+    7
+
+
+Framingham Risk Score for Hard Coronary Heart Disease: Calculate the Framingham Risk Score for Hard Coronary Heart Disease in patients aged 30-79 years without prior coronary heart disease history, diabetes, or intermittent claudication.
+
+    Parameters:
+    - age (int): The age of the patient in years. Valid range: 30-79.
+    - sex (int): The sex of the patient. 0 for female, 1 for male.
+    - smoker_status (int): Smoking status of the patient. 0 for non-smoker, 1 for smoker.
+    - total_cholesterol (float): Total cholesterol level in mg/dL.
+    - hdl_cholesterol (float): HDL cholesterol level in mg/dL.
+    - systolic_bp (float): Systolic blood pressure in mm Hg.
+    - bp_medication (int): Indicates if the blood pressure is being treated with medications. 0 for no, 1 for yes.
+
+    Returns:
+    float: The risk percentage of developing hard coronary heart disease.
+
+    Calculation is based on the logarithmic transformations of risk factors and their interactions,
+    separately for males and females. Note that older population data was used to develop this scale,
+    which may not fully align with current population risks.
+
+
+Revised Cardiac Risk Index for Pre-Operative Risk: Calculate the Revised Cardiac Risk Index for Pre-Operative Risk.
+
+    This function calculates the Revised Cardiac Risk Index, which is used to assess the risk of major cardiac complications in patients undergoing elective or urgent/semi-urgent non-cardiac surgery. It is based on a set of specific risk factors and is valuable for risk stratification and aiding discussions about informed consent with patients.
+
+    Parameters:
+    elevated_risk_surgery (bool): True if the surgery is intraperitoneal, intrathoracic, or suprainguinal vascular.
+    history_of_ischemic_heart_disease (bool): True if there is a history of myocardial infarction, positive exercise test, current chest pain considered due to myocardial ischemia, or use of nitrate therapy or ECG showing pathological Q waves.
+    history_of_congestive_heart_failure (bool): True if there are signs such as pulmonary edema, bilateral rales or S3 gallop, paroxysmal nocturnal dyspnea, or chest X-ray showing pulmonary vascular redistribution.
+    history_of_cerebrovascular_disease (bool): True if there is a history of transient ischemic attack or stroke.
+    preop_treatment_with_insulin (bool): True if the patient is being treated with insulin pre-operatively.
+    preop_creatinine_above_threshold (bool): True if pre-operative creatinine levels are greater than 2 mg/dL or 176.8 µmol/L.
+
+    Returns:
+    int: The total Revised Cardiac Risk Index score, which is the sum of the individual risk factors present.
+
+    Usage:
+    The index is used primarily in the preoperative setting to assess cardiac risk. It assists healthcare providers in making informed decisions about further preoperative risk assessments and postoperative monitoring.
+ 
+
+Corrected QT Interval (QTc): Calculate the Corrected QT Interval (QTc) for a patient.
+
+    The QTc is used primarily to assess the risk of ventricular arrhythmias, especially torsades de pointes, 
+    in patients with syncope or those receiving multiple QT-prolonging medications. A prolonged QT interval 
+    can indicate a higher risk of cardiac arrhythmias. This function corrects the QT interval to a heart rate 
+    of 60 beats per minute, accounting for variations due to different heart rates.
+
+    Parameters:
+        qt_interval (float): The measured QT interval in milliseconds.
+        heart_rate (float): The patient's heart rate in beats per minute.
+        formula (str): The formula to use for correction. Options are 'Bazett', 'Fridericia', 
+                       'Framingham', 'Hodges', and 'Rautaharju'.
+
+    Returns:
+        float: The corrected QT interval (QTc) in milliseconds.
+
+    Example:
+        >>> calculate_qtc(300, 70, 'Bazett')
+        357.0
+
+Sequential Organ Failure Assessment (SOFA) Score: "Calculate the Sequential Organ Failure Assessment (SOFA) Score which is used to assess the extent of a person's organ function or rate of failure.
+The score is used to track a patient's status during their stay in an intensive care unit to determine the extent of a person's organ function or rate of failure.
+
+Parameters:
+- pao2_fio2_ratio (float): The ratio of arterial oxygen partial pressure to fractional inspired oxygen (mmHg).
+- platelets (float): Platelet count in ×103/µL.
+- glasgow_coma_scale (int): Score on the Glasgow Coma Scale.
+- bilirubin (float): Serum bilirubin in mg/dL.
+- map_pressure (float): Mean arterial pressure in mmHg.
+- vasoactive_agents (int): Index indicating the vasoactive agents being used. Corresponds to 0 for no agents, 1 for low dose dopamine or any dose dobutamine, 2 for higher dose dopamine or low dose epinephrine/norepinephrine, 3 for very high dose of these agents.
+- creatinine (float): Serum creatinine in mg/dL.
+- urine_output (float): Urine output in mL/day.
+- o2_delivery_type (int): Index of the type of oxygen delivery method used. Types are as follows: 0 = nasal cannula, 1 = simple face mask, 2 = non-rebreather mask, 3 = high-flow nasal cannula.
+- o2_flow_rate (float): Flow rate of oxygen delivery in L/min.
+
+Returns:
+int: Total SOFA score which is the sum of individual scores across the specified parameters."
+
+CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk: Calculate the CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk.
+
+    The CHA2DS2-VASc score is a clinical prediction rule for estimating the risk of stroke in
+    patients with non-valvular atrial fibrillation. It is used to determine whether treatment with
+    anticoagulation or antiplatelet therapy is appropriate, based on the risk of thromboembolism.
+
+    Parameters:
+    - age (int): Age of the patient.
+    - sex (str): Biological sex of the patient, 'male' or 'female'.
+    - history_of_congestive_heart_failure (bool): True if the patient has a history of congestive heart failure, otherwise False.
+    - history_of_hypertension (bool): True if the patient has a history of hypertension, otherwise False.
+    - history_of_stroke_tia_thromboembolism (bool): True if the patient has a history of stroke, transient ischemic attack (TIA), or thromboembolism, otherwise False.
+    - history_of_vascular_disease (bool): True if the patient has a history of vascular disease (prior myocardial infarction, peripheral artery disease, or aortic plaque), otherwise False.
+    - history_of_diabetes (bool): True if the patient has a history of diabetes mellitus, otherwise False.
+
+    Returns:
+    - int: The total CHA2DS2-VASc score which is a sum of the points for each risk factor.
+
+    Example:
+    >>> calculate_cha2ds2_vasc_score(75, 'female', True, True, True, True, True)
+    9
+
+Caprini Score for Venous Thromboembolism (2005): Calculate the Caprini Score for Venous Thromboembolism (VTE) in surgical patients. The score assesses the risk of VTE
+    based on a variety of risk factors and stratifies patients for potential prophylactic interventions. Not applicable
+    to medical (non-surgical) patients. Requires patient interaction to ascertain certain historical risk factors.
+
+    Parameters:
+    age (int): Patient's age in years.
+    sex (int): Patient's sex (0 for male, 1 for female).
+    surgery_type (int): Type of surgery classified by duration and invasiveness (0 for none, 1 for minor, 2 for major, 5 for elective major lower extremity arthroplasty).
+    recent_event (int): Recent surgeries or events (0 for none, 1 for minor, 2 for major or laparoscopic over 45 min).
+    major_surgery (int): Whether the patient had major surgery (0 for no, 1 for yes).
+    chf (int): Congestive heart failure present (0 for no, 1 for yes).
+    sepsis (int): Sepsis present (0 for no, 1 for yes).
+    pneumonia (int): Pneumonia present (0 for no, 1 for yes).
+    plaster_cast (int): Presence of an immobilizing plaster cast (0 for no, 2 for yes).
+    fracture (int): Presence of hip, pelvis, or leg fracture (0 for no, 5 for yes).
+    stroke (int): History of stroke (0 for no, 5 for yes).
+    multiple_trauma (int): Presence of multiple traumas (0 for no, 5 for yes).
+    spinal_injury (int): Acute spinal cord injury causing paralysis (0 for no, 5 for yes).
+    varicose_veins (int): Presence of varicose veins (0 for no, 1 for yes).
+    swollen_legs (int): Currently swollen legs (0 for no, 1 for yes).
+    central_venous_access (int): Current central venous access (0 for no, 2 for yes).
+    history_dvt_pe (int): History of deep vein thrombosis or pulmonary embolism (0 for no, 3 for yes).
+    family_thrombosis (int): Family history of thrombosis (0 for no, 3 for yes).
+    factor_v_leiden (int): Positive Factor V Leiden mutation (0 for no, 3 for yes).
+    prothrombin_20210A (int): Positive prothrombin 20210A mutation (0 for no, 3 for yes).
+    homocysteine (int): Elevated serum homocysteine levels (0 for no, 3 for yes).
+    lupus_anticoagulant (int): Positive lupus anticoagulant (0 for no, 3 for yes).
+    anticardiolipin_antibody (int): Elevated anticardiolipin antibody levels (0 for no, 3 for yes).
+    heparin_thrombocytopenia (int): Heparin-induced thrombocytopenia (0 for no, 3 for yes).
+    thrombophilia (int): Other congenital or acquired thrombophilia (0 for no, 3 for yes).
+    mobility (int): Mobility status (0 for normal, out of bed, 1 for medical patient currently on bed rest, 2 for patient confined to bed >72 hours).
+    ibd (int): History of inflammatory bowel disease (0 for no, 1 for yes).
+    bmi_over_25 (int): BMI over 25 (0 for no, 1 for yes).
+    acute_mi (int): Acute myocardial infarction (0 for no, 1 for yes).
+    copd (int): Chronic obstructive pulmonary disease (0 for no, 1 for yes).
+    malignancy (int): Presence or history of malignancy (0 for no, 2 for yes).
+    other_risk_factors (int): Other unspecified risk factors (0 for no, 1 for yes).
+    contraceptives_hormones (int): Use of oral contraceptives or hormone replacement therapy (0 for no, 1 for yes).
+    reproductive_history (int): History of unexplained stillborn, ≥3 spontaneous abortions, or premature birth with toxemia or growth-restricted infant (0 for no, 1 for yes).
+
+    Returns:
+    int: The calculated Caprini score.
+
+
+Gupta Perioperative Risk for Myocardial Infarction or Cardiac Arrest (MICA): 
+    Calculate the Gupta Perioperative Risk for Myocardial Infarction or Cardiac Arrest (MICA).
+
+    This function estimates the cardiac risk percentage for patients undergoing surgery based on various factors.
+    
+    Parameters:
+    age (int): The age of the patient in years.
+    functional_status (int): Functional status of the patient. 
+                             Options are: 
+                             0 - Independent
+                             1 - Partially dependent
+                             2 - Totally dependent
+    asa_class (int): ASA class of the patient. 
+                     Options are:
+                     1 - Normal healthy patient
+                     2 - Mild systemic disease
+                     3 - Severe systemic disease
+                     4 - Severe systemic disease that is a constant threat to life
+                     5 - Moribund, not expected to survive without surgery
+    creatinine (int): Creatinine level status. 
+                      Options are:
+                      0 - Normal (≤1.5 mg/dL, 133 µmol/L)
+                      1 - Elevated (>1.5 mg/dL, 133 µmol/L)
+                      2 - Unknown
+    procedure_type (int): Type of procedure being performed. 
+                          Options are:
+                          0 - Anorectal
+                          1 - Aortic
+                          2 - Bariatric
+                          3 - Brain
+                          4 - Breast
+                          5 - Cardiac
+                          6 - ENT (except thyroid/parathyroid)
+                          7 - Foregut or hepatopancreatobiliary
+                          8 - Gallbladder, appendix, adrenals, or spleen
+                          9 - Hernia (ventral, inguinal, femoral)
+                          10 - Intestinal
+                          11 - Neck (thyroid/parathyroid)
+                          12 - Obstetric/gynecologic
+                          13 - Orthopedic and non-vascular extremity
+                          14 - Other abdominal
+                          15 - Peripheral vascular (Non-aortic, non-vein vascular surgeries)
+                          16 - Skin
+                          17 - Spine
+                          18 - Non-esophageal thoracic
+                          19 - Vein
+                          20 - Urology
+
+    Returns:
+    float: The estimated cardiac risk percentage.
+   
+
+Mean Arterial Pressure (MAP): Calculate the Mean Arterial Pressure (MAP) from the systolic (SBP) and diastolic blood pressure (DBP).
+    
+    MAP is a crucial health metric used to assess tissue perfusion and blood flow. It is particularly important in
+    medical scenarios such as sepsis, trauma, stroke, intracranial bleeding, and hypertensive emergencies.
+    The formula used for calculating MAP is: MAP = 1/3 * SBP + 2/3 * DBP.
+    
+    Parameters:
+        systolic_bp (float): Systolic blood pressure in mmHg.
+        diastolic_bp (float): Diastolic blood pressure in mmHg.
+    
+    Returns:
+        float: The calculated mean arterial pressure in mmHg.
+    
+    Example:
+        >>> calculate_mean_arterial_pressure(120, 80)
+        93.33333333333333
+
+Child-Pugh Score for Cirrhosis Mortality: Calculate the Child-Pugh Score for Cirrhosis Mortality.
+
+    The Child-Pugh Score helps estimate the prognosis for a patient with cirrhosis.
+    Note that newer scores like the MELD and MELD-Na are generally preferred for their
+    increased accuracy in prognosis.
+
+    Parameters:
+    - bilirubin (float): Total bilirubin level in mg/dL.
+    - albumin (float): Albumin level in g/dL.
+    - inr (float): International Normalized Ratio.
+    - ascites (str): Describes the presence of ascites ('Absent', 'Slight', 'Moderate').
+    - encephalopathy (int): Grade of hepatic encephalopathy (0 for none, 1-2 for Grade 1-2, 3-4 for Grade 3-4).
+
+    Returns:
+    - int: The Child-Pugh Score, ranging from 5 (best) to 15 (worst).
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{哪一个量表被用于预测患者在6周内发生重大心脏不良事件的风险？}}
+Task Scenario: {{根据患者病史和临床表现，可以判断患者可能存在以下问题：
+1. 心功能不全：患者主诉胸闷、心悸、气短等症状，经过多年治疗仍有心功能急剧下降的情况，心肌扩张并伴有心房颤动，心功能已经达到Ⅳ级，且心功能检测指标EF为41%，提示心脏功能已受到严重影响。
+2. 冠心病并动脉硬化：冠脉造影显示右冠2段、3段、前降支、回旋支部分存在狭窄，结合心电图显示ST-T改变和心脏超声显示主动脉硬化，提示患者存在冠心病和动脉硬化情况。
+3. 慢性阻塞性肺疾病急性发作：患者有慢性阻塞性肺疾病的病史，且出现咳嗽、咯痰、气喘等症状加重，同时出现双下肢水肿、夜间不能平卧等情况，可能正在急性发作阶段。
+
+综合上述信息，患者可能存在心力衰竭、冠心病、动脉硬化、慢性阻塞性肺疾病急性发作等问题，并且这些疾病相互影响，导致患者出现严重的心脏和呼吸系统症状。治疗上需要综合考虑各种因素，综合治疗以改善患者症状和心功能。}}
+Step By Step Analysis:
+
+[output]  1. 根据用户需求，用户需要预测患者在6周内发生重大心脏不良事件的风险，因此需要选择适当的量表来进行风险评估。
+
+2. 在给定的量表列表中，可以选择"HEART Score for Major Cardiac Events"来评估患者在6周内发生重大心脏不良事件的风险。该量表基于患者的历史、心电图、年龄、风险因素和肌钙蛋白水平来计算HEART评分，帮助将急诊科患者分为低、中和高风险组。
+
+3. 选择"HEART Score for Major Cardiac Events"这个量表可以帮助医生对患者进行初步的风险分层，从而指导进一步的治疗管理和决策。
+
+Final Answer:
+```json
+{
+    "chosen_tool_name": "HEART Score for Major Cardiac Events"
+}
+```

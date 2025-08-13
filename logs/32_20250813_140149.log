@@ -1,0 +1,41 @@
+2025-08-13 14:01:53,427 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-13 14:01:53,849 - INFO - Use pytorch device_name: cuda
+2025-08-13 14:01:53,849 - INFO - Load pretrained SentenceTransformer: /app/m3e-base
+2025-08-13 14:01:55,997 - INFO - ====================Now in Classify====================
+2025-08-13 14:01:56,838 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-13 14:01:56,846 - INFO - {
+    "chosen_toolkit_name": "scale"
+}
+2025-08-13 14:01:56,847 - INFO - ====================Now in Rewrite====================
+2025-08-13 14:01:59,484 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-13 14:01:59,489 - INFO - [
+    "哪一个评估量表可用于预测患者10年内冠状动脉粥样硬化性心脏病发作风险？",
+    "患者患有急性左心衰竭和冠状动脉粥样硬化性心脏病缺血性心肌病，这些病情可能导致心脏功能下降，是否有特定的评估工具可用？",
+    "根据患者的病史，重点关注急性左心衰竭和心肌病缺血性心肌病，是否存在特定量表用于评估10年内冠状动脉粥样硬化性心脏病发作风险？"
+]
+2025-08-13 14:01:59,494 - INFO - ====================Now in Retrieve====================
+2025-08-13 14:02:04,859 - INFO - Retrieve cost time: 5.364685297012329
+2025-08-13 14:02:04,860 - INFO - [10, 29, 23, 42, 26, 41, 7, 30, 44, 3, 2, 12, 27, 21, 22, 17, 25, 18, 13, 20, 39, 1, 8, 19, 24, 9, 40, 38, 6, 36, 16, 43, 35, 34, 4, 31, 32, 37, 14, 15, 33, 5, 11, 28]
+2025-08-13 14:02:04,860 - INFO - [21, 10, 9, 34, 41, 28, 6, 22, 25, 0, 42, 11, 18, 38, 39, 30, 15, 17, 23, 19, 13, 14, 2, 24, 16, 4, 12, 43, 1, 7, 35, 36, 40, 33, 32, 29, 37, 27, 20, 26, 5, 3, 31, 8]
+2025-08-13 14:02:04,860 - INFO - ====================Now in Dispatch====================
+2025-08-13 14:02:04,865 - INFO - Framingham Risk Score for Hard Coronary Heart Disease
+2025-08-13 14:02:04,865 - INFO - HEART Score for Major Cardiac Events
+2025-08-13 14:02:04,865 - INFO - Revised Cardiac Risk Index for Pre-Operative Risk
+2025-08-13 14:02:04,866 - INFO - Sequential Organ Failure Assessment (SOFA) Score
+2025-08-13 14:02:04,866 - INFO - CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk
+2025-08-13 14:02:04,866 - INFO - Corrected QT Interval (QTc)
+2025-08-13 14:02:04,866 - INFO - PHQ-9 (Patient Health Questionnaire-9)
+2025-08-13 14:02:04,866 - INFO - CKD-EPI Equations for Glomerular Filtration Rate (GFR)
+2025-08-13 14:02:04,866 - INFO - Gupta Perioperative Risk for Myocardial Infarction or Cardiac Arrest (MICA)
+2025-08-13 14:02:04,866 - INFO - ARISCAT Score for Postoperative Pulmonary Complications
+2025-08-13 14:02:06,966 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-13 14:02:06,978 - INFO - 1. 该用户需求是寻找用于评估患者10年内冠状动脉粥样硬化性心脏病发作风险的量表。
+2. 根据用户需求和任务情景的描述，最适合使用的工具是"CHADSVASc Score for Atrial Fibrillation Stroke Risk"量表。
+3. 选择的工具如下所示。
+
+```json
+{
+    "chosen_tool_name": "CHADSVASc Score for Atrial Fibrillation Stroke Risk"
+}
+```
+2025-08-13 14:02:06,978 - INFO - chadsvasc score for atrial fibrillation stroke risk
