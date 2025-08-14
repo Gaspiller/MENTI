@@ -63,7 +63,7 @@ class LLMs:
 
         if 'gpt-3.5' in self.model.lower():
             def _chat(messages):
-                response = self.client.chat.completions.create(model="gpt-3.5-turbo", messages=messages)
+                response = self.client.chat.completions.create(model="gpt-3.5-turbo", messages=messages, temperature=0)
                 return response
 
             messages = []

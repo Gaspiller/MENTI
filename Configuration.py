@@ -121,10 +121,30 @@ class Configuration:
         tool_call = locals()[self.tool["function_name"]]
         arguments = json.loads(self.parameter)
         arguments = {key: value["Value"] for key, value in arguments.items()}
+
+        # 参数规整：单位名->索引，数字字符串->数值
+        try:
+            units_match = re.search(r"units\s*=\s*\[(.*?)\]", code, flags=re.DOTALL)
+            if units_match:
+                units_raw = units_match.group(1)
+                units = [s.strip().strip("'").strip('"') for s in units_raw.split(',')]
+                for k in ("input_unit", "target_unit"):
+                    if k in arguments and isinstance(arguments[k], str) and arguments[k] in units:
+                        arguments[k] = units.index(arguments[k])
+        except Exception:
+            pass
+        for k, v in list(arguments.items()):
+            if isinstance(v, str):
+                try:
+                    arguments[k] = float(v) if any(ch in v for ch in ('.', 'e', 'E')) else int(v)
+                except Exception:
+                    pass
+
+        ans = None
         try:
             ans = tool_call(**arguments)
-        except Exception as e:
-            logger.info("Calculate Error:", e)
+        except Exception:
+            logger.exception("Calculate Error")
 
         if args.test:
             logger.info(ans)

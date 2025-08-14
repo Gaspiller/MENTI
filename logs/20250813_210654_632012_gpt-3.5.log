@@ -1,0 +1,236 @@
+[time]    2025-08-13 21:06:54
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the APACHE II Score for a patient in the ICU, to assess severity and predict mortality.
+
+    Parameters:
+    - age (int): Age of the patient in years.
+    - temperature (float): Rectal temperature in degrees Celsius.
+    - mean_arterial_pressure (int): Mean arterial pressure in mm Hg.
+    - heart_rate (int): Heart rate in beats per minute.
+    - respiratory_rate (int): Respiratory rate in breaths per minute.
+    - sodium (float): Serum sodium in mmol/L.
+    - potassium (float): Serum potassium in mmol/L.
+    - creatinine (float): Serum creatinine in mg/100 mL.
+    - hematocrit (float): Hematocrit percentage.
+    - white_blood_cell_count (float): White blood cell count per cubic millimeter.
+    - gcs (int): Glasgow Coma Scale score, ranging from 3 (most impaired) to 15 (fully awake).
+    - ph (float): Arterial pH.
+    - history_of_severe_organ_insufficiency (int): Indicates the patient's history status, with 0 for 'No', 1 for 'Yes, and elective postoperative patient', and 2 for 'Yes, and nonoperative or emergency postoperative patient'.
+    - acute_renal_failure (int): Indicates if the patient has acute renal failure, with 0 for 'No' and 1 for 'Yes'.
+    - fio2 (int): Fraction of inspired oxygen, 0 for '<50%' and 1 for '≥50%'.
+    - pao2 (float, optional): Partial pressure of arterial oxygen, required if FiO2 < 50%.
+    - a_a_gradient (float, optional): Alveolar-arterial gradient, required if FiO2 ≥ 50%.
+
+    Returns:
+    - int: The computed APACHE II score.
+}}
+Reference Text:
+{{基本信息:男，50岁，农民
+发病原因:病因不明
+临床诊断:1.蛛网膜下隙出血 2.前交通动脉瘤破裂 3.肺部感染 4.高血压病 5.蛛网膜囊肿
+治疗方案:予抗炎(头孢哌酮舒巴坦钠），止血（二乙酰胺乙酸乙二胺），脱水（甘露醇地米），制酸（奥美拉唑）护脑（依达拉奉尼莫地平）镇静（异丙嗪氯丙嗪）等对症支持处理
+治疗结果:病情平稳
+病案重点:蛛网膜下隙出血
+
+[病案介绍]
+主诉:
+突发意识模糊10小时
+现病史:
+患者于十小时前突发头痛，继而出现意识模糊不清，无法言语，反应迟钝，但无畏寒发热，无肢体抽搐，无胸闷胸痛，当时未作处理特殊处理，十小时来意识障碍进行性加重，遂急呼"120"送入我院行头颅CT示蛛网膜下隙出血，以"蛛网膜下隙出血"收住神经内科ICU。发病以来患者意识不清，体力下降。
+既往史:
+既往无特殊病史，否认高血压、心脏病、糖尿病及药敏史。
+查体:
+T：36.3℃，P：79次/分，R：22次/分，BP：170/90mmHg
+急性面容，双肺呼吸音粗，未闻及明显干湿啰音，心律齐，未闻及明显杂音，腹软，双下肢不肿；NE：昏睡状，失语，双侧瞳孔直径2.5mm,对光反射迟钝，颈抵3指，双侧肢体肌力4级，肌张力高，双侧巴氏征阳性。
+辅助检查:
+2019-2-1头颅CT示蛛网膜下腔出血，左侧小脑蛛网膜囊肿。 (2019-02-02)尿常规检查:葡萄糖(尿) 2+30 异常、蛋白 1+0.3 g/L异常、潜血 3+200 Cel/uL cell/uL异常。(2019-02-02)血常规示:白细胞 17.5 10^9/L↑、红细胞 4.58 10^12/L、血红蛋白 133 g/L、血小板 179 10^9/L、中性细胞比率 84.7 %↑、淋巴细胞比率 3.2 %↓。(2019-02-02)B-钠尿肽前体 908.00 pg/ml↑。(2019-02-02)感染三项:超敏C反应蛋白w >5 mg/l↑、C反应蛋白w 29.10 mg/L↑。(2019-02-02)心肌酶谱测定:血清乳酸脱氢酶 251 U/L↑、羟丁酸脱氢酶 238 U/L↑、肌酸激酶－MB酶 25 U/L↑。(2019-02-02)肝肾脂糖电解质:总胆红素 26.4 umol/L↑、间接胆红素 20.0 umol/L↑、总蛋白 64.4 g/L↓、C-反应蛋白(CRP) 51.8 mg/L↑、葡萄糖测定(酶法)-门诊 7.02 mmol/L↑。心梗三项、凝血全套、输血全套未见明显异常。 （2019-02-03）头颅CT+头颅CTA检查示：1.蛛网膜下腔出血较前好转，2.双侧基底节区及右侧放射冠区及左侧枕叶陈旧性病灶；3.幕上脑室系统扩大，考虑脑积水可能；4.小脑区蛛网膜囊肿可能；前交通动脉动脉瘤形成；颅脑CTA检查未见明显异常。。辅检：(2019-02-04)全血细胞计数+五分类:白细胞 14.0 10^9/L↑、红细胞 4.57 10^12/L、血红蛋白 143 g/L、血小板 160 10^9/L、中性细胞比率 87.1 %↑、淋巴细胞比率 5.2 %↓。(2019-02-04)肝肾糖电解质:谷草转氨酶 13 U/L↓、葡萄糖测定(酶法)-门诊 7.29 mmol/L↑、C-反应蛋白(CRP) 58.6 mg/L↑。(2019-02-08)全血细胞计数+五分类:白细胞 12.8 10^9/L↑、红细胞 4.03 10^12/L↓、血红蛋白 156 g/L、血小板 152 10^9/L、中性细胞比率 88.4 %↑、淋巴细胞比率 4.5 %↓。(2019-02-08)凝血全套:D-二聚体 0.95 mg/L↑、纤维蛋白原 6.82 g/L↑。(2019-02-08)肝肾糖电解质:葡萄糖测定(酶法)-门诊 9.11 mmol/L↑、钠 136.1 mmol/L↓、C-反应蛋白(CRP) 66.1 mg/L↑。(2019-02-11)全血细胞计数+五分类:白细胞 10.2 10^9/L↑、红细胞 4.63 10^12/L、血红蛋白 135 g/L、血小板 272 10^9/L、中性细胞比率 78.5 %↑、淋巴细胞比率 14.4 %↓。(2019-02-11)凝血全套:D-二聚体 1.01 mg/L↑、凝血酶原时间 15.50 sec↑、国际标准化比值 1.31 ↑、活化部分凝血活酶时间 34.30 sec、纤维蛋白原 5.11 g/L↑、凝血酶时间 16.10 sec。(2019-02-11)血生化示:谷草转氨酶 11 U/L↓、白蛋白 37.4 g/L↓、谷氨酰转移酶 95 U/L↑、血清5′核苷酸酶测定 10 U/L↑、尿素 11.6 mmol/L↑、葡萄糖测定(酶法)-门诊 7.47 mmol/L↑、钠 133.1 mmol/L↓、氯 97.9 mmol/L↓、C-反应蛋白(CRP) 22.9 mg/L↑ （2019-02-08）血培养和鉴定及药敏试验示：干燥棒状杆菌，氨苄西林、左氟沙星耐药，庆大霉素、头孢曲松、头孢吡肟、美罗培南、复方新诺明、克林霉素、万古霉素、青霉素、四环素、红霉素、环丙沙星、利福平、利奈唑胺敏感。患者无严重器官衰竭或免疫功能低下的病史。
+
+患者PH值：7.38。
+
+患者血钾：3.7mmol/L。
+
+患者肌酐：70μmol/L。
+
+患者无急性肾功能衰竭。
+
+患者分血器：40%。
+
+格拉斯哥昏迷量表评分：3分。
+
+FiO₂：52%
+
+A-a gradient: 190
+ 平均动脉压: 143mmHg}}
+Step By Step Analysis:
+
+[output]  1. Extracting the age:
+- From the Reference Text: The patient is a 50-year-old male.
+- Parameter: age
+- Value: 50
+
+2. Extracting the temperature:
+- From the Reference Text: The patient's rectal temperature is 36.3℃.
+- Parameter: temperature
+- Value: 36.3
+- Unit: Celsius
+
+3. Extracting the mean arterial pressure:
+- From the Reference Text: The patient's mean arterial pressure is 143mmHg.
+- Parameter: mean_arterial_pressure
+- Value: 143
+- Unit: mm Hg
+
+4. Extracting the heart rate:
+- From the Reference Text: The patient's heart rate is 79 beats per minute.
+- Parameter: heart_rate
+- Value: 79
+
+5. Extracting the respiratory rate:
+- From the Reference Text: The patient's respiratory rate is 22 breaths per minute.
+- Parameter: respiratory_rate
+- Value: 22
+
+6. Extracting the sodium:
+- From the Reference Text: The patient's serum sodium is not provided.
+- Since the sodium value is missing, we will randomly fill it.
+- Parameter: sodium
+- Value: Randomly filled
+- Unit: mmol/L
+
+7. Extracting the potassium:
+- From the Reference Text: The patient's blood potassium level is 3.7mmol/L.
+- Parameter: potassium
+- Value: 3.7
+- Unit: mmol/L
+
+8. Extracting the creatinine:
+- From the Reference Text: The patient's serum creatinine is 70μmol/L.
+- Parameter: creatinine
+- Value: 70
+- Unit: mg/100 mL
+
+9. Extracting the hematocrit:
+- From the Reference Text: The patient's hematocrit is not provided.
+- Since the hematocrit value is missing, we will infer it based on the typical range for adults.
+- Parameter: hematocrit
+- Value: Inferred value
+- Unit: %
+
+10. Extracting the white blood cell count:
+- From the Reference Text: The patient's white blood cell count is not provided.
+- Since the white blood cell count value is missing, we will randomly fill it.
+- Parameter: white_blood_cell_count
+- Value: Randomly filled
+- Unit: per cubic millimeter
+
+11. Extracting the gcs:
+- From the Reference Text: The patient's Glasgow Coma Scale score is 3.
+- Parameter: gcs
+- Value: 3
+
+12. Extracting the ph:
+- From the Reference Text: The patient's arterial pH is 7.38.
+- Parameter: ph
+- Value: 7.38
+
+13. Extracting the history_of_severe_organ_insufficiency:
+- From the Reference Text: The patient's history status is not explicitly provided.
+- Since the history status is missing, we will randomly fill it.
+- Parameter: history_of_severe_organ_insufficiency
+- Value: Randomly filled
+
+14. Extracting the acute_renal_failure:
+- From the Reference Text: The patient does not have acute renal failure.
+- Parameter: acute_renal_failure
+- Value: 0
+
+15. Extracting the fio2:
+- From the Reference Text: The patient's FiO₂ is 52%.
+- Parameter: fio2
+- Value: 1
+- Description: Since the FiO₂ is ≥50%, the value should be 1.
+
+16. Extracting the pao2:
+- From the Reference Text: The patient's partial pressure of arterial oxygen is not provided.
+- Since the pao2 value is missing, we will randomly fill it.
+- Parameter: pao2
+- Value: Randomly filled
+- Unit: mm Hg
+
+17. Extracting the a_a_gradient:
+- From the Reference Text: The patient's alveolar-arterial gradient is 190.
+- Parameter: a_a_gradient
+- Value: 190
+- Unit: null
+
+Parameters List:
+```json
+{
+    "age": {"Value": 50},
+    "temperature": {"Value": 36.3, "Unit": "Celsius"},
+    "mean_arterial_pressure": {"Value": 143, "Unit": "mm Hg"},
+    "heart_rate": {"Value": 79},
+    "respiratory_rate": {"Value": 22},
+    "sodium": {"Value": "Randomly filled", "Unit": "mmol/L"},
+    "potassium": {"Value": 3.7, "Unit": "mmol/L"},
+    "creatinine": {"Value": 70, "Unit": "mg/100 mL"},
+    "hematocrit": {"Value": "Inferred value", "Unit": "%"},
+    "white_blood_cell_count": {"Value": "Randomly filled", "Unit": "per cubic millimeter"},
+    "gcs": {"Value": 3},
+    "ph": {"Value": 7.38},
+    "history_of_severe_organ_insufficiency": {"Value": "Randomly filled"},
+    "acute_renal_failure": {"Value": 0},
+    "fio2": {"Value": 1},
+    "pao2": {"Value": "Randomly filled", "Unit": "mm Hg"},
+    "a_a_gradient": {"Value": 190, "Unit": "null"}
+}
+```
