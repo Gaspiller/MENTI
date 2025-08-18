@@ -1,0 +1,6 @@
+Total evaluated cases (logs found): 100
+
+CSA (tool selection accuracy): 75/100 = 0.7500
+SFA (slot filling accuracy): 295/610 = 0.4836
+UCA (unit conversion accuracy): 6/49 = 0.1224
+CCA (calculator calc accuracy): 0/100 = 0.0000
