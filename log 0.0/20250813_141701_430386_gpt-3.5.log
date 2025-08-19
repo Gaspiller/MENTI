@@ -1,0 +1,38 @@
+[time]    2025-08-13 14:17:01
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估该患者在手术后发生心肌梗死或心脏骤停的风险？
+
+Patient Case Analysis:
+
+根据提供的病例资料，患者被诊断为桥本氏甲状腺炎。在彩超检查中显示甲状腺左侧叶及峡部增厚，甲状腺左侧叶囊性结节，甲状腺实质回声增粗不均匀。这表明患者可能存在甲状腺功能异常，可能会影响到代谢调节、能量消耗等身体功能。经颈侧径路行甲状腺左侧叶及包块切除+喉返神经探查术后，病情有所好转，但仍需密切关注甲状腺功能的恢复情况。
+
+[output]  ```json
+[
+    "哪一个量表用于评估该患者在手术后发生心肌梗死或心脏骤停的风险？根据桥本氏甲状腺炎病例，是否需要额外关注甲状腺功能对这一风险的影响？",
+    "哪一个量表用于评估该患者在手术后发生心肌梗死或心脏骤停的风险？桥本氏甲状腺炎会对这种风险的预测产生何种影响？",
+    "哪一个量表用于评估该患者在手术后发生心肌梗死或心脏骤停的风险？根据病例描述，是否应该考虑甲状腺疾病可能对风险评估造成的影响？"
+]
+```

@@ -1,0 +1,49 @@
+[time]    2025-08-13 14:19:26
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表被用于预测患者在接受冠状动脉造影术+左心导管术后6周内发生重大心脏不良事件的风险？
+
+Patient Case Analysis:
+
+Analysis:
+1. The patient has a history of X syndrome, acute bronchitis, peptic ulcer, post-traumatic brain sequelae, and chronic otitis media.
+2. Presenting symptoms include recurrent dyspnea, chest tightness, and recent onset of headache.
+3. The patient's past medical history includes hypertension, chronic otitis media, traumatic brain injury, and nerve damage in the left arm.
+4. The physical examination shows normal vital signs, normal heart sounds, clear lung sounds, and no abdominal tenderness or swelling.
+5. The patient's electrocardiogram is normal.
+
+Speculated Impairments:
+1. Impairment in cardiovascular system due to the history of X syndrome, acute bronchitis, peptic ulcer, and chest tightness, with the need for coronary angiography and left heart catheterization.
+2. Possible neurological impairment from the post-traumatic brain sequelae and nerve damage in the left arm.
+
+Further investigation and monitoring of cardiovascular and neurological functions are recommended for this patient.
+
+[output]  ```json
+[
+    "Which scale is used to predict the risk of major cardiac events in patients undergoing coronary angiography and left heart catheterization 6 weeks after the procedure?",
+    "What assessment tool is commonly utilized to estimate the likelihood of adverse cardiac events within 6 weeks post-coronary angiography and left heart catheterization in patients with a history of X syndrome and chest tightness?",
+    "Is there a specific scoring system employed to anticipate the occurrence of significant cardiac complications within 6 weeks following coronary angiography and left heart catheterization in individuals with a medical background of acute bronchitis and peptic ulcer?"
+]
+```

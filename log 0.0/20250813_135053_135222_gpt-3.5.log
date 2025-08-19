@@ -1,0 +1,42 @@
+[time]    2025-08-13 13:50:53
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估患者的肝纤维化程度？
+
+Patient Case Analysis:
+
+ 分析:
+
+根据提供的患者病史和辅助检查结果，可以看出患者患有乙型肝炎、急性黄疸型，同时合并EB病毒感染。乙型肝炎病毒在患者体内复制，导致肝功能指标如AST、ALT等酶值明显升高，肝功能受损。EB病毒感染也会对肝脏造成额外的损害。由于病毒感染，患者出现了黄疸症状，表明肝脏无法正常代谢胆红素，造成其在血液中积累，导致皮肤、巩膜发生黄染。
+
+可能受损的生理功能包括肝脏的代谢功能、解毒功能和胆汁分泌功能。这些病症可能导致患者肝功能减退，有可能会引起肝功能衰竭等严重后果。治疗方案中包括抗感染、保肝、退黄等治疗，是为了减轻肝脏负担，帮助肝脏恢复功能，从而改善病情。
+
+[output]  ```json
+[
+    "哪些生理功能可能受损导致肝功能减退？",
+    "乙型肝炎、EB病毒感染对肝脏功能有何影响？",
+    "什么治疗方案有助于帮助肝脏恢复功能？"
+]
+```

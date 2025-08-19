@@ -1,0 +1,189 @@
+[time]    2025-08-13 13:50:37
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['λ light chain, λ轻链', 'Antistreptolysin O (ASLO), 抗链球菌溶血素O(ASLO)', 'Asparagine (Asn), 天冬酰胺(Asn)', 'Digitalis Toxin, 毛地黄毒苷', 'Urea, 尿素', 'Digoxin, 地高辛', 'Fibrinogen, 纤维蛋白原', 'Follicle-stimulating hormone (FSH), 卵泡刺激素 (FSH)', 'Phenytoin, 苯妥英', 'Ethylene glycol, 乙二醇']}}
+Detailed information of each tool: {{λ light chain, λ轻链: Convert the value of λ light chain from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['g/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Antistreptolysin O (ASLO), 抗链球菌溶血素O(ASLO): Convert the value of Antistreptolysin O (ASLO) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['U/mL', 'kU/L', 'IU/mL', 'kIU/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Asparagine (Asn), 天冬酰胺(Asn): Convert the value of Asparagine (Asn) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Digitalis Toxin, 毛地黄毒苷: Convert the value of Digitalis Toxin from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['nmol/L', 'ng/mL', 'µg/L', 'µg/dL', 'µg/100mL', 'µg%']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Urea, 尿素: Convert the value of Urea from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Digoxin, 地高辛: Convert the value of Digoxin from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['nmol/L', 'ng/mL', 'µg/L', 'µg/dL', 'µg/100mL', 'µg%']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Fibrinogen, 纤维蛋白原: Convert the value of Fibrinogen from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['g/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Follicle-stimulating hormone (FSH), 卵泡刺激素 (FSH): Convert the value of Follicle-stimulating hormone (FSH) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mIU/mL', 'IU/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Phenytoin, 苯妥英: Convert the value of Phenytoin from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['µmol/L', 'µg/mL', 'mg/L', 'mg/dL', 'mg/100mL', 'mg%']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Ethylene glycol, 乙二醇: Convert the value of Ethylene glycol from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{Parameter 'ast' is missing a value in U/L.}}
+Task Scenario: {{}}
+Step By Step Analysis:
+
+[output]  1. The user demand specifies that a parameter 'ast' is missing a value in U/L, indicating a need for conversion of a value related to Aspartate Aminotransferase (AST) to U/L units.
+   
+2. Looking at the Tool List, the tool that can be used for this conversion is the one related to 'Asparagine (Asn), 天冬酰胺(Asn)' as it involves conversion to U/L units.
+
+3. Therefore, the most suitable tool from the Tool List based on the User Demand and Task Scenario is the tool for 'Asparagine (Asn)'.
+
+The Final Answer:
+```json
+{
+    "chosen_tool_name": "Asparagine (Asn), 天冬酰胺(Asn)"
+}
+```

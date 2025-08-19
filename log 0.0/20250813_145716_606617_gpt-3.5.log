@@ -1,0 +1,253 @@
+[time]    2025-08-13 14:57:16
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Sequential Organ Failure Assessment (SOFA) Score', 'HEART Score for Major Cardiac Events', 'Child-Pugh Score for Cirrhosis Mortality', 'HAS-BLED Score for Major Bleeding Risk', 'MELD Na (UNOS/OPTN)', 'MDRD GFR Equation', 'CKD-EPI Equations for Glomerular Filtration Rate (GFR)', 'Glasgow-Blatchford Bleeding Score (GBS)', 'Revised Cardiac Risk Index for Pre-Operative Risk', 'APACHE II Score']}}
+Detailed information of each tool: {{Sequential Organ Failure Assessment (SOFA) Score: "Calculate the Sequential Organ Failure Assessment (SOFA) Score which is used to assess the extent of a person's organ function or rate of failure.
+The score is used to track a patient's status during their stay in an intensive care unit to determine the extent of a person's organ function or rate of failure.
+
+Parameters:
+- pao2_fio2_ratio (float): The ratio of arterial oxygen partial pressure to fractional inspired oxygen (mmHg).
+- platelets (float): Platelet count in ×103/µL.
+- glasgow_coma_scale (int): Score on the Glasgow Coma Scale.
+- bilirubin (float): Serum bilirubin in mg/dL.
+- map_pressure (float): Mean arterial pressure in mmHg.
+- vasoactive_agents (int): Index indicating the vasoactive agents being used. Corresponds to 0 for no agents, 1 for low dose dopamine or any dose dobutamine, 2 for higher dose dopamine or low dose epinephrine/norepinephrine, 3 for very high dose of these agents.
+- creatinine (float): Serum creatinine in mg/dL.
+- urine_output (float): Urine output in mL/day.
+- o2_delivery_type (int): Index of the type of oxygen delivery method used. Types are as follows: 0 = nasal cannula, 1 = simple face mask, 2 = non-rebreather mask, 3 = high-flow nasal cannula.
+- o2_flow_rate (float): Flow rate of oxygen delivery in L/min.
+
+Returns:
+int: Total SOFA score which is the sum of individual scores across the specified parameters."
+
+HEART Score for Major Cardiac Events:  Calculates the HEART Score for Major Cardiac Events based on five categories:
+    History, EKG, Age, Risk factors, and Troponin level. This score helps to
+    risk-stratify emergency department (ED) patients with chest pain into low,
+    moderate, and high-risk groups for acute coronary syndrome (ACS).
+
+    Args:
+    history_score (int): Score based on patient history assessment, where:
+        0 = Slightly suspicious,
+        1 = Moderately suspicious,
+        2 = Highly suspicious.
+    ekg_score (int): Score based on EKG findings, where:
+        0 = Normal,
+        1 = Non-specific repolarization disturbance,
+        2 = Significant ST deviation.
+    age_score (int): Score based on patient's age, where:
+        0 = less than 45,
+        1 = between 45 and 64,
+        2 = 65 or older.
+    risk_factors_score (int): Score based on number of cardiovascular risk factors, where:
+        0 = No known risk factors,
+        1 = 1–2 risk factors,
+        2 = 3 or more risk factors or history of atherosclerotic disease.
+    troponin_score (int): Score based on initial troponin levels, where:
+        0 = ≤ normal limit,
+        1 = 1–3 times normal limit,
+        2 = >3 times normal limit.
+
+    Returns:
+    int: The total HEART score, which can guide further management of chest pain patients
+         in the emergency setting. Total scores categorize risk as follows:
+         0-3 points indicate low risk,
+         4-6 points indicate moderate risk,
+         7-10 points indicate high risk.
+
+    Example:
+    >>> calculate_heart_score(2, 1, 1, 2, 1)
+    7
+
+
+Child-Pugh Score for Cirrhosis Mortality: Calculate the Child-Pugh Score for Cirrhosis Mortality.
+
+    The Child-Pugh Score helps estimate the prognosis for a patient with cirrhosis.
+    Note that newer scores like the MELD and MELD-Na are generally preferred for their
+    increased accuracy in prognosis.
+
+    Parameters:
+    - bilirubin (float): Total bilirubin level in mg/dL.
+    - albumin (float): Albumin level in g/dL.
+    - inr (float): International Normalized Ratio.
+    - ascites (str): Describes the presence of ascites ('Absent', 'Slight', 'Moderate').
+    - encephalopathy (int): Grade of hepatic encephalopathy (0 for none, 1-2 for Grade 1-2, 3-4 for Grade 3-4).
+
+    Returns:
+    - int: The Child-Pugh Score, ranging from 5 (best) to 15 (worst).
+
+HAS-BLED Score for Major Bleeding Risk: Calculate the HAS-BLED Score for Major Bleeding Risk in patients with atrial fibrillation.
+    
+    The HAS-BLED Score is used to estimate the 1-year risk for major bleeding and helps guide decisions regarding anticoagulation therapy.
+    This scoring system can be considered alongside other bleeding risk scores or thromboembolic risk assessments to weigh the benefits and risks of anticoagulation.
+
+    Parameters:
+    hypertension (bool): True if the patient has hypertension, False otherwise.
+    renal_disease (bool): True if the patient has renal disease (dialysis, transplant, or Cr >2.26 mg/dL), False otherwise.
+    liver_disease (bool): True if the patient has liver disease (cirrhosis or bilirubin >2x normal with AST/ALT/AP >3x normal), False otherwise.
+    stroke_history (bool): True if the patient has a history of stroke, False otherwise.
+    major_bleeding_history (bool): True if the patient has had prior major bleeding or predisposition to bleeding, False otherwise.
+    labile_inr (bool): True if the patient has labile INR (unstable/high INRs, time in therapeutic range <60%), False otherwise.
+    elderly (bool): True if the patient is elderly (age >65), False otherwise.
+    medication_risk (bool): True if the patient uses medication that predisposes to bleeding (aspirin, clopidogrel, NSAIDs), False otherwise.
+    alcohol_usage (bool): True if the patient consumes alcohol significantly (≥8 drinks/week), False otherwise.
+
+    Returns:
+    int: The total HAS-BLED score, which is a sum of all applicable risk factors.
+
+    Example:
+    >>> calculate_has_bled_score(True, False, False, True, False, True, True, False, True)
+    5
+
+MELD Na (UNOS/OPTN): Calculate the MELD Na (UNOS/OPTN) score used to stratify patients ≥12 years old for liver transplant waitlists and predict mortality.
+    The MELD Na score incorporates serum creatinine, bilirubin, INR, and sodium levels to determine the severity of liver dysfunction and predict three-month survival.
+
+    Parameters:
+    - creatinine (float): Serum creatinine in mg/dL. Minimum value used is 1.0. If patient's creatinine >4.0 or they received ≥2 dialysis treatments in the last 7 days or 24 hours of CVVHD, use 4.0.
+    - bilirubin (float): Serum bilirubin in mg/dL. Minimum value used is 1.0.
+    - inr (float): International Normalized Ratio (INR), unitless. Minimum value used is 1.0.
+    - sodium (float): Serum sodium in mEq/L. Adjusted to be within the range of 125 to 137 mEq/L.
+    - dialysis_treatments (int): Number of dialysis treatments in the last 7 days. Default is 0.
+    - cvvhd_hours (int): Hours of continuous veno-venous hemodialysis (CVVHD) within the last 7 days. Default is 0.
+
+    Returns:
+    - meld_score (float): The calculated MELD Na score, capped at a maximum of 40.
+
+
+MDRD GFR Equation: Calculate the Modified Diet in Renal Disease (MDRD) Glomerular Filtration Rate (GFR).
+    This function estimates kidney function in patients with stable chronic kidney disease.
+    It should not be used to assess acute renal failure or when GFR is >60 ml/min/m2 as it underestimates GFR.
+
+    Parameters:
+    - serum_cr (float): Serum creatinine (Cr) level in mg/dL. Should be a positive float.
+    - age (int): Age of the patient in years. Should be a non-negative integer.
+    - race_index (int): Index representing the patient's race. 0 for non-black, 1 for black.
+    - gender_index (int): Index representing the patient's gender. 0 for male, 1 for female.
+
+    Returns:
+    - float: Estimated GFR in ml/min/1.73m2.
+
+    The formula used:
+    GFR = 175 × Serum Cr^{-1.154} × age^{-0.203} × 1.212 (if patient is black) × 0.742 (if female)
+
+
+CKD-EPI Equations for Glomerular Filtration Rate (GFR): Calculate the 2021 CKD-EPI (Chronic Kidney Disease Epidemiology Collaboration) GFR (Glomerular Filtration Rate)
+    without the race component. This function estimates kidney function using creatinine-based equations and is intended
+    for patients with chronic (not acute) kidney disease. This calculation is particularly used by nephrologists to 
+    assess kidney function non-invasively and is considered more accurate than the MDRD Equation, especially in patients
+    with normal or mildly reduced eGFR.
+
+    Parameters:
+    - serum_creatinine (float): The serum creatinine level of the patient in mg/dL.
+    - age (int): The age of the patient in years.
+    - gender (int): The gender of the patient. Use 0 for male and 1 for female.
+
+    Returns:
+    - float: The estimated GFR in ml/min/1.73m^2.
+
+    Usage:
+    To use this function, provide the serum creatinine level, age, and gender index (0 for male, 1 for female).
+    For example, calculate_ckd_epi_gfr(0.9, 30, 0) calculates the GFR for a 30-year-old male with a serum creatinine of 0.9 mg/dL.
+
+    Note:
+    - Not intended for use in patients on dialysis.
+    - Less accurate in patients with diabetes (before progression to overt nephropathy), pregnant women, and those with unusual body mass.
+
+
+Glasgow-Blatchford Bleeding Score (GBS): Calculate the Glasgow-Blatchford Bleeding Score (GBS) for adult patients being considered for hospital admission due to upper GI bleeding.
+    
+    Parameters:
+    - hemoglobin (float): Patient's hemoglobin level in g/dL.
+    - bun (float): Blood Urea Nitrogen (BUN) level in mg/dL.
+    - systolic_bp (int): Initial systolic blood pressure in mm Hg.
+    - sex (int): Patient's sex, 0 for female, 1 for male.
+    - heart_rate (int): Indicates if heart rate is ≥100 per minute, 0 for no, 1 for yes.
+    - melena (int): Indicates if melena is present, 0 for no, 1 for yes.
+    - syncope (int): Indicates if there has been a recent syncope, 0 for no, 2 for yes.
+    - hepatic_disease (int): Indicates history of hepatic disease, 0 for no, 2 for yes.
+    - cardiac_failure (int): Indicates if cardiac failure is present, 0 for no, 2 for yes.
+
+    Returns:
+    - int: Glasgow-Blatchford Score, ranging from 0 to 23.
+
+    This scoring system aids in determining the necessity for hospital admission based on the severity of the patient's condition.
+    Lower scores indicate lower risk, while higher scores suggest higher risk and potential need for acute intervention.
+
+
+Revised Cardiac Risk Index for Pre-Operative Risk: Calculate the Revised Cardiac Risk Index for Pre-Operative Risk.
+
+    This function calculates the Revised Cardiac Risk Index, which is used to assess the risk of major cardiac complications in patients undergoing elective or urgent/semi-urgent non-cardiac surgery. It is based on a set of specific risk factors and is valuable for risk stratification and aiding discussions about informed consent with patients.
+
+    Parameters:
+    elevated_risk_surgery (bool): True if the surgery is intraperitoneal, intrathoracic, or suprainguinal vascular.
+    history_of_ischemic_heart_disease (bool): True if there is a history of myocardial infarction, positive exercise test, current chest pain considered due to myocardial ischemia, or use of nitrate therapy or ECG showing pathological Q waves.
+    history_of_congestive_heart_failure (bool): True if there are signs such as pulmonary edema, bilateral rales or S3 gallop, paroxysmal nocturnal dyspnea, or chest X-ray showing pulmonary vascular redistribution.
+    history_of_cerebrovascular_disease (bool): True if there is a history of transient ischemic attack or stroke.
+    preop_treatment_with_insulin (bool): True if the patient is being treated with insulin pre-operatively.
+    preop_creatinine_above_threshold (bool): True if pre-operative creatinine levels are greater than 2 mg/dL or 176.8 µmol/L.
+
+    Returns:
+    int: The total Revised Cardiac Risk Index score, which is the sum of the individual risk factors present.
+
+    Usage:
+    The index is used primarily in the preoperative setting to assess cardiac risk. It assists healthcare providers in making informed decisions about further preoperative risk assessments and postoperative monitoring.
+ 
+
+APACHE II Score: Calculate the APACHE II Score for a patient in the ICU, to assess severity and predict mortality.
+
+    Parameters:
+    - age (int): Age of the patient in years.
+    - temperature (float): Rectal temperature in degrees Celsius.
+    - mean_arterial_pressure (int): Mean arterial pressure in mm Hg.
+    - heart_rate (int): Heart rate in beats per minute.
+    - respiratory_rate (int): Respiratory rate in breaths per minute.
+    - sodium (float): Serum sodium in mmol/L.
+    - potassium (float): Serum potassium in mmol/L.
+    - creatinine (float): Serum creatinine in mg/100 mL.
+    - hematocrit (float): Hematocrit percentage.
+    - white_blood_cell_count (float): White blood cell count per cubic millimeter.
+    - gcs (int): Glasgow Coma Scale score, ranging from 3 (most impaired) to 15 (fully awake).
+    - ph (float): Arterial pH.
+    - history_of_severe_organ_insufficiency (int): Indicates the patient's history status, with 0 for 'No', 1 for 'Yes, and elective postoperative patient', and 2 for 'Yes, and nonoperative or emergency postoperative patient'.
+    - acute_renal_failure (int): Indicates if the patient has acute renal failure, with 0 for 'No' and 1 for 'Yes'.
+    - fio2 (int): Fraction of inspired oxygen, 0 for '<50%' and 1 for '≥50%'.
+    - pao2 (float, optional): Partial pressure of arterial oxygen, required if FiO2 < 50%.
+    - a_a_gradient (float, optional): Alveolar-arterial gradient, required if FiO2 ≥ 50%.
+
+    Returns:
+    - int: The computed APACHE II score.
+
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{哪一个量表被用于评估ICU患者的严重程度和预测死亡率？}}
+Task Scenario: {{根据患者病史和辅助检查结果显示，患儿患有支气管炎，脓毒血症可能性，并有EB病毒感染。血气分析结果显示代谢性酸中毒合并呼吸性碱中毒和高乳酸血症。治疗结果显示无抽搐，复查感染指标均正常。
+
+可能受影响的身体功能：呼吸系统（支气管炎，呼吸性碱中毒）、免疫系统（EB病毒感染，脓毒血症）、代谢系统（代谢性酸中毒，高乳酸血症）。}}
+Step By Step Analysis:
+
+[output]  1. 根据用户需求和任务场景，用户需要选择一个用于评估ICU患者严重程度和预测死亡率的工具。
+2. 根据提供的工具列表和详细信息，选择适合的工具是"APACHE II Score"，因为它用于评估ICU患者的严重程度和预测死亡率。
+3. 最终答案是一个JSON文件，其中选择的工具名必须是工具列表中的一个。
+
+```json
+{
+    "chosen_tool_name": "APACHE II Score"
+}
+```

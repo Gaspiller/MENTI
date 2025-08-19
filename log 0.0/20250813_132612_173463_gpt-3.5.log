@@ -1,0 +1,38 @@
+[time]    2025-08-13 13:26:12
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于计算患者的肾小球滤过率（GFR）？
+
+Patient Case Analysis:
+
+根据患者的病史和辅助检查结果，可以初步推断患者患有肾炎，表现为明显的水肿、肉眼血尿以及肌肉酸痛、乏力等症状。肾活检显示肾小球存在纤维细胞性新月体，肾小球分叶肿胀、系膜区增宽，同时免疫荧光显示多种免疫球蛋白在肾小球沉积。这些结果提示患者可能患有IgA肾病，该疾病会导致肾功能受损，表现为蛋白尿、血尿等症状，需要及时治疗以防止疾病进展和加重肾脏损伤。
+
+[output]  ```json
+[
+    "除了明显的水肿和肌肉酸痛，患者肾小球滤过率（GFR）测算还需要考虑何种症状？",
+    "根据患者病史，什么类型的肾炎可能导致明显的水肿并影响肾小球滤过率（GFR）？",
+    "患者的辅助检查结果显示免疫球蛋白在肾小球沉积，这可能会影响哪项指标的评估？"
+]
+```

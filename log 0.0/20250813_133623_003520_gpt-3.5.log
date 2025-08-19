@@ -1,0 +1,41 @@
+[time]    2025-08-13 13:36:23
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表被用于评估患者肺炎严重程度？
+
+Patient Case Analysis:
+
+Analysis:
+1. The patient presents with a 6-day history of cough with bloody sputum, intermittent fever, and a chest CT suggesting tuberculosis in the right upper lobe and linear opacity in the right middle lobe. This indicates a respiratory infection likely caused by tuberculosis affecting the lung function.
+2. The patient has a past medical history of hypertension and chronic bronchitis, which may have contributed to the compromised lung function and susceptibility to respiratory infections such as tuberculosis.
+3. The absence of significant abnormalities in other physical examination findings suggests that the impairment is likely isolated to the respiratory system in this case. Further evaluation and treatment for tuberculosis are warranted to address the impaired lung function.
+
+[output]  ```json
+[
+    "哪些临床指标可用于评估患者肺炎严重程度？",
+    "在患者的病史中，有哪些因素可能导致肺炎的严重程度增加？",
+    "针对患者的呼吸系统功能受损，哪些治疗方案可用于评估肺炎的严重程度？"
+]
+```

@@ -1,0 +1,40 @@
+[time]    2025-08-13 14:09:00
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表被用于评估患者的神志状态和意识水平？
+
+Patient Case Analysis:
+
+根据患者的病史和辅助检查结果，可以初步推断患者可能存在电解质紊乱，包括低钠血症（Na 108.40 mmol/L↓↓）和低氯血症（Cl 54.50 mmol/L↓↓）。这种电解质紊乱可能导致神经系统功能受损，进而出现意识模糊、反应迟钝等症状。此外，患者的白蛋白水平降低（ALB 26.70 g/L↓），也可能与慢性疾病或营养不良有关。
+
+综上所述，患者可能存在电解质紊乱和蛋白质代谢异常，导致神经系统功能异常，表现为意识障碍和神经反应迟钝。需要进一步详细的检查和治疗来确认诊断并帮助患者恢复健康。
+
+[output]  ```json
+[
+    "Which scale is used to evaluate the mental status and consciousness level of patients with suspected electrolyte disturbances?",
+    "What scale is commonly utilized to assess the mental acuity and level of consciousness in patients with potential electrolyte imbalances?",
+    "Is there a specific assessment tool recommended for evaluating the consciousness level and mental state of patients presenting with suspected electrolyte disorders?"
+]
+```

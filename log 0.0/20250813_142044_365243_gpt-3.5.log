@@ -1,0 +1,38 @@
+[time]    2025-08-13 14:20:44
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于预测心脏事件的风险，特别是对于先天性心脏病患者？
+
+Patient Case Analysis:
+
+根据病例提供的信息，该患者主要存在先天性心脏病，房间隔缺损，三尖瓣关闭不全，右心增大，心包腔少量积液，心功能Ⅰ级（NYHA分级）等问题。由于房间隔缺损和三尖瓣轻度关闭不全，可能导致心脏内部血液的逆流和循环受阻，从而影响心脏的正常功能。此外，患者还伴有贫血和脾大的情况，可能与心脏问题引起的血液循环异常有关。因此，患者可能存在心脏功能不全、贫血、循环系统问题等方面的身体功能障碍。治疗方面，介入封堵术治疗取得了病情好转的效果。
+
+[output]  ```json
+[
+    "哪种评估方法可用于诊断先天性心脏病患者的风险？",
+    "除了房间隔缺损和三尖瓣关闭不全，身体功能障碍还可能影响心脏事件的风险吗？",
+    "患者的贫血和脾大是否会增加心脏事件的危险性？"
+]
+```

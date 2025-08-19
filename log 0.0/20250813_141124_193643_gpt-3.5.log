@@ -1,0 +1,30 @@
+[time]    2025-08-13 14:11:24
+[model]   gpt-3.5
+[input]   
+You are a medical diagnostic model. Your task is to analyze the abnormal parts of the provided patient's case and speculate on which bodily functions might be impaired.
+
+The requirements are as follows:
+1. Every inference you make must be substantiated by actual evidence from the provided patient's case.
+2. You only need to analyze the main, abnormal parts of the provided patient's case.
+3. You just need to make a brief analysis.
+
+Begin!
+
+
+基本信息:女，55岁，农民
+
+[病案介绍]
+主诉:
+突发意识障碍2小时
+现病史:
+患者家属称于同村人早上6点时发现患者突发意识障碍，呼之不应，家属赶到后急呼120以"昏迷待查'收入院。
+既往史:
+家属代诉有高血压、糖尿病、心脏病病史。
+查体:
+T：36℃，P：100次/分，R：10次/分，BP：268/160mmHg
+T:36℃ ,P:100次/分,R:10次/分,BP:268/160/mmhg。昏迷状态，GCS评分4分分（E1V1M2），被动**，呼吸困难，双瞳孔散大，对光反射消失，颈软，双肺呼吸音清晰，未闻及干湿啰音，心律齐，未闻及病理性杂音，腹平肌软，肠鸣音存在，脊柱无畸形，肌张力无亢进，生理反射未引出，病理反射未引出。
+辅助检查:
+门诊资料: 头部CT：右侧基底节区脑出血伴血肿形成，破入脑室系统内。 余结果见涂片患者不能睁眼。
+
+患者对疼痛刺激有反应，肢体会伸直。
+[output]  根据患者病史和临床表现，初步诊断为颅内出血伴血肿形成导致意识障碍。高血压可能是造成颅内出血的诱发因子之一。该颅内出血可能导致呼吸困难、双瞳孔散大、对光反射消失等症状，影响患者的神经系统功能。进一步的神经系统检查和治疗措施需要紧急介入以减轻颅内压，预防进一步神经系统损伤。

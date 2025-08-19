@@ -1,0 +1,38 @@
+[time]    2025-08-13 14:50:06
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于计算高血糖患者的实际钠水平？
+
+Patient Case Analysis:
+
+根据患者的病史和辅助检查结果，可以初步推断患者存在多个并发症，主要包括2型糖尿病性肾病、周围神经病变、周围血管病、高血压、脑梗死后遗症以及血脂代谢异常。由于患者尿液分析显示蛋白3+，血糖、血脂和血压控制并不理想，存在肾功能受损和心血管并发症的风险。同时，肌电图提示存在周围神经病变，可能导致双下肢麻痛不适、手足麻木等症状。综合来看，患者可能存在多个器官功能受损，特别是肾脏、神经和心血管系统。治疗方案中使用的药物可以有效控制血糖，并保护心肾功能，但治疗需长期进行以维持病情平稳。
+
+[output]  ```json
+[
+    "Which scale is used to calculate the actual sodium level in patients with high blood sugar?",
+    "What is the appropriate scale for assessing sodium levels in patients with elevated blood sugar?",
+    "Which assessment tool is recommended for determining sodium levels in individuals with hyperglycemia?"
+]
+```

@@ -1,0 +1,307 @@
+[time]    2025-08-13 13:24:54
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Fibrosis-4 (FIB-4) Index for Liver Fibrosis', 'Child-Pugh Score for Cirrhosis Mortality', 'CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk', 'Centor Score (Modified/McIsaac) for Strep Pharyngitis', 'Sequential Organ Failure Assessment (SOFA) Score', 'CURB-65 Score for Pneumonia Severity', 'CIWA-Ar for Alcohol Withdrawal', 'Calcium Correction for Hypoalbuminemia', 'MELD Na (UNOS/OPTN)', 'PSI/PORT Score: Pneumonia Severity Index for CAP']}}
+Detailed information of each tool: {{Fibrosis-4 (FIB-4) Index for Liver Fibrosis: Calculate the Fibrosis-4 (FIB-4) Index for Liver Fibrosis.
+
+    This function calculates the FIB-4 Index, a non-invasive scoring system used to estimate the
+    level of liver fibrosis. It is particularly useful for patients with risk factors for liver disease
+    such as chronic hepatitis, alcoholic liver disease, NAFLD, and other liver conditions. The FIB-4
+    Index helps monitor liver fibrosis over time without the need for invasive procedures like liver
+    biopsy, which carries risks and may only provide a limited assessment due to sampling errors.
+
+    Parameters:
+        age (int or float): Age of the patient in years.
+        ast (float): Aspartate aminotransferase level in U/L.
+        platelets (float): Platelet count is measured in units of × 10⁹ per liter (× 10⁹ / L).
+        alt (float): Alanine aminotransferase level in U/L.
+
+    Returns:
+        float: The FIB-4 Index score, which can be used to categorize liver fibrosis into mild,
+               moderate, or severe stages.
+
+    Note:
+        The accuracy of FIB-4 Index may be reduced in patients younger than 35 or older than 65 years.
+
+
+Child-Pugh Score for Cirrhosis Mortality: Calculate the Child-Pugh Score for Cirrhosis Mortality.
+
+    The Child-Pugh Score helps estimate the prognosis for a patient with cirrhosis.
+    Note that newer scores like the MELD and MELD-Na are generally preferred for their
+    increased accuracy in prognosis.
+
+    Parameters:
+    - bilirubin (float): Total bilirubin level in mg/dL.
+    - albumin (float): Albumin level in g/dL.
+    - inr (float): International Normalized Ratio.
+    - ascites (str): Describes the presence of ascites ('Absent', 'Slight', 'Moderate').
+    - encephalopathy (int): Grade of hepatic encephalopathy (0 for none, 1-2 for Grade 1-2, 3-4 for Grade 3-4).
+
+    Returns:
+    - int: The Child-Pugh Score, ranging from 5 (best) to 15 (worst).
+
+CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk: Calculate the CHA2DS2-VASc Score for Atrial Fibrillation Stroke Risk.
+
+    The CHA2DS2-VASc score is a clinical prediction rule for estimating the risk of stroke in
+    patients with non-valvular atrial fibrillation. It is used to determine whether treatment with
+    anticoagulation or antiplatelet therapy is appropriate, based on the risk of thromboembolism.
+
+    Parameters:
+    - age (int): Age of the patient.
+    - sex (str): Biological sex of the patient, 'male' or 'female'.
+    - history_of_congestive_heart_failure (bool): True if the patient has a history of congestive heart failure, otherwise False.
+    - history_of_hypertension (bool): True if the patient has a history of hypertension, otherwise False.
+    - history_of_stroke_tia_thromboembolism (bool): True if the patient has a history of stroke, transient ischemic attack (TIA), or thromboembolism, otherwise False.
+    - history_of_vascular_disease (bool): True if the patient has a history of vascular disease (prior myocardial infarction, peripheral artery disease, or aortic plaque), otherwise False.
+    - history_of_diabetes (bool): True if the patient has a history of diabetes mellitus, otherwise False.
+
+    Returns:
+    - int: The total CHA2DS2-VASc score which is a sum of the points for each risk factor.
+
+    Example:
+    >>> calculate_cha2ds2_vasc_score(75, 'female', True, True, True, True, True)
+    9
+
+Centor Score (Modified/McIsaac) for Strep Pharyngitis:  Calculate the Centor Score (Modified/McIsaac) for Strep Pharyngitis.
+    
+    This scoring system helps clinicians determine the likelihood of Group A Streptococcus (GAS) 
+    in patients with symptoms of pharyngitis, which is critical for deciding whether to proceed 
+    with testing for strep pharyngitis. The score integrates factors such as age, tonsillar exudate, 
+    cervical lymphadenopathy, temperature, and the presence of cough to stratify the risk.
+    
+    Parameters:
+    - age (int): Age of the patient in years.
+    - exudate_swelling (bool): True if there is exudate or swelling on the tonsils, False otherwise.
+    - tender_swollen_lymph_nodes (bool): True if there are tender/swollen anterior cervical lymph nodes, False otherwise.
+    - temperature (float): Patient's temperature in degrees Celsius.
+    - cough (bool): True if cough is present, False otherwise.
+
+    Returns:
+    - int: The calculated Centor Score, which ranges from -1 to 4.
+    
+    Usage:
+    Typically used in primary care settings to assess the necessity for further testing for GAS infection,
+    guiding the judicious use of antibiotics in managing pharyngitis. Higher scores suggest a higher probability
+    of streptococcal infection and may warrant testing and/or treatment.
+ 
+
+Sequential Organ Failure Assessment (SOFA) Score: "Calculate the Sequential Organ Failure Assessment (SOFA) Score which is used to assess the extent of a person's organ function or rate of failure.
+The score is used to track a patient's status during their stay in an intensive care unit to determine the extent of a person's organ function or rate of failure.
+
+Parameters:
+- pao2_fio2_ratio (float): The ratio of arterial oxygen partial pressure to fractional inspired oxygen (mmHg).
+- platelets (float): Platelet count in ×103/µL.
+- glasgow_coma_scale (int): Score on the Glasgow Coma Scale.
+- bilirubin (float): Serum bilirubin in mg/dL.
+- map_pressure (float): Mean arterial pressure in mmHg.
+- vasoactive_agents (int): Index indicating the vasoactive agents being used. Corresponds to 0 for no agents, 1 for low dose dopamine or any dose dobutamine, 2 for higher dose dopamine or low dose epinephrine/norepinephrine, 3 for very high dose of these agents.
+- creatinine (float): Serum creatinine in mg/dL.
+- urine_output (float): Urine output in mL/day.
+- o2_delivery_type (int): Index of the type of oxygen delivery method used. Types are as follows: 0 = nasal cannula, 1 = simple face mask, 2 = non-rebreather mask, 3 = high-flow nasal cannula.
+- o2_flow_rate (float): Flow rate of oxygen delivery in L/min.
+
+Returns:
+int: Total SOFA score which is the sum of individual scores across the specified parameters."
+
+CURB-65 Score for Pneumonia Severity: 
+    Calculate the CURB-65 Score for Pneumonia Severity.
+
+    The CURB-65 calculator can be used in the emergency department setting to risk stratify a patient’s community acquired pneumonia.
+    It includes points for confusion, blood urea nitrogen (BUN), respiratory rate, blood pressure, and age.
+    
+    Parameters:
+    confusion (int): Confusion status, where 0 = No and 1 = Yes.
+    bun (int): Blood urea nitrogen status, where 0 = BUN ≤ 19 mg/dL (≤ 7 mmol/L urea) and 1 = BUN > 19 mg/dL (> 7 mmol/L urea).
+    respiratory_rate (int): Respiratory rate status, where 0 = < 30 breaths/min and 1 = ≥ 30 breaths/min.
+    blood_pressure (int): Blood pressure status, where 0 = Systolic BP ≥ 90 mmHg and Diastolic BP > 60 mmHg, and 1 = Systolic BP < 90 mmHg or Diastolic BP ≤ 60 mmHg.
+    age (int): Age status, where 0 = < 65 years and 1 = ≥ 65 years.
+
+    Returns:
+    int: The CURB-65 score which ranges from 0 to 5, indicating the severity of pneumonia.
+
+    Usage:
+    This function can be used in emergency settings to quickly assess the severity of pneumonia in patients and to guide decisions regarding hospitalization and treatment initiation.
+    
+    Example:
+    >>> curb_65_score(1, 1, 1, 0, 1)
+    4
+   
+
+CIWA-Ar for Alcohol Withdrawal: Calculate the CIWA-Ar scale score for assessing alcohol withdrawal severity.
+
+    The CIWA-Ar scale is intended for use in various medical settings where alcohol withdrawal is suspected.
+    This tool helps in quantifying the severity of alcohol withdrawal through several symptom dimensions,
+    each scored independently. The cumulative score helps guide clinical decisions regarding the necessity
+    and intensity of treatment for withdrawal.
+
+    Parameters:
+    nausea_vomiting (int): Index for nausea and vomiting severity. Range: 0-7.
+        - 0: No nausea and no vomiting
+        - 1: Mild nausea and no vomiting
+        - 2-3: More severe nausea without vomiting
+        - 4: Intermittent nausea with dry heaves
+        - 5-6: Increasing severity of nausea and dry heaves
+        - 7: Constant nausea, frequent dry heaves and vomiting
+    tremor (int): Index for tremor severity. Range: 0-7.
+        - 0: No tremor
+        - 1: Not visible, but can be felt fingertip to fingertip
+        - 2-3: More severe tremors without visible shaking
+        - 4: Moderate tremor with arms extended
+        - 5-6: Severe tremor, visible with arms extended
+        - 7: Very severe tremor, even with arms not extended
+    paroxysmal_sweats (int): Index for sweating severity. Range: 0-7.
+        - 0: No sweat visible
+        - 1: Barely perceptible sweating, palms moist
+        - 2-3: More perceptible sweating without drenching
+        - 4: Beads of sweat obvious on forehead
+        - 5-6: Severe sweating
+        - 7: Drenching sweats
+    anxiety (int): Index for anxiety level. Range: 0-7.
+        - 0: No anxiety, at ease
+        - 1: Mildly anxious
+        - 2-3: Moderate anxiety
+        - 4: Moderately anxious, or guarded, so anxiety is inferred
+        - 5-6: Severe anxiety, similar to panic states
+        - 7: Equivalent to acute panic states as seen in severe delirium or acute schizophrenic reactions
+    agitation (int): Index for agitation level. Range: 0-7.
+        - 0: Normal activity
+        - 1: Somewhat more activity than normal
+        - 2-3: More active, moderately fidgety and restless
+        - 4: Moderately fidgety and restless
+        - 5-6: Severe restlessness
+        - 7: Paces back and forth during most of the interview, or constantly thrashes about
+    tactile_disturbances (int): Index for tactile disturbances. Range: 0-7.
+        - 0: None
+        - 1-2: Mild to moderate itching, pin and needles, burning, or numbness
+        - 3-4: Moderate to moderately severe hallucinations
+        - 5-6: Severe to extremely severe hallucinations
+        - 7: Continuous hallucinations
+    visual_disturbances (int): Index for visual disturbances. Range: 0-7.
+        - 0: No visual disturbances
+        - 1-2: Mild to moderate sensitivity
+        - 3-4: Moderate to moderately severe hallucinations
+        - 5-6: Severe to extremely severe hallucinations
+        - 7: Continuous hallucinations
+    headache_fullness (int): Index for headache or fullness in head. Range: 0-7.
+        - 0: No headache
+        - 1-2: Mild to moderate headache
+        - 3-4: Moderate to moderately severe headache
+        - 5-6: Severe to very severe headache
+        - 7: Extremely severe headache
+    orientation_sensorium (int): Index for orientation or clouding of sensorium. Range: 0-4.
+        - 0: Fully oriented, can do serial additions
+        - 1: Can't do serial additions or is uncertain about date
+        - 2: Disoriented for date by no more than 2 calendar days
+        - 3: Disoriented for date by more than 2 calendar days
+        - 4: Disoriented to place or person
+
+    Returns:
+    int: The total CIWA-Ar score, representing the severity of alcohol withdrawal.
+
+    Usage:
+    score = calculate_ciwa_ar(2, 4, 1, 3, 5, 2, 0, 6, 1)
+    print("CIWA-Ar score:", score)
+
+
+Calcium Correction for Hypoalbuminemia: Calculate the corrected calcium level in patients with suspected hypocalcemia
+    who have low albumin levels. Hypocalcemia might not be apparent if serum albumin is low,
+    thus this formula adjusts the calcium level based on albumin discrepancy.
+
+    Args:
+    normal_albumin (float): The normal albumin level in g/dL assumed for the calculation.
+    patient_albumin (float): The patient's measured albumin level in g/dL.
+    serum_ca (float): The patient's measured serum calcium level in mg/dL.
+
+    Returns:
+    float: The corrected serum calcium level in mg/dL.
+
+    Example:
+    >>> corrected_calcium(4.0, 3.2, 8.5)
+    8.84
+ 
+
+MELD Na (UNOS/OPTN): Calculate the MELD Na (UNOS/OPTN) score used to stratify patients ≥12 years old for liver transplant waitlists and predict mortality.
+    The MELD Na score incorporates serum creatinine, bilirubin, INR, and sodium levels to determine the severity of liver dysfunction and predict three-month survival.
+
+    Parameters:
+    - creatinine (float): Serum creatinine in mg/dL. Minimum value used is 1.0. If patient's creatinine >4.0 or they received ≥2 dialysis treatments in the last 7 days or 24 hours of CVVHD, use 4.0.
+    - bilirubin (float): Serum bilirubin in mg/dL. Minimum value used is 1.0.
+    - inr (float): International Normalized Ratio (INR), unitless. Minimum value used is 1.0.
+    - sodium (float): Serum sodium in mEq/L. Adjusted to be within the range of 125 to 137 mEq/L.
+    - dialysis_treatments (int): Number of dialysis treatments in the last 7 days. Default is 0.
+    - cvvhd_hours (int): Hours of continuous veno-venous hemodialysis (CVVHD) within the last 7 days. Default is 0.
+
+    Returns:
+    - meld_score (float): The calculated MELD Na score, capped at a maximum of 40.
+
+
+PSI/PORT Score: Pneumonia Severity Index for CAP: Calculate the PSI/PORT Score for Community-Acquired Pneumonia (CAP).
+
+    The PSI/PORT Score helps to risk stratify patients with community-acquired pneumonia in clinical or
+    emergency department settings. This score may underestimate severe pneumonia in younger, otherwise healthy patients.
+    It is important to consider other clinical factors such as sepsis, which may require additional testing
+    like lactate levels. Any patient over 50 years of age is automatically classified as risk class 2.
+
+    Parameters:
+    age (int): Patient's age in years.
+    sex (str): Patient's sex, either 'Female' or 'Male'.
+    nursing_home_resident (bool): True if the patient is a nursing home resident, False otherwise.
+    neoplastic_disease (bool): True if the patient has a history of neoplastic disease, False otherwise.
+    liver_disease (bool): True if the patient has a history of liver disease, False otherwise.
+    chf_history (bool): True if the patient has a history of congestive heart failure, False otherwise.
+    cerebrovascular_disease (bool): True if the patient has a history of cerebrovascular disease, False otherwise.
+    renal_disease (bool): True if the patient has a history of renal disease, False otherwise.
+    altered_mental_status (bool): True if the patient has altered mental status, False otherwise.
+    respiratory_rate (bool): True if respiratory rate is ≥30 breaths/min, False otherwise.
+    systolic_bp (bool): True if systolic blood pressure is <90 mmHg, False otherwise.
+    temperature (bool): True if temperature is <35°C or >39.9°C, False otherwise.
+    pulse (bool): True if pulse rate is ≥125 beats/min, False otherwise.
+    blood_ph (bool): True if blood pH is <7.35, False otherwise.
+    bun (bool): True if BUN is ≥30 mg/dL or ≥11 mmol/L, False otherwise.
+    sodium (bool): True if sodium level is <130 mmol/L, False otherwise.
+    glucose (bool): True if glucose level is ≥250 mg/dL or ≥14 mmol/L, False otherwise.
+    hematocrit (bool): True if hematocrit is <30%, False otherwise.
+    oxygen_pressure (bool): True if partial pressure of oxygen is <60 mmHg or <8 kPa, False otherwise.
+    pleural_effusion (bool): True if there is pleural effusion on x-ray, False otherwise.
+
+    Returns:
+    int: The total PSI/PORT Score indicating the severity of the pneumonia.
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{哪一个量表用于评估乙肝肝硬化失代偿期患者肝硬化的严重程度？}}
+Task Scenario: {{Based on the provided patient's case, the main abnormalities include severe hepatitis, chronic hepatitis B, decompensated cirrhosis due to hepatitis B, acute peritonitis, chronic cholecystitis, and bilateral kidney stones. The patient presents with jaundice, abdominal distension, decreased urine output, fatigue, poor appetite, and lower limb edema. Additionally, the patient has elevated levels of serum bilirubin, liver enzymes, prolonged prothrombin time, and elevated white blood cell count, indicative of liver dysfunction and inflammation.
+
+Possible impaired bodily functions include liver function, coagulation function, immune response, and kidney function due to the presence of multiple complications related to hepatitis B and liver cirrhosis. The presence of ascites also indicates potential impairment in fluid balance and possibly renal function. Further monitoring and management of liver-related complications are crucial for the patient's overall health and well-being.}}
+Step By Step Analysis:
+
+[output]  1. Based on the user demand for assessing the severity of liver fibrosis in patients with decompensated cirrhosis due to hepatitis B, the most suitable tool from the Tool List is the "Child-Pugh Score for Cirrhosis Mortality."
+
+2. The Child-Pugh Score is specifically designed to estimate the prognosis and severity of liver cirrhosis, making it the ideal choice for evaluating the liver disease in the provided patient with decompensated cirrhosis.
+
+3. The tool takes into account parameters such as bilirubin level, albumin level, INR, presence of ascites, and grade of hepatic encephalopathy to calculate a score ranging from 5 (best) to 15 (worst), reflecting the severity of cirrhosis and predicting mortality.
+
+4. Given the patient's presentation with jaundice, abdominal distension, and other symptoms indicating liver dysfunction, the Child-Pugh Score will provide valuable insights into the severity of liver disease and aid in determining the appropriate management and treatment strategies.
+
+```json
+{
+    "chosen_tool_name": "Child-Pugh Score for Cirrhosis Mortality"
+}
+```

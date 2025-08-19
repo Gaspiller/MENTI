@@ -1,0 +1,301 @@
+[time]    2025-08-13 14:08:40
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Sequential Organ Failure Assessment (SOFA) Score', 'STOP-BANG Score for Obstructive Sleep Apnea', 'PHQ-9 (Patient Health Questionnaire-9)', 'HEART Score for Major Cardiac Events', 'GAD-7 (General Anxiety Disorder-7)', 'Child-Pugh Score for Cirrhosis Mortality', 'Caprini Score for Venous Thromboembolism (2005)', 'Creatinine Clearance (Cockcroft-Gault Equation)', 'Calcium Correction for Hypoalbuminemia', 'Glasgow Coma Scale/Score (GCS)']}}
+Detailed information of each tool: {{Sequential Organ Failure Assessment (SOFA) Score: "Calculate the Sequential Organ Failure Assessment (SOFA) Score which is used to assess the extent of a person's organ function or rate of failure.
+The score is used to track a patient's status during their stay in an intensive care unit to determine the extent of a person's organ function or rate of failure.
+
+Parameters:
+- pao2_fio2_ratio (float): The ratio of arterial oxygen partial pressure to fractional inspired oxygen (mmHg).
+- platelets (float): Platelet count in ×103/µL.
+- glasgow_coma_scale (int): Score on the Glasgow Coma Scale.
+- bilirubin (float): Serum bilirubin in mg/dL.
+- map_pressure (float): Mean arterial pressure in mmHg.
+- vasoactive_agents (int): Index indicating the vasoactive agents being used. Corresponds to 0 for no agents, 1 for low dose dopamine or any dose dobutamine, 2 for higher dose dopamine or low dose epinephrine/norepinephrine, 3 for very high dose of these agents.
+- creatinine (float): Serum creatinine in mg/dL.
+- urine_output (float): Urine output in mL/day.
+- o2_delivery_type (int): Index of the type of oxygen delivery method used. Types are as follows: 0 = nasal cannula, 1 = simple face mask, 2 = non-rebreather mask, 3 = high-flow nasal cannula.
+- o2_flow_rate (float): Flow rate of oxygen delivery in L/min.
+
+Returns:
+int: Total SOFA score which is the sum of individual scores across the specified parameters."
+
+STOP-BANG Score for Obstructive Sleep Apnea: Calculate the STOP-BANG Score for screening Obstructive Sleep Apnea (OSA).
+
+    This score is useful for patients undergoing preoperative evaluation but should not be used if a patient
+    has already been diagnosed with OSA or uses CPAP at night. It helps in identifying patients who might have
+    OSA and are at increased risk of perioperative cardiopulmonary complications, as well as other morbidity
+    associated with OSA like daytime sleepiness and cardiopulmonary conditions.
+
+    Parameters:
+    - snore_loudly (bool): True if the patient snores loudly (louder than talking or loud enough to be heard through closed doors), False otherwise.
+    - feel_tired_daytime (bool): True if the patient often feels tired, fatigued, or sleepy during the daytime, False otherwise.
+    - observed_apnea (bool): True if anyone has observed the patient stop breathing during sleep, False otherwise.
+    - high_blood_pressure (bool): True if the patient has or is being treated for high blood pressure, False otherwise.
+    - bmi (float): Body Mass Index of the patient.
+    - age (int): Age of the patient in years.
+    - neck_circumference (float): Neck circumference of the patient in centimeters.
+    - gender (str): Gender of the patient. Expected values: 'Female' or 'Male'.
+
+    Returns:
+    int: The total STOP-BANG score, ranging from 0 to 8.
+
+    Usage:
+    >>> calculate_stop_bang_score(True, True, True, True, 36, 51, 41, 'Male')
+    8
+
+PHQ-9 (Patient Health Questionnaire-9): Calculate the PHQ-9 (Patient Health Questionnaire-9) score.
+
+    The PHQ-9 is a clinical scale used to diagnose depression and to quantify and monitor the severity of depression symptoms.
+    It evaluates symptoms based on the 9 DSM criteria for major depressive disorder (MDD). Each criterion is scored from 0 to 3:
+    - "0" for 'Not at all'
+    - "1" for 'Several days'
+    - "2" for 'More than half the days'
+    - "3" for 'Nearly every day'
+    The function sums these scores to provide an overall severity score ranging from 0 to 27.
+
+    Parameters:
+    - interest_pleasure (int): Index from 0 to 3 indicating frequency of little interest or pleasure in doing things.
+    - feeling_down (int): Index from 0 to 3 indicating frequency of feeling down, depressed, or hopeless.
+    - sleep_issues (int): Index from 0 to 3 indicating trouble with falling or staying asleep, or sleeping too much.
+    - tired_energy (int): Index from 0 to 3 indicating feeling tired or having little energy.
+    - appetite_issues (int): Index from 0 to 3 indicating issues with poor appetite or overeating.
+    - self_feeling (int): Index from 0 to 3 indicating feelings of being bad about oneself, or feeling like a failure.
+    - concentration (int): Index from 0 to 3 indicating trouble concentrating on things.
+    - activity_level (int): Index from 0 to 3 indicating altered activity levels, either moving too slowly or being too fidgety.
+    - suicidal_thoughts (int): Index from 0 to 3 indicating frequency of thoughts of self-harm or being better off dead.
+
+    Returns:
+    - int: The total PHQ-9 score, which is the sum of all the individual scores for the symptoms listed above.
+
+
+HEART Score for Major Cardiac Events:  Calculates the HEART Score for Major Cardiac Events based on five categories:
+    History, EKG, Age, Risk factors, and Troponin level. This score helps to
+    risk-stratify emergency department (ED) patients with chest pain into low,
+    moderate, and high-risk groups for acute coronary syndrome (ACS).
+
+    Args:
+    history_score (int): Score based on patient history assessment, where:
+        0 = Slightly suspicious,
+        1 = Moderately suspicious,
+        2 = Highly suspicious.
+    ekg_score (int): Score based on EKG findings, where:
+        0 = Normal,
+        1 = Non-specific repolarization disturbance,
+        2 = Significant ST deviation.
+    age_score (int): Score based on patient's age, where:
+        0 = less than 45,
+        1 = between 45 and 64,
+        2 = 65 or older.
+    risk_factors_score (int): Score based on number of cardiovascular risk factors, where:
+        0 = No known risk factors,
+        1 = 1–2 risk factors,
+        2 = 3 or more risk factors or history of atherosclerotic disease.
+    troponin_score (int): Score based on initial troponin levels, where:
+        0 = ≤ normal limit,
+        1 = 1–3 times normal limit,
+        2 = >3 times normal limit.
+
+    Returns:
+    int: The total HEART score, which can guide further management of chest pain patients
+         in the emergency setting. Total scores categorize risk as follows:
+         0-3 points indicate low risk,
+         4-6 points indicate moderate risk,
+         7-10 points indicate high risk.
+
+    Example:
+    >>> calculate_heart_score(2, 1, 1, 2, 1)
+    7
+
+
+GAD-7 (General Anxiety Disorder-7): Calculate the GAD-7 (General Anxiety Disorder-7) score. This function computes the total score 
+    based on seven items that assess the severity of various signs of anxiety according to their 
+    frequency over the past two weeks. Each item is scored from 0 to 3 (0 = Not at all, 1 = Several days,
+    2 = More than half the days, 3 = Nearly every day).
+
+    This scale is a quick screening tool for detecting the presence of clinically significant anxiety disorders 
+    including Generalized Anxiety Disorder, Panic Disorder, Social Phobia, and Post-Traumatic Stress Disorder.
+    It is highly sensitive and specific across various cutoffs, used extensively in primary care and mental health settings 
+    to assess and monitor treatment responses.
+
+    Parameters:
+    - nervous (int): Score for feeling nervous, anxious, or on edge.
+    - control_worrying (int): Score for not being able to stop or control worrying.
+    - worry_too_much (int): Score for worrying too much about different things.
+    - trouble_relaxing (int): Score for having trouble relaxing.
+    - restlessness (int): Score for being so restless that it is hard to sit still.
+    - irritability (int): Score for becoming easily annoyed or irritable.
+    - fear_of_awful_events (int): Score for feeling afraid as if something awful might happen.
+
+    Returns:
+    int: The total GAD-7 score, ranging from 0 to 21.
+
+    Usage Example:
+    gad_7_score = calculate_gad_7(3, 2, 1, 3, 0, 2, 1)
+    print(f"GAD-7 Score: {gad_7_score}") # Outputs the calculated GAD-7 score
+
+
+Child-Pugh Score for Cirrhosis Mortality: Calculate the Child-Pugh Score for Cirrhosis Mortality.
+
+    The Child-Pugh Score helps estimate the prognosis for a patient with cirrhosis.
+    Note that newer scores like the MELD and MELD-Na are generally preferred for their
+    increased accuracy in prognosis.
+
+    Parameters:
+    - bilirubin (float): Total bilirubin level in mg/dL.
+    - albumin (float): Albumin level in g/dL.
+    - inr (float): International Normalized Ratio.
+    - ascites (str): Describes the presence of ascites ('Absent', 'Slight', 'Moderate').
+    - encephalopathy (int): Grade of hepatic encephalopathy (0 for none, 1-2 for Grade 1-2, 3-4 for Grade 3-4).
+
+    Returns:
+    - int: The Child-Pugh Score, ranging from 5 (best) to 15 (worst).
+
+Caprini Score for Venous Thromboembolism (2005): Calculate the Caprini Score for Venous Thromboembolism (VTE) in surgical patients. The score assesses the risk of VTE
+    based on a variety of risk factors and stratifies patients for potential prophylactic interventions. Not applicable
+    to medical (non-surgical) patients. Requires patient interaction to ascertain certain historical risk factors.
+
+    Parameters:
+    age (int): Patient's age in years.
+    sex (int): Patient's sex (0 for male, 1 for female).
+    surgery_type (int): Type of surgery classified by duration and invasiveness (0 for none, 1 for minor, 2 for major, 5 for elective major lower extremity arthroplasty).
+    recent_event (int): Recent surgeries or events (0 for none, 1 for minor, 2 for major or laparoscopic over 45 min).
+    major_surgery (int): Whether the patient had major surgery (0 for no, 1 for yes).
+    chf (int): Congestive heart failure present (0 for no, 1 for yes).
+    sepsis (int): Sepsis present (0 for no, 1 for yes).
+    pneumonia (int): Pneumonia present (0 for no, 1 for yes).
+    plaster_cast (int): Presence of an immobilizing plaster cast (0 for no, 2 for yes).
+    fracture (int): Presence of hip, pelvis, or leg fracture (0 for no, 5 for yes).
+    stroke (int): History of stroke (0 for no, 5 for yes).
+    multiple_trauma (int): Presence of multiple traumas (0 for no, 5 for yes).
+    spinal_injury (int): Acute spinal cord injury causing paralysis (0 for no, 5 for yes).
+    varicose_veins (int): Presence of varicose veins (0 for no, 1 for yes).
+    swollen_legs (int): Currently swollen legs (0 for no, 1 for yes).
+    central_venous_access (int): Current central venous access (0 for no, 2 for yes).
+    history_dvt_pe (int): History of deep vein thrombosis or pulmonary embolism (0 for no, 3 for yes).
+    family_thrombosis (int): Family history of thrombosis (0 for no, 3 for yes).
+    factor_v_leiden (int): Positive Factor V Leiden mutation (0 for no, 3 for yes).
+    prothrombin_20210A (int): Positive prothrombin 20210A mutation (0 for no, 3 for yes).
+    homocysteine (int): Elevated serum homocysteine levels (0 for no, 3 for yes).
+    lupus_anticoagulant (int): Positive lupus anticoagulant (0 for no, 3 for yes).
+    anticardiolipin_antibody (int): Elevated anticardiolipin antibody levels (0 for no, 3 for yes).
+    heparin_thrombocytopenia (int): Heparin-induced thrombocytopenia (0 for no, 3 for yes).
+    thrombophilia (int): Other congenital or acquired thrombophilia (0 for no, 3 for yes).
+    mobility (int): Mobility status (0 for normal, out of bed, 1 for medical patient currently on bed rest, 2 for patient confined to bed >72 hours).
+    ibd (int): History of inflammatory bowel disease (0 for no, 1 for yes).
+    bmi_over_25 (int): BMI over 25 (0 for no, 1 for yes).
+    acute_mi (int): Acute myocardial infarction (0 for no, 1 for yes).
+    copd (int): Chronic obstructive pulmonary disease (0 for no, 1 for yes).
+    malignancy (int): Presence or history of malignancy (0 for no, 2 for yes).
+    other_risk_factors (int): Other unspecified risk factors (0 for no, 1 for yes).
+    contraceptives_hormones (int): Use of oral contraceptives or hormone replacement therapy (0 for no, 1 for yes).
+    reproductive_history (int): History of unexplained stillborn, ≥3 spontaneous abortions, or premature birth with toxemia or growth-restricted infant (0 for no, 1 for yes).
+
+    Returns:
+    int: The calculated Caprini score.
+
+
+Creatinine Clearance (Cockcroft-Gault Equation): 
+    Calculate the Creatinine Clearance using the Cockcroft-Gault Equation.
+
+    This function estimates kidney function, useful for Chronic Kidney Disease (CKD) staging
+    and adjusting or discontinuing medications based on kidney function. It incorporates
+    the patient's age, weight, sex, and serum creatinine levels to calculate the clearance rate.
+    This is particularly relevant when considering medication dosages for patients with reduced
+    kidney function, despite potential overestimations in GFR with newer creatinine assays.
+
+    Parameters:
+    - age (int): The age of the patient in years. Should be a positive integer.
+    - weight (float): The weight of the patient in kilograms. Should be a positive decimal.
+    - creatinine (float): The serum creatinine level in mg/dL. Should be a positive decimal.
+    - sex (str): The sex of the patient. Acceptable values are 'male' or 'female'.
+                 This affects the calculation as there is a different multiplier for females.
+
+    Returns:
+    - float: The estimated creatinine clearance in mL/min.
+    
+    Example:
+    >>> calculate_creatinine_clearance(50, 70, 1.2, 'female')
+    49.30555555555556
+  
+
+Calcium Correction for Hypoalbuminemia: Calculate the corrected calcium level in patients with suspected hypocalcemia
+    who have low albumin levels. Hypocalcemia might not be apparent if serum albumin is low,
+    thus this formula adjusts the calcium level based on albumin discrepancy.
+
+    Args:
+    normal_albumin (float): The normal albumin level in g/dL assumed for the calculation.
+    patient_albumin (float): The patient's measured albumin level in g/dL.
+    serum_ca (float): The patient's measured serum calcium level in mg/dL.
+
+    Returns:
+    float: The corrected serum calcium level in mg/dL.
+
+    Example:
+    >>> corrected_calcium(4.0, 3.2, 8.5)
+    8.84
+ 
+
+Glasgow Coma Scale/Score (GCS): Calculates the Glasgow Coma Scale/Score (GCS) based on the assessment of three key responses:
+    eye, verbal, and motor. The GCS is used to assess the level of consciousness in patients who are
+    in a coma due to medical or surgical causes and is applicable in various settings including
+    pre-hospital, acute care, and research.
+
+    The scale is particularly important for monitoring trends in a patient's mental status,
+    facilitating communication between healthcare providers, and aiding in decisions regarding
+    patient management.
+
+    Parameters:
+    eye_response (int or str): Score or 'NT' (not testable) for eye response
+    verbal_response (int or str): Score or 'NT' (not testable) for verbal response
+    motor_response (int or str): Score or 'NT' (not testable) for motor response
+
+    Returns:
+    int or None: Total GCS score if all components are testable, otherwise None
+
+    Notes:
+    - Scores for each component:
+      * Eye:    4 (spontaneous), 3 (to verbal command), 2 (to pain), 1 (none)
+      * Verbal: 5 (oriented), 4 (confused), 3 (inappropriate words),
+                2 (incomprehensible sounds), 1 (no verbal response)
+      * Motor:  6 (obeys commands), 5 (localizes pain), 4 (withdrawal from pain),
+                3 (flexion to pain), 2 (extension to pain), 1 (no motor response)
+    - If any component is 'NT' (not testable), the function returns None to indicate that
+      the GCS cannot be fully assessed.
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{哪一个量表被用于评估患者的意识状态和昏迷程度？}}
+Task Scenario: {{根据患者的病史和体格检查，患者出现昏迷且伴有呕吐，没有药物或食物中毒的病史。辅助检查未发现明显的心脑血管问题，但血糖在正常范围，暗示可能不是因为高血糖导致的昏迷。肝功能、肾功能以及血液分析指标基本正常。外生殖器没有异常，四肢没有畸形，下肢没有浮肿，病理反射未引出。
+
+基于上述分析，可以推测患者的昏迷可能与中枢神经系统相关，如脑部问题导致的，但具体原因还需要进一步的神经系统检查以及头颅影像学检查来确定。}}
+Step By Step Analysis:
+
+[output]  1. 根据用户需求，用户想知道哪一个量表被用于评估患者的意识状态和昏迷程度。根据任务场景描述，患者出现昏迷且伴有呕吐，需要评估患者的意识状态以及昏迷程度，推测可能与中枢神经系统相关。
+
+2. 在工具列表中，适合评估患者意识状态和昏迷程度的工具是"{{'Glasgow Coma Scale/Score (GCS)'}}".
+
+3. 因此，我选择使用"Glasgow Coma Scale/Score (GCS)"来评估患者的意识状态和昏迷程度。
+
+```json
+{
+    "chosen_tool_name": "Glasgow Coma Scale/Score (GCS)"
+}
+```

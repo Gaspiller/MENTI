@@ -1,0 +1,143 @@
+[time]    2025-08-13 14:22:15
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{ Calculates the HEART Score for Major Cardiac Events based on five categories:
+    History, EKG, Age, Risk factors, and Troponin level. This score helps to
+    risk-stratify emergency department (ED) patients with chest pain into low,
+    moderate, and high-risk groups for acute coronary syndrome (ACS).
+
+    Args:
+    history_score (int): Score based on patient history assessment, where:
+        0 = Slightly suspicious,
+        1 = Moderately suspicious,
+        2 = Highly suspicious.
+    ekg_score (int): Score based on EKG findings, where:
+        0 = Normal,
+        1 = Non-specific repolarization disturbance,
+        2 = Significant ST deviation.
+    age_score (int): Score based on patient's age, where:
+        0 = less than 45,
+        1 = between 45 and 64,
+        2 = 65 or older.
+    risk_factors_score (int): Score based on number of cardiovascular risk factors, where:
+        0 = No known risk factors,
+        1 = 1–2 risk factors,
+        2 = 3 or more risk factors or history of atherosclerotic disease.
+    troponin_score (int): Score based on initial troponin levels, where:
+        0 = ≤ normal limit,
+        1 = 1–3 times normal limit,
+        2 = >3 times normal limit.
+
+    Returns:
+    int: The total HEART score, which can guide further management of chest pain patients
+         in the emergency setting. Total scores categorize risk as follows:
+         0-3 points indicate low risk,
+         4-6 points indicate moderate risk,
+         7-10 points indicate high risk.
+
+    Example:
+    >>> calculate_heart_score(2, 1, 1, 2, 1)
+    7
+}}
+Reference Text:
+{{基本信息:男，70岁，退休工人
+发病原因:病因不明
+临床诊断:1.冠状动脉粥样硬化性心脏病 急性非ST段抬高型下壁心肌梗死 心功能I级（Killip分级） 2.心律失常 三度房室传导阻滞 3.2型糖尿病
+治疗方案:住院后立即给予完善血生化检查，给予临时起搏器植入术，拜阿司匹林片300mg嚼服，口服硫酸氢氯吡格雷片300mg，口服阿托伐他汀钙片20mg，以及扩冠、营养心肌等治疗
+治疗结果:病情好转
+病案重点:急性心肌梗塞引起三度房室传导阻滞
+
+[病案介绍]
+主诉:
+头晕伴黒矇2天
+现病史:
+2天前无明显诱因出现头晕，同时伴有黒矇，以活动后症状显著，休息后减轻，无胸痛、胸闷、气短，无恶心、呕吐，休息后不缓解，为求进一步诊治遂来我院，门诊查心电图示“窦性心律，三度房室传导阻滞” 以“心律失常”收住我科。发病以来，神志清，精神可，食纳可，二便调。
+既往史:
+2型糖尿病病史15年，一直口服二甲双胍片及格列美脲片治疗。否认高血压、肾炎、甲亢、脑梗塞病史。
+个人史:
+吸烟40年，平均20支/日，否认其它不良嗜好。
+查体:
+T：36.3℃，P：33次/分，R：20次/分，BP：120/70mmHg
+神志清，精神可。发育正常，营养良好。双肺呼吸音清，未闻及干湿性啰音。心界不大，心律33次/分，律齐，各瓣膜听诊区未闻及病理性杂音。腹软，无压痛及反跳痛。双下肢无水肿。四肢肌力5级，肌张力正常。双侧巴彬氏征阴性。
+辅助检查:
+1.心电图示:窦性心律，下壁ST-T改变，三度房室传导阻滞; 2.肌钙蛋白I:22.3ng/ml; 3.心肌酶谱:CK853U/L，CK_MB1041U/L，LDH662U/L; 4.肝功、肾功、电解质、血常规、凝血四项均正常。}}
+Step By Step Analysis:
+
+[output]  1. history_score:
+   - The patient's history includes a diagnosis of coronary artery disease, acute non-ST-segment elevation myocardial infarction, heart failure (Killip class I), arrhythmia (third-degree atrioventricular block), and type 2 diabetes. These conditions indicate a highly suspicious history.
+   - Therefore, set history_score to 2.
+
+2. ekg_score:
+   - The EKG findings show significant ST-T changes in the inferior wall and third-degree atrioventricular block, which are indicative of significant cardiac abnormalities.
+   - Thus, set ekg_score to 2.
+
+3. age_score:
+   - The patient is 70 years old, falling into the category of 65 or older.
+   - Assign age_score as 2.
+
+4. risk_factors_score:
+   - The patient has a history of type 2 diabetes, a significant risk factor for cardiovascular disease.
+   - Therefore, set risk_factors_score to 2.
+
+5. troponin_score:
+   - The initial troponin level is 22.3 ng/ml, which is greater than 3 times the normal limit.
+   - Set troponin_score to 2.
+
+Parameters List:
+```json
+{
+    "history_score": {"Value": 2, "Unit": "null"},
+    "ekg_score": {"Value": 2, "Unit": "null"},
+    "age_score": {"Value": 2, "Unit": "null"},
+    "risk_factors_score": {"Value": 2, "Unit": "null"},
+    "troponin_score": {"Value": 2, "Unit": "null"}
+}
+```

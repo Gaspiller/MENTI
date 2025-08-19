@@ -1,0 +1,40 @@
+[time]    2025-08-13 14:47:07
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表被用于评估该患者术后风险？
+
+Patient Case Analysis:
+
+Based on the provided patient's case, the main abnormal parts include a 79-year-old male retiree presenting with a 10-month history of cough and back pain, with worsening symptoms leading to hospitalization. The chest CT revealed lung cancer with metastasis to the 6th thoracic vertebra. The patient has been receiving symptomatic treatment for the condition.
+
+Given the presence of lung cancer and metastasis to the spine, the patient may be experiencing impaired respiratory function due to the lung cancer affecting lung capacity and function. The back pain could also suggest potential spinal cord compression or nerve involvement from the metastasis, leading to symptoms such as pain and potentially impaired mobility. Additional monitoring and interventions may be required to address these potential impairments.
+
+[output]  ```json
+[
+    "Which scale is used to assess the postoperative risk for this patient with lung cancer metastasized to the spine?",
+    "What is the assessment tool used to evaluate the postoperative risks of this 79-year-old male retiree with lung cancer spreading to the thoracic vertebra?",
+    "Is there a specific tool utilized to evaluate the postoperative risks of this patient with lung cancer and spinal metastasis?"
+]
+```

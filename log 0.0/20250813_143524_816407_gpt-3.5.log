@@ -1,0 +1,43 @@
+[time]    2025-08-13 14:35:24
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表被用于评估患者CAP（社区获得性肺炎）的严重程度？
+
+Patient Case Analysis:
+
+根据患者的病史和辅助检查结果，可以得出以下分析：
+1. 患者主要症状为发热伴咳嗽、咳痰，胸部CT显示右肺上叶及中叶炎性改变。这表明患者可能患有肺炎，导致肺部感染和炎症。
+2. 血气分析显示患者PH值为7.5，氧分压为92mmHg。这可能暗示患者存在呼吸道功能异常或肺功能受损，导致血气不足。
+3. 患者的血尿素氮、血钠和血糖等生化指标基本在正常范围内，暂未显示明显异常。
+
+综上所述，该患者的主要问题在于肺部感染引起的肺炎，可能导致呼吸道功能异常和氧气供应不足。需进一步治疗和观察肺部炎症和呼吸功能改善情况。
+
+[output]  ```json
+[
+    "Which scale is used to assess the severity of CAP (community-acquired pneumonia) in patients with symptoms of fever, cough with sputum, and inflammatory changes in the right upper and middle lobes of the lung on chest CT?",
+    "What scale is commonly employed to evaluate the seriousness of CAP (community-acquired pneumonia) taking into consideration symptoms like fever, cough, sputum, and inflammatory changes in specific lung lobes?",
+    "Is there a specific scoring system utilized for assessing the severity of CAP (community-acquired pneumonia) based on symptoms such as fever, cough with sputum, and specific inflammatory changes observed on chest imaging?"
+]
+```

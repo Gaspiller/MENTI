@@ -1,0 +1,292 @@
+[time]    2025-08-13 14:12:53
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['CURB-65 Score for Pneumonia Severity', 'APACHE II Score', 'Framingham Risk Score for Hard Coronary Heart Disease', 'Glasgow Coma Scale/Score (GCS)', 'HEART Score for Major Cardiac Events', 'PSI/PORT Score: Pneumonia Severity Index for CAP', 'STOP-BANG Score for Obstructive Sleep Apnea', 'ARISCAT Score for Postoperative Pulmonary Complications', 'Centor Score (Modified/McIsaac) for Strep Pharyngitis', 'PHQ-9 (Patient Health Questionnaire-9)']}}
+Detailed information of each tool: {{CURB-65 Score for Pneumonia Severity: 
+    Calculate the CURB-65 Score for Pneumonia Severity.
+
+    The CURB-65 calculator can be used in the emergency department setting to risk stratify a patient’s community acquired pneumonia.
+    It includes points for confusion, blood urea nitrogen (BUN), respiratory rate, blood pressure, and age.
+    
+    Parameters:
+    confusion (int): Confusion status, where 0 = No and 1 = Yes.
+    bun (int): Blood urea nitrogen status, where 0 = BUN ≤ 19 mg/dL (≤ 7 mmol/L urea) and 1 = BUN > 19 mg/dL (> 7 mmol/L urea).
+    respiratory_rate (int): Respiratory rate status, where 0 = < 30 breaths/min and 1 = ≥ 30 breaths/min.
+    blood_pressure (int): Blood pressure status, where 0 = Systolic BP ≥ 90 mmHg and Diastolic BP > 60 mmHg, and 1 = Systolic BP < 90 mmHg or Diastolic BP ≤ 60 mmHg.
+    age (int): Age status, where 0 = < 65 years and 1 = ≥ 65 years.
+
+    Returns:
+    int: The CURB-65 score which ranges from 0 to 5, indicating the severity of pneumonia.
+
+    Usage:
+    This function can be used in emergency settings to quickly assess the severity of pneumonia in patients and to guide decisions regarding hospitalization and treatment initiation.
+    
+    Example:
+    >>> curb_65_score(1, 1, 1, 0, 1)
+    4
+   
+
+APACHE II Score: Calculate the APACHE II Score for a patient in the ICU, to assess severity and predict mortality.
+
+    Parameters:
+    - age (int): Age of the patient in years.
+    - temperature (float): Rectal temperature in degrees Celsius.
+    - mean_arterial_pressure (int): Mean arterial pressure in mm Hg.
+    - heart_rate (int): Heart rate in beats per minute.
+    - respiratory_rate (int): Respiratory rate in breaths per minute.
+    - sodium (float): Serum sodium in mmol/L.
+    - potassium (float): Serum potassium in mmol/L.
+    - creatinine (float): Serum creatinine in mg/100 mL.
+    - hematocrit (float): Hematocrit percentage.
+    - white_blood_cell_count (float): White blood cell count per cubic millimeter.
+    - gcs (int): Glasgow Coma Scale score, ranging from 3 (most impaired) to 15 (fully awake).
+    - ph (float): Arterial pH.
+    - history_of_severe_organ_insufficiency (int): Indicates the patient's history status, with 0 for 'No', 1 for 'Yes, and elective postoperative patient', and 2 for 'Yes, and nonoperative or emergency postoperative patient'.
+    - acute_renal_failure (int): Indicates if the patient has acute renal failure, with 0 for 'No' and 1 for 'Yes'.
+    - fio2 (int): Fraction of inspired oxygen, 0 for '<50%' and 1 for '≥50%'.
+    - pao2 (float, optional): Partial pressure of arterial oxygen, required if FiO2 < 50%.
+    - a_a_gradient (float, optional): Alveolar-arterial gradient, required if FiO2 ≥ 50%.
+
+    Returns:
+    - int: The computed APACHE II score.
+
+
+Framingham Risk Score for Hard Coronary Heart Disease: Calculate the Framingham Risk Score for Hard Coronary Heart Disease in patients aged 30-79 years without prior coronary heart disease history, diabetes, or intermittent claudication.
+
+    Parameters:
+    - age (int): The age of the patient in years. Valid range: 30-79.
+    - sex (int): The sex of the patient. 0 for female, 1 for male.
+    - smoker_status (int): Smoking status of the patient. 0 for non-smoker, 1 for smoker.
+    - total_cholesterol (float): Total cholesterol level in mg/dL.
+    - hdl_cholesterol (float): HDL cholesterol level in mg/dL.
+    - systolic_bp (float): Systolic blood pressure in mm Hg.
+    - bp_medication (int): Indicates if the blood pressure is being treated with medications. 0 for no, 1 for yes.
+
+    Returns:
+    float: The risk percentage of developing hard coronary heart disease.
+
+    Calculation is based on the logarithmic transformations of risk factors and their interactions,
+    separately for males and females. Note that older population data was used to develop this scale,
+    which may not fully align with current population risks.
+
+
+Glasgow Coma Scale/Score (GCS): Calculates the Glasgow Coma Scale/Score (GCS) based on the assessment of three key responses:
+    eye, verbal, and motor. The GCS is used to assess the level of consciousness in patients who are
+    in a coma due to medical or surgical causes and is applicable in various settings including
+    pre-hospital, acute care, and research.
+
+    The scale is particularly important for monitoring trends in a patient's mental status,
+    facilitating communication between healthcare providers, and aiding in decisions regarding
+    patient management.
+
+    Parameters:
+    eye_response (int or str): Score or 'NT' (not testable) for eye response
+    verbal_response (int or str): Score or 'NT' (not testable) for verbal response
+    motor_response (int or str): Score or 'NT' (not testable) for motor response
+
+    Returns:
+    int or None: Total GCS score if all components are testable, otherwise None
+
+    Notes:
+    - Scores for each component:
+      * Eye:    4 (spontaneous), 3 (to verbal command), 2 (to pain), 1 (none)
+      * Verbal: 5 (oriented), 4 (confused), 3 (inappropriate words),
+                2 (incomprehensible sounds), 1 (no verbal response)
+      * Motor:  6 (obeys commands), 5 (localizes pain), 4 (withdrawal from pain),
+                3 (flexion to pain), 2 (extension to pain), 1 (no motor response)
+    - If any component is 'NT' (not testable), the function returns None to indicate that
+      the GCS cannot be fully assessed.
+
+HEART Score for Major Cardiac Events:  Calculates the HEART Score for Major Cardiac Events based on five categories:
+    History, EKG, Age, Risk factors, and Troponin level. This score helps to
+    risk-stratify emergency department (ED) patients with chest pain into low,
+    moderate, and high-risk groups for acute coronary syndrome (ACS).
+
+    Args:
+    history_score (int): Score based on patient history assessment, where:
+        0 = Slightly suspicious,
+        1 = Moderately suspicious,
+        2 = Highly suspicious.
+    ekg_score (int): Score based on EKG findings, where:
+        0 = Normal,
+        1 = Non-specific repolarization disturbance,
+        2 = Significant ST deviation.
+    age_score (int): Score based on patient's age, where:
+        0 = less than 45,
+        1 = between 45 and 64,
+        2 = 65 or older.
+    risk_factors_score (int): Score based on number of cardiovascular risk factors, where:
+        0 = No known risk factors,
+        1 = 1–2 risk factors,
+        2 = 3 or more risk factors or history of atherosclerotic disease.
+    troponin_score (int): Score based on initial troponin levels, where:
+        0 = ≤ normal limit,
+        1 = 1–3 times normal limit,
+        2 = >3 times normal limit.
+
+    Returns:
+    int: The total HEART score, which can guide further management of chest pain patients
+         in the emergency setting. Total scores categorize risk as follows:
+         0-3 points indicate low risk,
+         4-6 points indicate moderate risk,
+         7-10 points indicate high risk.
+
+    Example:
+    >>> calculate_heart_score(2, 1, 1, 2, 1)
+    7
+
+
+PSI/PORT Score: Pneumonia Severity Index for CAP: Calculate the PSI/PORT Score for Community-Acquired Pneumonia (CAP).
+
+    The PSI/PORT Score helps to risk stratify patients with community-acquired pneumonia in clinical or
+    emergency department settings. This score may underestimate severe pneumonia in younger, otherwise healthy patients.
+    It is important to consider other clinical factors such as sepsis, which may require additional testing
+    like lactate levels. Any patient over 50 years of age is automatically classified as risk class 2.
+
+    Parameters:
+    age (int): Patient's age in years.
+    sex (str): Patient's sex, either 'Female' or 'Male'.
+    nursing_home_resident (bool): True if the patient is a nursing home resident, False otherwise.
+    neoplastic_disease (bool): True if the patient has a history of neoplastic disease, False otherwise.
+    liver_disease (bool): True if the patient has a history of liver disease, False otherwise.
+    chf_history (bool): True if the patient has a history of congestive heart failure, False otherwise.
+    cerebrovascular_disease (bool): True if the patient has a history of cerebrovascular disease, False otherwise.
+    renal_disease (bool): True if the patient has a history of renal disease, False otherwise.
+    altered_mental_status (bool): True if the patient has altered mental status, False otherwise.
+    respiratory_rate (bool): True if respiratory rate is ≥30 breaths/min, False otherwise.
+    systolic_bp (bool): True if systolic blood pressure is <90 mmHg, False otherwise.
+    temperature (bool): True if temperature is <35°C or >39.9°C, False otherwise.
+    pulse (bool): True if pulse rate is ≥125 beats/min, False otherwise.
+    blood_ph (bool): True if blood pH is <7.35, False otherwise.
+    bun (bool): True if BUN is ≥30 mg/dL or ≥11 mmol/L, False otherwise.
+    sodium (bool): True if sodium level is <130 mmol/L, False otherwise.
+    glucose (bool): True if glucose level is ≥250 mg/dL or ≥14 mmol/L, False otherwise.
+    hematocrit (bool): True if hematocrit is <30%, False otherwise.
+    oxygen_pressure (bool): True if partial pressure of oxygen is <60 mmHg or <8 kPa, False otherwise.
+    pleural_effusion (bool): True if there is pleural effusion on x-ray, False otherwise.
+
+    Returns:
+    int: The total PSI/PORT Score indicating the severity of the pneumonia.
+
+STOP-BANG Score for Obstructive Sleep Apnea: Calculate the STOP-BANG Score for screening Obstructive Sleep Apnea (OSA).
+
+    This score is useful for patients undergoing preoperative evaluation but should not be used if a patient
+    has already been diagnosed with OSA or uses CPAP at night. It helps in identifying patients who might have
+    OSA and are at increased risk of perioperative cardiopulmonary complications, as well as other morbidity
+    associated with OSA like daytime sleepiness and cardiopulmonary conditions.
+
+    Parameters:
+    - snore_loudly (bool): True if the patient snores loudly (louder than talking or loud enough to be heard through closed doors), False otherwise.
+    - feel_tired_daytime (bool): True if the patient often feels tired, fatigued, or sleepy during the daytime, False otherwise.
+    - observed_apnea (bool): True if anyone has observed the patient stop breathing during sleep, False otherwise.
+    - high_blood_pressure (bool): True if the patient has or is being treated for high blood pressure, False otherwise.
+    - bmi (float): Body Mass Index of the patient.
+    - age (int): Age of the patient in years.
+    - neck_circumference (float): Neck circumference of the patient in centimeters.
+    - gender (str): Gender of the patient. Expected values: 'Female' or 'Male'.
+
+    Returns:
+    int: The total STOP-BANG score, ranging from 0 to 8.
+
+    Usage:
+    >>> calculate_stop_bang_score(True, True, True, True, 36, 51, 41, 'Male')
+    8
+
+ARISCAT Score for Postoperative Pulmonary Complications: Calculate the ARISCAT Score for Postoperative Pulmonary Complications.
+    This score helps predict the risk of pulmonary complications in patients undergoing surgery under general, neuraxial, or regional anesthesia.
+
+    Parameters:
+    age (int): Patient's age in years.
+    spo2 (int): Preoperative oxygen saturation (SpO2) percentage.
+    respiratory_infection (int): Indicates the presence of respiratory infection in the last month. 0 for 'No', 1 for 'Yes'.
+    anemia (int): Indicates preoperative anemia (Hgb ≤10 g/dL). 0 for 'No', 1 for 'Yes'.
+    surgical_incision (int): Type of surgical incision. 0 for 'Peripheral', 1 for 'Upper abdominal', 2 for 'Intrathoracic'.
+    surgery_duration (int): Duration of the surgery in hours.
+    emergency (int): Indicates if the procedure was an emergency. 0 for 'No', 1 for 'Yes'.
+
+    Returns:
+    int: The ARISCAT score, which is a summation of points based on the provided parameters.
+
+
+Centor Score (Modified/McIsaac) for Strep Pharyngitis:  Calculate the Centor Score (Modified/McIsaac) for Strep Pharyngitis.
+    
+    This scoring system helps clinicians determine the likelihood of Group A Streptococcus (GAS) 
+    in patients with symptoms of pharyngitis, which is critical for deciding whether to proceed 
+    with testing for strep pharyngitis. The score integrates factors such as age, tonsillar exudate, 
+    cervical lymphadenopathy, temperature, and the presence of cough to stratify the risk.
+    
+    Parameters:
+    - age (int): Age of the patient in years.
+    - exudate_swelling (bool): True if there is exudate or swelling on the tonsils, False otherwise.
+    - tender_swollen_lymph_nodes (bool): True if there are tender/swollen anterior cervical lymph nodes, False otherwise.
+    - temperature (float): Patient's temperature in degrees Celsius.
+    - cough (bool): True if cough is present, False otherwise.
+
+    Returns:
+    - int: The calculated Centor Score, which ranges from -1 to 4.
+    
+    Usage:
+    Typically used in primary care settings to assess the necessity for further testing for GAS infection,
+    guiding the judicious use of antibiotics in managing pharyngitis. Higher scores suggest a higher probability
+    of streptococcal infection and may warrant testing and/or treatment.
+ 
+
+PHQ-9 (Patient Health Questionnaire-9): Calculate the PHQ-9 (Patient Health Questionnaire-9) score.
+
+    The PHQ-9 is a clinical scale used to diagnose depression and to quantify and monitor the severity of depression symptoms.
+    It evaluates symptoms based on the 9 DSM criteria for major depressive disorder (MDD). Each criterion is scored from 0 to 3:
+    - "0" for 'Not at all'
+    - "1" for 'Several days'
+    - "2" for 'More than half the days'
+    - "3" for 'Nearly every day'
+    The function sums these scores to provide an overall severity score ranging from 0 to 27.
+
+    Parameters:
+    - interest_pleasure (int): Index from 0 to 3 indicating frequency of little interest or pleasure in doing things.
+    - feeling_down (int): Index from 0 to 3 indicating frequency of feeling down, depressed, or hopeless.
+    - sleep_issues (int): Index from 0 to 3 indicating trouble with falling or staying asleep, or sleeping too much.
+    - tired_energy (int): Index from 0 to 3 indicating feeling tired or having little energy.
+    - appetite_issues (int): Index from 0 to 3 indicating issues with poor appetite or overeating.
+    - self_feeling (int): Index from 0 to 3 indicating feelings of being bad about oneself, or feeling like a failure.
+    - concentration (int): Index from 0 to 3 indicating trouble concentrating on things.
+    - activity_level (int): Index from 0 to 3 indicating altered activity levels, either moving too slowly or being too fidgety.
+    - suicidal_thoughts (int): Index from 0 to 3 indicating frequency of thoughts of self-harm or being better off dead.
+
+    Returns:
+    - int: The total PHQ-9 score, which is the sum of all the individual scores for the symptoms listed above.
+
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{The motor_response is 6. The motor response score needs to be within the range of 1 to 6 based on the Function Docstring.}}
+Task Scenario: {{}}
+Step By Step Analysis:
+
+[output]  1. As per the provided user demand, the motor_response score needs to be within the range of 1 to 6 based on the Function Docstring.
+2. Among the tools in the Tool List, the tool that specifically calculates the Glasgow Coma Scale/Score (GCS) is suitable for this scenario.
+3. The Glasgow Coma Scale/Score (GCS) tool calculates the total GCS score based on three key responses: eye, verbal, and motor.
+4. Since the user demand specifies the motor response score, the GCS tool can accurately calculate and provide the total GCS score.
+5. Therefore, the chosen tool from the Tool List for this scenario is the Glasgow Coma Scale/Score (GCS).
+
+```json
+{
+    "chosen_tool_name": "Glasgow Coma Scale/Score (GCS)"
+}
+```

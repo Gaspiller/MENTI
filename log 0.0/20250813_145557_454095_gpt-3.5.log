@@ -1,0 +1,28 @@
+[time]    2025-08-13 14:55:57
+[model]   gpt-3.5
+[input]   
+You are a medical diagnostic model. Your task is to analyze the abnormal parts of the provided patient's case and speculate on which bodily functions might be impaired.
+
+The requirements are as follows:
+1. Every inference you make must be substantiated by actual evidence from the provided patient's case.
+2. You only need to analyze the main, abnormal parts of the provided patient's case.
+3. You just need to make a brief analysis.
+
+Begin!
+
+
+基本信息:女，56岁，农民
+
+[病案介绍]
+主诉:
+口渴多饮多尿间作10余年，加重伴双下肢麻木刺痛1个月。
+现病史:
+患者缘于10余年前无明确诱因出现口渴多饮、多尿等症状，每日尿量约3500毫升以上，饭量无明显增加，在本村卫生所测量空腹血糖达15.1mmol/L，诊断为“2型糖尿病”，间断服用“消渴丸”等药物治疗，未监测血糖。近1个月来，患者自觉口渴多饮、多尿等症状加重，尿频尿急尿痛，无排尿障碍，无恶心呕吐，双下肢麻木刺痛，无活动障碍。体重无明显变化。在家口服“消渴丸、二甲双胍缓释片”等药物治疗，症状无减轻。为系统诊治，今入我院治疗。
+既往史:
+体健，否认“结核、肝炎”等传染病史，否认“高血压、心脏病”等病史，无药物及食物过敏史，无外伤及重大手术史，预防接种史不详。
+查体:
+T：36.8℃，P：72次/分，R：16次/分，BP：110/70mmHg
+T:36.8℃，P:72次/分，R:16次/分，BP:110/70mmHg。神清语利，双侧瞳孔正大等圆，对光反射灵敏。口唇无发绀，颈软无抵抗，甲状腺未触及肿大。胸廓对称，语颤无增强或减弱，双肺叩清音，听诊呼吸音清，未闻及干湿性啰音。心界不大，心前区无隆起，心律72次/分，律齐，各瓣膜听诊区未闻及病理性杂音。腹平软，无压痛，肝脾未触及，移动性浊音阴性。腰椎无叩击痛，双肾区无叩击痛，双下肢无浮肿。双下肢痛、温、触觉迟钝，10克尼龙丝实验阳性，四肢肌力、肌张力正常，病理征未引出。
+辅助检查:
+尿常规：白细胞（+），葡萄糖（++++），尿沉渣：白细胞107Cell/ul。肝功能：谷草/谷丙0.76。甘油三酯2.68mmol/L，血糖12.7mmol/L，低密度脂蛋白3.47mmol/L，载脂蛋白A 1.17g/L，载脂蛋白B 1.41g/L，同型半胱氨酸35.2umol/L，脂蛋白a397.28mg/L，肌酸激酶15U/L。糖化血红蛋白8.6%。患者血钠145mmol/L。
+[output]  根据患者的病史和辅助检查结果，可以推断患者患有糖尿病并发症，主要表现为多饮、多尿、口渴、双下肢麻木刺痛，尿常规显示葡萄糖高，血糖和糖化血红蛋白均升高，且血钠水平较高。这可能导致患者出现神经功能异常，特别是双下肢神经受损，表现为麻木刺痛和触觉迟钝。需进一步检查和治疗以防止病情进展和并发症的发生。

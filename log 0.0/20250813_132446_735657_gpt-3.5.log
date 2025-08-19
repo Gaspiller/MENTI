@@ -1,0 +1,40 @@
+[time]    2025-08-13 13:24:46
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估乙肝肝硬化失代偿期患者肝硬化的严重程度？
+
+Patient Case Analysis:
+
+Based on the provided patient's case, the main abnormalities include severe hepatitis, chronic hepatitis B, decompensated cirrhosis due to hepatitis B, acute peritonitis, chronic cholecystitis, and bilateral kidney stones. The patient presents with jaundice, abdominal distension, decreased urine output, fatigue, poor appetite, and lower limb edema. Additionally, the patient has elevated levels of serum bilirubin, liver enzymes, prolonged prothrombin time, and elevated white blood cell count, indicative of liver dysfunction and inflammation.
+
+Possible impaired bodily functions include liver function, coagulation function, immune response, and kidney function due to the presence of multiple complications related to hepatitis B and liver cirrhosis. The presence of ascites also indicates potential impairment in fluid balance and possibly renal function. Further monitoring and management of liver-related complications are crucial for the patient's overall health and well-being.
+
+[output]  ```json
+[
+    "Which scale is used to assess the severity of liver cirrhosis in patients with decompensated liver cirrhosis caused by hepatitis B?",
+    "What assessment tool is recommended for evaluating the severity of liver cirrhosis in patients with decompensated liver cirrhosis due to chronic hepatitis B?",
+    "Which scoring system is commonly employed to evaluate the extent of liver cirrhosis in patients experiencing decompensation due to hepatitis B infection?"
+]
+```

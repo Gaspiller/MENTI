@@ -1,0 +1,38 @@
+[time]    2025-08-13 13:38:03
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估本例患者药物性肝炎引起的肝纤维化程度？
+
+Patient Case Analysis:
+
+根据提供的病历信息，患者长期服用壮腰健肾丸导致药物性肝损伤。这表现为皮肤黄染、乏力、腹胀等症状，以及肝功能检查异常，包括高总胆红素、直接胆红素、间接胆红素、谷丙转氨酶和谷草转氨酶水平。这些指标的升高表明肝功能受损，可能影响肝脏的代谢和解毒功能。治疗方案中停用壮腰健肾丸，对症治疗也证实了药物性肝损伤的诊断。因此，患者的肝功能受损，可能导致代谢和解毒功能减弱。
+
+[output]  ```json
+[
+    "哪种评估工具可用于测定患者因药物性肝炎引起的肝脏纤维化情况？",
+    "请说明在本例中，该患者服用壮腰健肾丸导致的药物性肝炎如何影响肝脏功能？",
+    "除了壮腰健肾丸，还有哪些因素可能影响患者药物性肝炎引起的肝功能变化？"
+]
+```

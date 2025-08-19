@@ -1,0 +1,254 @@
+[time]    2025-08-13 14:37:32
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the PSI/PORT Score for Community-Acquired Pneumonia (CAP).
+
+    The PSI/PORT Score helps to risk stratify patients with community-acquired pneumonia in clinical or
+    emergency department settings. This score may underestimate severe pneumonia in younger, otherwise healthy patients.
+    It is important to consider other clinical factors such as sepsis, which may require additional testing
+    like lactate levels. Any patient over 50 years of age is automatically classified as risk class 2.
+
+    Parameters:
+    age (int): Patient's age in years.
+    sex (str): Patient's sex, either 'Female' or 'Male'.
+    nursing_home_resident (bool): True if the patient is a nursing home resident, False otherwise.
+    neoplastic_disease (bool): True if the patient has a history of neoplastic disease, False otherwise.
+    liver_disease (bool): True if the patient has a history of liver disease, False otherwise.
+    chf_history (bool): True if the patient has a history of congestive heart failure, False otherwise.
+    cerebrovascular_disease (bool): True if the patient has a history of cerebrovascular disease, False otherwise.
+    renal_disease (bool): True if the patient has a history of renal disease, False otherwise.
+    altered_mental_status (bool): True if the patient has altered mental status, False otherwise.
+    respiratory_rate (bool): True if respiratory rate is ≥30 breaths/min, False otherwise.
+    systolic_bp (bool): True if systolic blood pressure is <90 mmHg, False otherwise.
+    temperature (bool): True if temperature is <35°C or >39.9°C, False otherwise.
+    pulse (bool): True if pulse rate is ≥125 beats/min, False otherwise.
+    blood_ph (bool): True if blood pH is <7.35, False otherwise.
+    bun (bool): True if BUN is ≥30 mg/dL or ≥11 mmol/L, False otherwise.
+    sodium (bool): True if sodium level is <130 mmol/L, False otherwise.
+    glucose (bool): True if glucose level is ≥250 mg/dL or ≥14 mmol/L, False otherwise.
+    hematocrit (bool): True if hematocrit is <30%, False otherwise.
+    oxygen_pressure (bool): True if partial pressure of oxygen is <60 mmHg or <8 kPa, False otherwise.
+    pleural_effusion (bool): True if there is pleural effusion on x-ray, False otherwise.
+
+    Returns:
+    int: The total PSI/PORT Score indicating the severity of the pneumonia.}}
+Reference Text:
+{{基本信息:男，52岁，农民
+
+[病案介绍]
+主诉:
+咳嗽咳痰伴闷喘4天。
+现病史:
+患者4天前受凉劳累后后出现咳嗽、咳痰，咳嗽为阵发性，伴有咳痰，为粉红色泡沫样痰，伴有闷喘，夜间明显，难以平卧入睡，端坐呼吸，无畏寒发热，偶感胸痛，无盗汗乏力，无咽痛，无打喷嚏、流涕，无头痛、头晕，伴有纳差，无恶心、呕吐，无腹痛、腹泻，无尿频、尿急、尿痛。当时就诊于外院医院予以输液治疗（具体不详）症状未见明显改善，今就诊于我院急诊，查胸部CT提示：两肺感染灶，部分间质性改变（肺水肿可能），双侧胸腔积液，右肺下叶肺大泡，心影增大。心脏彩超示：左房扩大，左室舒张功能减低，室间隔中间段及左室前壁中间段心肌收缩增厚率减低，二尖瓣大量返流，三尖瓣返流（少-中量），二尖瓣前向流速增快，收缩期二尖瓣瓣尖脱入左房-小腱索断裂所致不排除，肺动脉收缩压增高（中度）。腹部彩超示：胆囊壁毛糙，右肾囊肿，前列腺增生伴钙化灶，双侧胸腔积液。为求进一步治疗，拟诊"社区获得性肺炎"收入我科。病程中神志清，精神一般。饮食差，睡眠差。大小便正常。近期体重有所减轻。
+既往史:
+一般健康状况一般；否认高血压病史。否认糖尿病病史。否认冠心病病史。否认慢性支气管炎病史。否认胆结石病史。否认胆囊炎病史。否认“肝炎、伤寒”等传染病病史。未发现药物、食物过敏史。无手术史。否认输血史。既往有心脏瓣膜病史多年，平素间断口服速效救心丸。。
+查体:
+T：36.8℃，P：90次/分，R：20次/分，BP：128/90mmHg
+T:36.8℃ ,P:90次/分,R:20次/分,BP:128/90/mmhg。神清，精神一般。浅表淋巴结未触及肿大。唇无发绀，咽无充血，扁桃体不大，伸舌居中。颈软，气管居中，甲状腺不大，颈静脉无怒张。胸廓无畸形，双侧呼吸运动、语颤减弱，双下肺叩诊浊音，双肺呼吸音减弱，两肺可闻及湿性啰音；心前区无隆起，未触及心包摩擦感，心律90次/分，律齐，可闻及杂音。腹平软，肝脾肋下未及，无压痛、反跳痛，无包块，无移动性浊音，肠鸣音正常。双下肢无浮肿。生理反射存在，病理征未引出
+辅助检查:
+2018-11-8 我院 胸部CT提示：两肺感染灶，部分间质性改变（肺水肿可能），双侧胸腔积液，右肺下叶肺大泡，心影增大。心脏彩超示：左房扩大，左室舒张功能减低，室间隔中间段及左室前壁中间段心肌收缩增厚率减低，二尖瓣大量返流，三尖瓣返流（少-中量），二尖瓣前向流速增快，收缩期二尖瓣瓣尖脱入左房-小腱索断裂所致不排除，肺动脉收缩压增高（中度）。腹部彩超示：胆囊壁毛糙，右肾囊肿，前列腺增生伴钙化灶，双侧胸腔积液。患者PH值：7.5。
+
+患者血尿素氮：16mg/dl。
+
+患者血钠：142mmol/L。
+
+患者血糖：4.8mmol/L。
+
+患者血细胞比容：42%。
+
+患者氧分压：91mmHg。}}
+Step By Step Analysis:
+
+[output]  1. Age:
+Based on the reference text, the patient is a 52-year-old male. Therefore, the age parameter can be determined as follows:
+{
+    "age": {"Value": 52, "Unit": "Years"}
+}
+
+2. Sex:
+The reference text states that the patient is a male. Therefore, the sex parameter can be identified as follows:
+{
+    "sex": {"Value": "Male", "Unit": "null"}
+}
+
+3. Nursing Home Resident:
+There is no mention in the reference text about the patient being a nursing home resident. As the default value is False, we can determine the parameter as follows:
+{
+    "nursing_home_resident": {"Value": False, "Unit": "null"}
+}
+
+4. Neoplastic Disease:
+There is no mention in the reference text about the patient having a history of neoplastic disease. As the default value is False, we can determine the parameter as follows:
+{
+    "neoplastic_disease": {"Value": False, "Unit": "null"}
+}
+
+5. Liver Disease:
+There is no mention in the reference text about the patient having a history of liver disease. As the default value is False, we can determine the parameter as follows:
+{
+    "liver_disease": {"Value": False, "Unit": "null"}
+}
+
+6. CHF History (Congestive Heart Failure):
+The reference text indicates that the patient has a history of heart valve disease, and the heart ultrasound shows some abnormalities. While not directly mentioned, this information suggests the possibility of congestive heart failure. Therefore, we can infer the parameter as follows:
+{
+    "chf_history": {"Value": True, "Unit": "null"}
+}
+
+7. Cerebrovascular Disease:
+There is no mention in the reference text about the patient having a history of cerebrovascular disease. As the default value is False, we can determine the parameter as follows:
+{
+    "cerebrovascular_disease": {"Value": False, "Unit": "null"}
+}
+
+8. Renal Disease:
+There is no mention in the reference text about the patient having a history of renal disease. As the default value is False, we can determine the parameter as follows:
+{
+    "renal_disease": {"Value": False, "Unit": "null"}
+}
+
+9. Altered Mental Status:
+The reference text does not provide any information about altered mental status. As the default value is False, we can determine the parameter as follows:
+{
+    "altered_mental_status": {"Value": False, "Unit": "null"}
+}
+
+10. Respiratory Rate:
+The respiratory rate of the patient is not explicitly mentioned in the reference text. As the default value is not provided, we randomly assign a value for this parameter:
+{
+    "respiratory_rate": {"Value": 20, "Unit": "Breaths/min"}
+}
+
+11. Systolic Blood Pressure:
+Based on the reference text, the patient's systolic blood pressure is 128 mmHg. Therefore, the parameter can be determined as follows:
+{
+    "systolic_bp": {"Value": 128, "Unit": "mmHg"}
+}
+
+12. Temperature:
+The patient's temperature is recorded as 36.8°C in the reference text. Therefore, the parameter can be determined as follows:
+{
+    "temperature": {"Value": 36.8, "Unit": "°C"}
+}
+
+13. Pulse Rate:
+The pulse rate of the patient is not explicitly mentioned in the reference text. As the default value is not provided, we randomly assign a value for this parameter:
+{
+    "pulse": {"Value": 90, "Unit": "Beats/min"}
+}
+
+14. Blood pH:
+The patient's blood pH value is mentioned as 7.5 in the reference text. Therefore, the parameter can be determined as follows:
+{
+    "blood_ph": {"Value": 7.5, "Unit": "null"}
+}
+
+15. BUN (Blood Urea Nitrogen):
+The patient's BUN level is reported as 16 mg/dl in the reference text. Therefore, the parameter can be determined as follows:
+{
+    "bun": {"Value": 16, "Unit": "mg/dL"}
+}
+
+16. Sodium Level:
+The patient's sodium level is mentioned as 142 mmol/L in the reference text. Therefore, the parameter can be determined as follows:
+{
+    "sodium": {"Value": 142, "Unit": "mmol/L"}
+}
+
+17. Glucose Level:
+The reference text indicates the patient's blood glucose level as 4.8 mmol/L. Therefore, the parameter can be determined as follows:
+{
+    "glucose": {"Value": 4.8, "Unit": "mmol/L"}
+}
+
+18. Hematocrit:
+The patient's hematocrit level is stated as 42% in the reference text. Therefore, the parameter can be determined as follows:
+{
+    "hematocrit": {"Value": 42, "Unit": "%"}
+}
+
+19. Oxygen Pressure:
+The partial pressure of oxygen in the patient's blood is mentioned as 91 mmHg in the reference text. Therefore, the parameter can be determined as follows:
+{
+    "oxygen_pressure": {"Value": 91, "Unit": "mmHg"}
+}
+
+20. Pleural Effusion:
+The reference text indicates that the patient has bilateral pleural effusion. Therefore, the parameter can be determined as follows:
+{
+    "pleural_effusion": {"Value": True, "Unit": "null"}
+}
+
+Parameters List:
+```json
+{
+    "age": {"Value": 52, "Unit": "Years"},
+    "sex": {"Value": "Male", "Unit": "null"},
+    "nursing_home_resident": {"Value": False, "Unit": "null"},
+    "neoplastic_disease": {"Value": False, "Unit": "null"},
+    "liver_disease": {"Value": False, "Unit": "null"},
+    "chf_history": {"Value": True, "Unit": "null"},
+    "cerebrovascular_disease": {"Value": False, "Unit": "null"},
+    "renal_disease": {"Value": False, "Unit": "null"},
+    "altered_mental_status": {"Value": False, "Unit": "null"},
+    "respiratory_rate": {"Value": 20, "Unit": "Breaths/min"},
+    "systolic_bp": {"Value": 128, "Unit": "mmHg"},
+    "temperature": {"Value": 36.8, "Unit": "°C"},
+    "pulse": {"Value": 90, "Unit": "Beats/min"},
+    "blood_ph": {"Value": 7.5, "Unit": "null"},
+    "bun": {"Value": 16, "Unit": "mg/dL"},
+    "sodium": {"Value": 142, "Unit": "mmol/L"},
+    "glucose": {"Value": 4.8, "Unit": "mmol/L"},
+    "hematocrit": {"Value": 42, "Unit": "%"},
+    "oxygen_pressure": {"Value": 91, "Unit": "mmHg"},
+    "pleural_effusion": {"Value": True, "Unit": "null"}
+}
+```

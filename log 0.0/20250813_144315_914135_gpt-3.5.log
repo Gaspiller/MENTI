@@ -1,0 +1,50 @@
+[time]    2025-08-13 14:43:15
+[model]   gpt-3.5
+[input]   
+You are a medical diagnostic model. Your task is to analyze the abnormal parts of the provided patient's case and speculate on which bodily functions might be impaired.
+
+The requirements are as follows:
+1. Every inference you make must be substantiated by actual evidence from the provided patient's case.
+2. You only need to analyze the main, abnormal parts of the provided patient's case.
+3. You just need to make a brief analysis.
+
+Begin!
+
+
+基本信息:女，79岁，无
+发病原因:病因不明
+临床诊断:右髌骨骨折；起搏器术后；高血压；慢性病毒性丙型肝炎
+治疗方案:行髌骨内固定术等对症治疗
+治疗结果:病情好转
+病案重点:右髌骨骨折；起搏器术后
+
+[病案介绍]
+主诉:
+摔伤致右膝关节疼痛、肿胀伴活动受限2小时
+现病史:
+患者2小时前因不慎摔伤致右膝关节剧痛，肿起，不能治疗及行走，无发热，无昏迷及恶心呕吐，无胸闷及呼吸困难。伤后未予特殊处理，速来我院就诊，我院急诊拍片示右侧髌骨骨折。门诊以此为诊断收住院。病程中，精神、饮食、睡眠欠佳，大小便正常
+既往史:
+平素身体素质差，有卖血史，有高血压，心脏病、糖尿病病史，因心衰心脏十年前放置起搏器
+查体:
+T：36.5℃，P：60次/分，R：15次/分，BP：117/85mmHg
+神志清楚，发育正常，营养中等，步入病房，自动体位，合作。全身皮肤粘膜红润，淋巴结无肿大；双瞳孔等大等圆，光反射灵敏，颈软，甲状腺无肿大；心肺无异常；腹平软，无压痛及反跳痛。 专科情况：脊柱生理弯曲存在，右膝关节肿胀，畸形，骨摩擦音，末梢感觉血供正常。生理性反射存在，病理反射未引出。
+辅助检查:
+查血示丙肝阳性 心电图示1.心室起搏心律 2.T波改变(I,aVL,V2,V3,V4,V5) 3.异常心电图 X线：慢性支气管炎，双肺未见明显活动性病变；心影稍大，心脏起搏器术后，请结合临床。 彩超：左房增大二尖瓣返流（轻度）左室舒张功能减低 双下肢深静脉可显示段血流通畅，双下肢动脉可显示段内中膜增厚伴斑块 右侧股浅静脉中段及小腿肌间静脉异常所见：血栓形成可能 双侧颈动脉内中膜增厚伴斑块患者无缺血性心脏病病史。
+
+患者无脑血管病史。
+
+患者有糖尿病，术前胰岛素治疗。
+
+患者术前肌酐值正常。
+[output]  Based on the provided patient's case, the main abnormal parts are:
+
+1. Right patellar fracture: The patient presented with pain, swelling, and limited mobility in the right knee joint following a fall, which was confirmed with imaging showing a right patellar fracture.
+
+2. Post-pacemaker surgery: The patient had a history of heart failure and had a pacemaker implanted ten years ago.
+
+Speculated impaired bodily functions:
+1. Mobility and physical function: The right patellar fracture may impair the patient's ability to walk and perform daily activities that require the use of the affected knee joint.
+2. Cardiac function: The patient's history of heart failure, post-pacemaker surgery, and abnormal cardiac findings on ECG and echocardiogram suggest impaired cardiac function that may affect overall cardiovascular health.
+3. Blood circulation: The presence of thrombus formation in the right superficial femoral vein and intermuscular veins of the calf suggests impaired blood circulation in the lower extremities, which could potentially lead to complications such as venous thrombosis.
+
+Further medical evaluation and management are necessary to address these issues and prevent potential complications.

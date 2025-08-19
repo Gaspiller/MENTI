@@ -1,0 +1,38 @@
+[time]    2025-08-13 13:33:26
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估患者的肺炎严重程度？
+
+Patient Case Analysis:
+
+根据病史和体格检查结果，患者主要表现为咳嗽、咳痰、气短半年余，胸部听诊可闻及散在哮鸣音，左下肺呼吸音弱，胸片显示左侧肺门处肿块。这些症状和表现可能提示患者患有支气管炎并可能伴有肺部肿块，需要进一步的检查和治疗以确定诊断和处理相应病变。可疑的诊断包括支气管炎并发肺部病变，但需要进一步检查以确诊和确定具体的治疗方案。
+
+[output]  ```json
+[
+    "哪一个评估工具可用于测量患者肺炎的严重程度？",
+    "针对患者症状和体征，哪种量表适用评估肺炎的严重程度？",
+    "患者可能患有支气管炎并伴有肺部病变，哪种评估工具适用于评估其肺炎的严重程度？"
+]
+```

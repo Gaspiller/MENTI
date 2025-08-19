@@ -1,0 +1,38 @@
+[time]    2025-08-13 14:06:15
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表可用于评估该患者10年内发作冠状动脉性心脏病的风险？
+
+Patient Case Analysis:
+
+根据患者病史和辅助检查结果显示，患者出现了冠状动脉性心脏病，三支病变，陈旧性心肌梗塞，不稳定型心绞痛等症状。这些症状表明患者的心血管系统存在明显的问题，可能导致心脏供血不足、心肌受损、以及可能的心肌缺血等情况。此外，患者有高血压、糖尿病等疾病史，说明患者可能存在代谢异常和血管功能紊乱等问题。治疗方案中提到了冠状动脉旁路移植手术，是针对患者心脏血管病变的治疗手段。因此，可以推断患者可能存在心血管系统功能受损，代谢紊乱等问题。
+
+[output]  ```json
+[
+    "What scale can be used to assess the risk of coronary artery disease in this patient who has suffered from coronary artery disease, triple vessel disease, old myocardial infarction, and unstable angina within the past 10 years?",
+    "Which assessment tool is suitable for evaluating the risk of coronary artery disease in a patient with a history of triple vessel disease, old myocardial infarction, and unstable angina over the past decade?",
+    "What scale is appropriate for determining the risk of coronary artery disease in a patient with cardiovascular problems such as triple vessel disease, old myocardial infarction, and unstable angina as well as a history of hypertension and diabetes?"
+]
+```

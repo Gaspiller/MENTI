@@ -1,0 +1,40 @@
+[time]    2025-08-13 14:01:25
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估HBV患者的肝脏纤维化程度？
+
+Patient Case Analysis:
+
+根据提供的患者病历信息，可以看出患者有腹痛的主诉，并且伴有肩背部胀痛不适，呈刀割样疼痛。辅助检查显示腹部CT口头报告考虑空腔脏器穿孔，腹部平片提示膈下游离气体，提示空腔脏器穿孔。同时，血液检查显示白细胞计数升高，中性细胞比率和数目增加，CRP升高。
+
+根据以上信息，可以初步推断患者可能存在腹腔内空腔脏器穿孔的情况，可能影响肝、肾功能，引起炎症反应和感染。进一步的治疗可能包括手术修复穿孔部位，抗炎、抗感染治疗以及重点监测肝、肾功能等。
+
+[output]  ```json
+[
+    "哪一个评估标准可用于诊断HBV患者腹痛伴随的背部不适？",
+    "HBV患者是否容易出现空腔脏器穿孔引起肝脏纤维化程度的变化？",
+    "哪些指标在HBV患者腹痛的辅助检查中可能显示肝功能的异常？"
+]
+```

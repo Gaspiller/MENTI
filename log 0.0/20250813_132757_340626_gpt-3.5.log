@@ -1,0 +1,116 @@
+[time]    2025-08-13 13:27:57
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the 2021 CKD-EPI (Chronic Kidney Disease Epidemiology Collaboration) GFR (Glomerular Filtration Rate)
+    without the race component. This function estimates kidney function using creatinine-based equations and is intended
+    for patients with chronic (not acute) kidney disease. This calculation is particularly used by nephrologists to 
+    assess kidney function non-invasively and is considered more accurate than the MDRD Equation, especially in patients
+    with normal or mildly reduced eGFR.
+
+    Parameters:
+    - serum_creatinine (float): The serum creatinine level of the patient in mg/dL.
+    - age (int): The age of the patient in years.
+    - gender (int): The gender of the patient. Use 0 for male and 1 for female.
+
+    Returns:
+    - float: The estimated GFR in ml/min/1.73m^2.
+
+    Usage:
+    To use this function, provide the serum creatinine level, age, and gender index (0 for male, 1 for female).
+    For example, calculate_ckd_epi_gfr(0.9, 30, 0) calculates the GFR for a 30-year-old male with a serum creatinine of 0.9 mg/dL.
+
+    Note:
+    - Not intended for use in patients on dialysis.
+    - Less accurate in patients with diabetes (before progression to overt nephropathy), pregnant women, and those with unusual body mass.
+}}
+Reference Text:
+{{基本信息:男，66岁，农民
+发病原因:黄曲霉菌感染
+临床诊断:1.泌尿系统感染；2.右肾结石；3.急性肾衰竭；4.2型糖尿病；5.重度贫血
+治疗方案:予静脉注射亚胺培南/西司他丁钠(1 g, q8h, 1～3 d),辅以床旁间断血液滤过等对症治疗
+治疗结果:病情好转
+病案重点:黄曲霉菌感染
+
+[病案介绍]
+主诉:
+发热伴少尿4天
+现病史:
+患者4 天前无明显诱因出现发热，最高体温38.5℃,伴少尿，尿量约300 mL/d, 为洗肉水样尿，伴右腰部胀痛，无尿急、尿痛，自服“新癀片”退热治疗，效果不佳，遂至我院就诊。
+既往史:
+既往糖尿病病史半年，未服用药物治疗，血糖未检测。
+查体:
+T：38.9℃，P：86次/分，R：20次/分，BP：123/52mmHg
+：神志清，精神反应可，能够配合。双肺呼吸音粗，无干湿性啰音，心浊音界正常，心率86次/分。心律齐，心音无杂音，各瓣膜听诊区未闻及病理性杂音，腹部无包块，右肾区叩击痛，左肾区正常，膀胱充盈，双下肢凹陷性水肿，其余均正常。
+辅助检查:
+泌尿系统超声显示右输尿管结石、右肾积水、右侧输尿管扩张，左侧未见异常。颅脑及胸腹盆CT:右肾饱满，轻度积水，余均未见异常。实验室检查：血常规+C反应蛋白(CRP)结果，白细胞计数41.32×109/L,中性粒细胞比率92.80%,血红蛋白70.00 g/L,血小板计数467.00×109/L,CRP 59.60 mg/L,降钙素原5.83 ng/mL。肾功能：尿素36.94 mmol/L,肌酐660.0 μmol/L。真菌G试验210.47 pg/mL,曲霉菌GM试验1.71 pg/mL。电解质：钾 5.5 mmol/L,氯 84 mmol/L,葡萄糖22.6 mmol/h, 糖化血红蛋白8.5%。尿常规：白细胞2 708/μL,细菌数90.7/μL,红细胞计数1 486/μL,酮体(-),亚硝酸盐(-)。}}
+Step By Step Analysis:
+
+[output]  1. Identifying the serum creatinine level:
+- The Reference Text does not explicitly mention the serum creatinine level. However, in the auxiliary examination section, "肌酐660.0 μmol/L" can be inferred to be the serum creatinine level. 
+- Therefore, the serum creatinine level is 660.0 μmol/L.
+
+2. Identifying the age of the patient:
+- The Reference Text states that the patient is 66 years old.
+- Therefore, the age of the patient is 66 years.
+
+3. Identifying the gender of the patient:
+- The Reference Text mentions that the patient is male.
+- According to the function docstring, 0 is used for male.
+- Therefore, the gender index is 0 (male).
+
+Parameters List:
+```json
+{
+    "serum_creatinine": {"Value": 660.0, "Unit": "μmol/L"},
+    "age": {"Value": 66, "Unit": "years"},
+    "gender": {"Value": 0, "Unit": "null"}
+}
+```

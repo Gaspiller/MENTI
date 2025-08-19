@@ -1,0 +1,142 @@
+[time]    2025-08-13 14:30:44
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the PHQ-9 (Patient Health Questionnaire-9) score.
+
+    The PHQ-9 is a clinical scale used to diagnose depression and to quantify and monitor the severity of depression symptoms.
+    It evaluates symptoms based on the 9 DSM criteria for major depressive disorder (MDD). Each criterion is scored from 0 to 3:
+    - "0" for 'Not at all'
+    - "1" for 'Several days'
+    - "2" for 'More than half the days'
+    - "3" for 'Nearly every day'
+    The function sums these scores to provide an overall severity score ranging from 0 to 27.
+
+    Parameters:
+    - interest_pleasure (int): Index from 0 to 3 indicating frequency of little interest or pleasure in doing things.
+    - feeling_down (int): Index from 0 to 3 indicating frequency of feeling down, depressed, or hopeless.
+    - sleep_issues (int): Index from 0 to 3 indicating trouble with falling or staying asleep, or sleeping too much.
+    - tired_energy (int): Index from 0 to 3 indicating feeling tired or having little energy.
+    - appetite_issues (int): Index from 0 to 3 indicating issues with poor appetite or overeating.
+    - self_feeling (int): Index from 0 to 3 indicating feelings of being bad about oneself, or feeling like a failure.
+    - concentration (int): Index from 0 to 3 indicating trouble concentrating on things.
+    - activity_level (int): Index from 0 to 3 indicating altered activity levels, either moving too slowly or being too fidgety.
+    - suicidal_thoughts (int): Index from 0 to 3 indicating frequency of thoughts of self-harm or being better off dead.
+
+    Returns:
+    - int: The total PHQ-9 score, which is the sum of all the individual scores for the symptoms listed above.
+}}
+Reference Text:
+{{基本信息:女，53岁，农民
+发病原因:病因不明
+临床诊断:不伴有精神病性症状的重度抑郁发作
+治疗方案:予舍曲林150mg/d改善抑郁、焦虑情绪，另予喹硫平50mg/d辅助抗抑郁治疗，同时辅以腹睡眠、辅助通便、中医理疗等对症治疗
+治疗结果:病情好转
+病案重点:不伴有精神病性症状的重度抑郁发作
+
+[病案介绍]
+主诉:
+渐起心情差、眠差5月，加重1周
+现病史:
+患者于6月10日家乡遭水灾，房子、稻谷等被冲走，渐起心情差，多虑，担心小孩读书没有学费、没有吃的等，经常唉声叹气；夜眠差，有时凌晨1点醒后再难入睡，凌晨五点便出去打工。1周前患者反复称没钱、赚多少钱也不够小孩的学费等，经常算账、称要赚多少钱才行，有时称将小孩叫回来一起自相残杀、一家十口人死了都不够，有时又对旁人说要帮忙救救大的小孩、送给对方做儿子；每天只睡两三个小时，白天显疲倦。2天前开始反复做摇头晃脑的动作，昨日下午突然四肢僵直、闭着眼睛、叫她也不理，家属欲带其至医院就诊，但患者拒诊治，称自己没病，花那么多钱还不如给小孩读书。家属带其至广东三九脑科医院就诊为“抑郁症”，予“丙戊酸镁缓释片+阿立哌唑口崩片+帕罗西汀片”等治疗，但患者拒服药，今家属要求住院治疗。急诊评估患者入院前有**观念，以“非自愿情形一”收入我科。患者起病以来，饮食、睡眠尚可，二便如常，体重未见明显改变。
+既往史:
+否认躯体疾病史,否认头颅外伤史,否认手术史,否认昏迷/抽搐史,否认性病史,否认传染病史,否认食物、药物过敏史,否认输血史,预防接种史规范。 个人史：胞7行5。 妊娠和出生情况：孕时母亲健康；孕期：足月；生产方式：顺产；出生时无窒息缺氧，Apgar评分不详。 童年发育:如同龄儿童，1+岁会说话，1+岁会走路，3+岁会控制大小便。家庭社会环境：无特殊。教育：学前教育：良；7岁入学；小学成绩：良；初中成绩：良；高中成绩：良。人际关系：朋友多，与朋友相处可。病前人格特征和应对风格：开朗、外向。 应激事件：洪水冲垮了房子。 家族史：父母两系三代中，否认有神经、精神疾病或者类似疾病的个体。
+查体:
+T：36.7℃，P：90次/分，R：19次/分，BP：140/86mmHg
+双肺呼吸音清，未闻及明显干湿性啰音。心律90次/分，律齐，各瓣膜区未及明显杂音。腹软，全腹无压痛、反跳痛，肠鸣音4次/分。 精神检查：意识清晰，年貌相符，接触被动部分合作，对答切题，定向力准。未引获感知觉障碍。思维连贯，敏感多疑，反复讲钱的问题，称最近说胡话、做那些动作是有人搞的、有信佛的人认为可能有鬼上她的身等；情绪显焦虑，有自责想法，称自己做了孽、小孩养那么大但没有钱给他们；智能记忆力粗测正常。无自知力，觉得自己没有问题，不需要住院治疗。
+辅助检查:
+2019-11-12广东三九脑科医院头颅MRI“1.双侧额叶少许变性灶；2.部分空泡蝶鞍；3.双侧上颌窦、筛窦及额窦炎症”。胸片示“主动脉结向左突出”。患者对自己的感觉不好。
+
+患者注意力正常。
+
+患者未想过死亡。}}
+Step By Step Analysis:
+
+[output]  1. interest_pleasure:
+Based on the symptoms described in the Reference Text, the patient shows signs of diminished interest or pleasure in doing things, as indicated by her decreased interest in activities she previously enjoyed. This can be scored as 2 ('More than half the days').
+
+2. feeling_down:
+The patient clearly exhibits symptoms of feeling down, depressed, or hopeless, as evidenced by her negative emotions, constant worrying, and expressions of sadness. This can be scored as 3 ('Nearly every day').
+
+3. sleep_issues:
+The patient experiences sleep disturbances, including difficulty falling asleep, early morning awakening, and insufficient sleep, which indicates significant sleep issues. This can be scored as 3 ('Nearly every day').
+
+4. tired_energy:
+There is a significant mention of fatigue and low energy levels in the patient, such as feeling tired all the time and only sleeping a few hours each day. This can be scored as 3 ('Nearly every day').
+
+5. appetite_issues:
+While there is no specific mention of appetite-related problems in the Reference Text, a lack of appetite or overeating is common in individuals with depression. Given the patient's overall condition, it can be inferred that she may be experiencing appetite disturbances. This can be scored as 2 ('More than half the days').
+
+6. self_feeling:
+The patient expresses feelings of low self-worth, self-blame, and suicidal ideation. These symptoms align with feelings of being bad about oneself or like a failure. This can be scored as 3 ('Nearly every day').
+
+7. concentration:
+The patient exhibits difficulties in concentration and focusing, as indicated by her inability to sleep due to constant worrying, calculating money, and expressing confusion. This can be scored as 3 ('Nearly every day').
+
+8. activity_level:
+Although there is no direct mention of altered activity levels in the Reference Text, the patient's restlessness, excessive movements, and repetitive actions can suggest changes in activity levels. Considering this, it can be scored as 2 ('More than half the days').
+
+9. suicidal_thoughts:
+The patient expresses explicit thoughts of self-harm, referencing self-harm and suicidal actions. This indicates a high frequency of suicidal thoughts. This can be scored as 3 ('Nearly every day').
+
+Parameters List:
+```json
+{
+    "interest_pleasure": {"Value": 2},
+    "feeling_down": {"Value": 3},
+    "sleep_issues": {"Value": 3},
+    "tired_energy": {"Value": 3},
+    "appetite_issues": {"Value": 2},
+    "self_feeling": {"Value": 3},
+    "concentration": {"Value": 3},
+    "activity_level": {"Value": 2},
+    "suicidal_thoughts": {"Value": 3}
+}
+```

@@ -1,0 +1,38 @@
+[time]    2025-08-13 14:07:19
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表被用于评估成人焦虑症状的严重程度？
+
+Patient Case Analysis:
+
+根据提供的病例信息，患者表现出精神病性症状的躁狂发作，包括兴奋话多、乱语、精力旺盛、思维联想增快、兴趣爱好增多、关系妄想等。这种情况可能涉及脑部神经递质的不正常释放和调节，导致情绪和认知功能失调，可能影响到患者的情绪稳定性和社交功能。治疗方案中使用的药物主要是为了快速控制病情、稳定情绪并控制精神症状。综合分析可以推测患者可能存在神经系统功能的异常，特别是与情绪调节和认知功能相关的部分。
+
+[output]  ```json
+[
+    "哪些症状可能表明成人精神病性发作？",
+    "神经递质不正常释放和调节可能是导致精神病性症状的原因之一吗？",
+    "治疗方案中使用的药物是否主要针对快速控制精神病性发作？"
+]
+```

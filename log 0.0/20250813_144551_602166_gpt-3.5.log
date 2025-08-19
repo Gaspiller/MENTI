@@ -1,0 +1,102 @@
+[time]    2025-08-13 14:45:51
+[model]   gpt-3.5
+[input]   
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+
+The requirements are as follows:
+1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
+2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
+3. If the parameter does not have a unit, output 'null' in the Unit.
+4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
+5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
+6. You need to first produce a step-by-step analysis, considering each parameter individually.
+7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+{The parameters list here.}
+```
+
+Here are some examples:
+Function Docstring: 
+{{"Calculate the Body Mass Index (BMI) for an individual.
+
+Args:
+weight (float): The weight of the individual in kilograms.
+height (float): The height of the individual in centimeters.
+
+Returns:
+float: the BMI (kg/m^2).
+
+Description:
+The Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify
+underweight, overweight, and obesity in adults. It is calculated by dividing the weight in
+kilograms by the square of the height in meters. Although widely used, BMI has limitations,
+particularly for very muscular individuals and in different ethnic groups with varying body
+statures, where it may not accurately reflect body fat percentages."}}
+Reference Text:
+{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Step By Step Analysis:
+{{Here is your step-by-step analysis.}}
+Parameters List:
+```json
+{
+    "weight": {"Value": 65, "Unit": "kg"},
+    "height": {"Value": 175, "Unit": "cm"}
+}
+```
+
+Begin!
+
+Function Docstring: 
+{{Calculate the Revised Cardiac Risk Index for Pre-Operative Risk.
+
+    This function calculates the Revised Cardiac Risk Index, which is used to assess the risk of major cardiac complications in patients undergoing elective or urgent/semi-urgent non-cardiac surgery. It is based on a set of specific risk factors and is valuable for risk stratification and aiding discussions about informed consent with patients.
+
+    Parameters:
+    elevated_risk_surgery (bool): True if the surgery is intraperitoneal, intrathoracic, or suprainguinal vascular.
+    history_of_ischemic_heart_disease (bool): True if there is a history of myocardial infarction, positive exercise test, current chest pain considered due to myocardial ischemia, or use of nitrate therapy or ECG showing pathological Q waves.
+    history_of_congestive_heart_failure (bool): True if there are signs such as pulmonary edema, bilateral rales or S3 gallop, paroxysmal nocturnal dyspnea, or chest X-ray showing pulmonary vascular redistribution.
+    history_of_cerebrovascular_disease (bool): True if there is a history of transient ischemic attack or stroke.
+    preop_treatment_with_insulin (bool): True if the patient is being treated with insulin pre-operatively.
+    preop_creatinine_above_threshold (bool): True if pre-operative creatinine levels are greater than 2 mg/dL or 176.8 µmol/L.
+
+    Returns:
+    int: The total Revised Cardiac Risk Index score, which is the sum of the individual risk factors present.
+
+    Usage:
+    The index is used primarily in the preoperative setting to assess cardiac risk. It assists healthcare providers in making informed decisions about further preoperative risk assessments and postoperative monitoring.
+ }}
+Reference Text:
+{{The preop_treatment_with_insulin parameter value is missing. It needs to be assigned a boolean value in accordance with the Function Docstring requirements.}}
+Step By Step Analysis:
+
+[output]  1. Elevated Risk Surgery:
+   Reference Text does not provide information about the type of surgery, so we cannot determine the value of this parameter. According to the Function Docstring, this parameter should be a boolean value based on whether the surgery is intraperitoneal, intrathoracic, or suprainguinal vascular.
+
+2. History of Ischemic Heart Disease:
+   Reference Text does not mention any history of myocardial infarction, positive exercise test, current chest pain considered due to myocardial ischemia, use of nitrate therapy, or ECG showing pathological Q waves. Therefore, we can assume this parameter to be False.
+
+3. History of Congestive Heart Failure:
+   Reference Text does not describe any signs of congestive heart failure, such as pulmonary edema, bilateral rales or S3 gallop, paroxysmal nocturnal dyspnea, or chest X-ray showing pulmonary vascular redistribution. Hence, we can assume this parameter to be False.
+
+4. History of Cerebrovascular Disease:
+   Reference Text does not mention any history of transient ischemic attack or stroke. Therefore, we can assume this parameter to be False.
+
+5. Preop Treatment with Insulin:
+   The Reference Text explicitly mentions that the parameter value is missing, so we should randomly assign a boolean value to this parameter based on the Function Docstring requirements.
+
+6. Preop Creatinine Above Threshold:
+   Reference Text does not provide information about the pre-operative creatinine levels. Therefore, we cannot determine the value of this parameter.
+
+Parameters List:
+```json
+{
+    "elevated_risk_surgery": {"Value": null, "Unit": null},
+    "history_of_ischemic_heart_disease": {"Value": false, "Unit": null},
+    "history_of_congestive_heart_failure": {"Value": false, "Unit": null},
+    "history_of_cerebrovascular_disease": {"Value": false, "Unit": null},
+    "preop_treatment_with_insulin": {"Value": true, "Unit": null},
+    "preop_creatinine_above_threshold": {"Value": null, "Unit": null}
+}
+```

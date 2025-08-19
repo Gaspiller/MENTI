@@ -1,0 +1,38 @@
+[time]    2025-08-13 13:35:22
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估支气管肺炎患者的严重程度？
+
+Patient Case Analysis:
+
+根据提供的病例信息，患儿主要症状为咳嗽、流涕、发热，合并支气管肺炎和腺病毒感染，以及胃肠功能紊乱。辅助检查显示白细胞总数正常，淋巴为主，C反应蛋白升高，支持感染，但降钙素原正常，肝功测定基本正常。根据症状和检查结果推测患儿可能出现呼吸道感染引起的支气管炎和肺炎，同时腺病毒感染可能加重了病情。胃肠功能紊乱可能是由于感染引起的全身症状影响了消化系统的正常功能。治疗方案中给予抗感染治疗和对症支持治疗，病情已经好转，对症治疗是有效的。
+
+[output]  ```json
+[
+    "哪一个评分系统被用于评估支气管肺炎患者的疗效？",
+    "支气管肺炎患者的严重程度可通过哪些检查指标来评估？",
+    "支气管肺炎患者的治疗方案中是否包括针对腺病毒感染的药物？"
+]
+```

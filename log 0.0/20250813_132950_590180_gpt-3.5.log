@@ -1,0 +1,187 @@
+[time]    2025-08-13 13:29:50
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{['Creatinine, 肌酐', 'Creatine Kinase, 肌酸激酶', 'Homocysteine (HCY), 同型半胱氨酸 (HCY)', 'Urea, 尿素', 'Retinol, 视黄醇', 'Uric Acid, 尿酸', 'Selenocysteine, 硒代半胱氨酸', 'Serine, 丝氨酸', 'Serotonin, 血清素', 'Hemoglobin (HGB), 血红蛋白 (HGB)']}}
+Detailed information of each tool: {{Creatinine, 肌酐: Convert the value of Creatinine from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Creatine Kinase, 肌酸激酶: Convert the value of Creatine Kinase from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['nkat/L', 'µkat/L', 'nmol/(s•L)', 'µmol/(s•L)', 'U/L', 'IU/L', 'µmol/(min•L)', 'µmol/(h•L)', 'µmol/(h•mL)']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Homocysteine (HCY), 同型半胱氨酸 (HCY): Convert the value of Homocysteine (HCY) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Urea, 尿素: Convert the value of Urea from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Retinol, 视黄醇: Convert the value of Retinol from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['µmol/L', 'µg/dL', 'µg/100mL', 'µg%', 'µg/L', 'ng/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Uric Acid, 尿酸: Convert the value of Uric Acid from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Selenocysteine, 硒代半胱氨酸: Convert the value of Selenocysteine from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Serine, 丝氨酸: Convert the value of Serine from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'ng/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Serotonin, 血清素: Convert the value of Serotonin from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['µmol/L', 'ng/mL', 'µg/L', 'µg/dL', 'µg/100mL', 'µg%']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Hemoglobin (HGB), 血红蛋白 (HGB): Convert the value of Hemoglobin (HGB) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['g/L', 'g/dL', 'g/100mL', 'g%', 'mg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{The serum_creatinine is 972.0 umol/L. It needs to be converted from umol/L to mg/dL.}}
+Task Scenario: {{}}
+Step By Step Analysis:
+
+[output]  1. The user demands to convert the serum creatinine value from 972.0 umol/L to mg/dL.
+2. The suitable tool from the Tool List for this conversion is "Creatinine, 肌酐".
+3. The tool "Creatinine, 肌酐" allows for the conversion of creatinine values between different units, including umol/L and mg/dL.
+4. Therefore, the chosen tool for this task is "Creatinine, 肌酐".
+
+```json
+{
+    "chosen_tool_name": "Creatinine, 肌酐"
+}
+```

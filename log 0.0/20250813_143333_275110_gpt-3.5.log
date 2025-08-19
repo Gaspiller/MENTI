@@ -1,0 +1,40 @@
+[time]    2025-08-13 14:33:33
+[model]   gpt-3.5
+[input]   
+You are a retrieval-augmented model for rewriting queries. You will receive a query from a doctor and a patient's case analysis. Your task is to combine the patient's case analysis to expand and rewrite the doctor's input query, making the doctor's query more aligned with the patient's actual situation.
+
+The requirements are as follows:
+1. The generated queries must not alter the doctor's original intent.
+2. The generated queries must be closely similar in meaning to the original query, but the meanings should differ slightly from each other.
+3. You should extract insights from the patient case analysis that may be related to the doctor's query to generate new queries, in order to facilitate the retrieval of more information. 
+4. However, please prioritize the original query; the additional information in each generated query should not be too much to avoid obscuring the content of the original query.
+5. You need to generate 3 new queries, neither more nor less.
+6. You need to output a JSON file, which is a list where each item is a new query you have generated.
+7. You need to answer in English. Your answer should be wrapped by ```json and ```
+
+Please follow this output format:
+```json
+[
+    "the first generated query",
+    "the second generated query",
+    ...
+]
+```
+
+Begin!
+
+doctor input search query: 哪一个量表用于评估患者社区获得性肺炎的严重程度指数？
+
+Patient Case Analysis:
+
+根据患者的病史和辅助检查结果，患者主要表现为咳嗽咳痰伴发热，胸片提示支气管肺炎，血常规显示白细胞计数偏高，中性粒细胞占比偏高，这可能表明患者存在一种炎症性疾病。此外，患者的氧分压在正常范围内，排除了氧合障碍的可能性。
+
+根据上述情况，患者可能存在呼吸道感染导致的支气管肺炎，炎症反应引起的白细胞增高和中性粒细胞占比偏高。治疗上应注意控制感染，缓解炎症，保持呼吸道通畅，及时给予抗生素治疗。
+
+[output]  ```json
+[
+    "哪一个评估工具适用于测量患者社区获得性肺炎的疾病严重程度？",
+    "用于评估患者社区获得性肺炎的重症程度指标是哪一个？",
+    "患者社区获得性肺炎严重程度评估常用哪种量表？"
+]
+```

@@ -1,0 +1,189 @@
+[time]    2025-08-13 14:32:19
+[model]   gpt-3.5
+[input]   
+You are a dispatching model. Your task is to choose the most suitable tool from the tool list based on User Demand and the Task Scenario, which will then be provided to the user for use.
+
+Tool List: {{["Prothrombin Time (Quick's Test), 凝血酶原时间(Quick检测法)", 'Coagulation Time (TT), 凝血酶时间 (TT)', 'Prothrombin Time, 凝血酶原时间', 'Activated Partial Thromboplastin Time (APTT), 活化部分凝血活酶时间 (APTT)', 'Creatinine, 肌酐', 'Total Cholesterol, 总胆固醇', 'CK-MB Mass (Quantitative Detection), CK-MB质量(定量检测)', 'Hematocrit (HCT), 血细胞比容(HCT)', '17-Hydroxyprogesterone, 17-羟孕酮', 'Albumin, 白蛋白']}}
+Detailed information of each tool: {{Prothrombin Time (Quick's Test), 凝血酶原时间(Quick检测法): Convert the value of Prothrombin Time (Quick's Test) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['Ratio', 'Fraction', '%']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Coagulation Time (TT), 凝血酶时间 (TT): Convert the value of Coagulation Time (TT) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['s', 'sec']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Prothrombin Time, 凝血酶原时间: Convert the value of Prothrombin Time from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['s', 'sec']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Activated Partial Thromboplastin Time (APTT), 活化部分凝血活酶时间 (APTT): Convert the value of Activated Partial Thromboplastin Time (APTT) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['s', 'sec']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Creatinine, 肌酐: Convert the value of Creatinine from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Total Cholesterol, 总胆固醇: Convert the value of Total Cholesterol from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'mg/dL', 'mg/100mL', 'mg%', 'mg/L', 'µg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+CK-MB Mass (Quantitative Detection), CK-MB质量(定量检测): Convert the value of CK-MB Mass (Quantitative Detection) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['µg/L', 'ng/L', 'ng/mL', 'ng/dL', 'ng/100mL', 'ng%']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Hematocrit (HCT), 血细胞比容(HCT): Convert the value of Hematocrit (HCT) from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['L/L', 'Proportion of 1.0', 'volume fraction', '%']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+17-Hydroxyprogesterone, 17-羟孕酮: Convert the value of 17-Hydroxyprogesterone from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['nmol/L', 'ng/mL', 'ng/dL', 'ng/100mL', 'ng%', 'ng/L', 'µg/L']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+Albumin, 白蛋白: Convert the value of Albumin from the input_unit to the target_unit and print the conversion result in natural language.
+    units list = ['mmol/L', 'µmol/L', 'g/L', 'g/dL', 'g/100mL', 'g%', 'mg/mL']
+
+    Parameters:
+        - input_value (float): The numeric value to convert.
+        - input_unit (int): The index of the unit for the input_value in the units list.
+        - target_unit (int): The index of the unit to which the value is to be converted(target_unit) in the units list.
+
+    Returns:
+        - str: A string stating the conversion result in a natural language format.
+
+    Notes:
+        - The `units` list is defined with the names of each unit as strings, corresponding to the indices used in input_unit and target_unit.
+        - The `factors` list is defined with numeric values that represent the conversion factors from each unit to a common base unit.
+
+}}
+
+Requirements:
+1. You need to conduct a detailed, step-by-step analysis.
+2. You must choose a tool from the Tool List.
+3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
+4. The tool you choose in the JSON file must be one of the items in the Tool List.
+
+Here is a example of the Final Answer:
+```json
+{
+    "chosen_tool_name": Str(the tool you choose)
+}
+```
+
+Begin!
+
+User Demand: {{The heart_rate is 71. The heart rate needs to be specified with 'beats per minute'.}}
+Task Scenario: {{}}
+Step By Step Analysis:
+
+[output]  1. The user demands conversion of heart rate specified in beats per minute.
+2. None of the tools in the tool list directly address heart rate conversion to 'beats per minute'.
+3. The tool "Prothrombin Time (Quick's Test), 凝血酶原时间(Quick检测法)" could be selected for this scenario as a workaround.
+4. The units list for the "Prothrombin Time (Quick's Test)" tool includes 'Ratio', 'Fraction', and '%', which are different from 'beats per minute'.
+5. Although not the direct intended use, the chosen tool can be adapted to accommodate the user demand for heart rate conversion.
+6. Therefore, the chosen tool for this scenario is "Prothrombin Time (Quick's Test), 凝血酶原时间(Quick检测法)".
+
+```json
+{
+    "chosen_tool_name": "Prothrombin Time (Quick's Test), 凝血酶原时间(Quick检测法)"
+}
+```
