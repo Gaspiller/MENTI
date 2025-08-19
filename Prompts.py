@@ -3,35 +3,24 @@ class Prompts:
     def __init__(self) -> None:
         
         self.configuration_extract_prompt = '''
-You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to determine the parameters from the Reference Text based on the parameter filling rules described in the Function Docstring, including the values and units of the parameters.
+You are a parameter extraction model. You will receive a Reference Text and a Function Docstring. Your task is to extract parameters strictly from the Reference Text based on the Function Docstring, returning both Value and Unit.
 
-The requirements are as follows:
-1. The Value and Unit of parameters you output need to be strictly in accordance with the Reference Text. You are prohibited from performing unit conversions.
-2. If there is a discrepancy in the unit of the parameter between the Reference Text and the Function Docstring, please use the unit from the Reference Text as the standard. Do not convert the units on your own.
-3. If the parameter does not have a unit, output 'null' in the Unit.
-4. All parameters in the Function Docstring must be included in the parameter list. If the parameter values are missing, fill them randomly. The Value must not be 'null'.
-5. For parameters that do not have a clear ratxing in the Reference Text, please infer and fill them out based on the actual circumstances described in the reference text and the scoring standards provided in the Function Docstring.
-6. You need to first produce a step-by-step analysis, considering each parameter individually.
-7. The Parameters List you output is a JSON file, and this JSON file should be wrapped by ```json and ```
+Strict rules:
+1) Do NOT invent or guess any values. If a parameter's value is not explicitly present, set Value to null (JSON null, not the string "null").
+2) Copy units exactly as they appear in the Reference Text. Do NOT convert units. If a unit is not present, set Unit to null.
+3) Output ALL parameters listed in the Function Docstring as keys in the result JSON, even if their Value is null.
+4) If multiple candidate values appear, prefer the most relevant to the current case (e.g., the most recent or clearly tied to ICU admission). If still ambiguous, choose the worst value if the docstring explicitly requires the worst within a time window; otherwise choose the most recent.
+5) For categorical/boolean parameters, only use values explicitly supported by the docstring and grounded in the Reference Text. If unclear, use null.
+6) The Value must be one of: number, integer, or null. Never return the string "null". The Unit must be a string or null.
+7) First provide a short step-by-step analysis per parameter indicating whether and where it was found. Then output the final Parameters List as a JSON object wrapped by ```json and ```.
 
-Please follow this output format:
-```json
-{The parameters list here.}
-```
-
-Here are some examples:
-Function Docstring: 
-{{"Calculate the Body Mass Index (BMI) for an individual.\n\nArgs:\nweight (float): The weight of the individual in kilograms.\nheight (float): The height of the individual in centimeters.\n\nReturns:\nfloat: the BMI (kg/m^2).\n\nDescription:\nThe Body Mass Index (BMI) is a simple index of weight-for-height commonly used to classify\nunderweight, overweight, and obesity in adults. It is calculated by dividing the weight in\nkilograms by the square of the height in meters. Although widely used, BMI has limitations,\nparticularly for very muscular individuals and in different ethnic groups with varying body\nstatures, where it may not accurately reflect body fat percentages."}}
-Reference Text:
-{{The patient is a 16-year-old male, 175cm in height and 65kg in weight}}
+Output format:
 Step By Step Analysis:
-{{Here is your step-by-step analysis.}}
+{{Your analysis here}}
+
 Parameters List:
 ```json
-{
-    "weight": {"Value": 65, "Unit": "kg"},
-    "height": {"Value": 175, "Unit": "cm"}
-}
+{ ... parameters as {"param": {"Value": <number or null>, "Unit": <string or null>}, ...} }
 ```
 
 Begin!
@@ -206,8 +195,19 @@ You are a dispatching model. Your task is to choose the most suitable tool from 
 Tool List: {{INSERT_TOOLLIST_HERE}}
 Detailed information of each tool: {{INSERT_TOOLINST_HERE}}
 
+Alignment rules (to avoid off-topic selections):
+1) Strictly align with the core medical intent in the User Demand. If the demand names a disease+"severity" (e.g., pneumonia severity), prefer calculators explicitly designed for that task.
+2) If the demand text includes domain keywords, prioritize tools whose names/descriptions directly match those keywords.
+3) If the Task Scenario or case text contains a known calculator name (e.g., CURB-65, APACHE II, Child-Pugh), treat it as a strong prior unless contradicted by User Demand.
+
+Domain mapping hints (not exhaustive; use when relevant):
+- Pneumonia severity → CURB-65 Score, PSI/PORT Score
+- ICU severity/mortality → APACHE II Score, SOFA Score
+- Liver cirrhosis severity → Child-Pugh Score
+- Obstructive sleep apnea screening → STOP-BANG
+
 Requirements:
-1. You need to conduct a detailed, step-by-step analysis.
+1. You need to conduct a detailed, step-by-step analysis that shows why your choice matches the core keywords in the User Demand.
 2. You must choose a tool from the Tool List.
 3. The Final Answer is a JSON file, and the JSON file must be wrapped by ```json and ```
 4. The tool you choose in the JSON file must be one of the items in the Tool List.
@@ -238,6 +238,15 @@ The requirements are as follows:
 6. You need to output a JSON file, which is a list where each item is a new query you have generated.
 7. You need to answer in English. Your answer should be wrapped by ```json and ```
 
+Core-keyword preservation (to avoid off-topic rewrites):
+- Each rewritten query MUST contain the core medical intent keywords from the input query verbatim (e.g., "pneumonia severity", "ICU mortality severity", "liver cirrhosis severity").
+- When applicable, append 1–2 domain synonyms to improve recall. Examples:
+  * pneumonia severity → CURB-65, PSI/PORT, "Pneumonia Severity Index"
+  * ICU severity/mortality → APACHE II, SOFA
+  * cirrhosis severity → Child-Pugh
+  * sleep apnea screening → STOP-BANG
+- Do NOT replace or drop the original core keywords; only add minimal, relevant synonyms.
+
 Please follow this output format:
 ```json
 [
@@ -265,6 +274,11 @@ The requirements are as follows:
 3. You need to generate 3 new queries, neither more nor less.
 4. You need to output a JSON file, which is a list where each item is a new query you have generated.
 5. Your answer should be wrapped by ```json and ```
+
+Core-keyword preservation (to avoid off-topic rewrites):
+- Each rewritten query MUST include the original core keywords verbatim.
+- When helpful, add 1–2 domain synonyms (e.g., CURB-65, PSI/PORT for "pneumonia severity"; APACHE II/SOFA for "ICU severity"; Child-Pugh for "cirrhosis severity").
+- Keep additions minimal; never remove or paraphrase away the core intent.
 
 Please follow this output format:
 ```json

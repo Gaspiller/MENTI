@@ -10,6 +10,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from Models import LLMs, Embeddings
 from Prompts import Prompts
 from Config import args
+from ToolEmbeddingCache import ToolEmbeddingCache
 
 
 logger = logging.getLogger(__name__)
@@ -25,6 +26,7 @@ class MetaTool:
         self.llm_model = LLMs(args.llm_model)
         self.embedding_model = Embeddings(args.embedding_model).embedding_model
         self.prompts = Prompts()
+        self.tool_cache = ToolEmbeddingCache(self.embedding_model, cache_dir=getattr(args, 'embed_cache_dir', './cache'))
 
 
     def execute(self) -> tuple[str, int, str]:
@@ -155,18 +157,16 @@ class MetaTool:
             start = time.time()
 
         rank_query_list = []
+        embeds = self.tool_cache.get_embeddings(self.toolkit, self.tool_list)
+        emb_v1, emb_v2, emb_v3 = embeds["v1"], embeds["v2"], embeds["v3"]
+
         for demand in self.query_rewrited:
             embed_demand = self.embedding_model.encode(demand)
 
             rank_key_list = []
-            embed_list_1 = self.embedding_model.encode([f'''{tool["function_name"]}\n\n{tool["tool_name"]}''' for tool in self.tool_list])
-            rank_key_list.append(self.ranking(embed_demand, embed_list_1))
-
-            embed_list_2 = self.embedding_model.encode([f'''{tool["function_name"]}\n\n{tool["tool_name"]}\n\n{tool["docstring"]}''' for tool in self.tool_list])
-            rank_key_list.append(self.ranking(embed_demand, embed_list_2))
-
-            embed_list_3 = self.embedding_model.encode([f'''{tool["function_name"]}\n\n{tool["tool_name"]}\n\n{tool["description"]}''' for tool in self.tool_list])
-            rank_key_list.append(self.ranking(embed_demand, embed_list_3))
+            rank_key_list.append(self.ranking(embed_demand, emb_v1))
+            rank_key_list.append(self.ranking(embed_demand, emb_v2))
+            rank_key_list.append(self.ranking(embed_demand, emb_v3))
 
             rank = self.rerank_rrf(rank_key_list)
             rank_query_list.append(rank)
@@ -187,18 +187,13 @@ class MetaTool:
     def retrieve_multi_demand(self, demand: str) -> list[int]:
         embed_demand = self.embedding_model.encode(demand)
 
-        key_list_1 = [f'''{tool["function_name"]}\n\n{tool["tool_name"]}''' for tool in self.tool_list]
-        key_list_2 = [f'''{tool["function_name"]}\n\n{tool["tool_name"]}\n\n{tool["docstring"]}''' for tool in self.tool_list] # 等有了docstring用docstring
-        key_list_3 = [f'''{tool["function_name"]}\n\n{tool["tool_name"]}\n\n{tool["description"]}''' for tool in self.tool_list]
+        embeds = self.tool_cache.get_embeddings(self.toolkit, self.tool_list)
+        emb_v1, emb_v2, emb_v3 = embeds["v1"], embeds["v2"], embeds["v3"]
 
         rank_key_list = []
-        with ThreadPoolExecutor(max_workers=args.parallel_num_key) as thread_pool_key:
-            f1 = thread_pool_key.submit(self.retrieve_multi_key, embed_demand, key_list_1)
-            f2 = thread_pool_key.submit(self.retrieve_multi_key, embed_demand, key_list_2)
-            f3 = thread_pool_key.submit(self.retrieve_multi_key, embed_demand, key_list_3)
-            rank_key_list.append(f1.result())
-            rank_key_list.append(f2.result())
-            rank_key_list.append(f3.result())
+        rank_key_list.append(self.ranking(embed_demand, emb_v1))
+        rank_key_list.append(self.ranking(embed_demand, emb_v2))
+        rank_key_list.append(self.ranking(embed_demand, emb_v3))
 
         rank = self.rerank_rrf(rank_key_list)
 
