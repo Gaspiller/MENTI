@@ -1,0 +1,169 @@
+2025-08-17 12:53:42,853 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-17 12:53:43,129 - INFO - Use pytorch device_name: cuda
+2025-08-17 12:53:43,129 - INFO - Load pretrained SentenceTransformer: /app/m3e-base
+2025-08-17 12:53:45,203 - INFO - ====================Now in Classify====================
+2025-08-17 12:53:45,806 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-17 12:53:45,808 - INFO - {
+    "chosen_toolkit_name": "scale"
+}
+2025-08-17 12:53:45,808 - INFO - ====================Now in Rewrite====================
+2025-08-17 12:53:46,764 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-17 12:53:46,776 - INFO - [
+    "Which scale is used to assess the severity of a patient's generalized anxiety disorder?",
+    "What scoring system is utilized to evaluate the seriousness of a patient's widespread anxiety symptoms?",
+    "Which assessment tool is employed to measure the severity of a patient's generalized anxiety disorder?"
+]
+2025-08-17 12:53:46,780 - INFO - ====================Now in Retrieve====================
+2025-08-17 12:53:52,172 - INFO - Retrieve cost time: 5.391516208648682
+2025-08-17 12:53:52,172 - INFO - [10, 29, 7, 38, 34, 4, 2, 1, 22, 14, 17, 11, 44, 28, 32, 30, 12, 16, 27, 33, 35, 21, 31, 24, 9, 23, 41, 20, 25, 42, 15, 43, 5, 13, 3, 37, 6, 39, 26, 36, 40, 18, 8, 19]
+2025-08-17 12:53:52,173 - INFO - [7, 6, 34, 5, 32, 36, 2, 42, 24, 0, 11, 16, 33, 9, 30, 17, 10, 41, 43, 27, 21, 8, 25, 23, 28, 38, 18, 13, 1, 15, 22, 14, 19, 4, 20, 39, 35, 3, 37, 40, 26, 29, 31, 12]
+2025-08-17 12:53:52,173 - INFO - ====================Now in Dispatch====================
+2025-08-17 12:53:52,177 - INFO - GAD-7 (General Anxiety Disorder-7)
+2025-08-17 12:53:52,177 - INFO - PHQ-9 (Patient Health Questionnaire-9)
+2025-08-17 12:53:52,177 - INFO - Sequential Organ Failure Assessment (SOFA) Score
+2025-08-17 12:53:52,177 - INFO - Anion Gap
+2025-08-17 12:53:52,177 - INFO - Glasgow Coma Scale/Score (GCS)
+2025-08-17 12:53:52,177 - INFO - NIH Stroke Scale/Score (NIHSS)
+2025-08-17 12:53:52,178 - INFO - Centor Score (Modified/McIsaac) for Strep Pharyngitis
+2025-08-17 12:53:52,178 - INFO - HAS-BLED Score for Major Bleeding Risk
+2025-08-17 12:53:52,178 - INFO - STOP-BANG Score for Obstructive Sleep Apnea
+2025-08-17 12:53:52,178 - INFO - ARISCAT Score for Postoperative Pulmonary Complications
+2025-08-17 12:53:54,473 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-17 12:53:54,479 - INFO - 1. The User Demand explicitly asks for a tool used to assess the severity of generalized anxiety disorder symptoms in patients.
+2. The Task Scenario describes a patient case related to the diagnosis of heart neurosis, which involves symptoms like palpitations, shortness of breath, dizziness, and emotional symptoms such as trouble relaxing, restlessness, and fear of awful events.
+3. Considering the emotional and psychological symptoms described in the patient case, along with the need to assess the severity of anxiety symptoms, the most suitable tool from the Tool List is the "GAD-7 (General Anxiety Disorder-7)" calculator.
+4. The GAD-7 calculator is specifically designed to evaluate the severity of various signs of anxiety, including symptoms like trouble relaxing, restlessness, and feeling nervous or on edge, which align well with the emotional symptoms of the patient in the scenario.
+5. Therefore, the choice based on the core keywords in the User Demand and the patient case is the "GAD-7 (General Anxiety Disorder-7)" calculator.
+
+```json
+{
+    "chosen_tool_name": "GAD-7 (General Anxiety Disorder-7)"
+}
+```
+2025-08-17 12:53:54,479 - INFO - gad-7 (general anxiety disorder-7)
+2025-08-17 12:53:54,479 - INFO - 7
+2025-08-17 12:53:54,490 - INFO - ====================Now in Extract====================
+2025-08-17 12:53:54,490 - INFO - ====================Now in Reflect====================
+2025-08-17 12:54:06,316 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-17 12:54:06,323 - INFO - {{"Calculate the GAD-7 (General Anxiety Disorder-7) score. This function computes the total score 
+    based on seven items that assess the severity of various signs of anxiety according to their 
+    frequency over the past two weeks. Each item is scored from 0 to 3 (0 = Not at all, 1 = Several days,
+    2 = More than half the days, 3 = Nearly every day).
+
+    This scale is a quick screening tool for detecting the presence of clinically significant anxiety disorders 
+    including Generalized Anxiety Disorder, Panic Disorder, Social Phobia, and Post-Traumatic Stress Disorder.
+    It is highly sensitive and specific across various cutoffs, used extensively in primary care and mental health settings 
+    to assess and monitor treatment responses.
+
+    Parameters:
+    - nervous (int): Score for feeling nervous, anxious, or on edge.
+"}}
+Parameter List: {"nervous": {"Value": 1, "Unit": null}}
+Result: calculate
+
+{{"Calculate the GAD-7 (General Anxiety Disorder-7) score. This function computes the total score 
+    based on seven items that assess the severity of various signs of anxiety according to their 
+    frequency over the past two weeks. Each item is scored from 0 to 3 (0 = Not at all, 1 = Several days,
+    2 = More than half the days, 3 = Nearly every day).
+
+    This scale is a quick screening tool for detecting the presence of clinically significant anxiety disorders 
+    including Generalized Anxiety Disorder, Panic Disorder, Social Phobia, and Post-Traumatic Stress Disorder.
+    It is highly sensitive and specific across various cutoffs, used extensively in primary care and mental health settings 
+    to assess and monitor treatment responses.
+
+    Parameters:
+    - control_worrying (int): Score for not being able to stop or control worrying.
+}}
+Parameter List: {"control_worrying": {"Value": 0, "Unit": null}}
+Result: calculate
+
+{{"Calculate the GAD-7 (General Anxiety Disorder-7) score. This function computes the total score 
+    based on seven items that assess the severity of various signs of anxiety according to their 
+    frequency over the past two weeks. Each item is scored from 0 to 3 (0 = Not at all, 1 = Several days,
+    2 = More than half the days, 3 = Nearly every day).
+
+    This scale is a quick screening tool for detecting the presence of clinically significant anxiety disorders 
+    including Generalized Anxiety Disorder, Panic Disorder, Social Phobia, and Post-Traumatic Stress Disorder.
+    It is highly sensitive and specific across various cutoffs, used extensively in primary care and mental health settings 
+    to assess and monitor treatment responses.
+
+    Parameters:
+    - worry_too_much (int): Score for worrying too much about different things.
+}}
+Parameter List: {"worry_too_much": {"Value": 1, "Unit": null}}
+Result: calculate
+
+{{"Calculate the GAD-7 (General Anxiety Disorder-7) score. This function computes the total score 
+    based on seven items that assess the severity of various signs of anxiety according to their 
+    frequency over the past two weeks. Each item is scored from 0 to 3 (0 = Not at all, 1 = Several days,
+    2 = More than half the days, 3 = Nearly every day).
+
+    This scale is a quick screening tool for detecting the presence of clinically significant anxiety disorders 
+    including Generalized Anxiety Disorder, Panic Disorder, Social Phobia, and Post-Traumatic Stress Disorder.
+    It is highly sensitive and specific across various cutoffs, used extensively in primary care and mental health settings 
+    to assess and monitor treatment responses.
+
+    Parameters:
+    - trouble_relaxing (int): Score for having trouble relaxing.
+}}
+Parameter List: {"trouble_relaxing": {"Value": 3, "Unit": null}}
+Result: calculate
+
+{{"Calculate the GAD-7 (General Anxiety Disorder-7) score. This function computes the total score 
+    based on seven items that assess the severity of various signs of anxiety according to their 
+    frequency over the past two weeks. Each item is scored from 0 to 3 (0 = Not at all, 1 = Several days,
+    2 = More than half the days, 3 = Nearly every day).
+
+    This scale is a quick screening tool for detecting the presence of clinically significant anxiety disorders 
+    including Generalized Anxiety Disorder, Panic Disorder, Social Phobia, and Post-Traumatic Stress Disorder.
+    It is highly sensitive and specific across various cutoffs, used extensively in primary care and mental health settings 
+    to assess and monitor treatment responses.
+
+    Parameters:
+    - restlessness (int): Score for being so restless that it is hard to sit still.
+}}
+Parameter List: {"restlessness": {"Value": 1, "Unit": null}}
+Result: calculate
+
+{{"Calculate the GAD-7 (General Anxiety Disorder-7) score. This function computes the total score 
+    based on seven items that assess the severity of various signs of anxiety according to their 
+    frequency over the past two weeks. Each item is scored from 0 to 3 (0 = Not at all, 1 = Several days,
+    2 = More than half the days, 3 = Nearly every day).
+
+    This scale is a quick screening tool for detecting the presence of clinically significant anxiety disorders 
+    including Generalized Anxiety Disorder, Panic Disorder, Social Phobia, and Post-Traumatic Stress Disorder.
+    It is highly sensitive and specific across various cutoffs, used extensively in primary care and mental health settings 
+    to assess and monitor treatment responses.
+
+    Parameters:
+    - irritability (int): Score for becoming easily annoyed or irritable.
+}}
+Parameter List: {"irritability": {"Value": 0, "Unit": null}}
+Result: calculate
+
+{{"Calculate the GAD-7 (General Anxiety Disorder-7) score. This function computes the total score 
+    based on seven items that assess the severity of various signs of anxiety according to their 
+    frequency over the past two weeks. Each item is scored from 0 to 3 (0 = Not at all, 1 = Several days,
+    2 = More than half the days, 3 = Nearly every day).
+
+    This scale is a quick screening tool for detecting the presence of clinically significant anxiety disorders 
+    including Generalized Anxiety Disorder, Panic Disorder, Social Phobia, and Post-Traumatic Stress Disorder.
+    It is highly sensitive and specific across various cutoffs, used extensively in primary care and mental health settings 
+    to assess and monitor treatment responses.
+
+    Parameters:
+    - fear_of_awful_events (int): Score for feeling afraid as if something awful might happen.
+}}
+Parameter List: {"fear_of_awful_events": {"Value": 1, "Unit": null}}
+Result: calculate
+
+Final Answer:
+```json
+{
+    "chosen_decision_name": "calculate",
+    "supplementary_information": "All parameters comply with the Function Docstring requirements. No unit conversion is needed as the parameters use indices to specify units."
+}
+```
+2025-08-17 12:54:06,324 - INFO - ====================Now in Calculate====================
+2025-08-17 12:54:06,324 - INFO - calculate_gad_7
+2025-08-17 12:54:06,325 - INFO - Calculated score/result: 7
