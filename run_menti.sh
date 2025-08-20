@@ -12,7 +12,7 @@
      python MENTI.py \
          --test \
          --llm_model gpt-3.5 \
-         --embedding_model m3e-large \
+         --embedding_model m3e-base \
          --eval_index $i \
          --case_path "./CalcQA/clinical_case.json" \
          --tool_scale_path "./CalcQA/tool_scale.json" \
