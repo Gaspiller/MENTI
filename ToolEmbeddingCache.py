@@ -33,10 +33,37 @@ class ToolEmbeddingCache:
         return hashlib.sha256(blob.encode("utf-8")).hexdigest()
 
     def _model_name(self) -> str:
-        name = getattr(self.embedding_model, "name_or_path", None)
-        if not name:
-            name = getattr(self.embedding_model, "__class__", type("X", (), {})).__name__
-        return hashlib.md5(str(name).encode("utf-8")).hexdigest()[:10]
+        # 结合底层路径和嵌入维度，确保不同模型/维度不共用缓存
+        dim = None
+        try:
+            dim = getattr(self.embedding_model, "get_sentence_embedding_dimension", lambda: None)()
+        except Exception:
+            dim = None
+
+        path = None
+        try:
+            fm = getattr(self.embedding_model, "_first_module", None)
+            if callable(fm):
+                fm = fm()
+            if fm is not None:
+                path = (
+                    getattr(getattr(fm, "auto_model", None), "name_or_path", None)
+                    or getattr(getattr(fm, "model", None), "name_or_path", None)
+                    or getattr(fm, "name_or_path", None)
+                )
+        except Exception:
+            path = None
+
+        if path is None:
+            try:
+                mcd = getattr(self.embedding_model, "model_card_data", None)
+                if isinstance(mcd, dict):
+                    path = mcd.get("model_id", None)
+            except Exception:
+                pass
+
+        base = f"{path or ''}|dim={dim or ''}|{self.embedding_model.__class__.__name__}"
+        return hashlib.md5(base.encode("utf-8")).hexdigest()[:10]
 
     def _cache_path(self, toolkit: str, tools: List[dict]) -> str:
         fid = self._file_hash(tools)
@@ -71,16 +98,31 @@ class ToolEmbeddingCache:
 
     def get_embeddings(self, toolkit: str, tools: List[dict]) -> Dict[str, np.ndarray]:
         path = self._cache_path(toolkit, tools)
+
+        def _recompute_and_save() -> Dict[str, np.ndarray]:
+            v1_txt, v2_txt, v3_txt = self._build_views(tools)
+            v1 = self._encode_batch(v1_txt)
+            v2 = self._encode_batch(v2_txt)
+            v3 = self._encode_batch(v3_txt)
+            np.savez(path, v1=v1, v2=v2, v3=v3)
+            return {"v1": v1, "v2": v2, "v3": v3}
+
         if os.path.exists(path):
-            data = np.load(path)
-            return {"v1": data["v1"], "v2": data["v2"], "v3": data["v3"]}
+            try:
+                data = np.load(path)
+                v1, v2, v3 = data["v1"], data["v2"], data["v3"]
+                # 维度校验，不匹配则重算
+                try:
+                    dim = getattr(self.embedding_model, "get_sentence_embedding_dimension", lambda: None)()
+                except Exception:
+                    dim = None
+                if dim and ((v1.ndim == 2 and v1.shape[1] != dim) or (v2.ndim == 2 and v2.shape[1] != dim) or (v3.ndim == 2 and v3.shape[1] != dim)):
+                    return _recompute_and_save()
+                return {"v1": v1, "v2": v2, "v3": v3}
+            except Exception:
+                # 旧格式或损坏，直接重算
+                return _recompute_and_save()
 
-        v1_txt, v2_txt, v3_txt = self._build_views(tools)
-        v1 = self._encode_batch(v1_txt)
-        v2 = self._encode_batch(v2_txt)
-        v3 = self._encode_batch(v3_txt)
-
-        np.savez(path, v1=v1, v2=v2, v3=v3)
-        return {"v1": v1, "v2": v2, "v3": v3}
+        return _recompute_and_save()
 
 

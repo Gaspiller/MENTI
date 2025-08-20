@@ -97,27 +97,61 @@ class LLMs:
 
 class Embeddings:
     def __init__(self, model: str = 'm3e-base') -> None:
-        if 'm3e' in model.lower():
+        if 'm3e' in (model or '').lower():
             from sentence_transformers import SentenceTransformer
-            # 优先使用本地路径/环境变量，其次尝试项目内相对路径，最后回退到默认名称
             base_dir = os.path.dirname(__file__)
-            candidates = [
-                os.environ.get('M3E_PATH'),
-                os.path.join(base_dir, 'm3e-base'),
-                os.path.join(os.getcwd(), 'MENTI', 'm3e-base'),
-                '/app/m3e-base',
-                'moka-ai/m3e-base',
-            ]
+            user_spec = (model or '').strip()
+
+            candidates = []
+
+            # 1) 用户传入的是本地目录（绝对/相对），直接使用
+            if user_spec and os.path.exists(user_spec):
+                candidates.append(user_spec)
+
+            # 2) 用户传入名称时，按本地常见目录匹配
+            def add_name(name: str):
+                candidates.extend([
+                    os.path.join(base_dir, name),
+                    os.path.join(os.getcwd(), 'MENTI', name),
+                    '/app/' + name,
+                ])
+
+            lower = user_spec.lower()
+            if lower == 'm3e-large':
+                add_name('m3e-large')
+            elif lower == 'm3e-base':
+                add_name('m3e-base')
+            else:
+                # 传 'm3e' 或其它：按 large -> base 顺序尝试
+                add_name('m3e-large')
+                add_name('m3e-base')
+
+            # 去重并加载
+            seen = set()
+            uniq = []
+            for c in candidates:
+                if c and (c not in seen):
+                    uniq.append(c)
+                    seen.add(c)
+
             emb = None
-            for cand in candidates:
-                if cand and os.path.exists(cand):
+            last_err = None
+            for cand in uniq:
+                if not os.path.exists(cand):
+                    continue
+                try:
                     emb = SentenceTransformer(cand)
                     break
+                except Exception as e:
+                    last_err = e
+                    continue
+
             if emb is None:
-                # 允许从 HuggingFace 拉取（需要网络）
-                emb = SentenceTransformer('moka-ai/m3e-base')
+                tried = [c for c in uniq if c]
+                raise FileNotFoundError(f"未找到可用的本地 m3e 模型目录，已尝试：{tried}")
+
             self.embedding_model = emb
-        elif 'simcse' in model.lower():
+        elif 'simcse' in (model or '').lower():
             from simcse import SimCSE
             self.embedding_model = SimCSE("../sup-simcse-bert-base-uncased")
 
