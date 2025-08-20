@@ -6,8 +6,8 @@ import json
 # Always resolve paths relative to this script's directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CASE_PATH = os.path.join(BASE_DIR, "CalcQA", "clinical_case.json")
-LOG_DIR = os.path.join(BASE_DIR, "log 5.0 m3e-large")
-OUT_PATH = os.path.join(BASE_DIR, "metrics 5.0.txt")
+LOG_DIR = os.path.join(BASE_DIR, "log 6.0")
+OUT_PATH = os.path.join(BASE_DIR, "metrics 6.0.txt")
 
 
 # Tolerances
